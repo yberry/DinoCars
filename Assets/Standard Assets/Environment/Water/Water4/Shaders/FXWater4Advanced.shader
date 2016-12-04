@@ -262,7 +262,7 @@ CGINCLUDE
 
 		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 
-		o.screenPos = ComputeScreenPos(o.pos);
+		o.screenPos = ComputeNonStereoScreenPos(o.pos);
 		
 		o.normalInterpolator.xyz = nrml;
 		o.normalInterpolator.w = 1;//GetDistanceFadeout(o.screenPos.w, DISTANCE_SCALE);
@@ -332,7 +332,7 @@ CGINCLUDE
 		
 		o.pos = mul(UNITY_MATRIX_MVP,  v.vertex);
 		
-		o.viewInterpolator.w = 1;//GetDistanceFadeout(ComputeScreenPos(o.pos).w, DISTANCE_SCALE);
+		o.viewInterpolator.w = 1;//GetDistanceFadeout(ComputeNonStereoScreenPos(o.pos).w, DISTANCE_SCALE);
 		
 		UNITY_TRANSFER_FOG(o,o.pos);
 		return o;
