@@ -14,28 +14,40 @@ public class VHSEffect : ImageEffectBase {
     Color[] colors;
 
 	[Range(0, 1f)]
-	public float minWhiteNoise=0.25f,maxWhiteNoise=0.75f;
+	public float minWhiteNoise=0.1f,maxWhiteNoise=0.35f;
 	[Range(0,1f)]
-    public float red=1, green = 1, blue = 1;
+    public float red=1, green = 0.7f, blue = 0.3f;
     [Range(0, 1f)]
-    public float redAlpha = 1, greenAlpha = 1, blueAlpha = 1,minAlpha=0.5f;
+    public float redAlpha = 1, greenAlpha = 0.7f, blueAlpha = 0.3f,minAlpha=0.5f;
 
     [Range(0, 1f)]
-    public float exponentialNess = 0;
+    public float exponentialNess = 0.7f;
     [Range(0, 100000)]
-    public int minXSpacing=3, maxXSpacing=6;
+    public int minXSpacing=80, maxXSpacing=200;
 	[Range(0, 100000)]
-	public int minYSpacing = 3, maxYSpacing = 6;
+	public int minYSpacing = 3, maxYSpacing = 5;
 
 	[Range(1,32)]
-    public int parasiteLength=4;
+    public int parasiteLength=5;
 
     string autoParasiteName = "GeneratedParasiteNoise";
 	string autoBaseNoiseName = "GeneratedBaseNoise";
 
-	void Start()
+    private void Awake()
     {
-		RefreshAll();
+        ResetTextures();
+        RefreshAll();
+    }
+
+    override protected void  Start()
+    {
+        baseNoise = null;
+        parasites = null;
+        OnDisable();
+        OnValidate();
+        enabled = false;
+        RefreshAll();
+        enabled = true;
 	}
 
 	void RefreshAll()
@@ -43,6 +55,7 @@ public class VHSEffect : ImageEffectBase {
 		if (colors == null)
 			colors = new Color[Screen.width * Screen.height];
 
+        
 			//if (!baseNoise)
 			CreateNoise(Screen.width, Screen.height);
 
@@ -53,12 +66,29 @@ public class VHSEffect : ImageEffectBase {
 
 	private void Update()
     {
-      //  RefreshNoise();
+        //  RefreshNoise();
+        if (colors == null)
+        {
+            ResetTextures();
+            RefreshAll();
+        }
+    }
+
+    private void OnPreRender()
+    {
+        if (colors == null)
+        {
+            ResetTextures();
+            RefreshAll();
+        }
+            
+
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-       // RefreshNoise();
+        // RefreshNoise();
+
         material.SetTexture("_NoiseTex", parasites);
 		Graphics.Blit(source, destination, material);
 	}
@@ -130,10 +160,24 @@ public class VHSEffect : ImageEffectBase {
 		baseNoise.Apply();
 	}
 
-	private void OnDisable()
+	protected override void OnDisable()
 	{
-		RefreshAll();
-	}
+        ResetTextures();
+        RefreshAll();
+    }
+
+    private void Reset()
+    {
+        ResetTextures();
+        RefreshAll();
+    }
+
+    private void ResetTextures()
+    {
+        colors = null;
+        baseNoise = null;
+        parasites = null;
+    }
 }
 
 #if UNITY_EDITOR

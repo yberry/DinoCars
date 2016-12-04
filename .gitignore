@@ -28,3 +28,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+.vs/CND/v15/Browse.VC.db
+.vs/CND/v15/Browse.VC.opendb
