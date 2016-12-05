@@ -12,12 +12,10 @@ public class VHSEffect : ImageEffectBase {
 //	[DisplayModifier(true)]
 	public Texture2D parasites;
     Color[] colors;
-<<<<<<< Updated upstream
-=======
+
     [Range(0, 3f)]
     public float effectIntensity = 1;
     public bool onlyHalfScreen;
->>>>>>> Stashed changes
 
 	[Range(0, 1f)]
 	public float minWhiteNoise=0.1f,maxWhiteNoise=0.35f;
@@ -42,7 +40,7 @@ public class VHSEffect : ImageEffectBase {
     private void Awake()
     {
         ResetTextures();
-        RefreshAll();
+       
     }
 
     override protected void  Start()
@@ -96,9 +94,7 @@ public class VHSEffect : ImageEffectBase {
         // RefreshNoise();
 
         material.SetTexture("_NoiseTex", parasites);
-<<<<<<< Updated upstream
-		Graphics.Blit(source, destination, material);
-=======
+
         material.SetFloat("_OverallEffect", effectIntensity);
         material.SetFloat("_HalfScreen", onlyHalfScreen ? 1 : 0);
         /*
@@ -111,13 +107,15 @@ public class VHSEffect : ImageEffectBase {
 
         //source.useMipMap = true;
         //source.mipMapBias = -3;
-        RenderTexture temp = RenderTexture.GetTemporary(Screen.width, Screen.height, 24);
-        temp.mipMapBias = -3;
-        temp.useMipMap = true;
-        Graphics.CopyTexture(source, temp);
-        Graphics.Blit(temp, destination,  material);
+        material.SetTexture("_BlurTex", source);
+        RenderTexture temp = RenderTexture.GetTemporary(Screen.width/4, Screen.height/4, 24,source.format,RenderTextureReadWrite.Default,4);
+        temp.filterMode = FilterMode.Trilinear;
+        //Graphics.CopyTexture(source,0,0, temp,0,0);
+        Graphics.Blit(source, temp);        
+        material.SetTexture("_BlurTex",temp);
+        Graphics.BlitMultiTap(source, destination, material, new Vector2[] { new Vector2(0.1f, 0.1f),new Vector2(-1, -1)});
         RenderTexture.ReleaseTemporary(temp);
->>>>>>> Stashed changes
+
 	}
     
     void FillParasites()
