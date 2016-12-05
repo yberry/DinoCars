@@ -12,9 +12,15 @@ public class VHSEffect : ImageEffectBase {
 //	[DisplayModifier(true)]
 	public Texture2D parasites;
     Color[] colors;
+    [Range(0, 2f)]
+    public float effectIntensity = 1;
+    public bool onlyHalfScreen;
 
-	[Range(0, 1f)]
-	public float minWhiteNoise=0.25f,maxWhiteNoise=0.75f;
+    [Space]
+    [Range(0, 1f)]
+    public float minWhiteNoise = 0.25f;
+    [Range(0, 1f)]
+    public float maxWhiteNoise=0.75f;
 	[Range(0,1f)]
     public float red=1, green = 1, blue = 1;
     [Range(0, 1f)]
@@ -22,45 +28,67 @@ public class VHSEffect : ImageEffectBase {
 
     [Range(0, 1f)]
     public float exponentialNess = 0;
-    [Range(0, 100000)]
+    [Range(0, 10000)]
     public int minXSpacing=3, maxXSpacing=6;
-	[Range(0, 100000)]
+	[Range(0, 10000)]
 	public int minYSpacing = 3, maxYSpacing = 6;
 
-	[Range(1,32)]
+	[Range(1,128)]
     public int parasiteLength=4;
 
     string autoParasiteName = "GeneratedParasiteNoise";
 	string autoBaseNoiseName = "GeneratedBaseNoise";
 
-	void Start()
+	override protected void Start()
     {
+        base.Start();
 		RefreshAll();
 	}
 
 	void RefreshAll()
 	{
-		if (colors == null)
-			colors = new Color[Screen.width * Screen.height];
+        int w= Screen.width,h= Screen.height;
+        w = 1024; h = 512;
+
+        if (colors == null)
+			colors = new Color[w*h];
 
 			//if (!baseNoise)
-			CreateNoise(Screen.width, Screen.height);
+			CreateNoise(w,h);
 
 			//if (!parasites || parasites.name.Contains(autoParasiteName))
-			CreateTexture(Screen.width, Screen.height);
+			CreateTexture(w,h);
 
-	}
+      
+    }
 
 	private void Update()
     {
-      //  RefreshNoise();
+
+    }
+
+    private void OnPreRender()
+    {
+
+
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-       // RefreshNoise();
+        // RefreshNoise();
+        material.shader = shader;
         material.SetTexture("_NoiseTex", parasites);
-		Graphics.Blit(source, destination, material);
+        material.SetFloat("_OverallEffect", effectIntensity);
+        material.SetFloat("_HalfScreen", onlyHalfScreen ? 1 : 0);
+        /*
+       
+        material.EnableKeyword("_MainTex");
+        material.EnableKeyword("_NoiseTex");
+        material.SetTextureScale("_NoiseTex", new Vector2(0.9f, 21.6f));
+        material.SetTextureScale("_MainTex", new Vector2(0.9f, 21.6f));
+        */
+        Graphics.Blit(source,destination,  material);
+        
 	}
     
     void FillParasites()
@@ -93,6 +121,8 @@ public class VHSEffect : ImageEffectBase {
 		}
         
         parasites.SetPixels(colors);
+        parasites.filterMode = FilterMode.Trilinear;
+        
         parasites.Apply();
     }
 
@@ -130,8 +160,9 @@ public class VHSEffect : ImageEffectBase {
 		baseNoise.Apply();
 	}
 
-	private void OnDisable()
+	override protected  void OnDisable()
 	{
+        base.OnDisable();
 		RefreshAll();
 	}
 }
