@@ -12,6 +12,12 @@ public class VHSEffect : ImageEffectBase {
 //	[DisplayModifier(true)]
 	public Texture2D parasites;
     Color[] colors;
+<<<<<<< Updated upstream
+=======
+    [Range(0, 3f)]
+    public float effectIntensity = 1;
+    public bool onlyHalfScreen;
+>>>>>>> Stashed changes
 
 	[Range(0, 1f)]
 	public float minWhiteNoise=0.1f,maxWhiteNoise=0.35f;
@@ -90,7 +96,28 @@ public class VHSEffect : ImageEffectBase {
         // RefreshNoise();
 
         material.SetTexture("_NoiseTex", parasites);
+<<<<<<< Updated upstream
 		Graphics.Blit(source, destination, material);
+=======
+        material.SetFloat("_OverallEffect", effectIntensity);
+        material.SetFloat("_HalfScreen", onlyHalfScreen ? 1 : 0);
+        /*
+       
+        material.EnableKeyword("_MainTex");
+        material.EnableKeyword("_NoiseTex");
+        material.SetTextureScale("_NoiseTex", new Vector2(0.9f, 21.6f));
+        material.SetTextureScale("_MainTex", new Vector2(0.9f, 21.6f));
+        */
+
+        //source.useMipMap = true;
+        //source.mipMapBias = -3;
+        RenderTexture temp = RenderTexture.GetTemporary(Screen.width, Screen.height, 24);
+        temp.mipMapBias = -3;
+        temp.useMipMap = true;
+        Graphics.CopyTexture(source, temp);
+        Graphics.Blit(temp, destination,  material);
+        RenderTexture.ReleaseTemporary(temp);
+>>>>>>> Stashed changes
 	}
     
     void FillParasites()
