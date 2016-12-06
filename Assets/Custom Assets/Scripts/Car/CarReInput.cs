@@ -43,10 +43,5 @@ public class CarReInput : MonoBehaviour {
         
     }
 
-    private void OnValidate()
-    {
-        if (Application.isPlaying)
-           BindPlayerSlot();
-    }
 
 }

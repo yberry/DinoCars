@@ -34,7 +34,7 @@ namespace UnityStandardAssets.ImageEffects
         {
             get
             {
-                if (m_Material == null)
+               if (m_Material == null)
                 {
                     m_Material = new Material(shader);
                     m_Material.hideFlags = HideFlags.HideAndDontSave;
