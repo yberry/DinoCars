@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
-using UnityStandardAssets.Vehicles.Car;
+using CND.Car;
 public class CarReInput : MonoBehaviour {
 
     [Range(1,4)]
@@ -25,13 +25,13 @@ public class CarReInput : MonoBehaviour {
 
         // pass the input to the car!
         float h = pInput.GetAxis(Globals.Axis_X1);
-        float fwd = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_ZPos);
-        float back = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_ZNeg);
+        float fwd = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
+        float back = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
 
-        //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+       // Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
 #if !MOBILE_INPUT
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
-        car.Move(h, Mathf.Max(0,fwd), Mathf.Min(0, back), handbrake);
+        car.Move(h, fwd,  back, handbrake);
 #else
             car.Move(h, v, v, 0f);
 #endif

@@ -20,6 +20,7 @@ public class VHSEffect : ImageEffectBase {
     [Range(0, 3f)]
     public float effectIntensity = 1;
     public bool onlyHalfScreen;
+    public bool skipEffect;
 
 	[Range(0, 1f)]
 	public float minWhiteNoise=0.1f,maxWhiteNoise=0.35f;
@@ -81,11 +82,7 @@ public class VHSEffect : ImageEffectBase {
 
 	private void Update()
     {
-        //  RefreshNoise();
-        /*if (colors == null)
-        {
-            RefreshAll(false);
-        }*/
+
     }
 
     private void OnPreRender()
@@ -109,6 +106,12 @@ public class VHSEffect : ImageEffectBase {
     void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
         // RefreshNoise();
+        if (skipEffect)
+        {
+            Graphics.Blit(source, destination);
+            return;
+        }
+
 
         material.SetTexture("_NoiseTex", parasites);
         material.SetVector("_NoiseTex_TexelSize",

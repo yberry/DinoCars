@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UnityStandardAssets.Vehicles.Car
+namespace CND.Car
 {
     public class CarSelfRighting : MonoBehaviour
     {
