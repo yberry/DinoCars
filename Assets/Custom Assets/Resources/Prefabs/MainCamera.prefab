@@ -72,7 +72,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -103,29 +103,36 @@ MonoBehaviour:
   baseNoise: {fileID: 0}
   parasites: {fileID: 0}
   effectIntensity: 1
-  onlyHalfScreen: 1
-  minWhiteNoise: 0.05
-  maxWhiteNoise: 0.3
+  onlyHalfScreen: 0
+  minWhiteNoise: 0.025
+  maxWhiteNoise: 0.075
   red: 1
   green: 0.79
   blue: 0.21
-  redAlpha: 0.78
+  redAlpha: 1
   greenAlpha: 0.51
   blueAlpha: 0.16
   minAlpha: 0
-  exponentialNess: 0.92
+  blurDistance: {x: 64, y: 0}
+  blurXsteps: 72
+  blurYsteps: 2
+  distortionX: 0.0005
+  exponentialNess: 0.67
   minXSpacing: 50
   maxXSpacing: 300
   minYSpacing: 3
   maxYSpacing: 13
-  parasiteLength: 74
+  parasiteLength: 15
+  AAlevel: 1
+  downSamplingX: 1
+  downSamplingY: 1
 --- !u!114 &114579368199961160
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966412490498816}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd70d448b18cfbc46af26466f752332c, type: 3}
   m_Name: 

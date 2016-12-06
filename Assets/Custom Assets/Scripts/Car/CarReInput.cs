@@ -31,7 +31,7 @@ public class CarReInput : MonoBehaviour {
         //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
 #if !MOBILE_INPUT
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
-        car.Move(h, fwd, back, handbrake);
+        car.Move(h, Mathf.Max(0,fwd), Mathf.Min(0, back), handbrake);
 #else
             car.Move(h, v, v, 0f);
 #endif

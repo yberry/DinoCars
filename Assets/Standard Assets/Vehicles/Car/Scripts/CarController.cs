@@ -1,5 +1,9 @@
+//#define OLDCAR
+
+
 using System;
 using UnityEngine;
+
 
 namespace UnityStandardAssets.Vehicles.Car
 {
@@ -63,14 +67,23 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 m_WheelMeshLocalRotations[i] = m_WheelMeshes[i].transform.localRotation;
             }
+
+            m_Rigidbody = GetComponent<Rigidbody>();
+            UpdateValues();
+        }
+
+        private void OnValidate()
+        {
+            UpdateValues();
+        }
+
+        private void UpdateValues()
+        {
             m_WheelColliders[0].attachedRigidbody.centerOfMass = m_CentreOfMassOffset;
 
             m_MaxHandbrakeTorque = float.MaxValue;
-
-            m_Rigidbody = GetComponent<Rigidbody>();
-            m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl*m_FullTorqueOverAllWheels);
+            m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
         }
-
 
         private void GearChanging()
         {
@@ -121,8 +134,13 @@ namespace UnityStandardAssets.Vehicles.Car
             CalculateGearFactor();
             var gearNumFactor = m_GearNum/(float) NoOfGears;
             var revsRangeMin = ULerp(0f, m_RevRangeBoundary, CurveFactor(gearNumFactor));
+#if !OLDCAR
+            revsRangeMin = Mathf.Max(0.001f, revsRangeMin);
+#endif
             var revsRangeMax = ULerp(m_RevRangeBoundary, 1f, gearNumFactor);
             Revs = ULerp(revsRangeMin, revsRangeMax, m_GearFactor);
+
+
         }
 
 
@@ -362,6 +380,11 @@ namespace UnityStandardAssets.Vehicles.Car
                 }
             }
             return false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position + m_CentreOfMassOffset,0.25f);
         }
     }
 }

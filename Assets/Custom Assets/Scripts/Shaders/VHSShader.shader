@@ -8,11 +8,12 @@
 		_NoiseTex("Noise", 2D) = "white" {}
 		_OverallEffect("Intensity", Float) = 1
 		_HalfScreen("OnlyHalfScreen", Float) = 1
-
+		_DistortX("Horizontal Distortion", Float) = 1
 		//white noise min, max, and some aribtrary value for tests
 		_WhiteNoiseMin("White noise minimum", Float) =0
 		_WhiteNoiseMax("White noise maximum", Float) =1
-
+		_BlurVars("Blur Samples", Vector) = (0.1,0.1,128,32) //distX, distY, stepsX, stepsY
+		
 	}
 		SubShader
 		{
@@ -53,14 +54,11 @@
 		uniform sampler2D _NoiseTex;
 		uniform sampler2D _BlurTex;
 
-		 float _WhiteNoiseSettings[3] = { 0.,1.,1. };
-		half _HalfScreen;
+		uniform half _HalfScreen;
 
 		const float PI = 3.141592;
-		half _OverallEffect = 1;
+		uniform half _OverallEffect = 1;
 
-
-		int2 blurSteps = uint2(128, 1);
 		static half wave = 2.*3.141592;
 		static half2 blurOffset = half2(0.016f, 0.009f)*half2(8, 0);
 
@@ -115,10 +113,15 @@
 
 		uniform sampler2D _MainTex;
 		uniform sampler2D _NoiseTex;
+		uniform float4 _NoiseTex_TexelSize;
+		uniform float4 _MainTex_TexelSize;
 		uniform sampler2D _BlurTex;
+		uniform float4 _BlurVars;
+
 
 		uniform float _WhiteNoiseMin;
 		uniform float _WhiteNoiseMax;
+		uniform half _DistortX;
 
 		half _HalfScreen;
 
@@ -126,18 +129,18 @@
 		half _OverallEffect = 1;
 
 	
-		static int2 blurSteps = uint2(128, 1);
+	//	uniform float4 _BlurVars;
 		static half wave = 2.*PI;
-		static half2 blurOffset = half2(0.016f, 0.009f)*half2(8, 0);
-
-		uniform float4 _MainTex_TexelSize;
+		 
+		static half2 blurOffset = half2(_MainTex_TexelSize.y, _MainTex_TexelSize.x)*half2(_BlurVars.x, _BlurVars.y);
+		
 
 #include "kjShaderFuncs.cginc"
 
 		fixed4 frag(v2f i) : SV_Target
 		{
 			////vars
-
+			
 			fixed4 col = tex2D(_MainTex,i.uv);
 			fixed4 original = col;
 			half4 origLum = getLum(original);
@@ -145,13 +148,13 @@
 
 			////wave offsets vars
 			
-			half xOff = cos(i.uv.y*wave * 200 + 20*_Time[3]);
-			half2 waveOffset = half2(smoothstep(xOff, .5,1), 0)*0.00075;
-
+			half xOff = sin(i.uv.y*wave * 200 + 20*_Time[3]);
+			half2 waveOffset = half2(smoothstep(xOff, .25, .5)*_DistortX*sign(xOff), 0);
+			//smoothstep(xOff, .5, 1)
 			//horizontal blur
 
 			fixed4 blurred = col;
-			//fixed4 blurred = blurLine(_MainTex,i.uv, blurOffset + waveOffset*float2(1+xOff,1), blurSteps);
+			//fixed4 blurred = blurLine(_MainTex,i.uv, blurOffset + waveOffset*float2(1+xOff,1), _BlurVars);
 			fixed4 blurredL = 0;
 			fixed4 blurredR = 0;
 			uint passes = 3;
@@ -159,7 +162,7 @@
 			half zeroThr = itStep*passes*.5;
 			half2 blurOffsetAdj = blurOffset + waveOffset*half2(1 + xOff, 1);
 			half2 itOffset;
-			half actualSteps = (blurSteps) / passes;
+			half actualSteps = (_BlurVars.z) / passes;
 
 			for (uint it = 0; it < passes; it++)
 			{
@@ -175,45 +178,45 @@
 
 			blurred = max(blurred,lerp(blurredL, blurredR, .5));
 			blurred /= passes;
-			blurred = lerp(blurred, saturate(blurred*blurred),blurred.r);
+			blurred = lerp(blurred, saturate(blurred*blurred), blurred.b*.6+ blurred.g*.4);
 
 			//	blurred = smoothstep(-0.2, 1.19, blurred);
 			blurred = max(col, blurred);
 			//blurred = lerp(col, blurred, .75);
-
-
+			
 			//	col = lerp(col, tex2D(_MainTex, i.uv + waveOffset), 0.25);
 			//	col = col*blurred;
 
 			//white noise
+			//fixed4 baseNoise = tex2D(_NoiseTex, i.uv);
 			fixed4 randomOffset = tex2D(_NoiseTex, half2(frac(_Time[1]),frac(_Time[1]))) * 100;
 			half t = frac(_Time[3] * 1.357) * 1337;//, _Time[3]);
 			half lum = (randomOffset.r + randomOffset.g + randomOffset.b)*0.3334;
-			half2 coord = i.uv *half2(1.6, 0.9);
-			coord += half2(lum * 16, lum * 9) + frac(_Time[1] * 100);
+			half2 coord = i.uv *half2(_MainTex_TexelSize.y, _MainTex_TexelSize.x)*_MainTex_TexelSize.z;
+			coord += half2(lum, lum) + frac(_Time[1] * 100);
 
 			//wave noisy image
 			fixed4 noise = tex2D(_NoiseTex, coord + waveOffset);
 			half noiseAlpha = lerp(_WhiteNoiseMin, _WhiteNoiseMax, getNaiveLum(noise));
 
 			half2 bOffset = blurOffset + waveOffset*float2(1 + xOff, 1);
-			fixed4 blurredNoise = blurLine(_NoiseTex, coord + waveOffset, bOffset, 4)*noiseAlpha*noise;
+			fixed4 blurredNoise = blurLine(_NoiseTex, coord + waveOffset, bOffset, 4);
 			//blurredNoise += blurLine(_NoiseTex, coord + waveOffset, -1 * bOffset, 4);
 
 			blurredNoise *= 0.5;
-			noise = lerp(noise, blurredNoise, 0.9);
-			noise = smoothstep(-0.125, 1.125, noise);
+			noise = lerp(noise, blurredNoise, 0.1);
+			noise = smoothstep(-0.125, 1.125, noise*noiseAlpha);
 			//distortion
 			fixed4 waved = tex2D(_MainTex, i.uv + half2(0.001*xOff, 0) + waveOffset);
-			//	col = lerp(blurred*(1 + xOff*0.125), waved, 0.75);
+	//		col = lerp(blurred*(1 + xOff*0.125), waved, 0.75);
 
 			col = max(blurred, waved)*(1 + xOff*0.1);
-			col.rgb += (noise.rgb*noise.a);
-			col = smoothstep(-0.125, 1.125, col);
-
-			float s = _MainTex_TexelSize.x;
+			col.rgb += (noise.rgb);
+		//	col = smoothstep(-0.125, 1.125, col);
+			
 			//test blurmap
-			col = max(col, tex2D(_BlurTex, i.uv))*s;
+			//col = blurred;
+		//	col = max(col, tex2D(_BlurTex, i.uv));
 			return lerp(original, col, _OverallEffect*step(i.uv.x, 1 - _HalfScreen*.5));
 			}
 

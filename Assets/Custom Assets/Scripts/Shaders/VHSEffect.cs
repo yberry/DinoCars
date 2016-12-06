@@ -28,6 +28,13 @@ public class VHSEffect : ImageEffectBase {
     [Range(0, 1f)]
     public float redAlpha = 1, greenAlpha = 0.7f, blueAlpha = 0.3f,minAlpha=0.5f;
 
+    public Vector2 blurDistance=new Vector2(0.01f, 0.01f);
+    [Range(0,256)]
+    public int blurXsteps = 128;
+    [Range(0, 256)]
+    public int blurYsteps = 128;
+    [Range(0, 0.01f)]
+    public float distortionX = 0.00075f;
     [Range(0, 1f)]
     public float exponentialNess = 0.7f;
     [Range(0, 100000)]
@@ -59,7 +66,7 @@ public class VHSEffect : ImageEffectBase {
        if (resetTextures)
             ResetTextures();
 
-        int xPowOf2 = Mathf.NextPowerOfTwo(Screen.width), yPowOf2 = Mathf.ClosestPowerOfTwo(Screen.height);
+        int xPowOf2 = Mathf.ClosestPowerOfTwo(Screen.width), yPowOf2 = Mathf.ClosestPowerOfTwo(Screen.height);
         if (colors == null || colors.Length != xPowOf2 * yPowOf2)
             colors = new Color[xPowOf2 * yPowOf2];
 
@@ -104,8 +111,14 @@ public class VHSEffect : ImageEffectBase {
         // RefreshNoise();
 
         material.SetTexture("_NoiseTex", parasites);
-        material.SetVector("_NoiseTex_TexelSize", new Vector4(1f/parasites.width, 1f / parasites.height, parasites.width, parasites.height));
+        material.SetVector("_NoiseTex_TexelSize",
+            new Vector4(1f/parasites.width, 1f / parasites.height, parasites.width, parasites.height));
+        material.SetVector("_BlurVars",
+            new Vector4(blurDistance.x, blurDistance.y, blurXsteps, blurYsteps));
+
         material.SetFloat("_WhiteNoiseMin",  minWhiteNoise);
+        material.SetFloat("_DistortX", distortionX);
+       
         material.SetFloat("_WhiteNoiseMax", maxWhiteNoise);
         material.SetFloat("_OverallEffect", effectIntensity);
         material.SetFloat("_HalfScreen", onlyHalfScreen ? 1 : 0);
