@@ -1991,7 +1991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSlot: 1
   car: {fileID: 0}
-  useKeyboard: 0
+  useKeyboard: 1
 --- !u!114 &114148547305584108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2021,12 +2021,12 @@ MonoBehaviour:
   - {fileID: 114576178470206982}
   m_CentreOfMassOffset: {x: 0, y: 0.33, z: -0.8}
   m_MaximumSteerAngle: 45
-  m_SteerHelper: 0.651
-  m_TractionControl: 0.4
+  m_SteerHelper: 0.666
+  m_TractionControl: 0.333
   m_FullTorqueOverAllWheels: 6000
-  m_ReverseTorque: 6000
+  m_ReverseTorque: 4000
   m_MaxHandbrakeTorque: 3.4028235e+38
-  m_Downforce: 50
+  m_Downforce: 100
   m_SpeedType: 1
   m_Topspeed: 200
   m_RevRangeBoundary: 1
