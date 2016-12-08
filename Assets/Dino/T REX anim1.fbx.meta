@@ -111,7 +111,117 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: back1
+        weight: 1
+      - path: centre
+        weight: 1
+      - path: centre/dos
+        weight: 1
+      - path: centre/dos/bras_droit
+        weight: 1
+      - path: centre/dos/bras_droit/joint23
+        weight: 1
+      - path: centre/dos/bras_droit/joint23/joint36
+        weight: 1
+      - path: centre/dos/bras_droit/joint23/joint36/joint37
+        weight: 1
+      - path: centre/dos/bras_gauche
+        weight: 1
+      - path: centre/dos/bras_gauche/joint23 1
+        weight: 1
+      - path: centre/dos/bras_gauche/joint23 1/joint36 1
+        weight: 1
+      - path: centre/dos/bras_gauche/joint23 1/joint36 1/joint37 1
+        weight: 1
+      - path: centre/dos/head
+        weight: 1
+      - path: centre/dos/head/bouche_bas
+        weight: 1
+      - path: centre/dos/head/bouche_bas/joint30
+        weight: 1
+      - path: centre/dos/head/bouche_bas/joint30/joint31
+        weight: 1
+      - path: centre/dos/head/bouche_haut
+        weight: 1
+      - path: centre/dos/head/bouche_haut/joint32
+        weight: 1
+      - path: centre/dos/head/bouche_haut/joint32/joint33
+        weight: 1
+      - path: centre/dos/ventre
+        weight: 1
+      - path: centre/jambe_droite
+        weight: 1
+      - path: centre/jambe_droite/joint16
+        weight: 1
+      - path: centre/jambe_droite/joint16/joint17
+        weight: 1
+      - path: centre/jambe_droite/joint16/joint17/joint18
+        weight: 1
+      - path: centre/jambe_droite/joint16/joint17/joint18/joint20
+        weight: 1
+      - path: centre/jambe_gauche
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1/joint17 1
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1/joint17 1/joint18 1
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1/joint17 1/joint18 1/joint20 1
+        weight: 1
+      - path: centre/queue
+        weight: 1
+      - path: centre/queue/joint10
+        weight: 1
+      - path: centre/queue/joint10/joint11
+        weight: 1
+      - path: centre/queue/joint10/joint11/joint12
+        weight: 1
+      - path: centre/queue/joint10/joint11/joint12/joint34
+        weight: 1
+      - path: centre/queue/joint10/joint11/joint12/joint34/joint35
+        weight: 1
+      - path: dino_dents:Mesh
+        weight: 1
+      - path: dino_dents:Mesh/T_Rex_pas_fini_low:transform1
+        weight: 1
+      - path: T_Rex_pas_fini_low:Mesh
+        weight: 1
+      - path: T_Rex_pas_fini_low:Mesh/T_Rex_pas_fini_low:transform2
+        weight: 1
+      - path: T_Rex_pas_fini_low:Mesh1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
