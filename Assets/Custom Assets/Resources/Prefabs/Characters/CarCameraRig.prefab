@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114474666354261552}
   - component: {fileID: 114986387994093228}
   - component: {fileID: 114638731430780300}
+  - component: {fileID: 81966095153278758}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -157,6 +158,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!81 &81966095153278758
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447272345428876}
+  m_Enabled: 1
 --- !u!92 &92857006619392546
 Behaviour:
   m_ObjectHideFlags: 1
@@ -286,9 +294,9 @@ MonoBehaviour:
   m_Target: {fileID: 0}
   m_AutoTargetPlayer: 1
   m_UpdateType: 0
-  m_MoveSpeed: 30
+  m_MoveSpeed: 100
   m_TurnSpeed: 7.5
-  m_RollSpeed: 10
+  m_RollSpeed: 100
   m_FollowVelocity: 1
   m_FollowTilt: 1
   m_SpinTurnLimit: 3

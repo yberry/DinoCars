@@ -107,7 +107,6 @@ namespace CND.Car
             switch (m_SpeedType)
             {
                 case SpeedType.MPH:
-
                     return speedMph;
 
                 case SpeedType.KPH:
@@ -311,7 +310,7 @@ namespace CND.Car
 
             for (int i = 0; i < 4; i++)
             {
-                if (CurrentSpeed > 5 && Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f)
+                if (CurrentSpeed > 5 && Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f) //old magic number=50
                 {
                     m_WheelColliders[i].brakeTorque = m_BrakeTorque * footbrake;
                 }
@@ -402,7 +401,6 @@ namespace CND.Car
                     for (int i = 0; i < 4; i++)
                     {
                         m_WheelColliders[i].GetGroundHit(out wheelHit);
-
                         AdjustTorque(wheelHit.forwardSlip);
                     }
                     break;
@@ -442,6 +440,8 @@ namespace CND.Car
                     m_CurrentTorque = m_appliedTorqueOverAllWheels;
                 }
             }
+
+            m_CurrentTorque = Mathf.Max(0, m_CurrentTorque);
         }
 
 
@@ -459,7 +459,27 @@ namespace CND.Car
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position + m_CentreOfMassOffset, 0.25f);
+            var centerOfMass = transform.position + Quaternion.LookRotation(transform.forward, transform.up)* m_CentreOfMassOffset;
+           
+            Gizmos.DrawWireSphere(centerOfMass, 0.25f);
+
+            if (!Application.isPlaying) return;
+
+            WheelHit wheelHit;
+            for (int i=0; i < m_WheelColliders.Length; i++)
+            {
+                m_WheelColliders[i].GetGroundHit(out wheelHit);
+                var t= m_WheelColliders[0].motorTorque;
+                var fSlip = wheelHit.forwardSlip;
+
+                Gizmos.color = Color.Lerp(Color.green, Color.red, fSlip);
+                Gizmos.DrawSphere(m_WheelColliders[i].transform.position + Vector3.up * 0.5f, 0.125f);
+            }
+            
+            var velocityEnd = centerOfMass + m_Rigidbody.velocity;
+            Gizmos.DrawLine(centerOfMass, velocityEnd);
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(velocityEnd, 0.25f);
         }
     }
 
