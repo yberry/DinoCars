@@ -15,6 +15,6 @@ public class CarHUD : MonoBehaviour {
 
     private void OnGUI()
     {
-        speedText.text = car.CurrentSpeed.ToString("0.") + " " + car.SpeedMeterType.ToString();
+        speedText.text = car.CurrentSpeed.ToString("0.") + " " + car.SpeedMeterType.ToString()+" - Boost: "+(car.BoostEnabled? "ON":"OFF")+" - Torque:" +car.CurrentTorque;
     }
 }

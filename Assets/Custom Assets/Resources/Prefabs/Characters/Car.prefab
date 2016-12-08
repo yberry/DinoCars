@@ -265,7 +265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1539584364750540
 GameObject:
   m_ObjectHideFlags: 1
@@ -448,7 +448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1835698065870872
 GameObject:
   m_ObjectHideFlags: 1
@@ -1991,7 +1991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSlot: 1
   car: {fileID: 0}
-  useKeyboard: 1
+  useKeyboard: 0
 --- !u!114 &114148547305584108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2020,17 +2020,24 @@ MonoBehaviour:
   - {fileID: 114769361962720174}
   - {fileID: 114576178470206982}
   m_CentreOfMassOffset: {x: 0, y: 0.33, z: -0.8}
-  m_MaximumSteerAngle: 45
+  m_MaximumSteerAngle: 20
   m_SteerHelper: 0.666
   m_TractionControl: 0.333
-  m_FullTorqueOverAllWheels: 6000
+  m_appliedTorqueOverAllWheels: 0
+  m_baseTorque: 6000
+  m_boostTorque: 12000
   m_ReverseTorque: 4000
   m_MaxHandbrakeTorque: 3.4028235e+38
+  m_appliedTopSpeed: 0
+  m_baseTopSpeed: 200
+  m_boostSpeed: 300
+  m_boostDuration: 10
+  m_boostTimer: 0
   m_Downforce: 100
   m_SpeedType: 1
-  m_Topspeed: 200
+  NoOfGears: 6
   m_RevRangeBoundary: 1
-  m_SlipLimit: 0.2
+  m_SlipLimit: 0.25
   m_BrakeTorque: 50000
 --- !u!114 &114183625069053792
 MonoBehaviour:
@@ -2199,13 +2206,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 1
-    m_Stiffness: 0.99
+    m_Stiffness: 0.999
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 1
-    m_Stiffness: 0.8
+    m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!146 &146292755928917574
 WheelCollider:
@@ -2228,13 +2235,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 1
-    m_Stiffness: 0.99
+    m_Stiffness: 0.999
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 1
-    m_Stiffness: 0.8
+    m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!146 &146364185652362596
 WheelCollider:
@@ -2257,13 +2264,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 1
-    m_Stiffness: 0.99
+    m_Stiffness: 0.999
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 1
-    m_Stiffness: 0.8
+    m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!146 &146594354499997034
 WheelCollider:
@@ -2286,13 +2293,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 1
-    m_Stiffness: 0.99
+    m_Stiffness: 0.999
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.4
     m_AsymptoteValue: 1
-    m_Stiffness: 0.8
+    m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!198 &198310193314619712
 ParticleSystem:

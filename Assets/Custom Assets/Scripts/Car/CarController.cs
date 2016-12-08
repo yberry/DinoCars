@@ -29,13 +29,25 @@ namespace CND.Car
         [SerializeField] private float m_MaximumSteerAngle;
         [Range(0, 1)] [SerializeField] private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
         [Range(0, 1)] [SerializeField] private float m_TractionControl; // 0 is no traction control, 1 is full interference
-        [SerializeField] private float m_FullTorqueOverAllWheels;
+
+        [SerializeField] [DisplayModifier(true)] private float m_appliedTorqueOverAllWheels;
+        [SerializeField] private float m_baseTorque;
+        [SerializeField] private float m_boostTorque;
         [SerializeField] private float m_ReverseTorque;
         [SerializeField] private float m_MaxHandbrakeTorque;
+        [SerializeField] [DisplayModifier(true)] private float m_appliedTopSpeed = 0;
+        [SerializeField] private float m_baseTopSpeed = 200;
+        [SerializeField] private float m_boostSpeed = 400;
+        
+        [SerializeField][Range(0.00001f,10)] private float m_boostDuration = 3;
+        [SerializeField] [DisplayModifier(true)] private float m_boostTimer = 0;
+
+
         [SerializeField] private float m_Downforce = 100f;
         [SerializeField] private SpeedType m_SpeedType;
-        [SerializeField] private float m_Topspeed = 200;
-        [SerializeField] private static int NoOfGears = 5;
+
+
+        [SerializeField] private  int NoOfGears = 5;
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
         [SerializeField] private float m_BrakeTorque;
@@ -48,21 +60,23 @@ namespace CND.Car
         private float m_OldRotation;
         private float m_CurrentTorque;
         private Rigidbody m_Rigidbody;
-        private const float k_ReversingThreshold = 0.00001f;//0.01f;
+        private const float k_ReversingThreshold = 0.01f;
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
         public float CurrentSteerAngle { get { return m_SteerAngle; } }
         public float CurrentSpeed { get { return m_Rigidbody.velocity.magnitude * GetSpeedMultiplier(); } }
-        public float MaxSpeed { get { return m_Topspeed; } }
+        public float MaxSpeed { get { return m_baseTopSpeed; } }
+        public float CurrentTorque { get { return m_CurrentTorque; } }
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
         public SpeedType SpeedMeterType { get { return m_SpeedType; } set { m_SpeedType = value; } }
 
         const float speedKph= 3.6f;
         const float speedMph = 2.23693629f;
-       
 
+
+        public bool BoostEnabled { get; protected set; }
         // Use this for initialization
         private void Start()
         {
@@ -71,9 +85,15 @@ namespace CND.Car
             {
                 m_WheelMeshLocalRotations[i] = m_WheelMeshes[i].transform.localRotation;
             }
-            m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
+            m_CurrentTorque = m_appliedTorqueOverAllWheels - (m_TractionControl * m_appliedTorqueOverAllWheels);
             m_Rigidbody = GetComponent<Rigidbody>();
             UpdateValues();
+        }
+
+
+        private void Update()
+        {
+          
         }
 
         private void OnValidate()
@@ -164,8 +184,15 @@ namespace CND.Car
         }
 
 
-        public void Move(float steering, float accel, float footbrake, float handbrake)
+        public void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
+
+            if (boost)
+            {
+                BoostEnabled = (m_boostTimer >= 0);
+            }
+            
+
             for (int i = 0; i < 4; i++)
             {
                 Quaternion quat;
@@ -187,6 +214,7 @@ namespace CND.Car
             m_WheelColliders[0].steerAngle = m_SteerAngle;
             m_WheelColliders[1].steerAngle = m_SteerAngle;
 
+          
             SteerHelper();
             ApplyDrive(accel, footbrake);
             CapSpeed();
@@ -209,25 +237,49 @@ namespace CND.Car
             TractionControl();
         }
 
+        public void ManageBoost()
+        {
+            float boostProgress = 0;
+            if (BoostEnabled)
+            {
+                m_boostTimer += Time.deltaTime;
+                if (m_boostTimer < m_boostDuration)
+                {
+                    
+                    boostProgress = m_boostTimer / m_boostDuration;
+                }
+                else
+                {
+                    m_boostTimer = -1;
+                    BoostEnabled = false;
+                }
+
+            } else //cooldown
+            {
+                if (m_boostTimer < 0)
+                    m_boostTimer += Time.deltaTime;
+                else
+                    m_boostTimer = 0;
+            }
+
+            
+
+            m_appliedTopSpeed = Mathf.SmoothStep(m_baseTopSpeed, m_boostSpeed, boostProgress*10);
+            m_appliedTorqueOverAllWheels = Mathf.SmoothStep(m_baseTorque, m_boostTorque, boostProgress * 10);
+        }
 
         private void CapSpeed()
         {
             float speed = m_Rigidbody.velocity.magnitude;
-            switch (m_SpeedType)
+            float modspeed = speed*GetSpeedMultiplier();
+            if (modspeed > m_appliedTopSpeed)
             {
-                case SpeedType.MPH:
+                var targetSpeed = m_appliedTopSpeed / GetSpeedMultiplier();
 
-                    speed *= speedMph;
-                    if (speed > m_Topspeed)
-                        m_Rigidbody.velocity = (m_Topspeed / speedMph) * m_Rigidbody.velocity.normalized;
-                    break;
+                m_Rigidbody.velocity = Mathf.SmoothStep(speed, targetSpeed, 0.033f) * m_Rigidbody.velocity.normalized;
 
-                case SpeedType.KPH:
-                    speed *= speedKph;
-                    if (speed > m_Topspeed)
-                        m_Rigidbody.velocity = (m_Topspeed / speedKph) * m_Rigidbody.velocity.normalized;
-                    break;
             }
+
         }
 
 
@@ -341,6 +393,7 @@ namespace CND.Car
         // crude traction control that reduces the power to wheel if the car is wheel spinning too much
         private void TractionControl()
         {
+            ManageBoost();
             WheelHit wheelHit;
             switch (m_CarDriveType)
             {
@@ -382,9 +435,11 @@ namespace CND.Car
             else
             {
                 m_CurrentTorque += 10 * m_TractionControl;
-                if (m_CurrentTorque > m_FullTorqueOverAllWheels)
+                m_CurrentTorque += 10*Mathf.Max(0,(m_appliedTorqueOverAllWheels/m_baseTorque)-1f);
+
+                if (m_CurrentTorque > m_appliedTorqueOverAllWheels)
                 {
-                    m_CurrentTorque = m_FullTorqueOverAllWheels;
+                    m_CurrentTorque = m_appliedTorqueOverAllWheels;
                 }
             }
         }
