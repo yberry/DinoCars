@@ -25,12 +25,14 @@ public class CarReInput : MonoBehaviour {
 
         // pass the input to the car!
 
-        // Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+        
 #if !MOBILE_INPUT
         float h = pInput.GetAxis(Globals.Axis_X1);
         float fwd = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
         float back = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
-        
+
+        //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
         bool boost = pInput.GetButton(Globals.BtnAction3);
 

@@ -2041,7 +2041,7 @@ MonoBehaviour:
   m_SpeedType: 1
   NoOfGears: 5
   m_RevRangeBoundary: 1
-  m_SlipLimit: 0.2
+  m_SlipLimit: 0.25
   m_BrakeTorque: 50000
 --- !u!114 &114183625069053792
 MonoBehaviour:
@@ -2202,15 +2202,15 @@ WheelCollider:
     damper: 3500
     targetPosition: 0.1
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 0.2
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
+    m_ExtremumSlip: 0.25
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 1.2
-    m_AsymptoteValue: 1
-    m_Stiffness: 1.25
+    m_AsymptoteSlip: 2
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -2231,15 +2231,15 @@ WheelCollider:
     damper: 3500
     targetPosition: 0.1
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 0.2
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
+    m_ExtremumSlip: 0.25
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 1.2
-    m_AsymptoteValue: 1
-    m_Stiffness: 1.25
+    m_AsymptoteSlip: 2
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -2260,15 +2260,15 @@ WheelCollider:
     damper: 3500
     targetPosition: 0.1
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 0.2
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
+    m_ExtremumSlip: 0.25
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 1.2
-    m_AsymptoteValue: 1
-    m_Stiffness: 1.25
+    m_AsymptoteSlip: 2
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -2289,15 +2289,15 @@ WheelCollider:
     damper: 3500
     targetPosition: 0.1
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 0.2
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
+    m_ExtremumSlip: 0.25
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 1.2
-    m_AsymptoteValue: 1
-    m_Stiffness: 1.25
+    m_AsymptoteSlip: 2
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1

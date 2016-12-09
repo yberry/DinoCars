@@ -209,7 +209,7 @@ namespace CND.Car
 
             //Set the steer on the front wheels.
             //Assuming that wheels 0 and 1 are the front wheels.
-            m_SteerAngle = steering * m_MaximumSteerAngle;
+            m_SteerAngle = Mathf.Lerp(m_SteerAngle,steering * m_MaximumSteerAngle,0.1f);
             m_WheelColliders[0].steerAngle = m_SteerAngle;
             m_WheelColliders[1].steerAngle = m_SteerAngle;
 
@@ -275,7 +275,7 @@ namespace CND.Car
             {
                 var targetSpeed = m_appliedTopSpeed / GetSpeedMultiplier();
 
-                m_Rigidbody.velocity = Mathf.SmoothStep(speed, targetSpeed, 0.033f) * m_Rigidbody.velocity.normalized;
+                m_Rigidbody.velocity = Mathf.SmoothStep(speed, targetSpeed, 0.05f) * m_Rigidbody.velocity.normalized;
 
             }
 
@@ -349,6 +349,8 @@ namespace CND.Car
         {
             m_WheelColliders[0].attachedRigidbody.AddForce(-transform.up * m_Downforce *
                                                          m_WheelColliders[0].attachedRigidbody.velocity.magnitude);
+            m_WheelColliders[1].attachedRigidbody.AddForce(-transform.up * m_Downforce *
+                                                       m_WheelColliders[1].attachedRigidbody.velocity.magnitude);
         }
 
 
@@ -388,7 +390,71 @@ namespace CND.Car
                 m_WheelEffects[i].EndSkidTrail();
             }
         }
+#if !OLD_TRACTION
+        // crude traction control that reduces the power to wheel if the car is wheel spinning too much
+        private void TractionControl()
+        {
+            ManageBoost();
+            WheelHit[] wheelHits = new WheelHit[m_CarDriveType == CarDriveType.FourWheelDrive ? 4 : 2];
 
+            switch (m_CarDriveType)
+            {
+                case CarDriveType.FourWheelDrive:
+                    // loop through all wheels
+                    for (int i = 0; i < wheelHits.Length; i++)
+                    {
+                        m_WheelColliders[i].GetGroundHit(out wheelHits[i]);
+                    }
+                    break;
+
+                case CarDriveType.RearWheelDrive:
+                    m_WheelColliders[2].GetGroundHit(out wheelHits[0]);
+                    m_WheelColliders[3].GetGroundHit(out wheelHits[1]);
+                    break;
+
+                case CarDriveType.FrontWheelDrive:
+                    m_WheelColliders[0].GetGroundHit(out wheelHits[0]);
+                    m_WheelColliders[1].GetGroundHit(out wheelHits[1]);
+                    break;
+            }
+
+            AdjustTorque(wheelHits);
+        }
+
+
+        private void AdjustTorque(WheelHit[] wheelHits)
+        {
+            float finalTorqueChange = 0;
+
+            for (int i=0; i< wheelHits.Length; i++)
+            {
+                var slip = wheelHits[i].forwardSlip;
+                var clampedSlip= Mathf.Clamp(1f - slip, -1, 1);
+                var torque = 10 * m_TractionControl * (1f - slip) * (slip - m_SlipLimit > 0 ? -1 : 1);
+                var boost = 10*Mathf.Max(0, (m_appliedTorqueOverAllWheels / m_baseTorque) - 1f);
+
+                finalTorqueChange += torque + boost;
+                /*
+                if (slip >= m_SlipLimit && m_CurrentTorque >= 0)
+                {
+                    m_CurrentTorque -= 10 * m_TractionControl;
+                }
+                else
+                {
+                    m_CurrentTorque += 10 * m_TractionControl;
+                    m_CurrentTorque += 10 * Mathf.Max(0, (m_appliedTorqueOverAllWheels / m_baseTorque) - 1f);
+
+                    if (m_CurrentTorque > m_appliedTorqueOverAllWheels)
+                    {
+                        m_CurrentTorque = m_appliedTorqueOverAllWheels;
+                    }
+                }
+                */
+            }
+
+            m_CurrentTorque = Mathf.Clamp(m_CurrentTorque+ finalTorqueChange, 0, m_appliedTorqueOverAllWheels);
+        }
+#elif OLD_TRACTION
         // crude traction control that reduces the power to wheel if the car is wheel spinning too much
         private void TractionControl()
         {
@@ -443,6 +509,7 @@ namespace CND.Car
 
             m_CurrentTorque = Mathf.Max(0, m_CurrentTorque);
         }
+#endif
 
 
         private bool AnySkidSoundPlaying()
@@ -469,17 +536,27 @@ namespace CND.Car
             for (int i=0; i < m_WheelColliders.Length; i++)
             {
                 m_WheelColliders[i].GetGroundHit(out wheelHit);
-                var t= m_WheelColliders[0].motorTorque;
+                var t= m_WheelColliders[i].motorTorque;
                 var fSlip = wheelHit.forwardSlip;
 
-                Gizmos.color = Color.Lerp(Color.green, Color.red, fSlip);
+                Gizmos.color = Color.LerpUnclamped(Color.green, Color.red, fSlip);
                 Gizmos.DrawSphere(m_WheelColliders[i].transform.position + Vector3.up * 0.5f, 0.125f);
             }
             
             var velocityEnd = centerOfMass + m_Rigidbody.velocity;
-            Gizmos.DrawLine(centerOfMass, velocityEnd);
+            var halfVelocityEnd = centerOfMass + m_Rigidbody.velocity * 0.5f;
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(velocityEnd, 0.25f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(centerOfMass, velocityEnd);
+            Gizmos.DrawLine(centerOfMass + transform.right * 0.25f, halfVelocityEnd);
+            Gizmos.DrawLine(centerOfMass + transform.right * -0.25f, halfVelocityEnd);
+            Gizmos.color = Color.green*0.75f;
+            var forwardLine = m_CentreOfMassOffset+ transform.forward;
+            /*
+            Gizmos.DrawLine(centerOfMass, centerOfMass+ forwardLine);
+            Gizmos.DrawLine(centerOfMass+ m_Rigidbody.velocity.normalized* forwardLine.magnitude, centerOfMass + forwardLine);
+            */
         }
     }
 
