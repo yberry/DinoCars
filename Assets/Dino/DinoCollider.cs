@@ -5,27 +5,29 @@ using UnityEngine;
 [RequireComponent(typeof(SkinnedMeshRenderer), typeof(MeshCollider))]
 public class DinoCollider : MonoBehaviour {
 
-    public uint freqRefreshCol = 2;
+    public int freqRefreshCol = 2;
 
     SkinnedMeshRenderer skin;
     Mesh mesh;
     MeshCollider col;
 
-    uint fr = 0;
+    int fr = 0;
 
     void Start()
     {
         skin = GetComponent<SkinnedMeshRenderer>();
         mesh = new Mesh();
         col = GetComponent<MeshCollider>();
+
+        Vector3 scaleParent = transform.parent.localScale;
+        transform.localScale = new Vector3(1f / scaleParent.x, 1f / scaleParent.y, 1f / scaleParent.z);
     }
 
     void LateUpdate()
     {
-        if (fr % freqRefreshCol == 0)
+        if (freqRefreshCol > 0 && fr % freqRefreshCol == 0)
         {
             skin.BakeMesh(mesh);
-            col.sharedMesh = null;
             col.sharedMesh = mesh;
         }
         fr++;
