@@ -15,7 +15,7 @@ public class DummyCar : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (!isColliding)
         {
             return;

@@ -16,8 +16,8 @@ public class MovingGround : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        time += Time.deltaTime * speed;
+	void FixedUpdate () {
+        time += Time.fixedDeltaTime * speed;
         Vector3 tmpVect = Mathf.Sin(time) * maxRotation;
         transform.rotation = initialRotation * Quaternion.Euler(tmpVect);
 	}
