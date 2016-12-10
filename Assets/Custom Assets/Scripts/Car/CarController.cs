@@ -88,17 +88,21 @@ namespace CND.Car
             m_CurrentTorque = m_appliedTorqueOverAllWheels - (m_TractionControl * m_appliedTorqueOverAllWheels);
             m_Rigidbody = GetComponent<Rigidbody>();
             UpdateValues();
+
+            
         }
 
 
-        private void Update()
+        private void FixedUpdate()
         {
-          
+            var nextVel= Vector3.Slerp(m_Rigidbody.velocity, transform.forward * 10, 0.125f);
+            var nexPos=Vector3.Lerp(transform.position, transform.position+nextVel*Time.deltaTime, 0.5f);
+            m_Rigidbody.MovePosition(nexPos);
         }
 
         private void OnValidate()
         {
-            if (Application.isPlaying)
+            
                 UpdateValues();
         }
 
@@ -118,8 +122,13 @@ namespace CND.Car
 
         private void UpdateValues()
         {
-            m_WheelColliders[0].attachedRigidbody.centerOfMass = m_CentreOfMassOffset;
+#if DEBUG
+            if (!m_Rigidbody)
+                m_Rigidbody = GetComponent<Rigidbody>();
 
+            m_Rigidbody.ResetCenterOfMass();
+            m_Rigidbody.centerOfMass += m_CentreOfMassOffset;
+#endif
             m_MaxHandbrakeTorque = float.MaxValue;
             
         }
@@ -347,10 +356,9 @@ namespace CND.Car
         // this is used to add more grip in relation to speed
         private void AddDownForce()
         {
-            m_WheelColliders[0].attachedRigidbody.AddForce(-transform.up * m_Downforce *
+           /* m_WheelColliders[0].attachedRigidbody.AddForce(-transform.up * m_Downforce *
                                                          m_WheelColliders[0].attachedRigidbody.velocity.magnitude);
-            m_WheelColliders[1].attachedRigidbody.AddForce(-transform.up * m_Downforce *
-                                                       m_WheelColliders[1].attachedRigidbody.velocity.magnitude);
+ */
         }
 
 
@@ -361,6 +369,7 @@ namespace CND.Car
         // these effects are controlled through the WheelEffects class
         private void CheckForWheelSpin()
         {
+
             // loop through all wheels
             for (int i = 0; i < 4; i++)
             {
@@ -526,7 +535,9 @@ namespace CND.Car
 
         private void OnDrawGizmos()
         {
-            var centerOfMass = transform.position + Quaternion.LookRotation(transform.forward, transform.up)* m_CentreOfMassOffset;
+
+
+            var centerOfMass = transform.position + Quaternion.LookRotation(transform.forward, transform.up)* m_Rigidbody.centerOfMass;
            
             Gizmos.DrawWireSphere(centerOfMass, 0.25f);
 
@@ -542,6 +553,7 @@ namespace CND.Car
                 Gizmos.color = Color.LerpUnclamped(Color.green, Color.red, fSlip);
                 Gizmos.DrawSphere(m_WheelColliders[i].transform.position + Vector3.up * 0.5f, 0.125f);
             }
+
             
             var velocityEnd = centerOfMass + m_Rigidbody.velocity;
             var halfVelocityEnd = centerOfMass + m_Rigidbody.velocity * 0.5f;
@@ -557,6 +569,17 @@ namespace CND.Car
             Gizmos.DrawLine(centerOfMass, centerOfMass+ forwardLine);
             Gizmos.DrawLine(centerOfMass+ m_Rigidbody.velocity.normalized* forwardLine.magnitude, centerOfMass + forwardLine);
             */
+        }
+
+        private void OnDisable()
+        {
+#if DEBUG
+            if (Application.isEditor)
+            {
+                UpdateValues();
+            }
+
+#endif
         }
     }
 
