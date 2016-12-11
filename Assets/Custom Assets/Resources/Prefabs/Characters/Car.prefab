@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 114738254697253424}
   - component: {fileID: 114542448417370656}
   - component: {fileID: 114114731912947064}
+  - component: {fileID: 114239567598620010}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -700,7 +701,7 @@ GameObject:
   - component: {fileID: 114811065968522644}
   - component: {fileID: 82160540963795668}
   m_Layer: 0
-  m_Name: WheeRearRL
+  m_Name: WheeRearL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,8 +944,8 @@ Transform:
   m_Children:
   - {fileID: 4710442620563038}
   - {fileID: 4491265560213292}
-  - {fileID: 4979749151272808}
   - {fileID: 4738163845060060}
+  - {fileID: 4979749151272808}
   m_Father: {fileID: 4514926962903612}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1142,7 +1143,7 @@ Transform:
   m_Children:
   - {fileID: 4695253676040930}
   m_Father: {fileID: 4426900652270498}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4746966775309566
 Transform:
@@ -1263,7 +1264,7 @@ Transform:
   m_Children:
   - {fileID: 4828674016073388}
   m_Father: {fileID: 4426900652270498}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23053696064696734
 MeshRenderer:
@@ -1876,7 +1877,7 @@ Rigidbody:
   m_Mass: 1500
   m_Drag: 0.1
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 2
   m_Constraints: 0
@@ -2047,7 +2048,7 @@ MeshCollider:
   m_GameObject: {fileID: 1544164946194426}
   m_Material: {fileID: 13400000, guid: 52baaeb214519f347a35cf0edfd262ff, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 1
   m_InflateMesh: 0
@@ -2061,7 +2062,7 @@ MeshCollider:
   m_GameObject: {fileID: 1818712579632740}
   m_Material: {fileID: 13400000, guid: 52baaeb214519f347a35cf0edfd262ff, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 1
   m_InflateMesh: 0
@@ -2075,7 +2076,7 @@ MeshCollider:
   m_GameObject: {fileID: 1071490201670754}
   m_Material: {fileID: 13400000, guid: 52baaeb214519f347a35cf0edfd262ff, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 1
   m_InflateMesh: 0
@@ -2089,7 +2090,7 @@ MeshCollider:
   m_GameObject: {fileID: 1970181191622534}
   m_Material: {fileID: 13400000, guid: 52baaeb214519f347a35cf0edfd262ff, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 1
   m_InflateMesh: 0
@@ -3182,7 +3183,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418873352848252}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c819a829181cba94f8379d9e339a753c, type: 3}
   m_Name: 
@@ -3196,7 +3197,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418873352848252}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ea65b38d485c374caa584a03f1de571, type: 3}
   m_Name: 
@@ -3261,6 +3262,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
   skidParticles: {fileID: 0}
+--- !u!114 &114239567598620010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418873352848252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e321884d41a09f4fb16a706def8d6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 0}
+  gravityDirection: {x: 0, y: -9.81, z: 0}
+  catLanding: 0
+  rotationSpeedModifier: 1
+  applyForceAtCenterOfMass: 0
 --- !u!114 &114525319088001622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3526,11 +3543,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 1970181191622534}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 0.75
   m_Direction: 1
-  m_Center: {x: 0, y: -0.06, z: 0}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!136 &136420426211723702
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3539,11 +3556,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 1071490201670754}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 0.75
   m_Direction: 1
-  m_Center: {x: 0, y: -0.06, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!136 &136457409681545142
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3552,11 +3569,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 1818712579632740}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 0.75
   m_Direction: 1
-  m_Center: {x: 0, y: -0.06, z: 0}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!136 &136793971519454386
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3565,11 +3582,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 1544164946194426}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 0.75
   m_Direction: 1
-  m_Center: {x: 0, y: -0.06, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!146 &146140492983750560
 WheelCollider:
   m_ObjectHideFlags: 1
