@@ -23,13 +23,14 @@ public class MeshDeformerInput : MonoBehaviour {
         if (Physics.Raycast(inputRay, out hit))
         {
             MeshDeformer deformer = hit.collider.GetComponent<MeshDeformer>();
-            if (deformer != null)
+            if (!deformer)
             {
-                Debug.Log("oui");
-                Vector3 point = hit.point;
-                point += hit.normal * forceOffset;
-                deformer.AddDeformingForce(point, force);
+                return;
             }
+            Debug.DrawLine(Camera.main.transform.position, hit.point, Color.blue);
+            Vector3 point = hit.point;
+            point += hit.normal * forceOffset;
+            deformer.AddDeformingForce(point, force);
         }
     }
 }

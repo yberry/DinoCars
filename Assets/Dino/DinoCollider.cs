@@ -19,8 +19,8 @@ public class DinoCollider : MonoBehaviour {
         mesh = new Mesh();
         col = GetComponent<MeshCollider>();
 
-        /*Vector3 scaleParent = transform.parent.localScale;
-        transform.localScale = new Vector3(1f / scaleParent.x, 1f / scaleParent.y, 1f / scaleParent.z);*/
+        Vector3 scaleParent = transform.parent.localScale;
+        transform.localScale = new Vector3(1f / scaleParent.x, 1f / scaleParent.y, 1f / scaleParent.z);
     }
 
     void LateUpdate()

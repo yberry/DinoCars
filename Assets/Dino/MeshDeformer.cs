@@ -37,8 +37,10 @@ public class MeshDeformer : MonoBehaviour {
         }
         deformingMesh.vertices = displacedVertices;
         deformingMesh.RecalculateNormals();
-        col.sharedMesh = null;
-        col.sharedMesh = deformingMesh;
+        if (col != null)
+        {
+            col.sharedMesh = deformingMesh;
+        }
 	}
 
     public void AddDeformingForce(Vector3 point, float force)
