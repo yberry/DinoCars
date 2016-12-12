@@ -1,8 +1,8 @@
-
+#define NEWCAR
 using System;
 using UnityEngine;
 
-
+#if NEWCAR
 namespace CND.Car
 {
     public enum CarDriveType
@@ -18,7 +18,7 @@ namespace CND.Car
         KPH
     }
 
-    public class CarController : MonoBehaviour
+    public partial class CarController : MonoBehaviour
     {
 
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.FourWheelDrive;
@@ -88,16 +88,27 @@ namespace CND.Car
             m_CurrentTorque = m_appliedTorqueOverAllWheels - (m_TractionControl * m_appliedTorqueOverAllWheels);
             m_Rigidbody = GetComponent<Rigidbody>();
             UpdateValues();
-
+            
             
         }
 
-
+        public bool driveTest = false;
         private void FixedUpdate()
         {
-            var nextVel= Vector3.Slerp(m_Rigidbody.velocity, transform.forward * 10, 0.125f);
-            var nexPos=Vector3.Lerp(transform.position, transform.position+nextVel*Time.deltaTime, 0.5f);
-            m_Rigidbody.MovePosition(nexPos);
+            //autorun
+            if (driveTest)
+            {
+                /*
+                var nextVel = Vector3.Slerp(m_Rigidbody.velocity, transform.forward * 100, 0.125f);
+                var nexPos = Vector3.Lerp(transform.position, transform.position + nextVel * Time.deltaTime, 0.5f);
+                m_Rigidbody.MovePosition(nexPos);
+                */
+                // m_Rigidbody.AddForceAtPosition(transform.forward * 10*Time.fixedDeltaTime, m_Rigidbody.centerOfMass, ForceMode.VelocityChange);
+                m_Rigidbody.AddForce(transform.forward * 10 * Time.fixedDeltaTime, ForceMode.VelocityChange);
+
+            }
+
+
         }
 
         private void OnValidate()
@@ -201,7 +212,7 @@ namespace CND.Car
             }
             
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 Quaternion quat;
                 Vector3 position;
@@ -219,10 +230,14 @@ namespace CND.Car
             //Set the steer on the front wheels.
             //Assuming that wheels 0 and 1 are the front wheels.
             m_SteerAngle = Mathf.Lerp(m_SteerAngle,steering * m_MaximumSteerAngle,0.1f);
-            m_WheelColliders[0].steerAngle = m_SteerAngle;
-            m_WheelColliders[1].steerAngle = m_SteerAngle;
+            if (m_WheelColliders.Length > 0)
+            {
+                m_WheelColliders[0].steerAngle = m_SteerAngle;
+                m_WheelColliders[1].steerAngle = m_SteerAngle;
 
-          
+            }
+
+
             SteerHelper();
             ApplyDrive(accel, footbrake);
             CapSpeed();
@@ -293,6 +308,7 @@ namespace CND.Car
 
         private void ApplyDrive(float accel, float footbrake)
         {
+            if (m_WheelColliders == null || m_WheelColliders.Length == 0) return;
 
             float thrustTorque;
             switch (m_CarDriveType)
@@ -334,7 +350,7 @@ namespace CND.Car
 
         private void SteerHelper()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
@@ -584,3 +600,6 @@ namespace CND.Car
     }
 
 }
+
+
+#endif// NEWCAR

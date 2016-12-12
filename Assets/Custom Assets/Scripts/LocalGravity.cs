@@ -17,6 +17,8 @@ public class LocalGravity : MonoBehaviour {
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.useGravity = false;
+
+        testRot = transform.rotation;
     }
 	
 	// Update is called once per frame
@@ -34,15 +36,19 @@ public class LocalGravity : MonoBehaviour {
             rigidBody.AddForce(gravityDirection * rigidBody.mass);
     }
 
+    public Quaternion testRot;
     void ApplyRotation()
     {
+       
         var normGrav = gravityDirection.normalized;
         var refDir = transform.forward;
-        var targetDir = testFwd=Vector3.Cross(normGrav, transform.forward);
+        var dot = Vector3.Dot(normGrav, -transform.up);
+        var normDot = dot * 0.5f + 0.5f;
+        var targetDir = testFwd=Vector3.Cross(normGrav, transform.right);
         // * Vector3.Dot(normGrav, transform.up)
         var refRot = rigidBody.rotation;
-        var rotDiff = Quaternion.Inverse( Quaternion.FromToRotation(refDir, targetDir));
-        var targetRot = Quaternion.Slerp(refRot, rotDiff, rotationSpeedModifier * Time.fixedDeltaTime);
+        var rotDiff = Quaternion.LookRotation( Quaternion.FromToRotation(refDir, targetDir)*transform.forward,-normGrav);
+        var targetRot = Quaternion.Slerp(refRot, rotDiff, rotationSpeedModifier * Time.fixedDeltaTime * normDot);
         rigidBody.MoveRotation(targetRot);
         
     }
