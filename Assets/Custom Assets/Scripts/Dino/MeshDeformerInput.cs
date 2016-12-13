@@ -29,7 +29,7 @@ public class MeshDeformerInput : MonoBehaviour {
             }
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.blue);
             Vector3 point = hit.point;
-            point += hit.normal * forceOffset;
+            point -= hit.normal * forceOffset;
             deformer.AddDeformingForce(point, force);
         }
     }
