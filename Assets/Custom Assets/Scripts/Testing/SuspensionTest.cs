@@ -5,7 +5,7 @@ using UnityEngine;
 public class SuspensionTest : MonoBehaviour {
 
     public Vector3[] sources;
-    public float length;
+    public float maxLength;
 
     Rigidbody rbody;
 
@@ -27,7 +27,7 @@ public class SuspensionTest : MonoBehaviour {
             {
                 var src = transform.position + transform.rotation * sources[i];
 
-                if (Physics.Raycast(src,-transform.up, out hits[i], length))
+                if (Physics.Raycast(src,-transform.up, out hits[i], maxLength))
                 {
                     //hits[i]
                     ++contactCnt;
@@ -43,11 +43,17 @@ public class SuspensionTest : MonoBehaviour {
 
             for (int i = 0; i < hits.Length; i++)
             {
-                if (hits[i].collider != null)
+                Collider c;
+                if ( (c=hits[i].collider) != null)
                 {
                     var src = transform.position + transform.rotation * sources[i];
-                    rbody.AddForceAtPosition(-(rbody.velocity), src, ForceMode.Acceleration);
-                   //rbody.AddForceAtPosition(-Physics.gravity/ (float)contactCnt, src, ForceMode.Acceleration);
+                    var distRatio = hits[i].distance / maxLength;
+                    if (rbody.velocity.magnitude > rbody.sleepThreshold)
+                    {
+                       // rbody.velocity *= 0.0025f;
+                        //rbody.AddForceAtPosition(Vector3.Reflect(rbody.velocity, hits[i].normal), src, ForceMode.Acceleration);
+                    }             
+                     rbody.AddForceAtPosition((-Physics.gravity/ distRatio), src, ForceMode.Acceleration);
                 }
 
 
@@ -66,8 +72,8 @@ public class SuspensionTest : MonoBehaviour {
             for (int i = 0; i < sources.Length; i++)
             {
                 var src = transform.position + transform.rotation * sources[i];
-                Gizmos.DrawLine(src,src-transform.up*length);
-                Gizmos.DrawWireSphere(src - transform.up * length, 0.125f);
+                Gizmos.DrawLine(src,src-transform.up*maxLength);
+                Gizmos.DrawWireSphere(src - transform.up * maxLength, 0.025f);
             }
         }
     }
