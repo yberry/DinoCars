@@ -6,11 +6,11 @@ using UnityEngine;
 public class WaveDeformer : MonoBehaviour {
 
     [Range(1, 100)]
-    public int subdivisionX = 50;
+    public int subdivisionX = 1;
     [Range(1, 100)]
-    public int subdivisionY = 50;
+    public int subdivisionY = 1;
     [Range(1, 100)]
-    public int subdivisionZ = 50;
+    public int subdivisionZ = 1;
 
     BoxCollider boxCollider;
 
@@ -21,12 +21,11 @@ public class WaveDeformer : MonoBehaviour {
 	
     void OnTriggerStay(Collider col)
     {
-        Debug.Log("col");
+        Debug.Log("stay");
         MeshDeformer meshDeformer = col.GetComponent<MeshDeformer>();
         if (meshDeformer)
         {
             SendWave(meshDeformer);
-            Debug.Log("deformer");
         }
     }
 
@@ -46,6 +45,8 @@ public class WaveDeformer : MonoBehaviour {
                     point.x += x * size.x / subdivisionX;
                     point.y += y * size.y / subdivisionY;
                     point.z += z * size.z / subdivisionZ;
+
+                    point += 15f * Vector3.down;
 
                     meshDeformer.AddDeformingForce(point, 500f);
                 }
