@@ -16,10 +16,10 @@ public class DummyCar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (!isColliding)
+        /*if (!isColliding)
         {
             return;
-        }
+        }*/
 
 		if (Input.GetKey(KeyCode.UpArrow))
         {

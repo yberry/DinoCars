@@ -2,25 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
 public class WaveDeformer : TriggerDeformer {
 
-    Collider col;
-
-	// Use this for initialization
-	void Start () {
-        col = GetComponent<Collider>();
-	}
-	
-    void OnTriggerStay(Collider col)
-    {
-        if (col.name == meshDeformer.name)
-        {
-            ApplyDeformation(meshDeformer);
-        }
-    }
-
-    protected override void ApplyDeformation(MeshDeformer meshDeformer)
+    protected override void ApplyDeformation()
     {
         Bounds bounds = col.bounds;
         Vector3 size = bounds.size;
@@ -43,10 +27,5 @@ public class WaveDeformer : TriggerDeformer {
                 }
             }
         }
-    }
-
-    void OnDrawGizmos()
-    {
-
     }
 }
