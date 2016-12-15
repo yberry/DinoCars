@@ -18,7 +18,7 @@ namespace CND.Car
         {
             [Range(0, 10)]
             public float wheelRadius;
-            [Range(0,1)]
+            [Range(0,10)]
             public float baseSpringLength;
             [Range(0, 1)]
             public float maxCompression;
@@ -54,27 +54,34 @@ namespace CND.Car
         public struct ContactInfo
         {
             public bool isOnFloor { get; internal set; }
-            public Vector3 worldPoint { get; internal set; }
             public Vector3 bounceForce { get; internal set; }
             public float springLength { get; internal set; }
-
+            public RaycastHit hit { get; internal set; }
         }
 
        // [DisplayModifier(startExpanded:true)]
         public Settings settings=Settings.CreateDefault();
         public ContactInfo contactInfo;
         protected ContactInfo prevContactInfo;
+
+        protected Vector3 wheelCenter;
+        protected Vector3 contactPoint;
+        protected float compressionRatio;
+
         // Use this for initialization
         void Start()
         {
             contactInfo.springLength = settings.baseSpringLength;
+            RecalculatePositions();
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            
+
+           
             CheckForContact();
+            RecalculatePositions();
             prevContactInfo = contactInfo;
         }
 
@@ -85,37 +92,71 @@ namespace CND.Car
 
             var src = transform.rotation * transform.position;
             var nextLength = contactInfo.springLength;
-            var compressionRatio =  (nextLength- settings.baseSpringLength )/ settings.maxCompression;
+            float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
+            float compressionMargin = settings.baseSpringLength - minCompressedLength;
 
-            if (Physics.Raycast(src, -transform.up, out hit, nextLength))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, contactInfo.springLength+ settings.wheelRadius))
             {
+                float springLength = Mathf.Max(minCompressedLength,hit.distance - settings.wheelRadius);
+                float currentCompressionLength = settings.baseSpringLength - springLength;
+                compressionRatio = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1;
+
                 curContactInfo.isOnFloor = true;
-                curContactInfo.worldPoint = hit.point;
-                curContactInfo.springLength = hit.distance;
+                curContactInfo.hit = hit;
+                curContactInfo.springLength = springLength;
                 curContactInfo.bounceForce = Vector3.Lerp(-gravity, -gravity * settings.springForce, compressionRatio);
             } else  {
                 curContactInfo.isOnFloor = false;
-                curContactInfo.worldPoint = Vector3.one * float.PositiveInfinity;
-                curContactInfo.springLength = Mathf.Lerp(prevContactInfo.springLength,settings.maxExpansion,Time.fixedDeltaTime* Time.fixedDeltaTime* settings.springForce);
-
+                curContactInfo.hit = default( RaycastHit);
+                curContactInfo.springLength = Mathf.Lerp(contactInfo.springLength,settings.baseSpringLength,Time.fixedDeltaTime*settings.springForce);
+                compressionRatio = 0f;
             }
 
             contactInfo = curContactInfo;
         }
 
+        void RecalculatePositions()
+        {
+            wheelCenter = transform.position - transform.up * contactInfo.springLength;
+            contactPoint = wheelCenter - transform.up * settings.wheelRadius;
+
+        }
+
 #if UNITY_EDITOR
         void OnDrawGizmos()
         {
+            if (!Application.isPlaying)
+            {
+                RecalculatePositions();
+                CheckForContact();
+            }
+
+            Color defHandleColor = Color.white;
+            Color defGizmoColor = Color.white;
             if (!enabled)
-                Gizmos.color *= 0.5f;
+            {
+                Gizmos.color= defGizmoColor *= 0.5f;
+                Handles.color = defHandleColor *= 0.5f;
+            }
+              
 
             var src = transform.position;
-            var end = (transform.position- transform.up* contactInfo.springLength);
-            var wheelCenter = end - (end - src).normalized * settings.wheelRadius * 0.5f;
-            Gizmos.DrawLine(src, end);
-            Gizmos.DrawWireSphere(end, 0.025f);
-            Handles.CircleCap(0, wheelCenter, Quaternion.LookRotation( transform.right,transform.up) ,settings.wheelRadius*0.5f);
+            //var end = (transform.position- transform.up* contactInfo.springLength);
+            // var wheelCenter = end - (end - src).normalized * settings.wheelRadius * 0.5f;
+            Gizmos.DrawWireSphere(src, 0.075f);
+            Gizmos.DrawWireSphere(wheelCenter, 0.05f);
 
+            Gizmos.DrawLine(wheelCenter, contactPoint); //wheel radius
+            Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, compressionRatio);
+            Gizmos.DrawLine(src, wheelCenter); //spring
+
+            Gizmos.color = defGizmoColor * (contactInfo.isOnFloor ? Color.green : Color.red);
+            Gizmos.DrawWireSphere(contactPoint, 0.0375f);
+            Handles.color = Gizmos.color;
+
+            Handles.CircleCap(0, wheelCenter, Quaternion.LookRotation( transform.right,transform.up) ,settings.wheelRadius);
+
+            Handles.color = Color.white;
         }
 #endif
         private void OnValidate()
@@ -123,6 +164,8 @@ namespace CND.Car
             if (!Application.isPlaying)
             {
                 contactInfo.springLength = settings.baseSpringLength;
+                RecalculatePositions();
+               
             }
             
         }
@@ -136,7 +179,7 @@ namespace CND.Car
         }
     }
 
-
+#region  Drawer
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(Wheel.Settings))]
     public class WheelSettingsDrawer : PropertyDrawer
@@ -164,7 +207,6 @@ namespace CND.Car
             for (int i= 0;i<fields.Length; i++)
             {
                 string path = fieldInfo.Name + "." + fields[i].Name;
-                Debug.Log(i+ "="+ path);
 
                 //EditorGUI.FloatField(position, property.FindPropertyRelative(fields[i].Name).floatValue);
                 var subMember = property.FindPropertyRelative(fields[i].Name);
@@ -182,5 +224,5 @@ namespace CND.Car
         }
     }
 #endif
-
+#endregion Drawer
 }
