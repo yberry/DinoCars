@@ -67,7 +67,7 @@ public class SuspensionTest : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        if (sources != null)
+        if (enabled && sources != null)
         {
             for (int i = 0; i < sources.Length; i++)
             {
