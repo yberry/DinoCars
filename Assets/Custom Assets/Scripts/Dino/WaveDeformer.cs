@@ -2,36 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
-public class WaveDeformer : MonoBehaviour {
+[RequireComponent(typeof(Collider))]
+public class WaveDeformer : TriggerDeformer {
 
-    [Range(1, 100)]
-    public int subdivisionX = 1;
-    [Range(1, 100)]
-    public int subdivisionY = 1;
-    [Range(1, 100)]
-    public int subdivisionZ = 1;
-
-    BoxCollider boxCollider;
+    Collider col;
 
 	// Use this for initialization
 	void Start () {
-        boxCollider = GetComponent<BoxCollider>();
+        col = GetComponent<Collider>();
 	}
 	
     void OnTriggerStay(Collider col)
     {
-        Debug.Log("stay");
-        MeshDeformer meshDeformer = col.GetComponent<MeshDeformer>();
-        if (meshDeformer)
+        if (col.name == meshDeformer.name)
         {
-            SendWave(meshDeformer);
+            ApplyDeformation(meshDeformer);
         }
     }
 
-    void SendWave(MeshDeformer meshDeformer)
+    protected override void ApplyDeformation(MeshDeformer meshDeformer)
     {
-        Bounds bounds = boxCollider.bounds;
+        Bounds bounds = col.bounds;
         Vector3 size = bounds.size;
         Vector3 min = bounds.min;
 
@@ -46,11 +37,16 @@ public class WaveDeformer : MonoBehaviour {
                     point.y += y * size.y / subdivisionY;
                     point.z += z * size.z / subdivisionZ;
 
-                    point += 15f * Vector3.down;
+                    point += forceOffset * Vector3.down;
 
-                    meshDeformer.AddDeformingForce(point, 500f);
+                    meshDeformer.AddDeformingForce(point, force);
                 }
             }
         }
+    }
+
+    void OnDrawGizmos()
+    {
+
     }
 }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshFilter), typeof(MeshCollider))]
 public class MeshDeformer : MonoBehaviour {
 
+    public TriggerDeformer triggerDeformer;
     public float springForce = 20f;
     public float damping = 5f;
 
@@ -16,6 +17,7 @@ public class MeshDeformer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        triggerDeformer.SetMeshCollider(this);
         deformingMesh = GetComponent<MeshFilter>().mesh;
         originalVertices = deformingMesh.vertices;
         displacedVertices = new Vector3[originalVertices.Length];
