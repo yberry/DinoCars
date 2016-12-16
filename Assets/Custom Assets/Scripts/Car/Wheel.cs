@@ -12,6 +12,7 @@ namespace CND.Car
     {
 
         public Vector3 gravity=Physics.gravity;
+        
 
         [System.Serializable]
         public struct Settings// : System.Object
@@ -54,24 +55,26 @@ namespace CND.Car
         public struct ContactInfo
         {
             public bool isOnFloor { get; internal set; }
-            public Vector3 bounceForce { get; internal set; }
+            public Vector3 pushForce { get; internal set; }
             public float springLength { get; internal set; }
+            public float springCompression { get; internal set; }
             public RaycastHit hit { get; internal set; }
         }
 
        // [DisplayModifier(startExpanded:true)]
         public Settings settings=Settings.CreateDefault();
-        public ContactInfo contactInfo;
+        protected ContactInfo m_contactInfo;
+        public ContactInfo contactInfo { get { return m_contactInfo; } }
         protected ContactInfo prevContactInfo;
 
+        protected Vector3 lastPos;
         protected Vector3 wheelCenter;
         protected Vector3 contactPoint;
-        protected float compressionRatio;
 
         // Use this for initialization
         void Start()
         {
-            contactInfo.springLength = settings.baseSpringLength;
+            m_contactInfo.springLength = settings.baseSpringLength;
             RecalculatePositions();
         }
 
@@ -79,45 +82,64 @@ namespace CND.Car
         void FixedUpdate()
         {
 
-           
+            
+            prevContactInfo = m_contactInfo;
             CheckForContact();
             RecalculatePositions();
-            prevContactInfo = contactInfo;
+            lastPos = transform.position;
         }
 
         void CheckForContact()
         {
             RaycastHit hit;
-            ContactInfo curContactInfo=default(ContactInfo);
+            ContactInfo curContactInfo=prevContactInfo;
 
             var src = transform.rotation * transform.position;
-            var nextLength = contactInfo.springLength;
+            var nextLength = m_contactInfo.springLength;
             float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
             float compressionMargin = settings.baseSpringLength - minCompressedLength;
 
-            if (Physics.Raycast(transform.position, -transform.up, out hit, contactInfo.springLength+ settings.wheelRadius))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength*1.1f+ settings.wheelRadius))
             {
-                float springLength = Mathf.Max(minCompressedLength,hit.distance - settings.wheelRadius);
+                float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
-                compressionRatio = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1;
 
+                curContactInfo.springCompression = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1f;
                 curContactInfo.isOnFloor = true;
                 curContactInfo.hit = hit;
                 curContactInfo.springLength = springLength;
-                curContactInfo.bounceForce = Vector3.Lerp(-gravity, -gravity * settings.springForce, compressionRatio);
+
+                var vel = (transform.position- lastPos);
+                var sqrVel = vel * vel.magnitude;
+                var sqrGrav = gravity* gravity.magnitude;
+                var reflect =( Vector3.Reflect(vel, hit.normal)) * (1f-curContactInfo.springCompression);
+                var pushForce = -gravity+ reflect;//.normalized * Mathf.Max(gravity.magnitude, vel.magnitude);// settings.springForce* Time.fixedDeltaTime;
+                curContactInfo.pushForce = Vector3.Lerp(
+                    pushForce * curContactInfo.springCompression, pushForce * curContactInfo.springCompression * settings.springForce,
+                    curContactInfo.springCompression * curContactInfo.springCompression);
+               //curContactInfo.pushForce = Vector3.Lerp(m_contactInfo.pushForce, curContactInfo.pushForce, 0.25f);
             } else  {
-                curContactInfo.isOnFloor = false;
-                curContactInfo.hit = default( RaycastHit);
-                curContactInfo.springLength = Mathf.Lerp(contactInfo.springLength,settings.baseSpringLength,Time.fixedDeltaTime*settings.springForce);
-                compressionRatio = 0f;
+                
+                if (prevContactInfo.isOnFloor)
+                {
+                    curContactInfo = prevContactInfo;
+                    curContactInfo.isOnFloor = false;
+                } else  {
+                    curContactInfo.hit = default(RaycastHit);
+                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * settings.maxExpansion, 0.5f);
+                   
+                    
+                   
+                }
+
             }
 
-            contactInfo = curContactInfo;
+            m_contactInfo = curContactInfo;
         }
 
         void RecalculatePositions()
         {
-            wheelCenter = transform.position - transform.up * contactInfo.springLength;
+            wheelCenter = transform.position - transform.up * m_contactInfo.springLength;
             contactPoint = wheelCenter - transform.up * settings.wheelRadius;
 
         }
@@ -127,8 +149,9 @@ namespace CND.Car
         {
             if (!Application.isPlaying)
             {
-                RecalculatePositions();
                 CheckForContact();
+                RecalculatePositions();
+                
             }
 
             Color defHandleColor = Color.white;
@@ -147,10 +170,10 @@ namespace CND.Car
             Gizmos.DrawWireSphere(wheelCenter, 0.05f);
 
             Gizmos.DrawLine(wheelCenter, contactPoint); //wheel radius
-            Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, compressionRatio);
+            Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
             Gizmos.DrawLine(src, wheelCenter); //spring
 
-            Gizmos.color = defGizmoColor * (contactInfo.isOnFloor ? Color.green : Color.red);
+            Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
             Gizmos.DrawWireSphere(contactPoint, 0.0375f);
             Handles.color = Gizmos.color;
 
@@ -163,7 +186,7 @@ namespace CND.Car
         {
             if (!Application.isPlaying)
             {
-                contactInfo.springLength = settings.baseSpringLength;
+                m_contactInfo.springLength = settings.baseSpringLength;
                 RecalculatePositions();
                
             }
@@ -174,7 +197,7 @@ namespace CND.Car
         {
             if (!Application.isPlaying)
             {
-                contactInfo.springLength = settings.baseSpringLength;
+                m_contactInfo.springLength = settings.baseSpringLength;
             }
         }
     }

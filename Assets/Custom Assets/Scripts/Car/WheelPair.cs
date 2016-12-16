@@ -25,11 +25,41 @@ namespace CND.Car
                 right.transform.position = parent.position + parent.rotation * positionOffset;
 
             }
-            /*
-            public void GetAppliedForces(out Vector3 force, out Vector3 position)
+            
+            public int GetAppliedForces(out Vector3 force, out Vector3 position)
             {
+                int contacts = 0;
+                Vector3 cumulatedPos = Vector3.zero;
+                Vector3 cumulatedForces = Vector3.zero;
 
-            }*/
+                if (left.contactInfo.isOnFloor)
+                {
+                    contacts++;
+                    cumulatedPos += left.transform.position;// left.contactInfo.hit.point;
+                    cumulatedForces += left.contactInfo.pushForce;
+                }
+
+                if (right.contactInfo.isOnFloor)
+                {
+                    contacts++;
+                    cumulatedPos += right.transform.position;//right.contactInfo.hit.point;
+                    cumulatedForces += right.contactInfo.pushForce;
+                }
+
+                if (contacts > 0)
+                {
+                    position =  cumulatedPos / (float)contacts;
+                    force = cumulatedForces / (float)contacts;
+                    return contacts;
+                } else
+                {
+                    force = position = Vector3.zero;
+                    return contacts;
+                }
+
+
+                
+            }
         }
     }
 
