@@ -25,9 +25,9 @@ namespace CND.Car
             public float maxCompression;
             [Range(1, 10)]
             public float maxExpansion;
-            [Range(0, 1000000f)]
+            [Range(float.Epsilon, 1000000f)]
             public float springForce;
-            [Range(0, 1000000f)]
+            [Range(float.Epsilon, 1000000f)]
             public float damping;
     
             public Settings(float wheelRadius,float baseSpringLength=1,
@@ -96,13 +96,14 @@ namespace CND.Car
             ContactInfo curContactInfo=new ContactInfo();
 
             curContactInfo.pushPoint = transform.position;
+            curContactInfo.springCompression = m_contactInfo.springCompression;
 
             var src = transform.rotation * transform.position;
             var nextLength = m_contactInfo.springLength;
             float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
             float compressionMargin = settings.baseSpringLength - minCompressedLength;
 
-            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength*1.01f+ settings.wheelRadius))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength*1.05f * settings.maxExpansion + settings.wheelRadius))
             {
                 float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
@@ -117,10 +118,15 @@ namespace CND.Car
                 var sqrVel = vel * vel.magnitude;
                 var grav = m_contactInfo.isOnFloor ? gravity : gravity;
                 var sqrGrav = grav* grav.magnitude;
+                var downVel = Vector3.Dot(dist.normalized, -grav);
+                var damping = downVel * settings.damping;
                 var shockCancel = -(vel);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = -grav * shockCancel.magnitude;
-                var pushForce = Vector3.Lerp(stickToFloor, -grav *  settings.springForce, curContactInfo.springCompression);//.normalized * Mathf.Max(gravity.magnitude, vel.magnitude);// settings.springForce* Time.fixedDeltaTime;
+                var stickToFloor = (-grav+ shockCancel);
+                var pushForce = Vector3.Lerp(
+                    stickToFloor* curContactInfo.springCompression*Mathf.Max(Time.fixedDeltaTime, 1f- Time.fixedDeltaTime*settings.damping)/**(1f-Time.fixedDeltaTime*settings.damping)*/,
+                    stickToFloor * curContactInfo.springCompression * Mathf.Max(1f- Time.fixedDeltaTime, 1f + Time.fixedDeltaTime * settings.springForce),
+                    curContactInfo.springCompression);//.normalized * Mathf.Max(gravity.magnitude, vel.magnitude);// settings.springForce* Time.fixedDeltaTime;
 
                 curContactInfo.pushForce = pushForce;
                 /* curContactInfo.pushForce = Vector3.Lerp(
@@ -138,7 +144,7 @@ namespace CND.Car
                 } else  {
                     curContactInfo.hit = default(RaycastHit);
                     curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * settings.maxExpansion, 0.5f);
-     
+                    curContactInfo.springCompression = ( settings.baseSpringLength - curContactInfo.springLength ) / compressionMargin;
                 }
 
             }
