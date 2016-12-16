@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -135,7 +135,7 @@
 <p><strong>OnDestroy</strong></p>
     <p>When the active Rewired Input Manager is destroyed, it will completely reset Rewired, thereby invalidating Player, Controller, etc. object references, losing controller assignments, etc. Any references to these objects you have in scripts will no longer be valid. You must be aware of this if destroying the Rewired Input Manager, particularly on level loading if &quot;Don't Destroy on Load&quot; is not checked.</p>
     <p><strong>Note: </strong>This also affects runtime recompiling of scripts in the editor. When scripts are recompiled at runtime, Rewired is reset. Cached references to Rewired objects become invalid at this point, so your scripts may begin to throw null reference exceptions if this is not accounted for. <a href="Troubleshooting.html#null-reference-during-recompile">See this link for more information</a> if runtime script recompiling is part of your workflow.</p>
-    <p><strong>Input Manager Inspector</strong></p>
+    <p><strong><a name="inspector" id="inspector"></a>Input Manager Inspector</strong></p>
     <p><img src="files/images/inputmanager_inspector.png" alt="Input Manager Inspector" /></p>
     <table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -146,12 +146,16 @@
         <td valign="top">Data Files</td>
         <td valign="top">An object reference to the ControllerDataFiles object. This object contains a list of all supported joysticks and templates and is required for Rewired to function correctly. If you want to customize your own list of supported controllers, you can link this to a separate copy of ControllerDataFiles that you have modified. (See <a href="HowTos.html#new-controller-definitions">Creating Controller Definitions</a> for more information.)</td>
       </tr>
+      <tr>
+        <td valign="top">Debug Information</td>
+        <td valign="top">Shows  a wealth of useful information during runtime on Players, Controllers, Controller Maps, etc. Allows you to visualize most runtime objects in the system.</td>
+      </tr>
     </table>
     <p>&nbsp;</p>
     <p><strong>Using the Rewired Input Manager in your game</strong></p>
     <p>For finished game builds, the Rewired Input Manager should exist in your initial game scene. Make sure &quot;Don't Destroy On Load&quot; is checked so Rewired will persist throughout the entire game session.</p>
     <h5>Testing Individual Scenes</h5>
-    <p>If you need to do testing on an individual scene, as of Rewired 1.0.0.72, you can create a prefab (see note below) out of your Rewired Input Manager and place an instance of it in all your scenes, leaving &quot;Don't Destroy on Load&quot; checked. When a new scene is loaded, the additional Rewired Input Manager in the loaded scene will destroy itself automatically leaving the original intact and continuing to handle input without causing any errors.</p>
+    <p>If you need to do testing on an individual scene, you can create a prefab (see note below) out of your Rewired Input Manager and place an instance of it in all your scenes, leaving &quot;Don't Destroy on Load&quot; checked. When a new scene is loaded, the additional Rewired Input Manager in the loaded scene will destroy itself automatically leaving the original intact and continuing to handle input without causing any errors.</p>
 <p>Another way to achieve a setup that allows for both testing individual scenes at will and advancing through levels in your final game is to create a script that instantiates a prefab of your Rewired Input Manager on Awake. You can put this script on a GameObject prefab instance that you place in every scene of your game. On Awake, your script should check if a Rewired Input Manager already exists in the scene first, and if it doesn't, instantiate it. Leave &quot;Don't Destroy On Load&quot; checked in the Rewired Input Manager. Finally, be sure your script has a very low number set for its <a href="http://docs.unity3d.com/Manual/class-ScriptExecution.html" target="_blank">Script Execution Order</a> -- it should execute before any other scripts (apart from Rewired's Input Manager) so that Rewired will be set up and ready by the time any other scripts in your game that rely on input make calls to Rewired. </p>
     <p><strong>Important Note:</strong> If you make a prefab out of the Rewired Input Manager, always open the Rewired Editor on the prefab, not the one in the scene or your changes will be applied to the scene instance. If you do accidentally make changes to the instance in the scene, you can apply the changes to the prefab and everything will be in sync.</p>
 <p>&nbsp;</p>

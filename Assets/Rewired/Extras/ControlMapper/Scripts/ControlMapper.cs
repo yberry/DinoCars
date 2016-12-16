@@ -93,6 +93,25 @@ namespace Rewired.UI.ControlMapper {
         private int _controllerInputFieldCount = 1;
 
         [SerializeField]
+        [Tooltip(
+            "Display a full-axis input assignment field for every axis-type Action in the input field grid. Also displays an invert toggle for the user " +
+            " to invert the full-axis assignment direction." +
+            "\n\n*IMPORTANT*: This field is required if you have made any full-axis assignments in the Rewired Input Manager or in saved XML user data. " +
+            "Disabling this field when you have full-axis assignments will result in the inability for the user to view, remove, or modify these " +
+            "full-axis assignments. In addition, these assignments may cause conflicts when trying to remap the same axes to Actions."
+        )]
+        private bool _showFullAxisInputFields = true;
+        [SerializeField]
+        [Tooltip(
+            "Display a positive and negative input assignment field for every axis-type Action in the input field grid." +
+            "\n\n*IMPORTANT*: These fields are required to assign buttons, keyboard keys, and hat or D-Pad directions to axis-type Actions. " +
+            "If you have made any split-axis assignments or button/key/D-pad assignments to axis-type Actions in the Rewired Input Manager or " +
+            "in saved XML user data, disabling these fields will result in the inability for the user to view, remove, or modify these assignments. " +
+            "In addition, these assignments may cause conflicts when trying to remap the same elements to Actions."
+        )]
+        private bool _showSplitAxisInputFields = true;
+
+        [SerializeField]
         [Tooltip("If enabled, when an element assignment conflict is found, an option will be displayed that allows the user to make the conflicting assignment anyway.")]
         private bool _allowElementAssignmentConflicts = false;
 
@@ -239,6 +258,7 @@ namespace Rewired.UI.ControlMapper {
         private List<GUIButton> mapCategoryButtons;
         private List<GUIButton> assignedControllerButtons;
         private GUIButton assignedControllerButtonsPlaceholder;
+        private List<GameObject> miscInstantiatedObjects;
         private GameObject canvas;
         private GameObject lastUISelection;
         private int currentJoystickId = -1;
@@ -260,31 +280,33 @@ namespace Rewired.UI.ControlMapper {
         // This is useful if you want to show only certain settings based on the current platform.
         // Not all properties are runtime modifiable.
 
-        public InputManager rewiredInputManager { get { return _rewiredInputManager; } set { _rewiredInputManager = value; InspectorPropertyChanged(); } }
-        public int keyboardMapDefaultLayout { get { return _keyboardMapDefaultLayout; } set { _keyboardMapDefaultLayout = value; InspectorPropertyChanged(); } }
-        public int mouseMapDefaultLayout { get { return _mouseMapDefaultLayout; } set { _mouseMapDefaultLayout = value; InspectorPropertyChanged(); } }
-        public int joystickMapDefaultLayout { get { return _joystickMapDefaultLayout; } set { _joystickMapDefaultLayout = value; InspectorPropertyChanged(); } }
+        public InputManager rewiredInputManager { get { return _rewiredInputManager; } set { _rewiredInputManager = value; InspectorPropertyChanged(true); } }
+        public int keyboardMapDefaultLayout { get { return _keyboardMapDefaultLayout; } set { _keyboardMapDefaultLayout = value; InspectorPropertyChanged(true); } }
+        public int mouseMapDefaultLayout { get { return _mouseMapDefaultLayout; } set { _mouseMapDefaultLayout = value; InspectorPropertyChanged(true); } }
+        public int joystickMapDefaultLayout { get { return _joystickMapDefaultLayout; } set { _joystickMapDefaultLayout = value; InspectorPropertyChanged(true); } }
         //public MappingSet[] mappingSets { get { return _mappingSets; } set { _mappingSets = value; InspectorPropertyChanged(); } }
-        public bool showPlayers { get { return _showPlayers && ReInput.players.playerCount > 1; } set { _showPlayers = value; InspectorPropertyChanged(); } }
-        public bool showControllers { get { return _showControllers; } set { _showControllers = value; InspectorPropertyChanged(); } }
-        public bool showKeyboard { get { return _showKeyboard; } set { _showKeyboard = value; InspectorPropertyChanged(); } }
-        public bool showMouse { get { return _showMouse; } set { _showMouse = value; InspectorPropertyChanged(); } }
-        public int maxControllersPerPlayer { get { return _maxControllersPerPlayer; } set { _maxControllersPerPlayer = value; InspectorPropertyChanged(); } }
-        public bool showActionCategoryLabels { get { return _showActionCategoryLabels; } set { _showActionCategoryLabels = value; InspectorPropertyChanged(); } }
-        public int keyboardInputFieldCount { get { return _keyboardInputFieldCount; } set { _keyboardInputFieldCount = value; InspectorPropertyChanged(); } }
-        public int mouseInputFieldCount { get { return _mouseInputFieldCount; } set { _mouseInputFieldCount = value; InspectorPropertyChanged(); } }
-        public int controllerInputFieldCount { get { return _controllerInputFieldCount; } set { _controllerInputFieldCount = value; InspectorPropertyChanged(); } }
+        public bool showPlayers { get { return _showPlayers && ReInput.players.playerCount > 1; } set { _showPlayers = value; InspectorPropertyChanged(true); } }
+        public bool showControllers { get { return _showControllers; } set { _showControllers = value; InspectorPropertyChanged(true); } }
+        public bool showKeyboard { get { return _showKeyboard; } set { _showKeyboard = value; InspectorPropertyChanged(true); } }
+        public bool showMouse { get { return _showMouse; } set { _showMouse = value; InspectorPropertyChanged(true); } }
+        public int maxControllersPerPlayer { get { return _maxControllersPerPlayer; } set { _maxControllersPerPlayer = value; InspectorPropertyChanged(true); } }
+        public bool showActionCategoryLabels { get { return _showActionCategoryLabels; } set { _showActionCategoryLabels = value; InspectorPropertyChanged(true); } }
+        public int keyboardInputFieldCount { get { return _keyboardInputFieldCount; } set { _keyboardInputFieldCount = value; InspectorPropertyChanged(true); } }
+        public int mouseInputFieldCount { get { return _mouseInputFieldCount; } set { _mouseInputFieldCount = value; InspectorPropertyChanged(true); } }
+        public int controllerInputFieldCount { get { return _controllerInputFieldCount; } set { _controllerInputFieldCount = value; InspectorPropertyChanged(true); } }
+        public bool showFullAxisInputFields { get { return _showFullAxisInputFields; } set { _showFullAxisInputFields = value; InspectorPropertyChanged(true); } }
+        public bool showSplitAxisInputFields { get { return _showSplitAxisInputFields; } set { _showSplitAxisInputFields = value; InspectorPropertyChanged(true); } }
         public bool allowElementAssignmentConflicts { get { return _allowElementAssignmentConflicts; } set { _allowElementAssignmentConflicts = value; InspectorPropertyChanged(); } }
-        public int actionLabelWidth { get { return _actionLabelWidth; } set { _actionLabelWidth = value; InspectorPropertyChanged(); } }
-        public int keyboardColMaxWidth { get { return _keyboardColMaxWidth; } set { _keyboardColMaxWidth = value; InspectorPropertyChanged(); } }
-        public int mouseColMaxWidth { get { return _mouseColMaxWidth; } set { _mouseColMaxWidth = value; InspectorPropertyChanged(); } }
-        public int controllerColMaxWidth { get { return _controllerColMaxWidth; } set { _controllerColMaxWidth = value; InspectorPropertyChanged(); } }
-        public int inputRowHeight { get { return _inputRowHeight; } set { _inputRowHeight = value; InspectorPropertyChanged(); } }
-        public int inputColumnSpacing { get { return _inputColumnSpacing; } set { _inputColumnSpacing = value; InspectorPropertyChanged(); } }
-        public int inputRowCategorySpacing { get { return _inputRowCategorySpacing; } set { _inputRowCategorySpacing = value; InspectorPropertyChanged(); } }
-        public int invertToggleWidth { get { return _invertToggleWidth; } set { _invertToggleWidth = value; InspectorPropertyChanged(); } }
-        public int defaultWindowWidth { get { return _defaultWindowWidth; } set { _defaultWindowWidth = value; InspectorPropertyChanged(); } }
-        public int defaultWindowHeight { get { return _defaultWindowHeight; } set { _defaultWindowHeight = value; InspectorPropertyChanged(); } }
+        public int actionLabelWidth { get { return _actionLabelWidth; } set { _actionLabelWidth = value; InspectorPropertyChanged(true); } }
+        public int keyboardColMaxWidth { get { return _keyboardColMaxWidth; } set { _keyboardColMaxWidth = value; InspectorPropertyChanged(true); } }
+        public int mouseColMaxWidth { get { return _mouseColMaxWidth; } set { _mouseColMaxWidth = value; InspectorPropertyChanged(true); } }
+        public int controllerColMaxWidth { get { return _controllerColMaxWidth; } set { _controllerColMaxWidth = value; InspectorPropertyChanged(true); } }
+        public int inputRowHeight { get { return _inputRowHeight; } set { _inputRowHeight = value; InspectorPropertyChanged(true); } }
+        public int inputColumnSpacing { get { return _inputColumnSpacing; } set { _inputColumnSpacing = value; InspectorPropertyChanged(true); } }
+        public int inputRowCategorySpacing { get { return _inputRowCategorySpacing; } set { _inputRowCategorySpacing = value; InspectorPropertyChanged(true); } }
+        public int invertToggleWidth { get { return _invertToggleWidth; } set { _invertToggleWidth = value; InspectorPropertyChanged(true); } }
+        public int defaultWindowWidth { get { return _defaultWindowWidth; } set { _defaultWindowWidth = value; InspectorPropertyChanged(true); } }
+        public int defaultWindowHeight { get { return _defaultWindowHeight; } set { _defaultWindowHeight = value; InspectorPropertyChanged(true); } }
         public float controllerAssignmentTimeout { get { return _controllerAssignmentTimeout; } set { _controllerAssignmentTimeout = value; InspectorPropertyChanged(); } }
         public float preInputAssignmentTimeout { get { return _preInputAssignmentTimeout; } set { _preInputAssignmentTimeout = value; InspectorPropertyChanged(); } }
         public float inputAssignmentTimeout { get { return _inputAssignmentTimeout; } set { _inputAssignmentTimeout = value; InspectorPropertyChanged(); } }
@@ -296,17 +318,17 @@ namespace Rewired.UI.ControlMapper {
         //public int screenCloseAction { get { return _screenCloseAction; } set { _screenCloseAction = value; InspectorPropertyChanged(); } }
         //public int universalCancelAction { get { return _universalCancelAction; } set { _universalCancelAction = value; InspectorPropertyChanged(); } }
         public bool universalCancelClosesScreen { get { return _universalCancelClosesScreen; } set { _universalCancelClosesScreen = value; InspectorPropertyChanged(); } }
-        public bool showInputBehaviorSettings { get { return _showInputBehaviorSettings; } set { _showInputBehaviorSettings = value; InspectorPropertyChanged(); } }
-        public bool useThemeSettings { get { return _useThemeSettings; } set { _useThemeSettings = value; InspectorPropertyChanged(); } }
-        public LanguageData language { get { return _language; } set { _language = value; if(_language != null) _language.Initialize(); InspectorPropertyChanged(); } }
+        public bool showInputBehaviorSettings { get { return _showInputBehaviorSettings; } set { _showInputBehaviorSettings = value; InspectorPropertyChanged(true); } }
+        public bool useThemeSettings { get { return _useThemeSettings; } set { _useThemeSettings = value; InspectorPropertyChanged(true); } }
+        public LanguageData language { get { return _language; } set { _language = value; if(_language != null) _language.Initialize(); InspectorPropertyChanged(true); } }
 
-        public bool showPlayersGroupLabel { get { return _showPlayersGroupLabel; } set { _showPlayersGroupLabel = value; InspectorPropertyChanged(); } }
-        public bool showControllerGroupLabel { get { return _showControllerGroupLabel; } set { _showControllerGroupLabel = value; InspectorPropertyChanged(); } }
-        public bool showAssignedControllersGroupLabel { get { return _showAssignedControllersGroupLabel; } set { _showAssignedControllersGroupLabel = value; InspectorPropertyChanged(); } }
-        public bool showSettingsGroupLabel { get { return _showSettingsGroupLabel; } set { _showSettingsGroupLabel = value; InspectorPropertyChanged(); } }
-        public bool showMapCategoriesGroupLabel { get { return _showMapCategoriesGroupLabel; } set { _showMapCategoriesGroupLabel = value; InspectorPropertyChanged(); } }
-        public bool showControllerNameLabel { get { return _showControllerNameLabel; } set { _showControllerNameLabel = value; InspectorPropertyChanged(); } }
-        public bool showAssignedControllers { get { return _showAssignedControllers; } set { _showAssignedControllers = value; InspectorPropertyChanged(); } }
+        public bool showPlayersGroupLabel { get { return _showPlayersGroupLabel; } set { _showPlayersGroupLabel = value; InspectorPropertyChanged(true); } }
+        public bool showControllerGroupLabel { get { return _showControllerGroupLabel; } set { _showControllerGroupLabel = value; InspectorPropertyChanged(true); } }
+        public bool showAssignedControllersGroupLabel { get { return _showAssignedControllersGroupLabel; } set { _showAssignedControllersGroupLabel = value; InspectorPropertyChanged(true); } }
+        public bool showSettingsGroupLabel { get { return _showSettingsGroupLabel; } set { _showSettingsGroupLabel = value; InspectorPropertyChanged(true); } }
+        public bool showMapCategoriesGroupLabel { get { return _showMapCategoriesGroupLabel; } set { _showMapCategoriesGroupLabel = value; InspectorPropertyChanged(true); } }
+        public bool showControllerNameLabel { get { return _showControllerNameLabel; } set { _showControllerNameLabel = value; InspectorPropertyChanged(true); } }
+        public bool showAssignedControllers { get { return _showAssignedControllers; } set { _showAssignedControllers = value; InspectorPropertyChanged(true); } }
 
         #endregion
 
@@ -529,6 +551,7 @@ namespace Rewired.UI.ControlMapper {
             playerButtons = new List<GUIButton>();
             mapCategoryButtons = new List<GUIButton>();
             assignedControllerButtons = new List<GUIButton>();
+            miscInstantiatedObjects = new List<GameObject>();
 
             // Set default values
             currentMapCategoryId = _mappingSets[0].mapCategoryId;
@@ -921,6 +944,9 @@ namespace Rewired.UI.ControlMapper {
             ControllerPollingInfo pollingInfo = ReInput.controllers.polling.PollControllerForFirstElementDown(ControllerType.Joystick, currentJoystick.id);
             if(!pollingInfo.success) return;
 
+            // Verify that this assignment is allowed
+            if(!IsAllowedAssignment(pendingInputMapping, pollingInfo)) return;
+
             ElementAssignment assignment = pendingInputMapping.ToElementAssignment(pollingInfo);
 
             if(!HasElementAssignmentConflicts(currentPlayer, pendingInputMapping, assignment, false)) {
@@ -961,6 +987,9 @@ namespace Rewired.UI.ControlMapper {
             window.SetContentText(label, 1);
 
             if(!pollingInfo.success) return;
+
+            // Verify that this assignment is allowed
+            if(!IsAllowedAssignment(pendingInputMapping, pollingInfo)) return;
 
             ElementAssignment assignment = pendingInputMapping.ToElementAssignment(pollingInfo, modifierFlags);
 
@@ -1005,6 +1034,9 @@ namespace Rewired.UI.ControlMapper {
                 pollingInfo = ReInput.controllers.polling.PollControllerForFirstElementDown(ControllerType.Mouse, 0);
             }
             if(!pollingInfo.success) return;
+
+            // Verify that the assignment is allowed
+            if(!IsAllowedAssignment(pendingInputMapping, pollingInfo)) return;
 
             ElementAssignment assignment = pendingInputMapping.ToElementAssignment(pollingInfo);
 
@@ -1185,8 +1217,12 @@ namespace Rewired.UI.ControlMapper {
             Window window = OpenWindow(true);
             if(window == null) return;
 
+            string message = pendingInputMapping.axisRange == AxisRange.Full && _showFullAxisInputFields && !_showSplitAxisInputFields ?
+                _language.GetJoystickElementAssignmentPollingWindowMessage_FullAxisFieldOnly(pendingInputMapping.actionName) :
+                _language.GetJoystickElementAssignmentPollingWindowMessage(pendingInputMapping.actionName);
+
             window.CreateTitleText(prefabs.windowTitleText, Vector2.zero, pendingInputMapping.actionName);
-            window.AddContentText(prefabs.windowContentText, UI.UIPivot.TopCenter, UI.UIAnchor.TopHStretch, new Vector2(0, -100), _language.GetJoystickElementAssignmentPollingWindowMessage(pendingInputMapping.actionName));
+            window.AddContentText(prefabs.windowContentText, UI.UIPivot.TopCenter, UI.UIAnchor.TopHStretch, new Vector2(0, -100), message);
             window.AddContentText(prefabs.windowContentText, UI.UIPivot.BottomCenter, UI.UIAnchor.BottomHStretch, Vector2.zero, "");
             window.SetUpdateCallback(OnJoystickElementAssignmentPollingWindowUpdate);
             window.timer.Start(_inputAssignmentTimeout);
@@ -1216,8 +1252,12 @@ namespace Rewired.UI.ControlMapper {
             Window window = OpenWindow(true);
             if(window == null) return;
 
+            string message = pendingInputMapping.axisRange == AxisRange.Full && _showFullAxisInputFields && !_showSplitAxisInputFields ?
+                _language.GetMouseElementAssignmentPollingWindowMessage_FullAxisFieldOnly(pendingInputMapping.actionName) :
+                _language.GetMouseElementAssignmentPollingWindowMessage(pendingInputMapping.actionName);
+
             window.CreateTitleText(prefabs.windowTitleText, Vector2.zero, pendingInputMapping.actionName);
-            window.AddContentText(prefabs.windowContentText, UI.UIPivot.TopCenter, UI.UIAnchor.TopHStretch, new Vector2(0, -100), _language.GetMouseElementAssignmentPollingWindowMessage(pendingInputMapping.actionName));
+            window.AddContentText(prefabs.windowContentText, UI.UIPivot.TopCenter, UI.UIAnchor.TopHStretch, new Vector2(0, -100), message);
             window.AddContentText(prefabs.windowContentText, UI.UIPivot.BottomCenter, UI.UIAnchor.BottomHStretch, Vector2.zero, "");
             window.SetUpdateCallback(OnMouseElementAssignmentPollingWindowUpdate);
             window.timer.Start(_inputAssignmentTimeout);
@@ -1425,9 +1465,11 @@ namespace Rewired.UI.ControlMapper {
 
                         foreach(InputAction action in ReInput.mapping.UserAssignableActionsInCategory(actionCatId)) {
                             if(action.type == InputActionType.Axis) {
-                                inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Full);
-                                inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Positive);
-                                inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Negative);
+                                if(_showFullAxisInputFields) inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Full);
+                                if(_showSplitAxisInputFields) {
+                                    inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Positive);
+                                    inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Negative);
+                                }
                             } else if(action.type == InputActionType.Button) {
                                 inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Positive);
                             }
@@ -1443,9 +1485,11 @@ namespace Rewired.UI.ControlMapper {
                         if(action == null) continue;
 
                         if(action.type == InputActionType.Axis) {
-                            inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Full);
-                            inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Positive);
-                            inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Negative);
+                            if(_showFullAxisInputFields) inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Full);
+                            if(_showSplitAxisInputFields) {
+                                inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Positive);
+                                inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Negative);
+                            }
                         } else if(action.type == InputActionType.Button) {
                             inputGrid.AddAction(set.mapCategoryId, action, AxisRange.Positive);
                         }
@@ -1579,22 +1623,26 @@ namespace Rewired.UI.ControlMapper {
                             GUILabel label;
                             if(action.type == InputActionType.Axis) {
 
-                                label = CreateLabel(action.descriptiveName, columnXform, new Vector2(0, yPos));
-                                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
-                                inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Full, label);
-                                yPos -= _inputRowHeight;
+                                if(_showFullAxisInputFields) {
+                                    label = CreateLabel(action.descriptiveName, columnXform, new Vector2(0, yPos));
+                                    label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
+                                    inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Full, label);
+                                    yPos -= _inputRowHeight;
+                                }
 
-                                string positiveDescriptiveName = !string.IsNullOrEmpty(action.positiveDescriptiveName) ? action.positiveDescriptiveName : action.descriptiveName + " +";
-                                label = CreateLabel(positiveDescriptiveName, columnXform, new Vector2(0, yPos));
-                                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
-                                inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Positive, label);
-                                yPos -= _inputRowHeight;
+                                if(_showSplitAxisInputFields) {
+                                    string positiveDescriptiveName = !string.IsNullOrEmpty(action.positiveDescriptiveName) ? action.positiveDescriptiveName : action.descriptiveName + " +";
+                                    label = CreateLabel(positiveDescriptiveName, columnXform, new Vector2(0, yPos));
+                                    label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
+                                    inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Positive, label);
+                                    yPos -= _inputRowHeight;
 
-                                string negativeDescriptiveName = !string.IsNullOrEmpty(action.negativeDescriptiveName) ? action.negativeDescriptiveName : action.descriptiveName + " -";
-                                label = CreateLabel(negativeDescriptiveName, columnXform, new Vector2(0, yPos));
-                                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
-                                inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Negative, label);
-                                yPos -= _inputRowHeight;
+                                    string negativeDescriptiveName = !string.IsNullOrEmpty(action.negativeDescriptiveName) ? action.negativeDescriptiveName : action.descriptiveName + " -";
+                                    label = CreateLabel(negativeDescriptiveName, columnXform, new Vector2(0, yPos));
+                                    label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
+                                    inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Negative, label);
+                                    yPos -= _inputRowHeight;
+                                }
 
                             } else if(action.type == InputActionType.Button) {
                                 label = CreateLabel(action.descriptiveName, columnXform, new Vector2(0, yPos));
@@ -1623,20 +1671,24 @@ namespace Rewired.UI.ControlMapper {
                         GUILabel label;
                         if(action.type == InputActionType.Axis) {
 
-                            label = CreateLabel(action.descriptiveName, columnXform, new Vector2(0, yPos));
-                            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
-                            inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Full, label);
-                            yPos -= _inputRowHeight;
+                            if(_showFullAxisInputFields) {
+                                label = CreateLabel(action.descriptiveName, columnXform, new Vector2(0, yPos));
+                                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
+                                inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Full, label);
+                                yPos -= _inputRowHeight;
+                            }
 
-                            label = CreateLabel(action.positiveDescriptiveName, columnXform, new Vector2(0, yPos));
-                            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
-                            inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Positive, label);
-                            yPos -= _inputRowHeight;
+                            if(_showSplitAxisInputFields) {
+                                label = CreateLabel(action.positiveDescriptiveName, columnXform, new Vector2(0, yPos));
+                                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
+                                inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Positive, label);
+                                yPos -= _inputRowHeight;
 
-                            label = CreateLabel(action.negativeDescriptiveName, columnXform, new Vector2(0, yPos));
-                            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
-                            inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Negative, label);
-                            yPos -= _inputRowHeight;
+                                label = CreateLabel(action.negativeDescriptiveName, columnXform, new Vector2(0, yPos));
+                                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _inputRowHeight);
+                                inputGrid.AddActionLabel(set.mapCategoryId, action.id, AxisRange.Negative, label);
+                                yPos -= _inputRowHeight;
+                            }
 
                         } else if(action.type == InputActionType.Button) {
                             label = CreateLabel(action.descriptiveName, columnXform, new Vector2(0, yPos));
@@ -1689,9 +1741,11 @@ namespace Rewired.UI.ControlMapper {
                         foreach(InputAction action in ReInput.mapping.UserAssignableActionsInCategory(category.id, true)) {
 
                             if(action.type == InputActionType.Axis) {
-                                CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Full, controllerType, cols, fieldWidth, ref yPos, disableFullAxis);
-                                CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Positive, controllerType, cols, fieldWidth, ref yPos, false);
-                                CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Negative, controllerType, cols, fieldWidth, ref yPos, false);
+                                if(_showFullAxisInputFields) CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Full, controllerType, cols, fieldWidth, ref yPos, disableFullAxis);
+                                if(_showSplitAxisInputFields) {
+                                    CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Positive, controllerType, cols, fieldWidth, ref yPos, false);
+                                    CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Negative, controllerType, cols, fieldWidth, ref yPos, false);
+                                }
                             } else if(action.type == InputActionType.Button) {
                                 CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Positive, controllerType, cols, fieldWidth, ref yPos, false);
                             }
@@ -1714,9 +1768,11 @@ namespace Rewired.UI.ControlMapper {
 
                         // Draw input field buttons
                         if(action.type == InputActionType.Axis) {
-                            CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Full, controllerType, cols, fieldWidth, ref yPos, disableFullAxis);
-                            CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Positive, controllerType, cols, fieldWidth, ref yPos, false);
-                            CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Negative, controllerType, cols, fieldWidth, ref yPos, false);
+                            if(_showFullAxisInputFields) CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Full, controllerType, cols, fieldWidth, ref yPos, disableFullAxis);
+                            if(_showSplitAxisInputFields) {
+                                CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Positive, controllerType, cols, fieldWidth, ref yPos, false);
+                                CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Negative, controllerType, cols, fieldWidth, ref yPos, false);
+                            }
                         } else if(action.type == InputActionType.Button) {
                             CreateInputFieldSet(columnXform, set.mapCategoryId, action, AxisRange.Positive, controllerType, cols, fieldWidth, ref yPos, false);
                         }
@@ -1979,6 +2035,7 @@ namespace Rewired.UI.ControlMapper {
 
             // Create Input Behavior Settings button
             GUIButton button = CreateButton(_language.inputBehaviorSettingsButtonLabel, references.settingsGroup.content, Vector2.zero);
+            miscInstantiatedObjects.Add(button.gameObject);
             button.buttonInfo.OnSelectedEvent += OnUIElementSelected;
             button.SetButtonInfoData(buttonIdentifier_editInputBehaviors, 0);
             button.SetOnClickCallback(OnButtonActivated);
@@ -2629,6 +2686,11 @@ namespace Rewired.UI.ControlMapper {
                 Object.Destroy(assignedControllerButtonsPlaceholder.gameObject);
                 assignedControllerButtonsPlaceholder = null;
             }
+
+            foreach(GameObject item in miscInstantiatedObjects) {
+                Object.Destroy(item);
+            }
+            miscInstantiatedObjects.Clear();
         }
 
         private void ClearVarsOnPlayerChange() {
@@ -2650,6 +2712,7 @@ namespace Rewired.UI.ControlMapper {
             currentMapCategoryId = -1;
             playerButtons = null;
             mapCategoryButtons = null;
+            miscInstantiatedObjects = null;
             canvas = null;
             lastUISelection = null;
             currentJoystickId = -1;
@@ -2814,8 +2877,8 @@ namespace Rewired.UI.ControlMapper {
             return false;
         }
 
-        private void InspectorPropertyChanged() {
-
+        private void InspectorPropertyChanged(bool reset = false) {
+            if(reset) Reset();
         }
 
         private void AssignController(Player player, int controllerId) {
@@ -2860,6 +2923,23 @@ namespace Rewired.UI.ControlMapper {
 
             // Unassign the controller
             player.controllers.RemoveController(ControllerType.Joystick, controllerId);
+        }
+
+        private bool IsAllowedAssignment(InputMapping pendingInputMapping, ControllerPollingInfo pollingInfo) {
+            if(pendingInputMapping == null) return false;
+
+            // Determine if user settings prevent this potential assignment
+
+            // Handle user disabling of split-axis assignment fields
+            if(pendingInputMapping.axisRange == AxisRange.Full) { // this is a full-axis assignment
+
+                // If the user has disabled the split-axis fields, do not allow button or key assignments
+                if(!_showSplitAxisInputFields && pollingInfo.elementType == ControllerElementType.Button) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         #endregion

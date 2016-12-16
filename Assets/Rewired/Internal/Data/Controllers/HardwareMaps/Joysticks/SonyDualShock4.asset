@@ -115,29 +115,36 @@ MonoBehaviour:
     _name: Right Stick
     _elementType: 100
     _compoundElementType: 0
+  compoundElements:
+  - type: 0
+    elementIdentifier: 22
+    componentElementIdentifiers: 0000000001000000
+  - type: 0
+    elementIdentifier: 23
+    componentElementIdentifiers: 0200000003000000
   directInput:
+    description: 
     matchingCriteria:
       axisCount: 6
       buttonCount: 14
       disabled: 0
+      tag: 
       hatCount: 1
       productName_useRegex: 0
       productName:
       - Wireless Controller
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
       productGUID:
       - 05c4054c-0000-0000-0000-504944564944
-      productId: c4050000
+      - 0ba0054c-0000-0000-0000-504944564944
+      - 09cc054c-0000-0000-0000-504944564944
+      productId: 
       deviceType: 24
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
-      - elementIdentifier: 0
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 0
         sourceType: 1
         sourceAxis: 1
         sourceAxisRange: 0
@@ -147,12 +154,17 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 1
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
         sourceAxisRange: 0
@@ -162,12 +174,17 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 2
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
         sourceAxisRange: 0
@@ -177,12 +194,17 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 3
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 3
         sourceType: 1
         sourceAxis: 6
         sourceAxisRange: 0
@@ -192,12 +214,17 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 4
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 4
         sourceType: 1
         sourceAxis: 4
         sourceAxisRange: 0
@@ -207,12 +234,17 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 5
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 5
         sourceType: 1
         sourceAxis: 5
         sourceAxisRange: 0
@@ -222,13 +254,18 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
       buttons:
-      - elementIdentifier: 6
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 6
         sourceType: 0
         sourceButton: 1
         sourceAxis: 0
@@ -241,7 +278,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 7
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 7
         sourceType: 0
         sourceButton: 2
         sourceAxis: 0
@@ -254,7 +293,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 8
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 8
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -267,7 +308,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 9
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 9
         sourceType: 0
         sourceButton: 3
         sourceAxis: 0
@@ -280,7 +323,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 10
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 10
         sourceType: 0
         sourceButton: 4
         sourceAxis: 0
@@ -293,7 +338,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 11
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 11
         sourceType: 0
         sourceButton: 5
         sourceAxis: 0
@@ -306,7 +353,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 12
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 12
         sourceType: 0
         sourceButton: 8
         sourceAxis: 0
@@ -319,7 +368,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 13
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 13
         sourceType: 0
         sourceButton: 9
         sourceAxis: 0
@@ -332,7 +383,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 14
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 14
         sourceType: 0
         sourceButton: 12
         sourceAxis: 0
@@ -345,7 +398,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 15
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 15
         sourceType: 0
         sourceButton: 13
         sourceAxis: 0
@@ -358,7 +413,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 16
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 16
         sourceType: 0
         sourceButton: 10
         sourceAxis: 0
@@ -371,7 +428,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 17
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 17
         sourceType: 0
         sourceButton: 11
         sourceAxis: 0
@@ -384,7 +443,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 18
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 18
         sourceType: 2
         sourceButton: 11
         sourceAxis: 0
@@ -397,7 +458,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 19
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 19
         sourceType: 2
         sourceButton: 11
         sourceAxis: 0
@@ -410,7 +473,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 20
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 20
         sourceType: 2
         sourceButton: 11
         sourceAxis: 0
@@ -423,7 +488,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 21
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 21
         sourceType: 2
         sourceButton: 11
         sourceAxis: 0
@@ -436,11 +503,14 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   rawInput:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       productName_useRegex: 0
       productName: []
@@ -448,41 +518,39 @@ MonoBehaviour:
       productId: 
       deviceType: 0
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   xInput:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       subType: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   osx:
+    description: 
     matchingCriteria:
       axisCount: 6
       buttonCount: 14
       disabled: 0
+      tag: 
       hatCount: 1
       productName_useRegex: 0
       productName:
       - Wireless Controller
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
       manufacturer:
       - Sony Computer Entertainment
-      - Unknown
-      productId: c4050000
-      vendorId: 4c050000
+      - Sony Interactive Entertainment
+      productId: c4050000a00b0000cc090000
+      vendorId: 4c0500004c0500004c050000
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -496,6 +564,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -513,6 +584,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -530,6 +604,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -547,6 +624,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -564,6 +644,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -581,6 +664,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -827,30 +913,30 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   linux:
+    description: 
     matchingCriteria:
       axisCount: 6
       buttonCount: 14
       disabled: 0
+      tag: 
       hatCount: 1
       manufacturer_useRegex: 0
       productName_useRegex: 0
       systemName_useRegex: 0
       manufacturer:
       - 'Sony Computer Entertainment '
+      - Sony Interactive Entertainment
       productName:
       - Wireless Controller
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
       systemName: []
       productGUID:
       - 05c4054c-0000-0000-0000-504944564944
+      - 0ba0054c-0000-0000-0000-504944564944
+      - 09cc054c-0000-0000-0000-504944564944
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -862,6 +948,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -877,6 +966,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -892,6 +984,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -907,6 +1002,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -922,6 +1020,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -937,6 +1038,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1151,27 +1255,362 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants:
+    - description: SteamOS driver
+      matchingCriteria:
+        axisCount: 12
+        buttonCount: 14
+        disabled: 0
+        tag: 
+        hatCount: 1
+        manufacturer_useRegex: 0
+        productName_useRegex: 0
+        systemName_useRegex: 0
+        manufacturer:
+        - 'Sony Computer Entertainment '
+        productName:
+        - Wireless Controller
+        systemName: []
+        productGUID:
+        - 05c4054c-0000-0000-0000-504944564944
+      elements:
+        axes:
+        - elementIdentifier: 0
+          sourceType: 1
+          sourceAxis: 0
+          sourceAxisRange: 0
+          invert: 0
+          axisDeadZone: .150000006
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+          sourceButton: 0
+          buttonAxisContribution: 0
+          sourceHat: 0
+          sourceHatDirection: 0
+          sourceHatRange: 0
+        - elementIdentifier: 1
+          sourceType: 1
+          sourceAxis: 1
+          sourceAxisRange: 0
+          invert: 1
+          axisDeadZone: .150000006
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+          sourceButton: 0
+          buttonAxisContribution: 0
+          sourceHat: 0
+          sourceHatDirection: 0
+          sourceHatRange: 0
+        - elementIdentifier: 2
+          sourceType: 1
+          sourceAxis: 2
+          sourceAxisRange: 0
+          invert: 0
+          axisDeadZone: .150000006
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+          sourceButton: 0
+          buttonAxisContribution: 0
+          sourceHat: 0
+          sourceHatDirection: 0
+          sourceHatRange: 0
+        - elementIdentifier: 3
+          sourceType: 1
+          sourceAxis: 5
+          sourceAxisRange: 0
+          invert: 1
+          axisDeadZone: .150000006
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+          sourceButton: 0
+          buttonAxisContribution: 0
+          sourceHat: 0
+          sourceHatDirection: 0
+          sourceHatRange: 0
+        - elementIdentifier: 4
+          sourceType: 1
+          sourceAxis: 3
+          sourceAxisRange: 0
+          invert: 0
+          axisDeadZone: 0
+          calibrateAxis: 1
+          axisZero: -1
+          axisMin: -1
+          axisMax: 1
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+          sourceButton: 0
+          buttonAxisContribution: 0
+          sourceHat: 0
+          sourceHatDirection: 0
+          sourceHatRange: 0
+        - elementIdentifier: 5
+          sourceType: 1
+          sourceAxis: 4
+          sourceAxisRange: 0
+          invert: 0
+          axisDeadZone: 0
+          calibrateAxis: 1
+          axisZero: -1
+          axisMin: -1
+          axisMax: 1
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+          sourceButton: 0
+          buttonAxisContribution: 0
+          sourceHat: 0
+          sourceHatDirection: 0
+          sourceHatRange: 0
+        buttons:
+        - elementIdentifier: 6
+          sourceType: 0
+          sourceButton: 1
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 7
+          sourceType: 0
+          sourceButton: 2
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 8
+          sourceType: 0
+          sourceButton: 0
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 9
+          sourceType: 0
+          sourceButton: 3
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 10
+          sourceType: 0
+          sourceButton: 4
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 11
+          sourceType: 0
+          sourceButton: 5
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 12
+          sourceType: 0
+          sourceButton: 8
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 13
+          sourceType: 0
+          sourceButton: 9
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 14
+          sourceType: 0
+          sourceButton: 12
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 15
+          sourceType: 0
+          sourceButton: 13
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 16
+          sourceType: 0
+          sourceButton: 10
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 17
+          sourceType: 0
+          sourceButton: 11
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 18
+          sourceType: 2
+          sourceButton: 11
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 0
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 19
+          sourceType: 2
+          sourceButton: 11
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 1
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 20
+          sourceType: 2
+          sourceButton: 11
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 2
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 21
+          sourceType: 2
+          sourceButton: 11
+          sourceAxis: 0
+          sourceAxisPole: 0
+          axisDeadZone: 0
+          sourceHat: 0
+          sourceHatType: 0
+          sourceHatDirection: 3
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
   windowsUWP:
+    description: 
     matchingCriteria:
       axisCount: 6
       buttonCount: 14
       disabled: 0
+      tag: 
       hatCount: 1
       manufacturer_useRegex: 0
       productName_useRegex: 0
       manufacturer: []
       productName:
       - Wireless Controller
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
       productGUID:
       - 05c4054c-0000-0000-0000-504944564944
+      - 0ba0054c-0000-0000-0000-504944564944
+      - 09cc054c-0000-0000-0000-504944564944
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -1183,6 +1622,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1198,6 +1640,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1213,6 +1658,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1228,6 +1676,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1243,6 +1694,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1258,6 +1712,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1472,23 +1929,23 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   fallback_Windows:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
       - Wireless Controller
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -1505,6 +1962,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -1520,6 +1980,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -1535,6 +1998,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 6
@@ -1550,6 +2016,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 4
@@ -1565,6 +2034,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 5
@@ -1580,6 +2052,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -1917,23 +2392,40 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
+  fallback_WindowsUWP:
+    description: 
+    matchingCriteria:
+      axisCount: 0
+      buttonCount: 0
+      disabled: 0
+      tag: 
+      alwaysMatch: 0
+      productName_useRegex: 0
+      productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
+    elements:
+      axes: []
+      buttons: []
+    variants: []
   fallback_OSX:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
       - Sony Computer Entertainment Wireless Controller
+      - "Sony Interactive Entertainment DUALSHOCK\xAE4 USB Wireless Adaptor"
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -1950,6 +2442,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -1965,6 +2460,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -1980,6 +2478,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 4
@@ -1995,6 +2496,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 5
@@ -2010,6 +2514,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 6
@@ -2025,6 +2532,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -2362,24 +2872,25 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   fallback_Linux:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
       - Sony Computer Entertainment Wireless Controller
       - Wireless Controller
+      - "Sony Interactive Entertainment DUALSHOCK\xAE4 USB Wireless Adaptor"
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -2396,6 +2907,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -2411,6 +2925,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -2426,6 +2943,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 6
@@ -2441,6 +2961,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 4
@@ -2456,6 +2979,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 5
@@ -2471,6 +2997,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -2808,24 +3337,25 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   fallback_Linux_PreConfigured:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
       - Sony Computer Entertainment Wireless Controller
       - Wireless Controller
+      - "Sony Interactive Entertainment DUALSHOCK\xAE4 USB Wireless Adaptor"
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -2842,6 +3372,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -2857,6 +3390,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 4
@@ -2872,6 +3408,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 5
@@ -2887,6 +3426,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 3
@@ -2902,6 +3444,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 6
@@ -2917,6 +3462,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -3254,23 +3802,23 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   fallback_Android:
+    description: Unity 4.x
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
       - Sony Computer Entertainment Wireless Controller
+      - "Sony Interactive Entertainment DUALSHOCK\xAE4 USB Wireless Adaptor"
+      matchUnityVersion: 1
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 4.x
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -3287,6 +3835,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -3302,6 +3853,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -3317,6 +3871,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 4
@@ -3332,6 +3889,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 14
@@ -3347,6 +3907,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 15
@@ -3362,6 +3925,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -3699,95 +4265,585 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants:
+    - description: Unity 5.x+
+      matchingCriteria:
+        axisCount: 0
+        buttonCount: 0
+        disabled: 0
+        tag: 
+        alwaysMatch: 0
+        productName_useRegex: 0
+        productName:
+        - Sony Computer Entertainment Wireless Controller
+        - "Sony Interactive Entertainment DUALSHOCK\xAE4 USB Wireless Adaptor"
+        matchUnityVersion: 1
+        matchUnityVersion_min: 5.x
+        matchUnityVersion_max: 
+      elements:
+        axes:
+        - elementIdentifier: 0
+          sourceType: 1
+          sourceAxis: 1
+          axisDeadZone: .150000006
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          invert: 0
+          sourceAxisRange: 0
+          buttonAxisContribution: 0
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+        - elementIdentifier: 1
+          sourceType: 1
+          sourceAxis: 2
+          axisDeadZone: .150000006
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          invert: 1
+          sourceAxisRange: 0
+          buttonAxisContribution: 0
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+        - elementIdentifier: 2
+          sourceType: 1
+          sourceAxis: 14
+          axisDeadZone: .150000006
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          invert: 0
+          sourceAxisRange: 0
+          buttonAxisContribution: 0
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+        - elementIdentifier: 3
+          sourceType: 1
+          sourceAxis: 15
+          axisDeadZone: .150000006
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          invert: 1
+          sourceAxisRange: 0
+          buttonAxisContribution: 0
+          calibrateAxis: 0
+          axisZero: 0
+          axisMin: 0
+          axisMax: 0
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+        - elementIdentifier: 4
+          sourceType: 1
+          sourceAxis: 3
+          axisDeadZone: 0
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          invert: 0
+          sourceAxisRange: 0
+          buttonAxisContribution: 0
+          calibrateAxis: 1
+          axisZero: -1
+          axisMin: -1
+          axisMax: 1
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+        - elementIdentifier: 5
+          sourceType: 1
+          sourceAxis: 4
+          axisDeadZone: 0
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          invert: 0
+          sourceAxisRange: 0
+          buttonAxisContribution: 0
+          calibrateAxis: 1
+          axisZero: -1
+          axisMin: -1
+          axisMax: 1
+          axisInfo:
+            _dataFormat: 0
+            _excludeFromPolling: 0
+        buttons:
+        - elementIdentifier: 6
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 2
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 7
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 14
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 8
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 1
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 9
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 3
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 10
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 4
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 11
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 15
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 12
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 7
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 13
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 8
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 14
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 13
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 15
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 9
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 16
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 12
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 17
+          sourceType: 0
+          sourceAxis: 0
+          axisDeadZone: 0
+          sourceButton: 11
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 18
+          sourceType: 1
+          sourceAxis: 6
+          axisDeadZone: .100000001
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 1
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 19
+          sourceType: 1
+          sourceAxis: 5
+          axisDeadZone: .100000001
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 20
+          sourceType: 1
+          sourceAxis: 6
+          axisDeadZone: .100000001
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 0
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
+        - elementIdentifier: 21
+          sourceType: 1
+          sourceAxis: 5
+          axisDeadZone: .100000001
+          sourceButton: 0
+          sourceKeyCode: 0
+          customCalculation: {fileID: 0}
+          customCalculationSourceData: []
+          sourceAxisPole: 1
+          unityHat_sourceAxis1: 0
+          unityHat_sourceAxis2: 0
+          unityHat_isActiveAxisValues1: {x: 0, y: 0}
+          unityHat_isActiveAxisValues2: {x: 0, y: 0}
+          unityHat_isActiveAxisValues3: {x: 0, y: 0}
+          unityHat_zeroValues: {x: 0, y: 0}
+          unityHat_checkNeverPressed: 0
+          unityHat_neverPressedZeroValues: {x: 0, y: 0}
+          requireMultipleButtons: 0
+          requiredButtons: 
+          ignoreIfButtonsActive: 0
+          ignoreIfButtonsActiveButtons: 
   fallback_iOS:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_Blackberry:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_WindowsPhone8:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_XBox360:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_XBoxOne:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_PS3:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_PS4:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 1
       productName:
       - .*controller.*
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -3804,6 +4860,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -3819,6 +4878,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 4
@@ -3834,6 +4896,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 5
@@ -3849,6 +4914,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 8
@@ -3864,6 +4932,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 3
@@ -3879,6 +4950,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -4174,71 +5248,90 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   fallback_PSM:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_PSVita:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_Wii:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_WiiU:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   fallback_AmazonFireTV:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
       - Wireless Controller
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -4255,6 +5348,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -4270,6 +5366,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -4285,6 +5384,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 3
         sourceType: 1
         sourceAxis: 4
@@ -4300,6 +5402,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 4
         sourceType: 1
         sourceAxis: 13
@@ -4315,6 +5420,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 5
         sourceType: 1
         sourceAxis: 12
@@ -4330,6 +5438,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 6
         sourceType: 0
@@ -4646,61 +5757,62 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
+    variants: []
   fallback_RazerForgeTV:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
+      matchUnityVersion: 0
+      matchUnityVersion_min: 
+      matchUnityVersion_max: 
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   ouya:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   xboxOne:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
     elements:
-      compoundElements: []
       axes: []
       buttons: []
-  internalDriver:
+    variants: []
+  ps4:
+    description: 
     matchingCriteria:
-      axisCount: 6
-      buttonCount: 14
+      axisCount: 0
+      buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
-      productName_useRegex: 0
+      productName_useRegex: 1
       productName:
-      - Wireless Controller
-      vidPid:
-      - vendorId: 1476
-        productId: 1356
-      hatCount: 1
+      - Gamepad [0-9]+
     elements:
-      compoundElements:
-      - type: 0
-        elementIdentifier: 22
-        componentElementIdentifiers: 0000000001000000
-      - type: 0
-        elementIdentifier: 23
-        componentElementIdentifiers: 0200000003000000
       axes:
       - elementIdentifier: 0
         sourceType: 1
@@ -4714,6 +5826,205 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
+      - elementIdentifier: 1
+        sourceType: 1
+        sourceAxis: 1
+        axisDeadZone: .150000006
+        sourceButton: 0
+        invert: 1
+        sourceAxisRange: 0
+        buttonAxisContribution: 0
+        calibrateAxis: 0
+        axisZero: 0
+        axisMin: 0
+        axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
+      - elementIdentifier: 2
+        sourceType: 1
+        sourceAxis: 2
+        axisDeadZone: .150000006
+        sourceButton: 0
+        invert: 0
+        sourceAxisRange: 0
+        buttonAxisContribution: 0
+        calibrateAxis: 0
+        axisZero: 0
+        axisMin: 0
+        axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
+      - elementIdentifier: 3
+        sourceType: 1
+        sourceAxis: 3
+        axisDeadZone: .150000006
+        sourceButton: 0
+        invert: 1
+        sourceAxisRange: 0
+        buttonAxisContribution: 0
+        calibrateAxis: 0
+        axisZero: 0
+        axisMin: 0
+        axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
+      - elementIdentifier: 4
+        sourceType: 1
+        sourceAxis: 4
+        axisDeadZone: 0
+        sourceButton: 0
+        invert: 0
+        sourceAxisRange: 0
+        buttonAxisContribution: 0
+        calibrateAxis: 0
+        axisZero: 0
+        axisMin: 0
+        axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
+      - elementIdentifier: 5
+        sourceType: 1
+        sourceAxis: 5
+        axisDeadZone: 0
+        sourceButton: 0
+        invert: 1
+        sourceAxisRange: 0
+        buttonAxisContribution: 0
+        calibrateAxis: 0
+        axisZero: 0
+        axisMin: 0
+        axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
+      buttons:
+      - elementIdentifier: 6
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 0
+        sourceAxisPole: 0
+      - elementIdentifier: 7
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 1
+        sourceAxisPole: 0
+      - elementIdentifier: 8
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 2
+        sourceAxisPole: 0
+      - elementIdentifier: 9
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 3
+        sourceAxisPole: 0
+      - elementIdentifier: 10
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 4
+        sourceAxisPole: 0
+      - elementIdentifier: 11
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 5
+        sourceAxisPole: 0
+      - elementIdentifier: 13
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 7
+        sourceAxisPole: 0
+      - elementIdentifier: 15
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 6
+        sourceAxisPole: 0
+      - elementIdentifier: 16
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 8
+        sourceAxisPole: 0
+      - elementIdentifier: 17
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 9
+        sourceAxisPole: 0
+      - elementIdentifier: 18
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 10
+        sourceAxisPole: 0
+      - elementIdentifier: 19
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 11
+        sourceAxisPole: 0
+      - elementIdentifier: 20
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 12
+        sourceAxisPole: 0
+      - elementIdentifier: 21
+        sourceType: 0
+        sourceAxis: 0
+        axisDeadZone: 0
+        sourceButton: 13
+        sourceAxisPole: 0
+    variants: []
+  internalDriver:
+    description: 
+    matchingCriteria:
+      axisCount: 6
+      buttonCount: 14
+      disabled: 0
+      tag: 
+      alwaysMatch: 0
+      productName_useRegex: 0
+      productName:
+      - Wireless Controller
+      - "DUALSHOCK\xAE4 USB Wireless Adaptor"
+      vidPid:
+      - vendorId: 1356
+        productId: 1476
+      - vendorId: 1356
+        productId: 2976
+      hatCount: 1
+    elements:
+      axes:
+      - elementIdentifier: 0
+        sourceType: 1
+        sourceAxis: 0
+        axisDeadZone: .150000006
+        sourceButton: 0
+        invert: 0
+        sourceAxisRange: 0
+        buttonAxisContribution: 0
+        calibrateAxis: 0
+        axisZero: 0
+        axisMin: 0
+        axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatType: 0
@@ -4730,6 +6041,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatType: 0
@@ -4746,6 +6060,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatType: 0
@@ -4762,6 +6079,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatType: 0
@@ -4778,6 +6098,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatType: 0
@@ -4794,6 +6117,9 @@ MonoBehaviour:
         axisZero: -1
         axisMin: -1
         axisMax: 1
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatType: 0
@@ -4943,11 +6269,14 @@ MonoBehaviour:
         sourceHat: 0
         sourceHatDirection: 3
         sourceHatType: 0
+    variants: []
   sdl2_Linux:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -4957,14 +6286,16 @@ MonoBehaviour:
       systemName: []
       productGUID: []
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   sdl2_Windows:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -4974,14 +6305,16 @@ MonoBehaviour:
       systemName: []
       productGUID: []
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   sdl2_OSX:
+    description: 
     matchingCriteria:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -4991,7 +6324,7 @@ MonoBehaviour:
       systemName: []
       productGUID: []
     elements:
-      compoundElements: []
       axes: []
       buttons: []
+    variants: []
   elementIdentifierIdCounter: 24

@@ -22,45 +22,89 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
-            rBody.sleepThreshold = 0.5f;
+            rBody.sleepThreshold = 0.005f;
             if (rBody.IsSleeping())
             {
                 return;
             }
 
+            Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
             Vector3 frontForce, rearForce, frontPos, rearPos;
             Vector3 _avgForce = Vector3.zero, _avgPos = Vector3.zero;
             float pushingAxes = 0;
-            float frontContact = 0, rearContact=0;
+            int frontContacts = 0, rearContacts=0;
 
-            if ((frontContact=frontWheels.GetAppliedForces(out frontForce, out frontPos)) > 0){
+            frontContacts = frontWheels.GetContacts(out contactFL, out contactFR);
+            rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
+            int contacts = frontContacts + rearContacts;
+
+            if (contacts > 0)
+            {
+                if (frontContacts > 0)
+                {
+
+                    rBody.AddForceAtPosition(
+                        contactFL.pushForce,// / (float)(contacts),
+                        contactFL.pushPoint,
+                        ForceMode.Acceleration);
+
+                    rBody.AddForceAtPosition(
+                         contactFR.pushForce,// / (float)(contacts),
+                         contactFR.pushPoint,
+                         ForceMode.Acceleration);
+
+                }
+
+                if (rearContacts > 0)
+                {
+                    rBody.AddForceAtPosition(
+                         contactRL.pushForce ,/// (float)(contacts),
+                         contactRL.pushPoint,
+                         ForceMode.Acceleration);
+
+                    rBody.AddForceAtPosition(
+                         contactRR.pushForce,// / (float)(contacts),
+                         contactRR.pushPoint,
+                         ForceMode.Acceleration);
+                }
+            }
+
+            /*
+              rBody.AddForceAtPosition(
+                  avgForce=(frontForce+rearForce) / (float)(contacts*2f),
+                  avgPos=rBody.transform.position+ transform.rotation*Vector3.Lerp(frontPos,rearPos,0.5f),
+                  ForceMode.Acceleration);
+            */
+
+#if _
+            if ((frontContact=frontWheels.GetAppliedAvgForces(out frontForce, out frontPos)) > 0){
                 _avgForce += frontForce;
                 _avgPos += frontPos;
                 pushingAxes++;
-                rBody.AddForceAtPosition(frontForce, frontPos/* + transform.rotation * rBody.centerOfMass*/, ForceMode.Acceleration);
+          //     rBody.AddForceAtPosition(frontForce*0.5f, frontPos/* + transform.rotation * rBody.centerOfMass*/, ForceMode.Acceleration);
             }
 
-            if ((rearContact = rearWheels.GetAppliedForces(out rearForce, out rearPos)) > 0)
+            if ((rearContact = rearWheels.GetAppliedAvgForces(out rearForce, out rearPos)) > 0)
             {
                 _avgForce += rearForce;
                 _avgPos += rearPos;
                 pushingAxes++;
-                rBody.AddForceAtPosition(rearForce, rearPos/* + transform.rotation * rBody.centerOfMass*/, ForceMode.Acceleration);
+             //  rBody.AddForceAtPosition(rearForce * 0.5f, rearPos/* + transform.rotation * rBody.centerOfMass*/, ForceMode.Acceleration);
             }
 
             if (pushingAxes > 0)
             {
-   /*
+   
                 const float interp = 1f;
-                avgForce = Vector3.Lerp(avgForce, _avgForce, interp);
-                avgPos = Vector3.Lerp(avgPos, _avgPos, interp);
+                avgForce = Vector3.Lerp(avgForce, _avgForce/ pushingAxes, interp);
+                avgPos = Vector3.Lerp(avgPos, _avgPos/ pushingAxes, interp);
                 //Debug.Log("Wheels " + avgForce + " - " + avgPos);
                 //rBody.AddForceAtPosition(-Physics.gravity+Vector3.Reflect( rBody.velocity/Time.fixedDeltaTime,-Physics.gravity.normalized), transform.position + transform.rotation*rBody.centerOfMass, ForceMode.Acceleration);
                 rBody.AddForceAtPosition(avgForce, avgPos, ForceMode.Acceleration);
                 /* + transform.rotation * rBody.centerOfMass*/
             }
 
-
+#endif
         }
 
         private void OnValidate()

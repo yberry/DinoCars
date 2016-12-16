@@ -130,12 +130,14 @@ namespace Rewired.Demos {
         private void HandleMenuControl() {
             if(dialog.enabled) return; // don't allow closing the menu while dialog is open so there won't be issues remapping the Menu button
 
-            if(ReInput.players.GetSystemPlayer().GetButtonDown("Menu")) {
-                if(showMenu) { // menu is open and will be closed
-                    SaveAllMaps(); // save all maps when menu is closed
-                    Close();
-                } else {
-                    Open();
+            if(Event.current.type == EventType.Layout) {
+                if(ReInput.players.GetSystemPlayer().GetButtonDown("Menu")) {
+                    if(showMenu) { // menu is open and will be closed
+                        SaveAllMaps(); // save all maps when menu is closed
+                        Close();
+                    } else {
+                        Open();
+                    }
                 }
             }
         }
@@ -1154,8 +1156,13 @@ namespace Rewired.Demos {
             string message;
             if(entry.controllerType == ControllerType.Keyboard) {
 
-                if(Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXWebPlayer) {
-                    message = "Press any key to assign it to this action. You may also use the modifier keys Command, Control, Alt, and Shift. If you wish to assign a modifier key ifselt this action, press and hold the key for 1 second.";
+#if UNITY_5_4_OR_NEWER
+                bool isOSX = Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer;
+#else
+                bool isOSX = Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXWebPlayer;
+#endif
+                if(isOSX) {
+                    message = "Press any key to assign it to this action. You may also use the modifier keys Command, Control, Alt, and Shift. If you wish to assign a modifier key itself to this action, press and hold the key for 1 second.";
                 } else {
                     message = "Press any key to assign it to this action. You may also use the modifier keys Control, Alt, and Shift. If you wish to assign a modifier key itself to this action, press and hold the key for 1 second.";
                 }
