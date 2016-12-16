@@ -10,6 +10,12 @@ public class WaveDeformer : TriggerDeformer {
 
     Transform[] dummySpheres;
 
+    Vector3 localSize;
+    Vector3 worldSize;
+    Vector3 partX;
+    Vector3 partY;
+    Vector3 partZ;
+
     void Start()
     {
         dummySpheres = new Transform[subdivisionX * subdivisionY * subdivisionZ];
@@ -23,17 +29,17 @@ public class WaveDeformer : TriggerDeformer {
                 }
             }
         }
+
+        localSize = transform.localScale;
+        worldSize = transform.rotation * localSize;
+        partX = transform.right * (localSize.x / Mathf.Max(1, subdivisionX - 1));
+        partY = transform.up * (localSize.y / Mathf.Max(1, subdivisionY - 1));
+        partZ = transform.forward * (localSize.z / Mathf.Max(1, subdivisionZ - 1));
     }
 
     protected override void ApplyDeformation()
     {
-        Bounds bounds = col.bounds;
-        Vector3 size = bounds.size;
-        Vector3 min = bounds.min;
-
-        Vector3 partX = transform.right * (size.x / Mathf.Max(1, subdivisionX - 1));
-        Vector3 partY = transform.up * (size.y / Mathf.Max(1, subdivisionY - 1));
-        Vector3 partZ = transform.forward * (size.z / Mathf.Max(1, subdivisionZ - 1));
+        Vector3 min = transform.position - worldSize * 0.5f;
 
         for (int x = 0, i = 0; x < subdivisionX; x++)
         {
