@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshCollider))]
+[RequireComponent(typeof(MeshFilter), typeof(MeshCollider), typeof(Rigidbody))]
 public class MeshDeformer : MonoBehaviour {
 
     public float springForce = 20f;

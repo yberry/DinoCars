@@ -13,22 +13,22 @@ public abstract class TriggerDeformer : MonoBehaviour {
     [Range(1, 100)]
     public int subdivisionZ = 1;
 
-    [Header("Force")]
+    [Header("Force & Speed")]
     public float force = 500f;
     public float forceOffset = 0.1f;
+    public float speed = 0.2f;
 
-    public MeshDeformer meshDeformer;
-
+    protected MeshDeformer meshDeformer;
     protected Collider col;
 
-    void Start()
+    void Awake()
     {
         col = GetComponent<Collider>();
     }
 
     void Update()
     {
-        transform.localPosition += 0.2f * transform.forward;
+        transform.localPosition += speed * Vector3.forward;
     }
 
     protected abstract void ApplyDeformation();
@@ -38,6 +38,14 @@ public abstract class TriggerDeformer : MonoBehaviour {
         if (coll.name == meshDeformer.name)
         {
             ApplyDeformation();
+        }
+    }
+
+    public void SetDeformer(MeshDeformer mD)
+    {
+        if (mD)
+        {
+            meshDeformer = mD;
         }
     }
 }

@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 574791439}
+  - component: {fileID: 574791440}
   m_Layer: 0
   m_Name: Moving Field
   m_TagString: Untagged
@@ -112,15 +113,28 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 574791438}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 0, y: -15.829376, z: 0.7769985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1879515809}
   - {fileID: 996281535}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+--- !u!114 &574791440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574791438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bc4797b82730643939cd2b17158ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDeformer: {fileID: 1879515805}
+  meshDeformer: {fileID: 996281530}
 --- !u!1 &996281529
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,11 +665,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subdivisionX: 10
-  subdivisionY: 5
+  subdivisionY: 2
   subdivisionZ: 1
   force: 500
-  forceOffset: -30
-  meshDeformer: {fileID: 996281530}
+  forceOffset: 0
+  speed: 0.2
+  dummySpherePrefab: {fileID: 1688632605818386, guid: b086fe3e90462cf40b5c9172eb2cf9da,
+    type: 2}
 --- !u!65 &1879515808
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -675,8 +691,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1879515804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.3, y: 9.7699995, z: -47.9}
-  m_LocalScale: {x: 55.340878, y: 55.340836, z: 9.699285}
+  m_LocalPosition: {x: 17.6, y: -8.8, z: -47.9}
+  m_LocalScale: {x: 49.811935, y: 40.21951, z: 8.730258}
   m_Children: []
   m_Father: {fileID: 574791439}
   m_RootOrder: 0
@@ -719,6 +735,10 @@ Prefab:
     - target: {fileID: 4506460982348466, guid: b3ecf04d36a91104699a77efba9f1766, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839989032449584, guid: b3ecf04d36a91104699a77efba9f1766, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3ecf04d36a91104699a77efba9f1766, type: 2}
