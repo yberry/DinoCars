@@ -18,7 +18,7 @@ namespace CND.Car
         KPH
     }
 
-    public partial class CarController : MonoBehaviour
+    public partial class CarController : BaseCarController
     {
 
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.FourWheelDrive;
@@ -203,7 +203,7 @@ namespace CND.Car
         }
 
 
-        public void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
+        public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
 
             if (boost)

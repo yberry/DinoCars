@@ -10,14 +10,14 @@ public class CarReInput : MonoBehaviour {
     [DisplayModifier(true)]
     public Rewired.Player pInput;
     [DisplayModifier(true)]
-    public CarController car;
+    public BaseCarController car;
 
     public bool useKeyboard;
     // Use this for initialization
     void Start () {
 
         BindPlayerSlot();
-        car = GetComponent<CarController>();
+        car = GetComponent<BaseCarController>();
     }
 
     private void FixedUpdate()

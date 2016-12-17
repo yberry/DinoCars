@@ -29,10 +29,12 @@ namespace CND.Car
             public float springForce;
             [Range(float.Epsilon, 1000000f)]
             public float damping;
-    
+            [Range(float.Epsilon, 1f)]
+            public float stiffness;
+
             public Settings(float wheelRadius,float baseSpringLength=1,
                 float maxCompression=0.5f,float maxExpansion=1.25f,
-                float springForce=1000f,float damping = 1f)
+                float springForce=1000f,float damping = 1f,float stiffness=1f)
             {
                 this.wheelRadius = wheelRadius;
                 this.baseSpringLength = baseSpringLength;
@@ -40,6 +42,7 @@ namespace CND.Car
                 this.maxExpansion = maxExpansion;
                 this.springForce = springForce;
                 this.damping = damping;
+                this.stiffness = stiffness;
             }
 
             /*public Settings(bool useDefaults) : this(wheelRadius)
@@ -123,10 +126,16 @@ namespace CND.Car
                 var shockCancel = -(vel);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
                 var stickToFloor = (-grav+ shockCancel);
-                var pushForce = Vector3.Lerp(
-                    stickToFloor* curContactInfo.springCompression*Mathf.Max(Time.fixedDeltaTime, 1f- Time.fixedDeltaTime*settings.damping)/**(1f-Time.fixedDeltaTime*settings.damping)*/,
-                    stickToFloor * curContactInfo.springCompression * Mathf.Max(1f- Time.fixedDeltaTime, 1f + Time.fixedDeltaTime * settings.springForce),
-                    curContactInfo.springCompression);//.normalized * Mathf.Max(gravity.magnitude, vel.magnitude);// settings.springForce* Time.fixedDeltaTime;
+                var springDamp = Mathf.Clamp( 1f - dist.magnitude * Time.fixedDeltaTime * settings.damping * -downVel, Time.fixedDeltaTime, 1f);
+                var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + dist.magnitude * Time.fixedDeltaTime * settings.springForce * -downVel);
+                var springResistance = Mathf.Lerp(
+                    curContactInfo.springCompression* curContactInfo.springCompression* curContactInfo.springCompression,
+                    Mathf.Clamp01(curContactInfo.springCompression*2f), settings.stiffness);
+
+                Vector3 pushForce = Vector3.Lerp(
+                    stickToFloor* springResistance * springDamp,
+                    stickToFloor * springResistance * springExpand,
+                     curContactInfo.springCompression);
 
                 curContactInfo.pushForce = pushForce;
                 /* curContactInfo.pushForce = Vector3.Lerp(

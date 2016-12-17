@@ -11,6 +11,8 @@ namespace CND.Car
         public WheelPair frontWheels;
         public WheelPair rearWheels;
 
+        [HideInInspector]
+        public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
 
         private Vector3 avgForce = Vector3.zero, avgPos = Vector3.zero;
         // Use this for initialization
@@ -22,17 +24,22 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
+            ManageSuspensions();
+        }
+
+        private void ManageSuspensions()
+        {
             rBody.sleepThreshold = 0.005f;
             if (rBody.IsSleeping())
             {
                 return;
             }
 
-            Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
+            
             Vector3 frontForce, rearForce, frontPos, rearPos;
             Vector3 _avgForce = Vector3.zero, _avgPos = Vector3.zero;
             float pushingAxes = 0;
-            int frontContacts = 0, rearContacts=0;
+            int frontContacts = 0, rearContacts = 0;
 
             frontContacts = frontWheels.GetContacts(out contactFL, out contactFR);
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
@@ -44,12 +51,12 @@ namespace CND.Car
                 {
 
                     rBody.AddForceAtPosition(
-                        contactFL.pushForce,// / (float)(contacts),
+                        contactFL.pushForce,/// (float)(contacts),
                         contactFL.pushPoint,
                         ForceMode.Acceleration);
 
                     rBody.AddForceAtPosition(
-                         contactFR.pushForce,// / (float)(contacts),
+                         contactFR.pushForce,/// (float)(contacts),
                          contactFR.pushPoint,
                          ForceMode.Acceleration);
 
@@ -58,7 +65,7 @@ namespace CND.Car
                 if (rearContacts > 0)
                 {
                     rBody.AddForceAtPosition(
-                         contactRL.pushForce ,/// (float)(contacts),
+                         contactRL.pushForce,/// (float)(contacts),
                          contactRL.pushPoint,
                          ForceMode.Acceleration);
 
