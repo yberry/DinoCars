@@ -25,6 +25,11 @@ namespace CND.Car
                 right.transform.position = parent.position + parent.rotation * positionOffset;
 
             }
+
+            public void SetSteeringRotation(float degAngle)
+            {
+                left.steerAngleDeg = right.steerAngleDeg = degAngle;
+            }
             
             public int GetContacts(out Wheel.ContactInfo leftContact, out Wheel.ContactInfo rightContact)
             {

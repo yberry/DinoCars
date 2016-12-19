@@ -24,7 +24,14 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
+           
             ManageSuspensions();
+        }
+
+        public void SetSteering(float degAngle)
+        {
+            frontWheels.SetSteeringRotation(degAngle);
+            //rearWheels.SetSteeringRotation(degAngle);
         }
 
         private void ManageSuspensions()
@@ -51,12 +58,12 @@ namespace CND.Car
                 {
 
                     rBody.AddForceAtPosition(
-                        contactFL.pushForce,/// (float)(contacts),
+                        contactFL.upForce,/// (float)(contacts),
                         contactFL.pushPoint,
                         ForceMode.Acceleration);
 
                     rBody.AddForceAtPosition(
-                         contactFR.pushForce,/// (float)(contacts),
+                         contactFR.upForce,/// (float)(contacts),
                          contactFR.pushPoint,
                          ForceMode.Acceleration);
 
@@ -65,12 +72,12 @@ namespace CND.Car
                 if (rearContacts > 0)
                 {
                     rBody.AddForceAtPosition(
-                         contactRL.pushForce,/// (float)(contacts),
+                         contactRL.upForce,/// (float)(contacts),
                          contactRL.pushPoint,
                          ForceMode.Acceleration);
 
                     rBody.AddForceAtPosition(
-                         contactRR.pushForce,// / (float)(contacts),
+                         contactRR.upForce,// / (float)(contacts),
                          contactRR.pushPoint,
                          ForceMode.Acceleration);
                 }
