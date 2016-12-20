@@ -22,7 +22,7 @@ namespace CND.Car
                 if (lockPositions) return;
 
                 left.transform.position = parent.position + parent.rotation * new Vector3(-positionOffset.x, positionOffset.y, positionOffset.z);
-                right.transform.position = parent.position + parent.rotation * positionOffset;
+                right.transform.position = parent.position + parent.rotation * new Vector3(positionOffset.x, positionOffset.y, positionOffset.z);
 
             }
 

@@ -13,6 +13,12 @@ public class CarReInput : MonoBehaviour {
     public BaseCarController car;
 
     public bool useKeyboard;
+
+    [Header("Debug Options")]
+    public bool testSteering;
+    [Range(-1f,1f)]
+    public float forceDirAt100Kph = 1f;
+  
     // Use this for initialization
     void Start () {
 
@@ -20,6 +26,7 @@ public class CarReInput : MonoBehaviour {
         car = GetComponent<BaseCarController>();
     }
 
+    bool stickTestForce;
     private void FixedUpdate()
     {
 
@@ -28,6 +35,13 @@ public class CarReInput : MonoBehaviour {
         
 #if !MOBILE_INPUT
         float h = pInput.GetAxis(Globals.Axis_X1);
+        if (stickTestForce || testSteering && car.rBody.velocity.magnitude > 42)
+        {
+            stickTestForce = true;
+            h = forceDirAt100Kph;
+        }
+           
+
         float fwd = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
         float back = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
 

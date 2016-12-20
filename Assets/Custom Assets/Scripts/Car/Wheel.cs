@@ -8,65 +8,11 @@ using UnityEditor;
 namespace CND.Car
 {
     [System.Serializable]
-    public class Wheel : MonoBehaviour
+    public partial class Wheel : MonoBehaviour
     {
 
         public Vector3 gravity=Physics.gravity;
         public float steerAngleDeg { get; set; }
-
-        [System.Serializable]
-        public struct Settings// : System.Object
-        {
-            [Range(0, 10)]
-            public float wheelRadius;
-            [Range(0,10)]
-            public float baseSpringLength;
-            [Range(0, 1)]
-            public float maxCompression;
-            [Range(1, 10)]
-            public float maxExpansion;
-            [Range(float.Epsilon, 1000000f)]
-            public float springForce;
-            [Range(float.Epsilon, 1000000f)]
-            public float damping;
-            [Range(0, 1f)]
-            public float stiffness;
-
-            public Settings(float wheelRadius,float baseSpringLength=1,
-                float maxCompression=0.5f,float maxExpansion=1.25f,
-                float springForce=1000f,float damping = 1f,float stiffness=1f)
-            {
-                this.wheelRadius = wheelRadius;
-                this.baseSpringLength = baseSpringLength;
-                this.maxCompression = maxCompression;
-                this.maxExpansion = maxExpansion;
-                this.springForce = springForce;
-                this.damping = damping;
-                this.stiffness = stiffness;
-            }
-
-            /*public Settings(bool useDefaults) : this(wheelRadius)
-            {
-
-            }*/
-            public static Settings CreateDefault()
-            {
-                return new Settings(wheelRadius: 0.5f);
-            }
-        }
-
-        public struct ContactInfo
-        {
-            public bool isOnFloor { get; internal set; }
-            public Vector3 upForce { get; internal set; }
-            public Vector3 forwardDirection { get; internal set; }
-            public Vector3 movementDirection { get; internal set; }
-            public Vector3 pushPoint { get; internal set; }
-            public float springLength { get; internal set; }
-            public float springCompression { get; internal set; }
-            public float forwardRatio { get; internal set; }
-            public RaycastHit hit { get; internal set; }
-        }
 
        // [DisplayModifier(startExpanded:true)]
         public Settings settings=Settings.CreateDefault();
@@ -82,6 +28,7 @@ namespace CND.Car
         // Use this for initialization
         void Start()
         {
+            steerRot = transform.localRotation;
             m_contactInfo.springLength = settings.baseSpringLength;
             RecalculatePositions();
         }
@@ -98,40 +45,50 @@ namespace CND.Car
 
         void ApplySteerRotation()
         {
-            steerRot = transform.localRotation * Quaternion.Euler(0, steerAngleDeg, 0);
-
+            if (steerAngleDeg != 0)
+                steerRot = transform.localRotation * Quaternion.Euler(0, steerAngleDeg, 0);
         }
 
         void CheckForContact()
         {
             RaycastHit hit;
             ContactInfo curContactInfo=new ContactInfo();
-
-
+            
            // var src = transform.rotation * transform.position;
             var nextLength = m_contactInfo.springLength;
             float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
             float compressionMargin = settings.baseSpringLength - minCompressedLength;
             Vector3 moveDelta = (transform.position - lastPos);
-            curContactInfo.movementDirection = moveDelta.normalized;
+            Vector3 moveDir = moveDelta.normalized;
+            curContactInfo.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
+
+            
+
+            curContactInfo.relativeRotation = steerRot;
+            curContactInfo.forwardDirection = steerRot* transform.forward;
+            curContactInfo.forwardRatio = Quaternion.Dot(transform.rotation, Quaternion.LookRotation(moveDir, transform.up));
+            curContactInfo.sidewaysRatio = -Vector3.Dot(moveDir, transform.right); //leftOrRightness 
+            curContactInfo.sideDirection = (Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
+            
             curContactInfo.pushPoint = Vector3.Lerp(transform.position, wheelCenter, 0);
             curContactInfo.springCompression = m_contactInfo.springCompression;
 
-
-            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength*1.05f * settings.maxExpansion + settings.wheelRadius))
+            const float tolerance = 1.025f;
+            
+            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance * settings.maxExpansion + settings.wheelRadius))
             {
                 float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
                 
 
                 curContactInfo.springCompression = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1f;
+                curContactInfo.wasAlreadyOnFloor = m_contactInfo.isOnFloor;
                 curContactInfo.isOnFloor = true;
                 curContactInfo.hit = hit;
                 curContactInfo.springLength = springLength;
-                curContactInfo.forwardRatio = Quaternion.Dot(transform.rotation, Quaternion.LookRotation(moveDelta.normalized,transform.up));
+   
 
-
-                var vel = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
+                var vel = curContactInfo.velocity;
                 var sqrVel = vel * vel.magnitude;
                 var grav = m_contactInfo.isOnFloor ? gravity : gravity;
                 var sqrGrav = grav* grav.magnitude;
@@ -155,8 +112,7 @@ namespace CND.Car
                 /* curContactInfo.pushForce = Vector3.Lerp(
                     pushForce, pushForce * curContactInfo.springCompression * settings.springForce,
                     curContactInfo.springCompression * curContactInfo.springCompression);*/
-
-
+                    
                 //curContactInfo.pushForce = Vector3.Lerp(m_contactInfo.pushForce, curContactInfo.pushForce, 0.25f);
             } else  {
                 
@@ -166,7 +122,7 @@ namespace CND.Car
                     curContactInfo.isOnFloor = false;
                 } else  {
                     curContactInfo.hit = default(RaycastHit);
-                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * settings.maxExpansion, 0.5f);
+                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength  * settings.maxExpansion, 0.5f);
                     curContactInfo.springCompression = ( settings.baseSpringLength - curContactInfo.springLength ) / compressionMargin;
                 }
 
@@ -206,6 +162,9 @@ namespace CND.Car
             // var wheelCenter = end - (end - src).normalized * settings.wheelRadius * 0.5f;
            
             Gizmos.DrawWireSphere(wheelCenter, 0.05f);
+            var absSide = Mathf.Abs(m_contactInfo.sidewaysRatio);
+            if (absSide > 0)
+                Gizmos.DrawLine(wheelCenter, wheelCenter+m_contactInfo.sideDirection* absSide);
 
             Gizmos.DrawLine(wheelCenter, contactPoint); //wheel radius
             Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
@@ -249,42 +208,56 @@ namespace CND.Car
     [CustomPropertyDrawer(typeof(Wheel.Settings))]
     public class WheelSettingsDrawer : PropertyDrawer
     {
+        System.Reflection.FieldInfo[] fields;
+        SerializedProperty[] members;
+
+        float height = 0;
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             if (fields == null)
+            {
                 fields = fieldInfo.FieldType.GetFields();
-            return 16* fields.Length;
+                members = new SerializedProperty[fields.Length];
+
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    var subMember = property.FindPropertyRelative(fields[i].Name);
+                    if (subMember != null)
+                    {
+                        members[i] = subMember;
+                        height += EditorGUI.GetPropertyHeight(subMember);
+                    }
+
+                }
+            }
+            return height+2;
         }
 
-        System.Reflection.FieldInfo[] fields;
+      
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             Debug.logger.logEnabled=true;
-           
 
            
-
-            //   base.OnGUI(position, property, label);
-            //     property.serializedObject.
-           EditorGUI.BeginProperty(position, label, property);
-            position.height = 16f;
-
-            for (int i= 0;i<fields.Length; i++)
+            EditorGUI.BeginProperty(position, label, property);
+            int indent = EditorGUI.indentLevel;
+            for (int i= 0;i<members.Length; i++)
             {
-                string path = fieldInfo.Name + "." + fields[i].Name;
-
-                //EditorGUI.FloatField(position, property.FindPropertyRelative(fields[i].Name).floatValue);
-                var subMember = property.FindPropertyRelative(fields[i].Name);
-                if (subMember != null)
-                    EditorGUI.PropertyField(position, subMember);
-                //  EditorGUI.FloatField(position,(float) ffiGetValue(fields[i]));
-                position.y += 16f;
-
-                //property.Next(true);
+                var height = EditorGUI.GetPropertyHeight(members[i]);
+                position.height = height;
+                // string path = fieldInfo.Name + "." + fields[i].Name;
+                EditorGUI.indentLevel = indent;
+                if (members[i] != null)
+                {                   
+                    EditorGUI.PropertyField(position, members[i]);                    
+                }
+                
+                position.y += height;
+                
             }
 
-            
-          //  EditorGUI.PropertyField(position, property,true);
+
             EditorGUI.EndProperty();
         }
     }

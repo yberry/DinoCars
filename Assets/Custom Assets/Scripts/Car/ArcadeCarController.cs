@@ -7,6 +7,7 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
+        public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
     }
 
@@ -14,24 +15,27 @@ namespace CND.Car
     {
         [Range(0,5000)]
         public float targetSpeed=100f;
+        public AnimationCurve speedCurve;
         [Range(0,90)]
         public float maxTurnAngle=60f;
         [Range(0, 360), Tooltip("Max degrees per second")]
         public float turnSpeed = 1f;
         [Range(0,1)]
-        public float driftSuppression;
+        public float driftControl;
 
         public Vector3 m_CentreOfMassOffset;
         public bool orientationFix;
 
-        Rigidbody rBody;
+        
         WheelManager wheelMgr;
 
 
         [HideInInspector]
         public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
 
-        float steering, accel, footbrake, handbrake;
+        float steering, accelInput, footbrake, handbrake;
+        float accelOutput;
+        Vector3 curVelocity;
         bool boost;
 
         float prevSteerAngleDeg, effectiveSteerAngleDeg;
@@ -44,11 +48,14 @@ namespace CND.Car
         {
             wheelMgr = GetComponent<WheelManager>();
             rBody = GetComponent<Rigidbody>();
+            
+            
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
+            curVelocity = rBody.velocity;
             ApplySteering();
             ApplyMotorForces();
             if (orientationFix)
@@ -67,19 +74,24 @@ namespace CND.Car
 
         public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
-            this.steering = steering;
-            this.accel = accel;
+            this.steering = steering* steering*Mathf.Sign(steering);
+            this.accelInput = Mathf.Clamp(accel,-1f,1f);
             this.footbrake = footbrake;
             this.handbrake = handbrake;
             this.boost = boost;
+
+            var accelSign = Mathf.Sign(accelInput- accelOutput);
+            //this.accelInput *= this.accelInput;
+            accelOutput = Mathf.SmoothStep(accelInput, accelInput * accelSign, accelInput*0.5f+0.5f);// accel;// Mathf.MoveTowards(accelOutput, accelInput, accelSign* accel);
         }
 
         void ApplySteering()
-        {            
-            effectiveSteerAngleDeg=  Mathf.MoveTowardsAngle(prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/maxTurnAngle)), turnSpeed*Time.fixedDeltaTime);
+        {
+            //rBody.ResetInertiaTensor();
+            effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/maxTurnAngle)), turnSpeed*Time.fixedDeltaTime);
             wheelMgr.SetSteering(effectiveSteerAngleDeg);
             prevSteerAngleDeg = effectiveSteerAngleDeg;
-
+           // Debug.Log("Steering: " + TargetSteerAngleDeg);
         }
 
         void ApplyMotorForces()
@@ -89,45 +101,64 @@ namespace CND.Car
             frontContacts = wheelMgr.frontWheels.GetContacts(out contactFL, out contactFR);
             rearContacts = wheelMgr.rearWheels.GetContacts(out contactRL, out contactRR);
             int contacts = frontContacts + rearContacts;
+            const int totalWheels = 4;
 
             if (contacts > 0)
             {
-                Vector3 nextForwardVel = transform.forward;
-                Vector3 nextSlipVel =  Vector3.Lerp( rBody.velocity, nextForwardVel,driftSuppression);
+
                 if (frontContacts > 0)
                 {
-                    var rot = Quaternion.Euler(0, effectiveSteerAngleDeg, 0);
-
-
-                    if (contactFL.isOnFloor)
-                        rBody.AddForceAtPosition(
-                            Vector3.Lerp(nextSlipVel, rot * nextForwardVel * accel * targetSpeed / (float)(contacts), Mathf.Abs(contactFL.forwardRatio)),
-                            contactFL.pushPoint,
-                            ForceMode.Acceleration);
-
-                    if (contactFR.isOnFloor)
-                        rBody.AddForceAtPosition(
-                            Vector3.Lerp(nextSlipVel, rot * nextForwardVel * accel * targetSpeed / (float)(contacts),  Mathf.Abs(contactFR.forwardRatio)),
-                            contactFR.pushPoint,
-                            ForceMode.Acceleration);
-        
+                    if (steering < 0)
+                    {
+                        AddWheelForces(contactFL, contacts, totalWheels);
+                        AddWheelForces(contactFR, contacts, totalWheels);
+                    }
+                    else
+                    {
+                        AddWheelForces(contactFR, contacts, totalWheels);
+                        AddWheelForces(contactFL, contacts, totalWheels);
+                    }
                 }
 
+                
                 if (rearContacts > 0)
                 {
-                    if (contactRL.isOnFloor)
-                        rBody.AddForceAtPosition(
-                            Vector3.Lerp(nextSlipVel, nextForwardVel * accel * targetSpeed / (float)(contacts), Mathf.Abs(contactRL.forwardRatio)),
-                            contactRL.pushPoint,
-                            ForceMode.Acceleration);
-
-                    if (contactRR.isOnFloor)
-                        rBody.AddForceAtPosition(
-                            Vector3.Lerp(nextSlipVel, nextForwardVel * accel * targetSpeed / (float)(contacts), Mathf.Abs(contactRR.forwardRatio)),
-                            contactRR.pushPoint,
-                            ForceMode.Acceleration);
+                    if (steering < 0)
+                    {
+                        AddWheelForces(contactRL, contacts, totalWheels);
+                        AddWheelForces(contactRR, contacts, totalWheels);
+                    } else
+                    {
+                        AddWheelForces(contactRR, contacts, totalWheels);
+                        AddWheelForces(contactRL, contacts, totalWheels);
+                    }
                 }
             }
+        }
+
+
+        void AddWheelForces(Wheel.ContactInfo contact, int totalContacts, int totalWheels)
+        {
+
+            if (! (contact.isOnFloor && contact.wasAlreadyOnFloor)) return;
+
+            var absForward = Mathf.Abs(contact.forwardRatio);
+            var powerRatio = (float)(totalContacts * totalWheels);
+            var accelPower = accelOutput * targetSpeed / powerRatio;
+
+            Vector3 nextForwardVel = contact.forwardDirection * accelPower;
+            Vector3 nextSidewaysVel = Vector3.Lerp(curVelocity, -contact.sideDirection * contact.velocity.magnitude, 1f);
+
+            Vector3 nextDriftVel = Vector3.Lerp(
+                Vector3.Lerp(nextForwardVel, nextSidewaysVel,  contact.sidewaysRatio), nextForwardVel, driftControl);
+
+            Vector3 finalVel = Vector3.Lerp(nextForwardVel, nextDriftVel, contact.sidewaysRatio);
+          
+            rBody.AddForceAtPosition(
+                finalVel,
+                contact.pushPoint,
+                ForceMode.Acceleration);
+
         }
 
         private void CorrectOrientation()
