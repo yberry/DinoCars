@@ -21,6 +21,8 @@ namespace CND.Car
         [Range(0, 360), Tooltip("Max degrees per second")]
         public float turnSpeed = 1f;
         [Range(0,1)]
+        public float tractionControl;
+        [Range(0, 1)]
         public float driftControl;
 
         public Vector3 m_CentreOfMassOffset;
@@ -143,16 +145,22 @@ namespace CND.Car
             if (! (contact.isOnFloor && contact.wasAlreadyOnFloor)) return;
 
             var absForward = Mathf.Abs(contact.forwardRatio);
+            var absSide = Mathf.Abs(contact.sidewaysRatio);
+
             var powerRatio = (float)(totalContacts * totalWheels);
             var accelPower = accelOutput * targetSpeed / powerRatio;
 
+            const float speedDecay = 0.1f;
             Vector3 nextForwardVel = contact.forwardDirection * accelPower;
-            Vector3 nextSidewaysVel = Vector3.Lerp(curVelocity, -contact.sideDirection * contact.velocity.magnitude, 1f);
+            Vector3 nextSidewaysVel = Vector3.Lerp(
+                contact.sideDirection* contact.velocity.magnitude * speedDecay,
+                -contact.sideDirection *contact.velocity.magnitude * contact.sideFriction,
+                driftControl);
 
             Vector3 nextDriftVel = Vector3.Lerp(
-                Vector3.Lerp(nextForwardVel, nextSidewaysVel,  contact.sidewaysRatio), nextForwardVel, driftControl);
+                Vector3.Lerp(nextForwardVel, nextSidewaysVel, absSide), nextForwardVel, tractionControl);
 
-            Vector3 finalVel = Vector3.Lerp(nextForwardVel, nextDriftVel, contact.sidewaysRatio);
+            Vector3 finalVel = Vector3.Lerp(nextForwardVel, nextDriftVel, absSide);
           
             rBody.AddForceAtPosition(
                 finalVel,

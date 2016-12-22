@@ -61,21 +61,25 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             curContactInfo.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
+            Quaternion lookRot = Quaternion.LookRotation(moveDir, transform.up);
 
-            
+
+            curContactInfo.forwardFriction = settings.maxForwardFriction;
+            curContactInfo.sideFriction = settings.maxSidewaysFriction;
+
 
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
-            curContactInfo.forwardRatio = Quaternion.Dot(transform.rotation, Quaternion.LookRotation(moveDir, transform.up));
+            curContactInfo.forwardRatio = lookRot.w != 0 ? Quaternion.Dot(transform.rotation, lookRot) : 1;
             curContactInfo.sidewaysRatio = -Vector3.Dot(moveDir, transform.right); //leftOrRightness 
-            curContactInfo.sideDirection = (Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
+            curContactInfo.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
             
             curContactInfo.pushPoint = Vector3.Lerp(transform.position, wheelCenter, 0);
             curContactInfo.springCompression = m_contactInfo.springCompression;
 
             const float tolerance = 1.025f;
             
-            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance * settings.maxExpansion + settings.wheelRadius))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
                 float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
@@ -91,12 +95,14 @@ namespace CND.Car
                 var vel = curContactInfo.velocity;
                 var sqrVel = vel * vel.magnitude;
                 var grav = m_contactInfo.isOnFloor ? gravity : gravity;
+                var gravNorm = grav.normalized;
                 var sqrGrav = grav* grav.magnitude;
-                var downVel = Vector3.Dot(moveDelta.normalized, -grav);
+                var downVel = Vector3.Dot(moveDelta.normalized, -gravNorm);
+                var dotGrav = Vector3.Dot(transform.up, -gravNorm);
                 var damping = downVel * settings.damping;
                 var shockCancel = -(vel);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-grav+ shockCancel);
+                var stickToFloor = (-grav * Mathf.Clamp01(dotGrav-Time.fixedDeltaTime)  + shockCancel);
                 var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * downVel, Time.fixedDeltaTime, 1f);
                 var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -downVel);
                 var springResistance = Mathf.Lerp(
@@ -122,7 +128,7 @@ namespace CND.Car
                     curContactInfo.isOnFloor = false;
                 } else  {
                     curContactInfo.hit = default(RaycastHit);
-                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength  * settings.maxExpansion, 0.5f);
+                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength  * settings.maxExpansion, 10f*Time.fixedDeltaTime);
                     curContactInfo.springCompression = ( settings.baseSpringLength - curContactInfo.springLength ) / compressionMargin;
                 }
 
@@ -174,11 +180,12 @@ namespace CND.Car
             Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
             Gizmos.DrawWireSphere(contactPoint, 0.0375f);
 
+            var absSteerRot = (transform.rotation * steerRot) * Vector3.right;
             Handles.color = Gizmos.color*0.25f;
-            Handles.DrawSolidDisc(wheelCenter, steerRot*transform.right, settings.wheelRadius);
+            Handles.DrawSolidDisc(wheelCenter, Quaternion.LookRotation(absSteerRot, transform.up) * Vector3.forward, settings.wheelRadius);
 
             Handles.color = Gizmos.color;
-            Handles.CircleCap(0, wheelCenter, Quaternion.LookRotation(steerRot*transform.right,transform.up) ,settings.wheelRadius);
+            Handles.CircleCap(0, wheelCenter, Quaternion.LookRotation(absSteerRot, transform.up), settings.wheelRadius);
 
             Handles.color = Color.white;
         }

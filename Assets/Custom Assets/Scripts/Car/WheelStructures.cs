@@ -72,6 +72,8 @@ namespace CND.Car
             public float springCompression { get; internal set; }
             public float forwardRatio { get; internal set; }
             public float sidewaysRatio { get; internal set; }
+            public float forwardFriction { get; internal set; }
+            public float sideFriction { get; internal set; }
             public RaycastHit hit { get; internal set; }
         }
 
