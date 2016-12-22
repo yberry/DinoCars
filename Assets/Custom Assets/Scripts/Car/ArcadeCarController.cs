@@ -7,6 +7,7 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
+        public float CurrentSpeed { get { return rBody.velocity.magnitude; } }
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
     }
@@ -150,17 +151,18 @@ namespace CND.Car
             var powerRatio = (float)(totalContacts * totalWheels);
             var accelPower = accelOutput * targetSpeed / powerRatio;
 
-            const float speedDecay = 0.1f;
+            const float speedDecay = 0.5f;
             Vector3 nextForwardVel = contact.forwardDirection * accelPower;
+
             Vector3 nextSidewaysVel = Vector3.Lerp(
-                contact.sideDirection* contact.velocity.magnitude * speedDecay,
-                -contact.sideDirection *contact.velocity.magnitude * contact.sideFriction,
+                contact.velocity* speedDecay * (1f-contact.sideFriction),
+                -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime,contact.velocity.magnitude * contact.sideFriction),
                 driftControl);
 
             Vector3 nextDriftVel = Vector3.Lerp(
-                Vector3.Lerp(nextForwardVel, nextSidewaysVel, absSide), nextForwardVel, tractionControl);
+                Vector3.Slerp(nextForwardVel, nextSidewaysVel, absSide), nextForwardVel, tractionControl);
 
-            Vector3 finalVel = Vector3.Lerp(nextForwardVel, nextDriftVel, absSide);
+            Vector3 finalVel = Vector3.Slerp(nextDriftVel, nextForwardVel, Mathf.Lerp( absForward, 1f-absSide, 0.666f));
           
             rBody.AddForceAtPosition(
                 finalVel,
