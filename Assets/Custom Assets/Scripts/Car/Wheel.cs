@@ -107,7 +107,7 @@ namespace CND.Car
                 var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -downVel);
                 var springResistance = Mathf.Lerp(
                     curContactInfo.springCompression* curContactInfo.springCompression* curContactInfo.springCompression,
-                    Mathf.Clamp01(Mathf.Sin(0.5f*curContactInfo.springCompression*Mathf.PI)), settings.stiffness);
+                    Mathf.Clamp01(Mathf.Sin(0.5f*curContactInfo.springCompression*Mathf.PI)), settings.stiffness) * 100f*Time.fixedDeltaTime;
 
                 Vector3 pushForce = Vector3.Lerp(
                     stickToFloor* springResistance * springDamp,

@@ -91,7 +91,8 @@ namespace CND.Car
         void ApplySteering()
         {
             //rBody.ResetInertiaTensor();
-            effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/maxTurnAngle)), turnSpeed*Time.fixedDeltaTime);
+            effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
+                prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/maxTurnAngle)), turnSpeed*Time.fixedDeltaTime);
             wheelMgr.SetSteering(effectiveSteerAngleDeg);
             prevSteerAngleDeg = effectiveSteerAngleDeg;
            // Debug.Log("Steering: " + TargetSteerAngleDeg);
@@ -152,7 +153,7 @@ namespace CND.Car
             var accelPower = accelOutput * targetSpeed / powerRatio;
 
             const float speedDecay = 0.5f;
-            Vector3 nextForwardVel = contact.forwardDirection * accelPower;
+            Vector3 nextForwardVel = contact.forwardDirection * accelPower;// * Time.fixedDeltaTime * 100f;
 
             Vector3 nextSidewaysVel = Vector3.Lerp(
                 contact.velocity* speedDecay * (1f-contact.sideFriction),
