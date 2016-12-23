@@ -7,7 +7,10 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
-        public float CurrentSpeed { get { return rBody.velocity.magnitude; } }
+        const float speedKph = 3.6f;
+        const float speedMph = 2.23693629f;
+
+        public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
     }
@@ -43,6 +46,7 @@ namespace CND.Car
 
         float prevSteerAngleDeg, effectiveSteerAngleDeg;
         public float TargetSteerAngleDeg { get { return steering * maxTurnAngle; } }
+
 
 
 
@@ -152,19 +156,21 @@ namespace CND.Car
             var powerRatio = (float)(totalContacts * totalWheels);
             var accelPower = accelOutput * targetSpeed / powerRatio;
 
-            const float speedDecay = 0.5f;
-            Vector3 nextForwardVel = contact.forwardDirection * accelPower;// * Time.fixedDeltaTime * 100f;
-
+            const float speedDecay = 0.95f;
+            Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude * contact.sideFriction );
+            Vector3 nextForwardVel = inertiaCancel * absSide + contact.forwardDirection * absForward* Mathf.Sign(accelPower) * Mathf.Max(Mathf.Abs(accelPower),rBody.velocity.magnitude*Time.fixedDeltaTime) * contact.forwardFriction;// * Time.fixedDeltaTime * 100f;
+            //
             Vector3 nextSidewaysVel = Vector3.Lerp(
-                contact.velocity* speedDecay * (1f-contact.sideFriction),
-                -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime,contact.velocity.magnitude * contact.sideFriction),
+                contact.velocity * absSide * (1f-contact.sideFriction),
+                inertiaCancel * absSide,
                 driftControl);
 
             Vector3 nextDriftVel = Vector3.Lerp(
-                Vector3.Slerp(nextForwardVel, nextSidewaysVel, absSide), nextForwardVel, tractionControl);
+                Vector3.Lerp(nextForwardVel, nextSidewaysVel, absSide), nextForwardVel, tractionControl);
 
-            Vector3 finalVel = Vector3.Slerp(nextDriftVel, nextForwardVel, Mathf.Lerp( absForward, 1f-absSide, 0.666f));
-          
+            Vector3 finalVel = Vector3.Lerp(nextDriftVel, nextForwardVel,absForward);
+
+           // Debug.Log(nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
             rBody.AddForceAtPosition(
                 finalVel,
                 contact.pushPoint,

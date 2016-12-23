@@ -61,18 +61,16 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             curContactInfo.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
-            Quaternion lookRot = Quaternion.LookRotation(moveDir, transform.up);
-
-
-            curContactInfo.forwardFriction = settings.maxForwardFriction;
-            curContactInfo.sideFriction = settings.maxSidewaysFriction;
-
+            Quaternion lookRot = moveDir != transform.up ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
-            curContactInfo.forwardRatio = lookRot.w != 0 ? Quaternion.Dot(transform.rotation, lookRot) : 1;
-            curContactInfo.sidewaysRatio = -Vector3.Dot(moveDir, transform.right); //leftOrRightness 
+            curContactInfo.forwardRatio = lookRot.w != 0 ? (Quaternion.Dot(transform.rotation, lookRot))  : 1;
+            curContactInfo.sidewaysRatio = (-Vector3.Dot(moveDir, transform.right)); //leftOrRightness 
             curContactInfo.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
+            
+            curContactInfo.forwardFriction = settings.maxForwardFriction * Mathf.Abs(curContactInfo.forwardRatio);
+            curContactInfo.sideFriction = settings.maxSidewaysFriction * Mathf.Abs(curContactInfo.sidewaysRatio);
             
             curContactInfo.pushPoint = Vector3.Lerp(transform.position, wheelCenter, 0);
             curContactInfo.springCompression = m_contactInfo.springCompression;

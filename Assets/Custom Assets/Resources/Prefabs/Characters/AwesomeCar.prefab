@@ -55,9 +55,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4534674890397648}
   - component: {fileID: 54522401510662668}
+  - component: {fileID: 114217766517351466}
   - component: {fileID: 114080216642132724}
   - component: {fileID: 114987307862932422}
-  - component: {fileID: 114217766517351466}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -364,7 +364,7 @@ MonoBehaviour:
     stiffness: 0.5
     wheelRadius: 0.35
     maxForwardFriction: 1
-    maxSidewaysFriction: 0.5
+    maxSidewaysFriction: 1
 --- !u!114 &114080216642132724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -407,7 +407,7 @@ MonoBehaviour:
     stiffness: 0.5
     wheelRadius: 0.375
     maxForwardFriction: 1
-    maxSidewaysFriction: 0.5
+    maxSidewaysFriction: 1
 --- !u!114 &114217766517351466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -471,7 +471,7 @@ MonoBehaviour:
     stiffness: 0.5
     wheelRadius: 0.375
     maxForwardFriction: 1
-    maxSidewaysFriction: 0.5
+    maxSidewaysFriction: 1
 --- !u!114 &114358493479665454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -493,7 +493,7 @@ MonoBehaviour:
     stiffness: 0.5
     wheelRadius: 0.35
     maxForwardFriction: 1
-    maxSidewaysFriction: 0.5
+    maxSidewaysFriction: 1
 --- !u!114 &114987307862932422
 MonoBehaviour:
   m_ObjectHideFlags: 1
