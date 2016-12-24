@@ -25,6 +25,7 @@ namespace CND.Car
         protected Vector3 contactPoint;
         protected Quaternion steerRot;
 
+        protected float angularVelAngle = 0f;
         // Use this for initialization
         void Start()
         {
@@ -56,7 +57,9 @@ namespace CND.Car
             RaycastHit hit;
             ContactInfo curContactInfo=new ContactInfo();
             const float halfPI= Mathf.PI * (0.49999f);
-            
+            const float fullCircle = 2f * Mathf.PI * Mathf.Rad2Deg;
+            float wheelCircumference = settings.wheelRadius * fullCircle;
+
            // var src = transform.rotation * transform.position;
             var nextLength = m_contactInfo.springLength;
             float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
@@ -64,6 +67,8 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             curContactInfo.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
+            curContactInfo.angularVelocity = (curContactInfo.angularVelocity+ moveDelta.magnitude * wheelCircumference) % wheelCircumference;
+            angularVelAngle += curContactInfo.angularVelocity;
             Quaternion lookRot = moveDir != Vector3.zero && moveDir != transform.forward ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
             curContactInfo.relativeRotation = steerRot;
@@ -182,12 +187,16 @@ namespace CND.Car
             Gizmos.DrawWireSphere(contactPoint, 0.0375f);
 
             var absSteerRot = (transform.rotation * steerRot) * Vector3.right;
+            var lookRotNormal = Quaternion.LookRotation(absSteerRot, transform.up);
             Handles.color = Gizmos.color*0.25f;
-            Handles.DrawSolidDisc(wheelCenter, Quaternion.LookRotation(absSteerRot, transform.up) * Vector3.forward, settings.wheelRadius);
+            Handles.DrawSolidDisc(wheelCenter, lookRotNormal * Vector3.forward, settings.wheelRadius);
 
             Handles.color = Gizmos.color;
-            Handles.CircleCap(0, wheelCenter, Quaternion.LookRotation(absSteerRot, transform.up), settings.wheelRadius);
-
+            Handles.CircleCap(0, wheelCenter, lookRotNormal, settings.wheelRadius);
+            Handles.color = Gizmos.color * 0.75f;
+            Handles.DrawSolidArc(wheelCenter, lookRotNormal*Vector3.forward,
+               (transform.rotation * steerRot)* (Quaternion.Euler(angularVelAngle, 0, 0))* Vector3.down, 15, settings.wheelRadius*0.9f);
+            // (Quaternion.Euler(m_contactInfo.velocity.magnitude, 0, 0)) * 
             Handles.color = Color.white;
         }
 #endif
