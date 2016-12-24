@@ -154,25 +154,31 @@ namespace CND.Car
             var absSide = Mathf.Abs(contact.sidewaysRatio);
 
             var powerRatio = (float)(totalContacts * totalWheels);
-            var accelPower = accelOutput * targetSpeed / powerRatio;
+            var accelPower = Mathf.Lerp(rBody.velocity.magnitude*Time.fixedDeltaTime,accelOutput * targetSpeed / powerRatio,Mathf.Abs(accelOutput));
 
             const float speedDecay = 0.95f;
-            Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude * contact.sideFriction );
-            Vector3 nextForwardVel = inertiaCancel * absSide + contact.forwardDirection * absForward* Mathf.Sign(accelPower) * Mathf.Max(Mathf.Abs(accelPower),rBody.velocity.magnitude*Time.fixedDeltaTime) * contact.forwardFriction;// * Time.fixedDeltaTime * 100f;
+            Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
+            Vector3 nextForwardVel = contact.forwardDirection * Mathf.Max(absForward* accelPower );// * Time.fixedDeltaTime * 100f;
             //
             Vector3 nextSidewaysVel = Vector3.Lerp(
-                contact.velocity * absSide * (1f-contact.sideFriction),
-                inertiaCancel * absSide,
-                driftControl);
+                inertiaCancel * (1f -  Time.fixedDeltaTime*10f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
+                inertiaCancel* contact.sideFriction,
+                absForward);
 
-            Vector3 nextDriftVel = Vector3.Lerp(
-                Vector3.Lerp(nextForwardVel, nextSidewaysVel, absSide), nextForwardVel, tractionControl);
+            Vector3 nextDriftVel =Vector3.Lerp(nextSidewaysVel+ nextForwardVel, nextForwardVel + inertiaCancel, driftControl);
+            Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
-            Vector3 finalVel = Vector3.Lerp(nextDriftVel, nextForwardVel,absForward);
+            Vector3 nextFinalVel=Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, tractionControl);
 
-           // Debug.Log(nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
+           
+#if DEBUG
+            if (nextMergedVel.VectorIsNaN())
+                Debug.Assert(nextFinalVel.VectorIsNaN(), nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
+            // Debug.Log(nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
+            
+#endif
             rBody.AddForceAtPosition(
-                finalVel,
+                nextFinalVel,
                 contact.pushPoint,
                 ForceMode.Acceleration);
 

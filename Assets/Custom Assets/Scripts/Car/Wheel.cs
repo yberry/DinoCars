@@ -49,10 +49,13 @@ namespace CND.Car
                 steerRot = transform.localRotation * Quaternion.Euler(0, steerAngleDeg, 0);
         }
 
+
+
         void CheckForContact()
         {
             RaycastHit hit;
             ContactInfo curContactInfo=new ContactInfo();
+            const float halfPI= Mathf.PI * (0.49999f);
             
            // var src = transform.rotation * transform.position;
             var nextLength = m_contactInfo.springLength;
@@ -61,12 +64,12 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             curContactInfo.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
-            Quaternion lookRot = moveDir != transform.up ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
+            Quaternion lookRot = moveDir != Vector3.zero && moveDir != transform.forward ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
-            curContactInfo.forwardRatio = lookRot.w != 0 ? (Quaternion.Dot(transform.rotation, lookRot))  : 1;
-            curContactInfo.sidewaysRatio = (-Vector3.Dot(moveDir, transform.right)); //leftOrRightness 
+            curContactInfo.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? Mathf.Asin(Vector3.Dot(transform.forward, moveDir)) / halfPI : 1;
+            curContactInfo.sidewaysRatio = moveDir != Vector3.zero ? Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI : 1f- curContactInfo.forwardRatio; //leftOrRightness 
             curContactInfo.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
             
             curContactInfo.forwardFriction = settings.maxForwardFriction * Mathf.Abs(curContactInfo.forwardRatio);
@@ -98,9 +101,9 @@ namespace CND.Car
                 var downVel = Vector3.Dot(moveDelta.normalized, -gravNorm);
                 var dotGrav = Vector3.Dot(transform.up, -gravNorm);
                 var damping = downVel * settings.damping;
-                var shockCancel = -(vel);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+                var shockCancel = (-vel*0.85f);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-grav * Mathf.Clamp01(dotGrav-Time.fixedDeltaTime)  + shockCancel);
+                var stickToFloor = (-grav * (dotGrav)  + shockCancel/* * (1f-Time.fixedDeltaTime*20f)*/);
                 var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * downVel, Time.fixedDeltaTime, 1f);
                 var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -downVel);
                 var springResistance = Mathf.Lerp(
