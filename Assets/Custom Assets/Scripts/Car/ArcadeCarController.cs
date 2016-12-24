@@ -11,15 +11,23 @@ namespace CND.Car
         const float speedMph = 2.23693629f;
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
+        
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
+
+        public virtual string DebugHUDString()
+        {
+            return CurrentSpeed.ToString("0.") + " Km/H";
+        }
     }
 
     public class ArcadeCarController : BaseCarController
     {
         [Range(0,5000)]
         public float targetSpeed=100f;
-        public AnimationCurve speedCurve;
+        public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
+        [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
+        public AnimationCurve[] transmissionCurves;
         [Range(0,90)]
         public float maxTurnAngle=60f;
         [Range(0, 360), Tooltip("Max degrees per second")]
@@ -92,6 +100,16 @@ namespace CND.Car
             accelOutput = Mathf.SmoothStep(accelInput, accelInput * accelSign, accelInput*0.5f+0.5f);// accel;// Mathf.MoveTowards(accelOutput, accelInput, accelSign* accel);
         }
 
+        int GetGear()
+        {
+            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length) * SpeedRatio),-1, transmissionCurves.Length));
+        }
+
+        public override string DebugHUDString()
+        {
+            return base.DebugHUDString()+" "+GetGear()+"/"+transmissionCurves.Length;
+        }
+
         void ApplySteering()
         {
             //rBody.ResetInertiaTensor();
@@ -152,9 +170,10 @@ namespace CND.Car
 
             var absForward = Mathf.Abs(contact.forwardRatio);
             var absSide = Mathf.Abs(contact.sidewaysRatio);
-
+            int gear = GetGear() - 1;
+            var gearSpeed = transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var accelPower = Mathf.Lerp(rBody.velocity.magnitude*Time.fixedDeltaTime,accelOutput * targetSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var accelPower = Mathf.Lerp(rBody.velocity.magnitude*Time.fixedDeltaTime, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
 
             const float speedDecay = 0.95f;
             Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);

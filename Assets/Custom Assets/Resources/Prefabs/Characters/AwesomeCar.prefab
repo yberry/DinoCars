@@ -357,12 +357,13 @@ MonoBehaviour:
   gravity: {x: 0, y: -9.81, z: 0}
   settings:
     baseSpringLength: 0.33
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.1
     springForce: 1000
     damping: 1000
     stiffness: 0.75
-    wheelRadius: 0.325
+    mass: 20
+    wheelRadius: 0.35
     maxForwardFriction: 1
     maxSidewaysFriction: 0.5
 --- !u!114 &114080216642132724
@@ -400,11 +401,12 @@ MonoBehaviour:
   gravity: {x: 0, y: -9.81, z: 0}
   settings:
     baseSpringLength: 0.33
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.1
     springForce: 1000
     damping: 1000
     stiffness: 0.75
+    mass: 20
     wheelRadius: 0.375
     maxForwardFriction: 1
     maxSidewaysFriction: 0.5
@@ -420,31 +422,147 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSpeed: 200
-  speedCurve:
-    serializedVersion: 2
+  speedCurves:
+  - serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 2.2289884
-      outSlope: 2.2289884
-      tangentMode: 34
+      time: -0.9814813
+      value: -0.25661987
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
     - serializedVersion: 2
-      time: 0.27434114
-      value: 0.61150324
-      inSlope: 1.7431101
-      outSlope: 1.7431101
+      time: 0.00066855387
+      value: 0.0013650965
+      inSlope: 0.14948021
+      outSlope: 0.14948021
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
-      value: 1
+      time: 0.49469697
+      value: 0.10521484
+      inSlope: 0.32852226
+      outSlope: 0.32852226
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.993716
+      value: 0.2509024
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    m_PreInfinity: 2
+    m_PreInfinity: 0
     m_PostInfinity: 2
     m_RotationOrder: 0
-  maxTurnAngle: 60
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0004263278
+      value: 0.0003386991
+      inSlope: 0.011468383
+      outSlope: 0.011468383
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.40739897
+      value: 0.05102897
+      inSlope: 0.45277178
+      outSlope: 0.45277178
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1.0054271
+      value: 0.45258087
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 0
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -0.003435024
+      value: -0.00664426
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.34973985
+      value: -0.0018345625
+      inSlope: 0.028583439
+      outSlope: 0.028583439
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.66963977
+      value: 0.2831924
+      inSlope: 1.2633636
+      outSlope: 1.2633636
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1.0069134
+      value: 0.6481139
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    m_PreInfinity: 0
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -0.003435024
+      value: -0.00664426
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.58411777
+      value: 0.000882844
+      inSlope: 0.037791714
+      outSlope: 0.037791714
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.7932586
+      value: 0.41822776
+      inSlope: 2.6183681
+      outSlope: 2.6183681
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9984708
+      value: 0.8510152
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    m_PreInfinity: 0
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -0.003435024
+      value: -0.00664426
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.7013564
+      value: -0.0026957572
+      inSlope: 0.018192383
+      outSlope: 0.018192383
+      tangentMode: 136
+    - serializedVersion: 2
+      time: 0.86473125
+      value: 0.5165417
+      inSlope: 3.699139
+      outSlope: 3.699139
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1.0025218
+      value: 0.995979
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 0
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  maxTurnAngle: 50
   turnSpeed: 120
   tractionControl: 0.5
   driftControl: 0.5
@@ -464,11 +582,12 @@ MonoBehaviour:
   gravity: {x: 0, y: -9.81, z: 0}
   settings:
     baseSpringLength: 0.33
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.1
     springForce: 1000
     damping: 1000
     stiffness: 0.75
+    mass: 20
     wheelRadius: 0.375
     maxForwardFriction: 1
     maxSidewaysFriction: 0.5
@@ -486,12 +605,13 @@ MonoBehaviour:
   gravity: {x: 0, y: -9.81, z: 0}
   settings:
     baseSpringLength: 0.33
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.1
     springForce: 1000
     damping: 1000
     stiffness: 0.75
-    wheelRadius: 0.325
+    mass: 20
+    wheelRadius: 0.35
     maxForwardFriction: 1
     maxSidewaysFriction: 0.5
 --- !u!114 &114987307862932422
