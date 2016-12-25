@@ -49,7 +49,7 @@ namespace CND.Car
 
         float steering, accelInput, footbrake, handbrake;
         float accelOutput;
-        Vector3 curVelocity;
+        Vector3 curVelocity, prevVelocity;
         bool boost;
 
         float prevSteerAngleDeg, effectiveSteerAngleDeg;
@@ -70,6 +70,7 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
+            prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
             ApplySteering();
             ApplyMotorForces();
@@ -102,7 +103,13 @@ namespace CND.Car
 
         int GetGear()
         {
-            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length) * SpeedRatio),-1, transmissionCurves.Length));
+            float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.25f : 0.25f;            
+            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));
+        }
+
+        int GetNextGear()
+        {
+            return 1;
         }
 
         public override string DebugHUDString()
@@ -173,7 +180,7 @@ namespace CND.Car
             int gear = GetGear() - 1;
             var gearSpeed = transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var accelPower = Mathf.Lerp(rBody.velocity.magnitude*Time.fixedDeltaTime, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var accelPower = Mathf.Lerp(Mathf.Clamp01(SpeedRatio-Time.fixedDeltaTime*10f)* targetSpeed / powerRatio, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
 
             const float speedDecay = 0.95f;
             Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
