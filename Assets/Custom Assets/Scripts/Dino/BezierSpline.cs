@@ -42,6 +42,14 @@ public class BezierSpline : MonoBehaviour
         }
     }
 
+    public int CurveCount
+    {
+        get
+        {
+            return (points.Length - 1) / 3;
+        }
+    }
+
     public Vector3 GetControlPoint(int index)
     {
         return points[index];
@@ -120,7 +128,7 @@ public class BezierSpline : MonoBehaviour
             return;
         }
 
-        int middleIndex = index * 3;
+        int middleIndex = modeIndex * 3;
         int fixedIndex, enforcedIndex;
         if (index <= middleIndex)
         {
@@ -235,13 +243,6 @@ public class BezierSpline : MonoBehaviour
             points[points.Length - 1] = points[0];
             modes[modes.Length - 1] = modes[0];
             EnforceMode(0);
-        }
-    }
-
-    public int CurveCount
-    {
-        get {
-            return (points.Length - 1) / 3;
         }
     }
 }

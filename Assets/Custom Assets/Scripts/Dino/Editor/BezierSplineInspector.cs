@@ -97,7 +97,7 @@ public class BezierSplineInspector : Editor
         Vector3 point = spline.GetPoint(0f);
         Handles.DrawLine(point, point + spline.GetDirection(0f) * directionScale);
         int steps = stepsPerCurve * spline.CurveCount;
-        for (int i = 1; i < steps; i++)
+        for (int i = 1; i <= steps; i++)
         {
             point = spline.GetPoint(i / (float)steps);
             Handles.DrawLine(point, point + spline.GetDirection(i / (float)steps) * directionScale);
