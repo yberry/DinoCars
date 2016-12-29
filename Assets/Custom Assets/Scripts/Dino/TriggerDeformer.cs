@@ -19,12 +19,6 @@ public abstract class TriggerDeformer : MonoBehaviour {
     public float speed = 0.2f;
 
     protected MeshDeformer meshDeformer;
-    protected Collider col;
-
-    void Awake()
-    {
-        col = GetComponent<Collider>();
-    }
 
     void Update()
     {
@@ -33,9 +27,9 @@ public abstract class TriggerDeformer : MonoBehaviour {
 
     protected abstract void ApplyDeformation();
 
-    void OnTriggerStay(Collider coll)
+    void OnTriggerStay(Collider col)
     {
-        if (coll.name == meshDeformer.name)
+        if (col.name == meshDeformer.name)
         {
             ApplyDeformation();
         }

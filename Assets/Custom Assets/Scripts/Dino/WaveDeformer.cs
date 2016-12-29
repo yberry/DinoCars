@@ -6,6 +6,7 @@ using UnityEngine;
 public class WaveDeformer : TriggerDeformer {
 
     [Header("Debug")]
+    public bool debugSphere;
     public GameObject dummySpherePrefab;
 
     Transform[] dummySpheres;
@@ -45,12 +46,13 @@ public class WaveDeformer : TriggerDeformer {
         {
             for (int y = 0; y < subdivisionY; y++)
             {
-                for (int z = 0; z < subdivisionZ; z++)
+                for (int z = 0; z < subdivisionZ; z++, i++)
                 {
                     Vector3 point = min + x * partX + y * partY + z * partZ;
 
                     point += forceOffset * transform.up;
-                    dummySpheres[i++].position = point;
+                    dummySpheres[i].position = point;
+                    dummySpheres[i].gameObject.SetActive(debugSphere);
 
                     meshDeformer.AddDeformingForce(point, force);
                 }
