@@ -29,7 +29,7 @@ public abstract class TriggerDeformer : MonoBehaviour {
 
     void OnTriggerStay(Collider col)
     {
-        if (col.name == meshDeformer.name)
+        if (col.gameObject == meshDeformer.gameObject)
         {
             ApplyDeformation();
         }

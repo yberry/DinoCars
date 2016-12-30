@@ -25,18 +25,19 @@ public class SplineDecorator : MonoBehaviour {
         {
             stepSize = 1f / (stepSize - 1f);
         }
+
         for (int p = 0, f = 0; f < frequency; f++)
         {
             for (int i = 0; i < items.Length; i++, p++)
             {
                 Transform item = Instantiate(items[i]);
                 Vector3 position = spline.GetPoint(p * stepSize);
-                item.transform.localPosition = position;
+                item.localPosition = position;
                 if (lookForward)
                 {
-                    item.transform.LookAt(position + spline.GetDirection(p * stepSize));
+                    item.LookAt(position + spline.GetDirection(p * stepSize));
                 }
-                item.transform.SetParent(transform);
+                item.SetParent(transform);
             }
         }
     }
