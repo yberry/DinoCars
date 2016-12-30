@@ -13,12 +13,15 @@ namespace CND.Car
 
         public Vector3 gravity=Physics.gravity;
         public float steerAngleDeg { get; set; }
+        public GameObject wheelGraphics;
 
-       // [DisplayModifier(startExpanded:true)]
+        // [DisplayModifier(startExpanded:true)]
         public Settings settings=Settings.CreateDefault();
         protected ContactInfo m_contactInfo;
         public ContactInfo contactInfo { get { return m_contactInfo; } }
         protected ContactInfo prevContactInfo;
+
+      
 
         protected Vector3 lastPos;
         protected Vector3 wheelCenter;
@@ -29,9 +32,18 @@ namespace CND.Car
         // Use this for initialization
         void Start()
         {
+        
+
             steerRot = transform.localRotation;
             m_contactInfo.springLength = settings.baseSpringLength;
             RecalculatePositions();
+
+            var wheelGfx = wheelGraphics.CleanInstantiateClone();
+            wheelGfx.transform.localScale *= settings.wheelRadius;
+            wheelGfx.transform.SetParent(transform);
+            wheelGfx.transform.position = wheelCenter;
+            wheelGfx.SetActive(true);
+            wheelGraphics = wheelGfx;
         }
 
         // Update is called once per frame
@@ -56,7 +68,7 @@ namespace CND.Car
         {
             RaycastHit hit;
             ContactInfo curContactInfo=new ContactInfo();
-            const float halfPI= Mathf.PI * (0.49999f);
+            const float halfPI= Mathf.PI * (0.5f);
             const float fullCircle = 2f * Mathf.PI * Mathf.Rad2Deg;
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
@@ -73,8 +85,13 @@ namespace CND.Car
 
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
-            curContactInfo.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? Mathf.Asin(Vector3.Dot(transform.forward, moveDir)) / halfPI : 1;
-            curContactInfo.sidewaysRatio = moveDir != Vector3.zero ? Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI : 1f- curContactInfo.forwardRatio; //leftOrRightness 
+
+            var asinForward = Mathf.Asin(Vector3.Dot(transform.forward, moveDir)) / halfPI;
+            if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
+            var asinSide = Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI;
+            if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
+            curContactInfo.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? asinForward : 1;
+            curContactInfo.sidewaysRatio = moveDir != Vector3.zero ? asinSide : 1f- curContactInfo.forwardRatio; //leftOrRightness 
             curContactInfo.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
             
             curContactInfo.forwardFriction = settings.maxForwardFriction * Mathf.Abs(curContactInfo.forwardRatio);
@@ -147,6 +164,12 @@ namespace CND.Car
         {
             wheelCenter = transform.position - transform.up * m_contactInfo.springLength;
             contactPoint = wheelCenter - transform.up * settings.wheelRadius;
+
+            if (Application.isPlaying)
+            {
+                wheelGraphics.transform.position = wheelCenter;
+                wheelGraphics.transform.rotation = Quaternion.LookRotation(steerRot*transform.forward, transform.up);
+            }
 
         }
 

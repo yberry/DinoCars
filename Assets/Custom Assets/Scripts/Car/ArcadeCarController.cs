@@ -63,7 +63,8 @@ namespace CND.Car
         {
             wheelMgr = GetComponent<WheelManager>();
             rBody = GetComponent<Rigidbody>();
-            
+
+
             
         }
 
@@ -180,7 +181,7 @@ namespace CND.Car
             int gear = GetGear() - 1;
             var gearSpeed = transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var accelPower = Mathf.Lerp(Mathf.Clamp01(SpeedRatio-Time.fixedDeltaTime*10f)* targetSpeed / powerRatio, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var accelPower = Mathf.Lerp(Mathf.Clamp01(SpeedRatio-Time.fixedDeltaTime*5f)* targetSpeed / powerRatio, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
 
             const float speedDecay = 0.95f;
             Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
@@ -191,7 +192,7 @@ namespace CND.Car
                 inertiaCancel* contact.sideFriction,
                 absForward);
 
-            Vector3 nextDriftVel =Vector3.Lerp(nextSidewaysVel+ nextForwardVel, nextForwardVel + inertiaCancel, driftControl);
+            Vector3 nextDriftVel =Vector3.Lerp(nextSidewaysVel+ nextForwardVel, nextForwardVel + inertiaCancel*absSide, driftControl);
             Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
             Vector3 nextFinalVel=Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, tractionControl);
