@@ -39,6 +39,10 @@ namespace Rewired.UI.ControlMapper {
         [SerializeField]
         [Tooltip("Must be assigned a Rewired Input Manager scene object or prefab.")]
         private InputManager _rewiredInputManager;
+        
+        [SerializeField]
+        [Tooltip("Set to True to prevent the Game Object from being destroyed when a new scene is loaded.\n\nNOTE: Changing this value from True to False at runtime will have no effect because Object.DontDestroyOnLoad cannot be undone once set.")]
+        private bool _dontDestroyOnLoad;
 
         [SerializeField]
         [Tooltip("Open the control mapping screen immediately on start. Mainly used for testing.")]
@@ -281,6 +285,7 @@ namespace Rewired.UI.ControlMapper {
         // Not all properties are runtime modifiable.
 
         public InputManager rewiredInputManager { get { return _rewiredInputManager; } set { _rewiredInputManager = value; InspectorPropertyChanged(true); } }
+        public bool dontDestroyOnLoad { get { return _dontDestroyOnLoad; } set { if(value != _dontDestroyOnLoad) { if(value) DontDestroyOnLoad(transform.gameObject); } _dontDestroyOnLoad = value; } }
         public int keyboardMapDefaultLayout { get { return _keyboardMapDefaultLayout; } set { _keyboardMapDefaultLayout = value; InspectorPropertyChanged(true); } }
         public int mouseMapDefaultLayout { get { return _mouseMapDefaultLayout; } set { _mouseMapDefaultLayout = value; InspectorPropertyChanged(true); } }
         public int joystickMapDefaultLayout { get { return _joystickMapDefaultLayout; } set { _joystickMapDefaultLayout = value; InspectorPropertyChanged(true); } }
@@ -416,6 +421,10 @@ namespace Rewired.UI.ControlMapper {
         #region Unity Events
 
         void Awake() {
+            if(_dontDestroyOnLoad) {
+                DontDestroyOnLoad(transform.gameObject);
+            }
+        
             PreInitialize();
 
             // Open immediately if instantiated with canvas active

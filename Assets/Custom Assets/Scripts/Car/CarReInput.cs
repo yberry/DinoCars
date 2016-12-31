@@ -12,7 +12,6 @@ public class CarReInput : MonoBehaviour {
     [DisplayModifier(true)]
     public BaseCarController car;
 
-    public bool useKeyboard;
 
     [Header("Debug Options")]
     public bool testSteering;
@@ -42,10 +41,10 @@ public class CarReInput : MonoBehaviour {
         }
            
 
-        float fwd = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
-        float back = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
+        float fwd = pInput.GetAxis(Globals.Axis_Z2);
+        float back = pInput.GetAxis(Globals.Axis_Z1);
 
-        //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+        Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
 
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
         bool boost = pInput.GetButton(Globals.BtnAction3);

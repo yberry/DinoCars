@@ -92,7 +92,7 @@ namespace CND.Car
         public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
             this.steering = steering* steering*Mathf.Sign(steering);
-            this.accelInput = Mathf.Clamp(accel,-1f,1f);
+            this.accelInput = Mathf.Clamp(accel+footbrake,-1f,1f);
             this.footbrake = footbrake;
             this.handbrake = handbrake;
             this.boost = boost;

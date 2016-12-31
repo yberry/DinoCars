@@ -20,6 +20,7 @@ namespace Rewired.UI.ControlMapper {
         #region Inspector Variable Name Consts
 
         private const string c_rewiredInputManager = "_rewiredInputManager";
+        private const string c_dontDestroyOnLoad = "_dontDestroyOnLoad";
 
         private const string c_openOnStart = "_openOnStart";
 
@@ -120,6 +121,7 @@ namespace Rewired.UI.ControlMapper {
             properties = new Dictionary<string, SerializedProperty>();
 
             AddProperty(c_rewiredInputManager);
+            AddProperty(c_dontDestroyOnLoad);
 
             AddProperty(c_openOnStart);
 
@@ -208,6 +210,7 @@ namespace Rewired.UI.ControlMapper {
             EditorGUILayout.Space();
             using(new EditorGUILayoutSection(true, style_sectionBkg)) {
                 EditorGUILayout.PropertyField(properties[c_rewiredInputManager]);
+                EditorGUILayout.PropertyField(properties[c_dontDestroyOnLoad]);
             }
 
             DrawLayout();

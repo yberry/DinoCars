@@ -1,3 +1,29 @@
+1.0.0.109:
+  
+  Changes:
+    - Windows Standalone, XInput: XInput library version 1.4 is now prioritized over version 1.3.
+    - Windows Standalone, XInput: Removed Guide button detection due to possible crashes in Windows 10 developer preview builds.
+    - Added "Don't Destroy On Load" option to Control Mapper inspector.
+  
+  Bug Fixes:
+    - Fixed incorrect mapping in HOTAS template for Saitek X45 Y axis.
+
+1.0.0.108:
+
+  Bug Fixes:
+    - Fixed exception when setting ReInput.controllers.keyboardEnabled property.
+    - Fixed exception in ControllerMap.ReplaceElementMap when used with Custom Controller maps.
+    - Fixed exception in ControllerMap.CreateElementMap when used with Custom Controller maps.
+
+1.0.0.107:
+
+  Changes:
+    - Android: Supports new Xbox One S controller firmware.
+
+  Bug Fixes:
+    - ControllerMap.ReplaceElementMap now works properly with Custom Controller maps.
+    - ControllerMap.CreateElementMap now works properly with Custom Controller maps.
+
 1.0.0.106:
 
   Changes:

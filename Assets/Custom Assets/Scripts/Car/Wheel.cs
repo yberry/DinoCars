@@ -72,6 +72,7 @@ namespace CND.Car
             const float fullCircle = 2f * Mathf.PI * Mathf.Rad2Deg;
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
+
            // var src = transform.rotation * transform.position;
             var nextLength = m_contactInfo.springLength;
             float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
@@ -79,8 +80,7 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             curContactInfo.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
-            curContactInfo.angularVelocity = (curContactInfo.angularVelocity+ moveDelta.magnitude * wheelCircumference) % wheelCircumference;
-            angularVelAngle += curContactInfo.angularVelocity;
+
             Quaternion lookRot = moveDir != Vector3.zero && moveDir != transform.forward ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
             curContactInfo.relativeRotation = steerRot;
@@ -90,6 +90,9 @@ namespace CND.Car
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
             var asinSide = Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI;
             if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
+            curContactInfo.angularVelocity = (curContactInfo.angularVelocity + moveDelta.magnitude * wheelCircumference) % wheelCircumference;
+            angularVelAngle += curContactInfo.angularVelocity * Mathf.Sign(asinForward);
+
             curContactInfo.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? asinForward : 1;
             curContactInfo.sidewaysRatio = moveDir != Vector3.zero ? asinSide : 1f- curContactInfo.forwardRatio; //leftOrRightness 
             curContactInfo.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
@@ -168,7 +171,7 @@ namespace CND.Car
             if (Application.isPlaying)
             {
                 wheelGraphics.transform.position = wheelCenter;
-                wheelGraphics.transform.rotation = Quaternion.LookRotation(steerRot*transform.forward, transform.up);
+                wheelGraphics.transform.rotation = Quaternion.LookRotation(steerRot*transform.forward, transform.up) * (Quaternion.Euler(angularVelAngle, 0, 0));
             }
 
         }
