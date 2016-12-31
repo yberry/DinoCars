@@ -152,13 +152,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1453236011261300}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -0.25}
-  m_LocalScale: {x: 1, y: 0.5, z: 1.5}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1.25, y: 0.5, z: 3}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!4 &4125922209460424
 Transform:
   m_ObjectHideFlags: 1
@@ -200,7 +200,7 @@ Transform:
   - {fileID: 4502885954253896}
   - {fileID: 4976145307715420}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4502885954253896
 Transform:
@@ -225,9 +225,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 2, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4887335813847590}
   - {fileID: 4037492006860098}
   - {fileID: 4284934059096966}
-  - {fileID: 4887335813847590}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -239,10 +239,10 @@ Transform:
   m_GameObject: {fileID: 1801259081023688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 0.5, z: 3}
+  m_LocalScale: {x: 1.75, y: 0.5, z: 3}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4976145307715420
 Transform:
@@ -658,7 +658,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSlot: 1
   car: {fileID: 0}
-  useKeyboard: 0
   testSteering: 0
   forceDirAt100Kph: -1
 --- !u!136 &136422878202054420

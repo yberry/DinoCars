@@ -39,7 +39,7 @@ namespace CND.Car
             RecalculatePositions();
 
             var wheelGfx = wheelGraphics.CleanInstantiateClone();
-            wheelGfx.transform.localScale *= settings.wheelRadius;
+            wheelGfx.transform.localScale *= settings.wheelRadius*2f;
             wheelGfx.transform.SetParent(transform);
             wheelGfx.transform.position = wheelCenter;
             wheelGfx.SetActive(true);
