@@ -170,10 +170,10 @@ public class BezierSpline : MonoBehaviour
     {
         points = new Vector3[]
         {
-            new Vector3(1f,0f,0f),
-            new Vector3(2f,0f,0f),
-            new Vector3(3f,0f,0f),
-            new Vector3(4f,0f,0f)
+            new Vector3(0f,0f,10f),
+            new Vector3(0f,0f,20f),
+            new Vector3(0f,0f,30f),
+            new Vector3(0f,0f,40f)
         };
         modes = new BezierControlPointMode[]
         {
