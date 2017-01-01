@@ -104,13 +104,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 301696799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a62e2e3f6362eb4ea2b2875df26a793, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c74e1c477649243b6a49f41f60fed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 2055101032}
-  duration: 5
-  lookForward: 0
-  mode: 0
+  range: 0
+  lookForward: 1
 --- !u!1 &1023891070
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +295,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
       propertyPath: m_LocalPosition.y
@@ -312,7 +311,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
       propertyPath: m_LocalRotation.z
@@ -320,11 +319,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 156.707
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -25.163002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7217231f6d7bece46b45af2619aaa996, type: 2}
@@ -617,9 +628,9 @@ MonoBehaviour:
   points:
   - {x: 1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
-  - {x: 29.124321, y: 0, z: 2.0854053}
-  - {x: 25.179264, y: 0, z: -6.5070534}
-  - {x: 55.818695, y: 0, z: -3.8782387}
+  - {x: 24.7277, y: 0, z: -12.569389}
+  - {x: 20.782642, y: 0, z: -21.161848}
+  - {x: 51.422085, y: 0, z: -18.533033}
   - {x: 47.743732, y: 0, z: -36.940132}
   - {x: 59.13608, y: 0, z: -23.136826}
   modes: 000000000000000000000000

@@ -17,12 +17,16 @@ public abstract class TriggerDeformer : MonoBehaviour {
     public float force = 500f;
     public float forceOffset = 0.1f;
     public float speed = 0.2f;
+    public bool translate = true;
 
     protected MeshDeformer meshDeformer;
 
     void Update()
     {
-        transform.localPosition += speed * Vector3.forward;
+        if (translate)
+        {
+            transform.position += speed * transform.forward;
+        }
     }
 
     protected abstract void ApplyDeformation();

@@ -24,7 +24,7 @@ public class BezierSplineInspector : Editor
         Color.cyan
     };
 
-    private void OnSceneGUI()
+    void OnSceneGUI()
     {
         spline = target as BezierSpline;
         handleTransform = spline.transform;

@@ -11,6 +11,11 @@ public class SplineFixer : MonoBehaviour {
 
     void Update()
     {
+        SetPosition();
+    }
+
+    public void SetPosition()
+    {
         Vector3 position = spline.GetPoint(range);
         transform.position = position;
         if (lookForward)
