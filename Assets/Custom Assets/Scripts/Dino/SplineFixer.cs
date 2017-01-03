@@ -9,6 +9,18 @@ public class SplineFixer : MonoBehaviour {
     public float range;
     public bool lookForward;
 
+    static List<SplineFixer> fixers = new List<SplineFixer>();
+
+    void OnEnable()
+    {
+        fixers.Add(this);
+    }
+
+    void OnDisable()
+    {
+        fixers.Remove(this);
+    }
+
     void Update()
     {
         SetPosition();
@@ -21,6 +33,14 @@ public class SplineFixer : MonoBehaviour {
         if (lookForward)
         {
             transform.LookAt(position + spline.GetDirection(range));
+        }
+    }
+
+    public static void UpdateSpline()
+    {
+        foreach (SplineFixer fixer in fixers)
+        {
+            fixer.SetPosition();
         }
     }
 }
