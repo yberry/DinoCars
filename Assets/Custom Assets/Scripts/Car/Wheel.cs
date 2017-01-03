@@ -64,7 +64,7 @@ namespace CND.Car
 
 
 
-        void CheckForContact()
+        void CheckForContact() //aka the "I have no idea what I'm doing" section
         {
             RaycastHit hit;
             ContactInfo curContactInfo=new ContactInfo();
@@ -123,17 +123,18 @@ namespace CND.Car
                 var grav = m_contactInfo.isOnFloor ? gravity : gravity;
                 var gravNorm = grav.normalized;
                 var sqrGrav = grav* grav.magnitude;
-                var downVel = Vector3.Dot(moveDelta.normalized, -gravNorm);
-                var dotGrav = Vector3.Dot(transform.up, -gravNorm);
+                var downVel = Vector3.Dot(moveDir, -gravNorm);
+                var dotHitNormal = -Vector3.Dot(transform.up, hit.normal);
+                var dotGrav = Vector3.Dot(-transform.up, gravNorm);
                 var damping = downVel * settings.damping;
-                var shockCancel = (-vel*0.85f);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+                var shockCancel = -vel*85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-grav * (dotGrav)  + shockCancel/* * (1f-Time.fixedDeltaTime*20f)*/);
+                var stickToFloor = (-grav * (Mathf.Asin(dotGrav)/halfPI)  + shockCancel/* * (1f-Time.fixedDeltaTime*20f)*/);
                 var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * downVel, Time.fixedDeltaTime, 1f);
                 var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -downVel);
                 var springResistance = Mathf.Lerp(
                     curContactInfo.springCompression* curContactInfo.springCompression* curContactInfo.springCompression,
-                    Mathf.Clamp01(Mathf.Sin(0.5f*curContactInfo.springCompression*Mathf.PI)), settings.stiffness) * 100f*Time.fixedDeltaTime;
+                    Mathf.Clamp01(Mathf.Sin( halfPI*curContactInfo.springCompression)), settings.stiffness) * 100f*Time.fixedDeltaTime;
 
                 Vector3 pushForce = Vector3.Lerp(
                     stickToFloor* springResistance * springDamp,
@@ -171,7 +172,7 @@ namespace CND.Car
             if (Application.isPlaying)
             {
                 wheelGraphics.transform.position = wheelCenter;
-                wheelGraphics.transform.rotation = Quaternion.LookRotation(steerRot*transform.forward, transform.up) * (Quaternion.Euler(angularVelAngle, 0, 0));
+                wheelGraphics.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up) * steerRot * (Quaternion.Euler(angularVelAngle, 0, 0));
             }
 
         }
