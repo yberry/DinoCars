@@ -86,8 +86,9 @@ namespace CND.Car
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
 
-            var dotForward = Vector3.Dot(transform.forward, moveDir);
-            var asinForward = Mathf.Asin(dotForward) / halfPI;
+            var dotForward = Vector3.Dot(transform.forward,moveDir);
+
+            var asinForward =  Mathf.Asin(dotForward) / halfPI;
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
             var asinSide = Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI;
             if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
@@ -110,7 +111,9 @@ namespace CND.Car
             {
                 float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
-                
+
+                if (Mathf.Abs(dotForward) < 0.99f)
+                    Debug.Log(dotForward);
 
                 curContactInfo.springCompression = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1f;
                 curContactInfo.wasAlreadyOnFloor = m_contactInfo.isOnFloor;
