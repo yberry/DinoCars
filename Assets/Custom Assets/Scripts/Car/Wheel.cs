@@ -86,7 +86,8 @@ namespace CND.Car
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
 
-            var asinForward = Mathf.Asin(Vector3.Dot(transform.forward, moveDir)) / halfPI;
+            var dotForward = Vector3.Dot(transform.forward, moveDir);
+            var asinForward = Mathf.Asin(dotForward) / halfPI;
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
             var asinSide = Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI;
             if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
@@ -123,15 +124,17 @@ namespace CND.Car
                 var grav = m_contactInfo.isOnFloor ? gravity : gravity;
                 var gravNorm = grav.normalized;
                 var sqrGrav = grav* grav.magnitude;
-                var downVel = Vector3.Dot(moveDir, -gravNorm);
-                var dotHitNormal = -Vector3.Dot(transform.up, hit.normal);
+                var dotVelGrav = Vector3.Dot(moveDir, -gravNorm);
+                var dotVelY = Vector3.Dot(transform.up, moveDir);
+                dotVelY=(Mathf.Asin(dotVelY) / halfPI);
                 var dotGrav = Vector3.Dot(-transform.up, gravNorm);
-                var damping = downVel * settings.damping;
+                dotGrav = (Mathf.Asin(dotGrav) / halfPI);
+                var damping = dotVelY * settings.damping;
                 var shockCancel = -vel*85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-grav * (Mathf.Asin(dotGrav)/halfPI)  + shockCancel/* * (1f-Time.fixedDeltaTime*20f)*/);
-                var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * downVel, Time.fixedDeltaTime, 1f);
-                var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -downVel);
+                var stickToFloor = (-grav * dotGrav + shockCancel /* * (1f-Time.fixedDeltaTime*20f)*/);
+                var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY, Time.fixedDeltaTime, 1f);
+                var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY);
                 var springResistance = Mathf.Lerp(
                     curContactInfo.springCompression* curContactInfo.springCompression* curContactInfo.springCompression,
                     Mathf.Clamp01(Mathf.Sin( halfPI*curContactInfo.springCompression)), settings.stiffness) * 100f*Time.fixedDeltaTime;
