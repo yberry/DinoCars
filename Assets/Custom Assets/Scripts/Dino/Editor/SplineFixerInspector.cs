@@ -7,7 +7,7 @@ using UnityEditor;
 [CanEditMultipleObjects]
 public class SplineFixerInspector : Editor {
 
-    private SplineFixer splineFixer;
+    SplineFixer splineFixer;
 
     void OnEnable()
     {

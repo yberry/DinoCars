@@ -7,7 +7,7 @@ public class SplineFixer : MonoBehaviour {
     [System.Serializable]
     public struct SplineObject
     {
-        public Transform splineObject;
+        public SplineFixerLocker splineObject;
         [Range(0f, 1f)]
         public float range;
         public bool lookForward;
@@ -26,11 +26,12 @@ public class SplineFixer : MonoBehaviour {
         foreach (SplineObject obj in splineObjects)
         {
             Vector3 position = spline.GetPoint(obj.range);
-            obj.splineObject.position = position;
+            obj.splineObject.transform.position = position;
             if (obj.lookForward)
             {
-                obj.splineObject.LookAt(position + spline.GetDirection(obj.range));
+                obj.splineObject.transform.LookAt(position + spline.GetDirection(obj.range));
             }
+            obj.splineObject.lockRotation = !obj.lookForward;
         }
     }
 }
