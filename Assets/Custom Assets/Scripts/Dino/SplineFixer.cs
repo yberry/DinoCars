@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class SplineFixer : MonoBehaviour {
 
+    [System.Serializable]
+    public struct SplineObject
+    {
+        public Transform splineObject;
+        [Range(0f, 1f)]
+        public float range;
+        public bool lookForward;
+    }
+
     public BezierSpline spline;
-    [Range(0f, 1f)]
-    public float range;
-    public bool lookForward;
-
-    static List<SplineFixer> fixers = new List<SplineFixer>();
-
-    void OnEnable()
-    {
-        fixers.Add(this);
-    }
-
-    void OnDisable()
-    {
-        fixers.Remove(this);
-    }
+    public SplineObject[] splineObjects;
 
     void Update()
     {
@@ -28,19 +23,14 @@ public class SplineFixer : MonoBehaviour {
 
     public void SetPosition()
     {
-        Vector3 position = spline.GetPoint(range);
-        transform.position = position;
-        if (lookForward)
+        foreach (SplineObject obj in splineObjects)
         {
-            transform.LookAt(position + spline.GetDirection(range));
-        }
-    }
-
-    public static void UpdateSpline()
-    {
-        foreach (SplineFixer fixer in fixers)
-        {
-            fixer.SetPosition();
+            Vector3 position = spline.GetPoint(obj.range);
+            obj.splineObject.position = position;
+            if (obj.lookForward)
+            {
+                obj.splineObject.LookAt(position + spline.GetDirection(obj.range));
+            }
         }
     }
 }

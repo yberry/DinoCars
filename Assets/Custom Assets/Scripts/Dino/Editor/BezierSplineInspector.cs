@@ -45,7 +45,6 @@ public class BezierSplineInspector : Editor
         }
 
         ShowDirections();
-        SplineFixer.UpdateSpline();
     }
 
     public override void OnInspectorGUI()
@@ -70,7 +69,6 @@ public class BezierSplineInspector : Editor
             spline.AddCurve();
             EditorUtility.SetDirty(spline);
         }
-        SplineFixer.UpdateSpline();
     }
 
     private void DrawSelectedPointInspector()

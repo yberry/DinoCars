@@ -4,9 +4,15 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(SplineFixer))]
+[CanEditMultipleObjects]
 public class SplineFixerInspector : Editor {
 
     private SplineFixer splineFixer;
+
+    void OnEnable()
+    {
+        splineFixer = target as SplineFixer;
+    }
 
     void OnSceneGUI()
     {
@@ -15,13 +21,16 @@ public class SplineFixerInspector : Editor {
 
     public override void OnInspectorGUI()
     {
+        EditorGUI.BeginChangeCheck();
         base.OnInspectorGUI();
-        SetPosition();
+        if (EditorGUI.EndChangeCheck())
+        {
+            SetPosition();
+        }
     }
 
     void SetPosition()
     {
-        splineFixer = target as SplineFixer;
         if (splineFixer.spline)
         {
             splineFixer.SetPosition();
