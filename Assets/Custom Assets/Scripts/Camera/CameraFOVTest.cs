@@ -27,19 +27,24 @@ public class CameraFOVTest : MonoBehaviour {
     public float jaugeDeBoostInit = 50;
     public int delais = 50;
     float jaugeDeBoost;
+    [Header("Paramètres Screen Shake")]
+    public float shakePower= 2.0f;
     [Header("GameObjects")]
     public ParticleSystem particules2;
     public ParticleSystem particules1;
     public ParticleSystem ForceLines;
     public Camera cam;
     public Slider slider;
+    private ScreenShaker shaker;
     bool boostUtilisé = false;
     int temps = 0;
     bool pressed = false;
+    bool reload = false;
 
 	// Use this for initialization
 	void Start () {
         jaugeDeBoost = jaugeDeBoostInit;
+        this.shaker = (ScreenShaker)this.GetComponent<ScreenShaker>();
     }
 	
 	// Update is called once per frame
@@ -54,6 +59,8 @@ public class CameraFOVTest : MonoBehaviour {
         }
         if (boostUtilisé == false && pressed == true )
         {
+            this.shaker.Shake(shakePower, true);
+            reload = true;
             if (cam.fieldOfView < FOVBoost)
             {
                 if (ForceLines.maxParticles < flMaxParticulesBoost)
@@ -76,21 +83,23 @@ public class CameraFOVTest : MonoBehaviour {
                     particules2.startSize = particules2.startSize + pStartSizeEvolution;
                 }
                 cam.fieldOfView = cam.fieldOfView + FOVEvolution;
+
             }
             if (cam.fieldOfView >= FOVBoost)
             {
                 if (jaugeDeBoost > 0)
                 {
                     jaugeDeBoost--;
-                }else{
+                }else { 
                     boostUtilisé = true;
                 }
             }
         }
         else
         {
-            if (cam.fieldOfView > FOVDefault)
+            if (cam.fieldOfView > FOVDefault )
             {
+                this.shaker.Shake(shakePower, false);
                 if (ForceLines.maxParticles > flMaxParticulesDefault)
                 {
                     ForceLines.maxParticles = ForceLines.maxParticles - flMaxParticulesEvolution;
@@ -113,7 +122,7 @@ public class CameraFOVTest : MonoBehaviour {
                 }
                 cam.fieldOfView = cam.fieldOfView - FOVEvolution;
             }
-            if (cam.fieldOfView <= FOVDefault)
+            if (cam.fieldOfView <= FOVDefault && reload == true)
             {
                 if (temps < delais)
                 {
@@ -123,6 +132,7 @@ public class CameraFOVTest : MonoBehaviour {
                         jaugeDeBoost++;
                     }else { 
                     boostUtilisé = false;
+                        reload = false;
                     temps = 0;
                     }
                 }
