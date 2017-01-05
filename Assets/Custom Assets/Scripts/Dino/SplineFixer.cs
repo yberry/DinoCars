@@ -15,6 +15,7 @@ public class SplineFixer : MonoBehaviour {
 
     public BezierSpline spline;
     public SplineObject[] splineObjects;
+    public float rotationSpeed = 1f;
 
     void Update()
     {
@@ -33,5 +34,7 @@ public class SplineFixer : MonoBehaviour {
             }
             obj.splineObject.lockRotation = !obj.lookForward;
         }
+
+        transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
     }
 }
