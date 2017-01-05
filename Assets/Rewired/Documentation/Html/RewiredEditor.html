@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -121,6 +121,7 @@
     <h4>Pages:</h4>
     <ul>
       <li><a href="#Settings">Settings</a></li>
+      <li><a href="#Tools">Tools</a></li>
       <li><a href="#Players">Players</a></li>
       <li><a href="#Actions">Actions</a></li>
       <li><a href="#InputBehaviors">Input Behaviors</a></li>
@@ -142,13 +143,13 @@
 <p>The Settings page allows you change the options for the current Input Manager. The options available are as follows:</p>
  <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="22%" valign="top">Update Loop:</td>
+    <td width="22%" valign="top"><strong>Update Loop:</strong></td>
     <td width="78%" valign="top"><p>Updates input in one or more game loops.<br />
         Selecting Multiple will update input in each loop chosen. Each loop is updated and tracked independently so all input calls will work in either loop. Select multiple if you need to be able to get input, for example, from both Update and FixedUpdate.</p></td>
   </tr>
   <tr>
     <td valign="top">Update</td>
-    <td valign="top">Updates input only in the Update loop. If you try to get input from the FixedUpdate loop, you will miss some input data. Ex: GetButtonDown and GetKeyDown will not always return correctly.</td>
+    <td valign="top">Updates input only in the Update loop. If you try to get input from the FixedUpdate loop, you will miss some input data. Ex: GetButtonDown and GetKeyDown will not always return correctly. (Required)</td>
   </tr>
   <tr>
     <td valign="top">FixedUpdate</td>
@@ -164,59 +165,136 @@
     <td valign="top">&nbsp;</td>
   </tr>
   <tr>
-    <td valign="top">Input Options</td>
+    <td valign="top"><strong>Platform Settings:</strong></td>
+    <td valign="top">Certain build platforms have settings which you can set individually. Click the name of the platform, then options will appear below. For settings that affect all build platforms, click the &quot;All&quot; button.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>All:</strong></td>
     <td valign="top">&nbsp;</td>
   </tr>
   <tr>
     <td valign="top">Disable Native Input</td>
     <td valign="top"><p>Force Unity Input to be the input source. This will disable all external input sources such as Raw Input, Direct Input, XInput, and native OSX.</p>
       <p>WARNING:
-        Unity Input does not allow hot-plugging on most platforms. If you need hot-plugging, do not check this box.</p></td>
+        Unity Input does not allow hot-plugging on some platforms. If you need hot-plugging, do not check this box.</p></td>
   </tr>
   <tr>
-    <td valign="top">Windows Standalone Input Source</td>
+    <td valign="top">Disable Keyboard</td>
+    <td valign="top">Disable keyboard input on all platforms? Disabling this can improve performance slightly.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>Windows:</strong></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Input Source</td>
     <td valign="top"><p>The primary input source for the Windows Standalone platform.</p>
       <p>Raw Input - Use Raw Input for the input source. Note: Raw Input carries significant advantages over Direct Input such as better Bluetooth controller support, support for more elements on certain controllers, better controller recognition, etc.  Does not require any extra libraries. Windows Control Panel joystick calibration does not affect joystick axes.</p>
       <p> Direct Input - Use Direct Input for the input source. Installation of DirectX end-user runtimes may be required for Direct Input support. Windows Control Panel joystick calibration settings affect joystick axes.</p>
 <p> SDL2 - Use SDL2 for the input source. This option requires the SDL2 runtime library to be installed. Note: SDL2 does not support as many devices as other native input sources.</p></td>
   </tr>
   <tr>
-    <td valign="top">Windows: Use XInput</td>
+    <td valign="top">Use XInput</td>
     <td valign="top">On Windows, use XInput for compatible devices. Otherwise fall back to Raw Input or Direct Input. Installation of DirectX end-user runtimes may be required for XInput support. (Windows Vista+ include XInput support without the need for additional drivers.) Required for XBox 360 vibration support.</td>
   </tr>
   <tr>
-    <td valign="top">Windows: Steam Raw Input Fix</td>
+    <td valign="top">Steam Raw Input Fix</td>
     <td valign="top"><p>Force Raw Input controllers to appear in list when using a Steam Controller along with other controllers. This is a workaround for an issue caused by Steam when a Steam Controller is used in conjunction with other Raw Input controllers that causes said Raw Input controllers to disappear once a Steam Controller is attached.</p>
       <p>Note: When using Steam Streaming, this workaround will cause all Raw Input controllers connected to the host machine to appear to the client.</p></td>
   </tr>
   <tr>
-    <td valign="top">OSX Standalone Input Source</td>
+    <td valign="top"> Native Mouse Handling</td>
+    <td valign="top"><p>Use native libraries to handle the mouse. Enabling this will eliminate certain bugs associated with Unity's mouse handling.</p></td>
+  </tr>
+  <tr>
+    <td valign="top">Enhanced Device Support</td>
+    <td valign="top">Enable low-level enhanced support for certain devices. If enhanced support is available for a particular device, this will enable device-specific features such as vibration / force feedback, lights, gyroscopes, accelerometers, touchpads, etc.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>OSX:</strong></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Input Source</td>
     <td valign="top"><p>The primary input source for the OSX Standalone platform.</p>
       <p>Native - Use native input for the input source. This provides the best device support.</p>
       <p>SDL2 - Use SDL2 for the input source. This option requires the SDL2 runtime library to be installed.         Note: SDL2 does not support as many devices as other native input sources.</p>
-<p>Unity Input - Use Unity fallback input. </p></td>
+      <p>Unity Input - Use Unity fallback input. </p></td>
   </tr>
   <tr>
-    <td valign="top">Linux Standalone Input Source</td>
+    <td valign="top">Enhanced Device Support</td>
+    <td valign="top">Enable low-level enhanced support for certain devices. If enhanced support is available for a particular device, this will enable device-specific features such as vibration / force feedback, lights, gyroscopes, accelerometers, touchpads, etc.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>Linux:</strong></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Input Source</td>
     <td valign="top"><p>The primary input source for the Linux Standalone platform.</p>
       <p>Native - Use native input for the input source. This provides the best device support.</p>
       <p> SDL2 - Use SDL2 for the input source. May be required for Steam Streaming support in Linux. This option requires the SDL2 runtime library to be installed. Note: SDL2 does not support as many devices as other native input sources.</p>
       <p>Unity Input - Use Unity fallback input. </p></td>
   </tr>
   <tr>
-    <td valign="top">Android: Support Unknown Gamepads</td>
+    <td valign="top"><strong>Windows UWP:</strong></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Input Source</td>
+    <td valign="top"><p>The primary input source for the Windows 10 Universal platform.</p>
+      <p>Native - Use native input for the input source. This provides the best device support.</p>
+      <p>Unity Input - Use Unity fallback input.</p></td>
+  </tr>
+  <tr>
+    <td valign="top"><strong><a name="settings-android" id="settings-android"></a>Android:</strong></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Support Unknown Gamepads</td>
     <td valign="top"><p>Treat all unrecognized controllers as gamepads using the standardized Android gamepad layout. All recognized controllers will be treated normally.</p>
       <p>Warning: While most Android gamepads conform to this layout, there are exceptions. Addtionally, with this option enabled, all unrecognized non-gamepad joystick devices used will be limited to only the set of elements available on a gamepad. If your game needs to support devices other than Android gamepads, disable this option.</p>
       <p>This option only applies to the Android platform.</p></td>
   </tr>
   <tr>
-    <td valign="top">Native Mouse Handling</td>
-    <td valign="top"><p>Use native libraries to handle the mouse if available on the current platform. Enabling this will eliminate certain bugs associated with Unity's mouse handling.</p>
-      <p>NOTE: This setting currently only affects the Windows Standalone platform.</p></td>
+    <td valign="top"><strong>Xbox One:</strong></td>
+    <td valign="top">&nbsp;</td>
   </tr>
   <tr>
-    <td valign="top">Enhanced Device Support</td>
-    <td valign="top">Enable low-level enhanced support for certain devices on certain platforms. If enhanced support is available for a particular device, this will enable device-specific features such as vibration / force feedback, lights, gyroscopes, accelerometers, touchpads, etc.</td>
+    <td valign="top">Input Source</td>
+    <td valign="top"><p>The primary input source for the Xbox One platform.</p>
+      <p>Native - Use native input for the input source. This provides the best device support.</p>
+      <p>Unity Input - Use Unity fallback input.</p></td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>PS4:</strong></td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Input Source</td>
+    <td valign="top"><p>The primary input source for the PS4 platform.</p>
+      <p>Native - Use native input for the input source. This provides the best device support.</p>
+      <p>Unity Input - Use Unity fallback input.</p></td>
+  </tr>
+  <tr>
+    <td valign="top">Assign Joysticks by PS4 Joy Id</td>
+    <td valign="top">If this option is enabled, joysticks will be assigned to Rewired Players based on the PS4 joystick id assigned by the system. This option ensures that the PS4 joystick id will match to the Rewired Player when auto-assigned. This option overrides some other joystick auto-assignment settings. Only one joystick will be assigned per Player.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>Each Platform:</strong></td>
+    <td valign="top">Options here appear in all individual platform pages.</td>
+  </tr>
+  <tr>
+    <td valign="top">Disable Keyboard</td>
+    <td valign="top">Disable keyboard input on this platform? Disabling this can improve performance slightly.</td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>Global Settings:</strong></td>
+    <td valign="top">&nbsp;</td>
   </tr>
   <tr>
     <td valign="top">Default Joystick Dead Zone Type</td>
@@ -227,11 +305,15 @@
   <p>This setting only applies to joysticks on recognized controllers.</p></td>
   </tr>
   <tr>
+    <td valign="top">Force 4-Way Hats</td>
+    <td valign="top">Force all 8-way hats on recognized joysticks to be treated as 4-way hats. If enabled, the corner directions on all hats will activate the adjacent 2 cardinal direction buttons instead of the corner button. This is useful if you need joystick hats to behave like D-Pads instead of 8-way hats.</td>
+  </tr>
+  <tr>
     <td valign="top">&nbsp;</td>
     <td valign="top">&nbsp;</td>
   </tr>
   <tr>
-    <td valign="top">Joystick Auto-Assignment:</td>
+    <td valign="top"><strong><a name="settings-joystick-auto-assignment" id="settings-joystick-auto-assignment"></a>Joystick Auto-Assignment:</strong></td>
     <td valign="top">NOTE: Joystick Auto-Assignment  applies to Joysticks only (controllers other than keyboard or mouse.) Joystick Auto-Assignment does not consider whether a Player has Keyboard Maps assigned, so it will not skip assigning joysticks to Players that are using the keyboard.</td>
   </tr>
   <tr>
@@ -256,6 +338,62 @@
   </tr>
 </table>
 <p>&nbsp;</p>
+<hr />
+<h3><a name="Tools" id="Settings2"></a>Tools</h3>
+<p><img src="files/images/rewirededitor_tools.png" alt="Tools" /></p>
+<p><strong>Export Constants:</strong></p>
+<p>Allows you to export a list of constants for all Rewired Actions, Map Categories, and Layouts. These constants can be used in place of strings when interacting with the Rewired API. Clicking &quot;Export&quot; will create a CS file which must be saved somewhere in your project.</p>
+<p>Note: The exported consts will only be valid for this Rewired Input Manager. Also, if you add or delete items from the Rewired Input Manager, this list must be exported again.</p>
+<p> (See <a href="HowTos.html#exporting-constants">How To's - Exporting constants for use in scripting</a> for more information.)</p>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="19%" valign="top">Use Namespace</td>
+    <td width="81%" valign="top">Wrap all the exported classes in a namespace.</td>
+  </tr>
+  <tr>
+    <td valign="top">Namespace</td>
+    <td valign="top">The namespace. Only valid C# namespace characters are allowed.</td>
+  </tr>
+  <tr>
+    <td valign="top">Use Parent Class</td>
+    <td valign="top">Wrap all the exported classes in a single parent class for better organization.</td>
+  </tr>
+  <tr>
+    <td valign="top">Parent Class Name</td>
+    <td valign="top">Name of the parent class. Only valid C# class name characters are allowed. This class name must be unique.</td>
+  </tr>
+  <tr>
+    <td valign="top">Export Actions</td>
+    <td valign="top">Export Actions to a class of constants.</td>
+  </tr>
+  <tr>
+    <td valign="top">Actions Class Name</td>
+    <td valign="top">Name of the class that will contain the Action constants. Only valid C# class name characters are allowed. This class name must be unique.</td>
+  </tr>
+  <tr>
+    <td valign="top">Include Action Category</td>
+    <td valign="top"><p>Includes the Action Category in the name of each constant. The Action Category name will preceed the Action name for the final const name.</p>
+      <p>Example: public const int Default_Jump = 1;</p>
+      <p>Otherwise, the Action name alone will be used.</p>
+      <p>Example: public const int Jump = 1;</p></td>
+  </tr>
+  <tr>
+    <td valign="top">Export Map Categories</td>
+    <td valign="top">Export Map Categories to a class of constants.</td>
+  </tr>
+  <tr>
+    <td valign="top">Map Categories Class Name</td>
+    <td valign="top">Name of the class that will contain the Map Category constants. Only valid C# class name characters are allowed. This class name must be unique.</td>
+  </tr>
+  <tr>
+    <td valign="top">Export Layouts</td>
+    <td valign="top">Export Layouts to a class of constants.</td>
+  </tr>
+  <tr>
+    <td valign="top">Layouts Class Name</td>
+    <td valign="top">Name of the class that will contain the Layout constants. Only valid C# class name characters are allowed. This class name must be unique. Layout constants will be wrapped in an additional class named for the Layout type.</td>
+  </tr>
+</table>
 <hr />
 <h3><a name="Players" id="Players"></a>Players</h3>
 <p><img src="files/images/rewirededitor_players.png" alt="Players" /></p>
@@ -336,8 +474,6 @@
 <p><strong>Category Box:</strong><br />
   Select a category to see the Actions in this category.<br />
   Click &quot;Edit Categories&quot; to add or edit Action Categories.</p>
-<p><strong>Exporting Actions to Consts:</strong><br />
-  Click &quot;Export Actions to Consts&quot; to export all Actions. (See <a href="HowTos.html#exporting-actions">How To's - Exporting Actions as constants for use in scripting</a> for more information.)</p>
 <p><strong>Action Box:</strong><br />
   Select an Action to modify its properties.</p>
 <p><strong>Action Properties:</strong></p>
@@ -393,6 +529,10 @@
     <td valign="top">All joystick axes are multiplied by this value.</td>
   </tr>
   <tr>
+    <td valign="top">Digital Axis Simulation</td>
+    <td valign="top">Enables digital axis simulation which makes button or key presses contribute to an Action's axis value gradually over time based on gravity and sensitivity. This only affects axis values generated by button and key presses.</td>
+  </tr>
+  <tr>
     <td valign="top">Digital Axis Snap</td>
     <td valign="top">When input is received in the opposite direction of the current flow, snap axis value to 0 and continue from there. This only affects axis values generated by button and key presses.</td>
   </tr>
@@ -402,13 +542,11 @@
   </tr>
   <tr>
     <td valign="top">Digital Axis Gravity</td>
-    <td valign="top"><p>Speed (units/sec) that the axis value falls toward 0. This only affects axis values generated by button and key presses.</p>
-      <p>To disable digital axis smoothing, set both Digital Axis Gravity and Digital Axis Sensitivity to 1000.</p></td>
+    <td valign="top"><p>Speed (units/sec) that the axis value falls toward 0. This only affects axis values generated by button and key presses.</p></td>
   </tr>
   <tr>
     <td valign="top">Digital Axis Sensitivity</td>
-    <td valign="top"><p>Speed to move toward an axis value of 1.0 in units/sec. This only affects axis values generated by button and key presses.</p>
-      <p>To disable digital axis smoothing, set both Digital Axis Gravity and Digital Axis Sensitivity to 1000.</p></td>
+    <td valign="top"><p>Speed to move toward an axis value of 1.0 in units/sec. This only affects axis values generated by button and key presses.</p></td>
   </tr>
   <tr>
     <td valign="top">Mouse XY Axis Mode</td>
@@ -449,6 +587,24 @@
   <tr>
     <td valign="top">Button Double Press Speed</td>
     <td valign="top">Time in seconds in which to register a button double-press or double-click.</td>
+  </tr>
+  <tr>
+    <td valign="top">Button Short Press Time</td>
+    <td valign="top">Time in seconds that a button or axis must be held to register a short press.</td>
+  </tr>
+  <tr>
+    <td valign="top">Button Short Press Expires In</td>
+    <td valign="top"><p>Time in seconds after a short press is registered after which it will expire and no longer return true for any button events. For example: If you want the press to expire 2 seconds after the press first registers true, set this value to 2. This is useful, for example, if you want short and long presses to be mutually exclusive.</p>
+      <p>[0 = Never expires]</p></td>
+  </tr>
+  <tr>
+    <td valign="top">Button Long Press Time</td>
+    <td valign="top">Time in seconds that a button or axis must be held to register a long press.</td>
+  </tr>
+  <tr>
+    <td valign="top">Button Long Press Expires In</td>
+    <td valign="top"><p>Time in seconds after a long press is registered after which it will expire and no longer return true for any button events. For example: If you want the press to expire 2 seconds after the press first registers true, set this value to 2.</p>
+      <p>[0 = Never expires]</p></td>
   </tr>
   <tr>
     <td valign="top">Button Dead Zone</td>

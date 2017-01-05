@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -109,7 +109,7 @@
     	<div class="main-body">
 	        <div class="logo"><a href="http://guavaman.com/projects/rewired" title="Rewired"><img src="files/images/rewired-logo.png" width="173" height="139" alt="Rewired" /></a></div>
                      
-          <h1>
+            <h1>
             <!-- InstanceBeginEditable name="PageHeader" -->Input Behaviors
       <!-- InstanceEndEditable -->
             </h1>
@@ -134,7 +134,9 @@
     <p>This is useful if you map axes as buttons. See <a href="RewiredEditor.html#InputBehaviors">Rewired Editor - Input Behaviors</a> for more information.</p>
     <p><strong><a name="button-double-press-speed" id="button-double-press-speed"></a>Button Double Press Speed</strong></p>
     <p>If you need to detect a double press, set the double press speed and call <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDoublePressDown.htm">player.GetButtonDoublePressDown</a> or <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDoublePressHold.htm">player.GetButtonDoublePressHold</a>.</p>
-    <p><strong><a name="button-down-buffer" id="button-double-press-speed2"></a>Button Down Buffer</strong></p>
+    <p><strong><a name="button-short-long-press-time" id="button-double-press-speed5"></a>Button Short and Long Press</strong></p>
+    <p>If you need to detect a short or a long press, set the required time and an optional expiration for these events and call one of the <a href="HowTos.html#button-press-types">Short or Long Press methods listed here</a>.</p>
+<p><strong><a name="button-down-buffer" id="button-double-press-speed2"></a>Button Down Buffer</strong></p>
     <p>This makes <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDown.htm">player.GetButtonDown</a> return TRUE for extra time beyond a single frame. See <a href="RewiredEditor.html#InputBehaviors">Rewired Editor - Input Behaviors</a> for more information.</p>
     <p><strong>See Also</strong></p>
     <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_InputBehavior.htm">API Reference - Input Behavior</a></p>

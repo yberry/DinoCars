@@ -155,12 +155,38 @@ MonoBehaviour:
     _name: Stick
     _elementType: 100
     _compoundElementType: 0
+  - _id: 34
+    _name: POV Hat
+    _elementType: 100
+    _compoundElementType: 11
+  - _id: 35
+    _name: Hat 1
+    _elementType: 100
+    _compoundElementType: 11
+  - _id: 36
+    _name: Hat 2
+    _elementType: 100
+    _compoundElementType: 11
+  compoundElements:
+  - type: 0
+    elementIdentifier: 33
+    componentElementIdentifiers: 0000000001000000
+  - type: 11
+    elementIdentifier: 34
+    componentElementIdentifiers: 090000000b0000000d0000000f0000000a0000000c0000000e00000010000000
+  - type: 11
+    elementIdentifier: 35
+    componentElementIdentifiers: 1100000013000000150000001700000012000000140000001600000018000000
+  - type: 11
+    elementIdentifier: 36
+    componentElementIdentifiers: 190000001b0000001d0000001f0000001a0000001c0000001e00000020000000
   directInput:
     description: 
     matchingCriteria:
       axisCount: 3
       buttonCount: 17
       disabled: 0
+      tag: 
       hatCount: 1
       productName_useRegex: 0
       productName:
@@ -175,7 +201,9 @@ MonoBehaviour:
         elementIdentifier: 33
         componentElementIdentifiers: 0000000001000000
       axes:
-      - elementIdentifier: 0
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 0
         sourceType: 1
         sourceAxis: 1
         sourceAxisRange: 0
@@ -185,12 +213,17 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 1
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
         sourceAxisRange: 0
@@ -200,12 +233,17 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
-      - elementIdentifier: 2
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 2
         sourceType: 1
         sourceAxis: 6
         sourceAxisRange: 0
@@ -215,13 +253,18 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
         sourceHatDirection: 0
         sourceHatRange: 0
       buttons:
-      - elementIdentifier: 3
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 3
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -234,7 +277,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 4
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 4
         sourceType: 0
         sourceButton: 1
         sourceAxis: 0
@@ -247,7 +292,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 6
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 6
         sourceType: 0
         sourceButton: 2
         sourceAxis: 0
@@ -260,7 +307,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 5
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 5
         sourceType: 0
         sourceButton: 3
         sourceAxis: 0
@@ -273,7 +322,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 7
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 7
         sourceType: 0
         sourceButton: 4
         sourceAxis: 0
@@ -286,7 +337,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 8
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 8
         sourceType: 0
         sourceButton: 5
         sourceAxis: 0
@@ -299,7 +352,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 9
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 9
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -312,7 +367,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 10
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 10
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -325,7 +382,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 11
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 11
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -338,7 +397,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 12
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 12
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -351,7 +412,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 13
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 13
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -364,7 +427,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 14
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 14
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -377,7 +442,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 15
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 15
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -390,7 +457,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 16
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 16
         sourceType: 2
         sourceButton: 5
         sourceAxis: 0
@@ -403,7 +472,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 17
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 17
         sourceType: 0
         sourceButton: 6
         sourceAxis: 0
@@ -416,7 +487,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0700000009000000
-      - elementIdentifier: 18
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 18
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -429,7 +502,9 @@ MonoBehaviour:
         requiredButtons: 0600000007000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 19
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 19
         sourceType: 0
         sourceButton: 7
         sourceAxis: 0
@@ -442,7 +517,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0600000008000000
-      - elementIdentifier: 20
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 20
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -455,7 +532,9 @@ MonoBehaviour:
         requiredButtons: 0700000008000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 21
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 21
         sourceType: 0
         sourceButton: 8
         sourceAxis: 0
@@ -468,7 +547,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0700000009000000
-      - elementIdentifier: 22
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 22
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -481,7 +562,9 @@ MonoBehaviour:
         requiredButtons: 0800000009000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 23
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 23
         sourceType: 0
         sourceButton: 9
         sourceAxis: 0
@@ -494,7 +577,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0800000006000000
-      - elementIdentifier: 24
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 24
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -507,7 +592,9 @@ MonoBehaviour:
         requiredButtons: 0900000006000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 25
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 25
         sourceType: 0
         sourceButton: 10
         sourceAxis: 0
@@ -520,7 +607,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0b0000000d000000
-      - elementIdentifier: 26
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 26
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -533,7 +622,9 @@ MonoBehaviour:
         requiredButtons: 0a0000000b000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 27
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 27
         sourceType: 0
         sourceButton: 11
         sourceAxis: 0
@@ -546,7 +637,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0a0000000c000000
-      - elementIdentifier: 28
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 28
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -559,7 +652,9 @@ MonoBehaviour:
         requiredButtons: 0b0000000c000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 29
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 29
         sourceType: 0
         sourceButton: 12
         sourceAxis: 0
@@ -572,7 +667,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0b0000000d000000
-      - elementIdentifier: 30
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 30
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -585,7 +682,9 @@ MonoBehaviour:
         requiredButtons: 0c0000000d000000
         ignoreIfButtonsActive: 0
         ignoreIfButtonsActiveButtons: 
-      - elementIdentifier: 31
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 31
         sourceType: 0
         sourceButton: 13
         sourceAxis: 0
@@ -598,7 +697,9 @@ MonoBehaviour:
         requiredButtons: 
         ignoreIfButtonsActive: 1
         ignoreIfButtonsActiveButtons: 0c0000000a000000
-      - elementIdentifier: 32
+      - customCalculation: {fileID: 0}
+        customCalculationSourceData: []
+        elementIdentifier: 32
         sourceType: 0
         sourceButton: 0
         sourceAxis: 0
@@ -618,6 +719,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       productName_useRegex: 0
       productName: []
@@ -635,6 +737,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       subType: 
     elements:
       compoundElements: []
@@ -647,6 +750,7 @@ MonoBehaviour:
       axisCount: 3
       buttonCount: 17
       disabled: 0
+      tag: 
       hatCount: 1
       productName_useRegex: 0
       productName:
@@ -673,6 +777,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -690,6 +797,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -707,6 +817,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1170,6 +1283,7 @@ MonoBehaviour:
       axisCount: 3
       buttonCount: 17
       disabled: 0
+      tag: 
       hatCount: 1
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -1196,6 +1310,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1211,6 +1328,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1226,6 +1346,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1629,6 +1752,7 @@ MonoBehaviour:
       axisCount: 3
       buttonCount: 17
       disabled: 0
+      tag: 
       hatCount: 1
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -1653,6 +1777,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1668,6 +1795,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -1683,6 +1813,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
         sourceButton: 0
         buttonAxisContribution: 0
         sourceHat: 0
@@ -2086,6 +2219,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
@@ -2114,6 +2248,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 0
         sourceType: 1
         sourceAxis: 2
@@ -2129,6 +2266,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -2144,6 +2284,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 3
         sourceType: 0
@@ -2782,6 +2925,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -2799,6 +2943,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
@@ -2827,6 +2972,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -2842,6 +2990,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -2857,6 +3008,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 3
         sourceType: 0
@@ -3495,6 +3649,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
@@ -3523,6 +3678,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -3538,6 +3696,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 3
@@ -3553,6 +3714,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 3
         sourceType: 0
@@ -4191,6 +4355,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4208,6 +4373,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName:
@@ -4236,6 +4402,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 1
         sourceType: 1
         sourceAxis: 2
@@ -4251,6 +4420,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       - elementIdentifier: 2
         sourceType: 1
         sourceAxis: 4
@@ -4266,6 +4438,9 @@ MonoBehaviour:
         axisZero: 0
         axisMin: 0
         axisMax: 0
+        axisInfo:
+          _dataFormat: 0
+          _excludeFromPolling: 0
       buttons:
       - elementIdentifier: 3
         sourceType: 0
@@ -4379,6 +4554,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4396,6 +4572,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4413,6 +4590,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4430,6 +4608,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4447,6 +4626,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4464,6 +4644,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4481,6 +4662,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4498,6 +4680,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4515,6 +4698,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4532,6 +4716,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4549,6 +4734,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4566,6 +4752,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4583,6 +4770,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4600,6 +4788,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
     elements:
       compoundElements: []
@@ -4612,6 +4801,22 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
+      alwaysMatch: 0
+      productName_useRegex: 0
+      productName: []
+    elements:
+      compoundElements: []
+      axes: []
+      buttons: []
+    variants: []
+  ps4:
+    description: 
+    matchingCriteria:
+      axisCount: 0
+      buttonCount: 0
+      disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4626,6 +4831,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       alwaysMatch: 0
       productName_useRegex: 0
       productName: []
@@ -4642,6 +4848,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -4661,6 +4868,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -4680,6 +4888,7 @@ MonoBehaviour:
       axisCount: 0
       buttonCount: 0
       disabled: 0
+      tag: 
       hatCount: 0
       manufacturer_useRegex: 0
       productName_useRegex: 0
@@ -4693,4 +4902,4 @@ MonoBehaviour:
       axes: []
       buttons: []
     variants: []
-  elementIdentifierIdCounter: 34
+  elementIdentifierIdCounter: 37

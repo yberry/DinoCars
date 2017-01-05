@@ -268,6 +268,7 @@ namespace Rewired.UI.ControlMapper {
             }
 
             public override void Apply(Selectable item) {
+                base.Apply(item);
                 Apply(item as Slider);
             }
         }

@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -124,8 +124,11 @@
       <li><a href="#BehaviorDesigner">Behavior Designer</a></li>
       <li><a href="#ThirdPersonController">Third Person Controller</a></li>
       <li><a href="#MotionController">Motion Controller</a></li>
+      <li><a href="#iRDS">iRDS - Intelligent Race Driver System</a></li>
       <li><a href="#RacingGameStarterKit">Racing Game Starter Kit</a></li>
       <li><a href="#GAC">GAC (Great Animation Combos) System</a></li>
+      <li><a href="#InventoryPro">Inventory Pro</a></li>
+      <li><a href="#UFS">uFS - Flight Simulation Engine</a></li>
       <li><a href="#others">Others</a></li>
     </ul>
     <p>&nbsp;</p>
@@ -135,7 +138,7 @@
     <p>&nbsp;</p>
 <hr />
     <h3><a name="UFPS" id="UFPS"></a><img src="files/images/works-with-ufps.png" width="250" height="132" alt="Works with UFPS" style="float:right; margin-left: 2em; margin-bottom: 1em" />UFPS</h3>
-    <p>Rewired can be used to provide input for <a href="http://www.visionpunk.com/" target="_blank">UFPS</a>, a popular first person shooter kit by <a href="http://www.visionpunk.com/" target="_blank">Vision Punk</a>. Rewired comes pre-packaged with an integration kit that was designed to work with UFPS 1.4.9.</p>
+    <p>Rewired can be used to provide input for <a href="http://opsive.com/assets/UFPS/" target="_blank">UFPS</a>, a popular first person shooter kit by <a href="http://opsive.com" target="_blank">Opsive</a>. Rewired comes pre-packaged with an integration kit that was designed to work with UFPS 1.4.9+.</p>
 <p>To install the UFPS Integration Pack, do the following:</p>
 <ol>
   <li>Ensure that you are running Unity 4.5 or greater.</li>
@@ -156,9 +159,21 @@
 <ul>
   <li>UFPS's built-in input manager will no longer have any effect as long as the Rewired UFPS Input Manager exists in the scene. Additionally, some UFPS functions such as those designed to let you remap keys will no longer have any effect. You should manage key remapping using Rewired instead.</li>
   <li>The Rewired UFPS integration pack makes no changes to the UFPS source code. You are therefore free to update UFPS as you see fit without losing the integration with Rewired.</li>
-  <li>If you install UFPS after installing Rewired, UFPS will overwrite the /ProjectSettings/InputManager.asset in your project. This will overwrite Unity input manager entries that Rewired needs to be able to get mouse input or to get joystick input on platforms that fall back on Unity input as the input source. If this happens, simply reinstall Rewired's Input Manager settings by running the installer from the menu <strong>Window -&gt; Rewired -&gt; Setup -&gt; Run Installer</strong> and allow it to overwrite the InputManager.asset file.</li>
+  <li>If you install UFPS after installing Rewired, UFPS will overwrite the /ProjectSettings/InputManager.asset in your project. This will overwrite Unity input manager entries that Rewired needs to be able to get mouse input or to get joystick input on platforms that fall back on Unity input as the input source. If this happens, simply reinstall Rewired's Input Manager settings by running the installer from the menu <strong>Window -&gt; Rewired -&gt; Setup -&gt; Run Installer</strong> and allow it to add the necessary entries in the InputManager.asset file.</li>
 </ul>
+<p><strong>FAQ:</strong></p>
+<p class="question">The fire button (gamepad right trigger) and right stick look do not work unless I click the mouse button in the main window first. This happens in both the editor and game build. How do I fix this?</p>
+<p>This issue is not with Rewired, but rather it is an intentional functionality of UFPS.</p>
+<p>The Rewired integration only goes so far as to change the input sources for the Actions requested by the various UFPS scripts by replacing the underlying input manager. It doesn't alter the functionality or code of UFPS in any way so it cannot modify this behavior because the Action processing is blocked in the UFPS character script.</p>
+<p>UFPS is in control of the mouse pointer control. It doesn't allow you to fire or move the right stick (mouse look) unless the mouse pointer is captured regardless of the platform. There is an inspector option on the UFPS character controller (VP_FPInput -&gt; Mouse Cursor -&gt; Blocks Mouselook) that changes the mouse capture behavior for the right stick, however this doesn't solve the issue with firing.</p>
+<p>The only way to &quot;fix&quot; the issue with the fire button (right trigger) is to change UFPS source code. In VP_FPInput.cs, search for the function called InputAttack and find the two lines that read. </p>
+<pre class="code">if (!vp_Utility.LockCursor) <strong><span class="comment">// <-- Comment out this line</span></strong>
+  return; <strong><span class="comment">// &lt;-- Comment out this line</span></strong></pre>
+<p>Note that I cannot provide support on how to use UFPS. This information was only added here because I receive support requests on this issue on a regular basis.  If you have issues with UFPS, you should contact the developer, <a href="http://opsive.com" target="_blank">Opsive</a> for support.</p>
+<p class="question">I get warnings in the console saying the Actions &quot;LeftTrigger&quot; and &quot;RightTrigger&quot; are missing the first time I press the gamepad triggers in every game session. How do I fix this?</p>
+<p>This occurs because the developer of UFPS added LeftTrigger and RightTrigger Actions to UFPS recently when they added joystick support. They were not added to the default UFPS Rewired Input Manager because they were only added to UFPS as a way to convert analog gamepad trigger axis values to button values, but  Rewired handles this already using the default Attack action. Adding the Actions would just add confusion since they would be unused and only added to silence those warnings. The warnings are harmless and only show up the first time you press the triggers. If you really want to get rid of the warnings, add two Actions called LeftTrigger and RightTrigger.</p>
 <p>&nbsp;</p>
+<p></p>
 <hr />
 <h3><a name="PlayMaker" id="UFPS2"></a>PlayMaker</h3>
 <p><a href="http://hutonggames.com" target="_blank"><img src="files/images/playmaker-logo.png" alt="PlayMaker" width="160" height="160" class="right" /></a>Rewired can be used with <a href="http://www.hutonggames.com/" target="_blank">Hutong Games PlayMaker</a>, a popular visual scripting tool for Unity.</p>
@@ -200,6 +215,11 @@
 <p>Note: This integration is a 3rd party integration package and not maintained or supported by Guavaman Enterprises.</p>
 <p>&nbsp;</p>
 <hr />
+<h3><a name="iRDS" id="ThirdPersonController7"></a>iRDS - Intelligent Race Driver System</h3>
+<p><a href="https://www.assetstore.unity3d.com/en/#!/content/15672" target="_blank">iRDS - Intelligent Race Driver System by Jose Garrido</a> is a racing game toolkit that  helps you to develop  Racing Games. Please see the iRDS documentation for details.</p>
+<p>Note: This integration is a 3rd party integration package and not maintained or supported by Guavaman Enterprises.</p>
+<p>&nbsp;</p>
+<hr />
 <h3><a name="RacingGameStarterKit" id="ThirdPersonController3"></a>Racing Game Starter Kit</h3>
 <p><a href="https://www.assetstore.unity3d.com/en/#!/content/22615" target="_blank">Racing Game Starter Kit by Intense Games</a> is an easy to use asset for creating racing games. The integration is included in the package. Please see the Racing Game Starter Kit documentation for details.</p>
 <p>Note: This integration is a 3rd party integration package and not maintained or supported by Guavaman Enterprises.</p>
@@ -208,6 +228,27 @@
 <h3><a name="GAC" id="ThirdPersonController4"></a>GAC (Great Animation Combos) System</h3>
 <p><a href="https://www.assetstore.unity3d.com/en/#!/content/15812" target="_blank">GAC (Great Animation Combos) System by Eric Turgott</a> is an asset that allows you to implement combos for any action game. The integration is included in the package. Please see the GAC documentation for details.</p>
 <p>Note: This integration is a 3rd party integration package and not maintained or supported by Guavaman Enterprises.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="InventoryPro" id="ThirdPersonController5"></a>Inventory Pro</h3>
+<p><a href="http://devdog.io/unity-assets/inventory-pro/" target="_blank">Inventory Pro by Devdog</a>  is a highly flexible inventory system for Unity. Inventory Pro can be used for RPG, RTS, FPS, and other game types. The integration is included in the package. Please see the Inventory Pro documentation for details.</p>
+<p>Note: This integration is a 3rd party integration package and not maintained or supported by Guavaman Enterprises.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="UFS" id="ThirdPersonController6"></a>uFS - Flight Simulation Engine</h3>
+<p><a href="https://www.assetstore.unity3d.com/en/#!/content/11321" target="_blank">uFS - Flight Simulation Engine by REMEX Software Ltd</a> delivers previously unseen Flight Simulation accuracy to the Unity Asset Store.</p>
+<p>Rewired includes an integration pack for uFS which can be installed from the menu:<br />
+  <strong>Rewired -&gt; Integration -&gt; uFS -&gt; Install Integration Pack</strong></p>
+<p>In addition to the integration pack, <a href="UnityInputOverride.html">Unity Input Override</a> must be installed.</p>
+<p><strong>Usage</strong></p>
+<p>Create a Rewired UnityFS Input Manager from the menu:<br />
+  <strong>Rewired -&gt; Integration -&gt; uFS -&gt; Create uFS Rewired Input Manager</strong></p>
+<p>This will set up default controls that will work with uFS.</p>
+<p><strong>To Uninstall</strong></p>
+<ol>
+  <li>Delete the Rewired/Integration/UFS folder.</li>
+  <li>Optionally uninstall <a href="UnityInputOverride.html">Unity Input Override</a>.</li>
+</ol>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="others" id="others"></a>Others</h3>

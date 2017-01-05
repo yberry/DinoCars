@@ -48,6 +48,13 @@ namespace Rewired.Integration.UnityUI {
         [SerializeField]
         [Tooltip("A list of Player Ids that are allowed to control the UI. If Use All Rewired Game Players = True, this list will be ignored.")]
         private int[] rewiredPlayerIds = new int[1] { 0 };
+        
+        /// <summary>
+        /// Allow only Players with Player.isPlaying = true to control the UI.
+        /// </summary>
+        [SerializeField]
+        [Tooltip("Allow only Players with Player.isPlaying = true to control the UI.")]
+        private bool usePlayingPlayersOnly = false;
 
         /// <summary>
         /// Makes an axis press always move only one UI selection. Enable if you do not want to allow scrolling through UI elements by holding an axis direction.
@@ -89,6 +96,14 @@ namespace Rewired.Integration.UnityUI {
                 rewiredPlayerIds = (value != null ? (int[])value.Clone() : new int[0]);
                 SetupRewiredVars();
             }
+        }
+        
+        /// <summary>
+        /// Allow only Players with Player.isPlaying = true to control the UI.
+        /// </summary>
+        public bool UsePlayingPlayersOnly {
+            get { return usePlayingPlayersOnly; }
+            set { usePlayingPlayersOnly = value; }
         }
 
         /// <summary>
@@ -307,6 +322,7 @@ namespace Rewired.Integration.UnityUI {
             for(int i = 0; i < playerIds.Length; i++) {
                 Rewired.Player player = ReInput.players.GetPlayer(playerIds[i]);
                 if(player == null) continue;
+                if(usePlayingPlayersOnly && !player.isPlaying) continue;
 
                 shouldActivate |= player.GetButtonDown(m_SubmitButton);
                 shouldActivate |= player.GetButtonDown(m_CancelButton);
@@ -511,6 +527,7 @@ namespace Rewired.Integration.UnityUI {
             for(int i = 0; i < playerIds.Length; i++) {
                 Rewired.Player player = ReInput.players.GetPlayer(playerIds[i]);
                 if(player == null) continue;
+                if(usePlayingPlayersOnly && !player.isPlaying) continue;
 
                 if(player.GetButtonDown(m_SubmitButton)) {
                     ExecuteEvents.Execute(eventSystem.currentSelectedGameObject, data, ExecuteEvents.submitHandler);
@@ -536,6 +553,7 @@ namespace Rewired.Integration.UnityUI {
             for(int i = 0; i < playerIds.Length; i++) {
                 Rewired.Player player = ReInput.players.GetPlayer(playerIds[i]);
                 if(player == null) continue;
+                if(usePlayingPlayersOnly && !player.isPlaying) continue;
 
                 if(moveOneElementPerAxisPress) { // axis press moves only to the next UI element with each press
                     float x = 0.0f;
@@ -638,6 +656,7 @@ namespace Rewired.Integration.UnityUI {
             for(int i = 0; i < playerIds.Length; i++) {
                 Rewired.Player player = ReInput.players.GetPlayer(playerIds[i]);
                 if(player == null) continue;
+                if(usePlayingPlayersOnly && !player.isPlaying) continue;
 
                 allow |= player.GetButtonDown(m_HorizontalAxis) || player.GetNegativeButtonDown(m_HorizontalAxis);
                 allow |= player.GetButtonDown(m_VerticalAxis) || player.GetNegativeButtonDown(m_VerticalAxis);

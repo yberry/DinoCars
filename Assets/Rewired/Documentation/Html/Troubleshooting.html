@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -110,8 +110,7 @@
 	        <div class="logo"><a href="http://guavaman.com/projects/rewired" title="Rewired"><img src="files/images/rewired-logo.png" width="173" height="139" alt="Rewired" /></a></div>
                      
             <h1>
-            <!-- InstanceBeginEditable name="PageHeader" -->Troubleshooting
-      <!-- InstanceEndEditable -->
+            <!-- InstanceBeginEditable name="PageHeader" -->Troubleshooting <!-- InstanceEndEditable -->
             </h1>
             
 			<!-- InstanceBeginEditable name="MainBody" -->
@@ -120,16 +119,20 @@
     <ul>
       <li><a href="#something-isnt-working">Something isn't working...</a></li>
       <li><a href="#controller-doesnt-work">My controller doesn't work</a></li>
+      <li><a href="#windows-xbox-one-controller-doesnt-work">Windows: XBox One controller doesn't work</a></li>
       <li><a href="#joystick-problems">Joystick control doesn't work</a></li>
       <li><a href="#keyboard-problems">Keyboard control doesn't work</a></li>
       <li><a href="#mouse-problems">Mouse control doesn't work</a></li>
       <li><a href="#keyboard-ghosting">Two or more keyboard keys cannot be pressed at the same time</a></li>
       <li><a href="#xbox360-triggers">XBox 360 controller L/R triggers can't be pressed at the same time on Windows</a></li>
+      <li><a href="#joystick-count-on-start">Joystick count is always zero on Start() even when joysticks are connected</a></li>
       <li><a href="#compiler-errors-name-clashes">Compiler errors with Rewired classes such as Rewired.Player</a></li>
       <li><a href="#null-reference-during-recompile">Null reference exception when recompiling scripts in the editor at runtime</a></li>
       <li><a href="#compile-errors-ps4-xbone">Unity 5 compile errors in PS4, XBox One, WiiU, or other special platforms</a></li>
       <li><a href="#not-initialized">Rewired is not initialized error</a></li>
-      <li><a href="#missing-unity-input-entries">Rewired works in the editor but not on PS4, Android, etc.</a></li>
+      <li><a href="#joystick-axes-dont-work-on-fallback-platforms">Joystick axes don't work on Xbox One, PS4, Android, iOS, etc.</a></li>
+      <li><a href="#exception-input-manager-entries-not-setup">Exception: &quot;Message: Input Axis MouseAxis1 is not setup.&quot;</a></li>
+      <li><a href="#missing-unity-input-entries">Rewired works in the editor but not on Xbox One, PS4, Android, iOS, etc.</a></li>
       <li><a href="#time-comparison">Time comparisons to Time.time don't match</a></li>
       <li><a href="#android-joystick-keyboard-keys">Joystick buttons  activate keyboard keys on Android</a></li>
       <li><a href="#ongui-getbuttondown">OnGUI may return GetButtonDown/Up true for multiple frames</a></li>
@@ -140,9 +143,14 @@
       <li><a href="#steam-controller-not-detected-windows">Steam Controller is not detected (Windows)</a></li>
       <li><a href="#steam-streaming-linux">Steam Streaming controller support on Linux/SteamOS</a></li>
       <li><a href="#steam-controller-breaks-rawinput-controllers">Steam Controller doesn't work with other controllers at the same time in Windows</a></li>
+      <li><a href="#windows-xinput-multiple-devices">Windows, XInput: XInput-compatible device shows up as multiple controllers</a></li>
+      <li><a href="#windows-xinput-device-always-connected">Windows, XInput: XInput-compatible device is always connected even after disconnecting the controller and no connect or disconnect events are sent</a></li>
+      <li><a href="#windows-uwp-serialization-errors">Windows 10 Universal: Serialization errors</a></li>
+      <li><a href="#osx-xbox-one-controller-vibration">OSX: XBox One Controller vibration doesn't work</a></li>
       <li><a href="#rewired-standalone-input-module-issues">RewiredStandaloneInputModue issues</a></li>
       <li><a href="#xbox-one-crash-on-start">XBox One: Crash/blank screen on start in game build</a></li>
       <li><a href="#xbox-one-profiler">XBox One: High CPU usage in profiler</a></li>
+      <li><a href="#high-cpu-usage-deep-profile">High CPU usage in profiler when using Deep Profile</a></li>
       </ul>
     <hr />
     <h3><a name="something-isnt-working"></a>Something isn't working...</h3>
@@ -157,14 +165,16 @@
     <h3><a name="gamepad-doesnt-work"></a><a name="controller-doesnt-work"></a>My controller doesn't work</h3>
     <p>If you're using a controller <a href="SupportedControllers.html">that   is not listed here</a>, your controller doesn't have a hardware definition and will not   automatically be recognized and mapped. Instead, it will use the Unknown Controller map and need to be manually mapped by the user prior to use through a custom control remapping screen. Please read about the <a href="ControllerMaps.html#unknown-controllers">Unknown Controller map and how unrecognized controllers are handled</a> to understand why.</p>
     <p><strong>My gamepad doesn't work. I created a map using the Dual Analog Gamepad Template but it doesn't work.</strong></p>
-    <p>Just because a controller is a gamepad does not mean Rewired will recognize it as a gamepad. Just what a &quot;gamepad&quot; is varies from product to product. There is no universal definition of a gamepad. The Dual Analog Gamepad Template only applies to <a href="SupportedControllers.html">controllers that have had definitions created for them</a> and have been specifically assigned and configured for that template. If you want to use a gamepad <a href="SupportedControllers.html">that is not listed here</a>, you either have to <a href="HowTos.html#new-controller-definitions">make a controller definition for it</a> and <a href="HowTos.html#add-controller-to-existing-controller-template">add it to the Dual Analog Gamepad Template</a> or <a href="HowTos.html#controller-mapping-screen">provide your users with a control remapping screen</a> so they can map the controls themselves.</p>
+    <p>Just because a controller is a gamepad does not mean Rewired will recognize it as a gamepad. Just what a &quot;gamepad&quot; is varies from product to product. There is no universal definition of a gamepad and the device itself does not provide any kind of element layout information. The Dual Analog Gamepad Template only applies to <a href="SupportedControllers.html">controllers that have had definitions created for them</a> and have been specifically assigned and configured for that template. If you want to use a gamepad <a href="SupportedControllers.html">that is not listed here</a>, you either have to <a href="HowTos.html#new-controller-definitions">make a controller definition for it</a> and <a href="HowTos.html#add-controller-to-existing-controller-template">add it to the Dual Analog Gamepad Template</a> or <a href="HowTos.html#controller-mapping-screen">provide your users with a control remapping screen</a> so they can map the controls themselves.</p>
     <p><strong><a name="controller-doesnt-work-more-reasons" id="controller-doesnt-work-more-reasons"></a>More reasons why your controller may appear not to work:</strong></p>
     <ul>
       <li>You have multiple controllers connected, one Player, and have left the default <a href="http://guavaman.com/projects/rewired/docs/RewiredEditor.html#Settings">Joystick Auto-Assignment Settings in the Rewired input manager</a>: 
         Based on the default settings, Rewired will assign only one controller per-Player. If multiple controllers are present, only one will be assigned to each Player. If you only have one Player, the second controller will be left unassigned. In order to allow auto-assignment of multiple Joysticks to the same Player, Max Joysticks Per Player must be raised to a value greater than 1.  <a href="Controllers.html">See this page for information on Controllers</a>.</li>
     </ul>
 <p><strong>How to determine the source of the issue:</strong></p>
-<p>You can easily determine why your joystick is not working with a little bit of debug code. This code will show all Joysticks assigned to each Player and all mappings in each Controller Map. You will be able to tell if a Joystick is assigned to a particular Player, if any Controller Maps were loaded for that Joystick, whether or not those Controller Maps are enabled, and the what Action is bound to each element. There are many more members in each of the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">Player</a>, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Joystick.htm">Joystick</a>, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_JoystickMap.htm">JoystickMap</a>, and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">ActionElementMap</a> classes that you can get useful information from.</p>
+<p>You can easily determine why your joystick is not working by looking at the Player, Joystick, and Controller Map objects in the Debug Information foldout in the <a href="InputManager.html#inspector">Rewired Input Manager inspector</a>. This shows a ton of useful information allowing you to visualize most objects in the system at runtime. For example, you can see if a Joystick has been assigned to a Player  or view which Joystick Maps have been assigned and enabled.</p>
+<p><img src="files/images/inputmanager_inspector_debug_info.png" /></p>
+<p>You can also get this information by using a little bit of debug code. This code will show all Joysticks assigned to each Player and all mappings in each Controller Map. You will be able to tell if a Joystick is assigned to a particular Player, if any Controller Maps were loaded for that Joystick, whether or not those Controller Maps are enabled, and the what Action is bound to each element. There are many more members in each of the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">Player</a>, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Joystick.htm">Joystick</a>, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_JoystickMap.htm">JoystickMap</a>, and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">ActionElementMap</a> classes that you can get useful information from.</p>
 <pre class="code">
 <span class="comment">// Log assigned Joystick information for all joysticks regardless of whether or not they've been assigned</span>
 Debug.Log(&quot;Rewired found &quot; + ReInput.controllers.joystickCount + &quot; joysticks attached.&quot;);
@@ -201,6 +211,10 @@ foreach(var p in ReInput.players.Players) {
         }
     }
 }</pre>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-xbox-one-controller-doesnt-work" id="windows-xbox-one-controller-doesnt-work"></a>Windows: XBox One controller doesn't work</h3>
+<p>Most often this is caused by creating a Joystick Map specifically for the Xbox One controller when Use XInput is enabled instead of using the Dual Analog Gamepad Template. See <a href="ControllerMaps.html#xinput-devices-windows">Controller Maps - Special Considerations for XInput gamepads on Windows Standalone, Windows App Store, and Windows 10 Universal</a>.</p>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="joystick-problems" id="dll-not-found-xinput2"></a>Joystick control doesn't work</h3>
@@ -248,6 +262,10 @@ foreach(var p in ReInput.players.Players) {
 <p>The solution is to <a href="RewiredEditor.html#Settings">enable XInput in the Rewired Editor - Settings</a>. XInput is able to treat the triggers as separate values.</p>
 <p>&nbsp;</p>
 <hr />
+<h3><a name="joystick-count-on-start" id="dll-not-found-xinput7"></a>Joystick count is zero on Start() even when joysticks are connected</h3>
+<p>Please see <a href="http://guavaman.com/projects/rewired/docs/HowTos.html#connect-disconnect-events">How To's - Receiving Joystick connect and disconnect events</a> for important information.</p>
+<p>&nbsp;</p>
+<hr />
 <h3><a name="compiler-errors-name-clashes" id="compiler-errors-name-clashes"></a>Compiler errors with Rewired classes such as Rewired.Player</h3>
 <p>It is sometimes possible to have class names in your project that may clash with Rewired classes such as Rewired.Player. If you have a global Player class declared in your project, the compiler will prefer that globally-declared Player over the Rewired.Player even with the &quot;using Rewired;&quot;
   statement placed at the top of your script. (A globally-declared class is a class declared  outside of any namespace.)</p>
@@ -273,7 +291,7 @@ namespace MyNamespace {
         public Player rewiredPlayer; <span class="comment">// no more clash because Rewired.Player is higher priority than ::Player (global)</span>
     }
 }</pre>
-You can also make a single class take precence over any global class with the same name like this:
+You can also make a single class take precedence over any global class with the same name like this:
 <pre class="code">using UnityEngine;
 using Rewired;
 using Player = Rewired.Player;  <span class="comment">// this declaration will make Rewired.Player take precedence over a global Player class</span>
@@ -374,7 +392,20 @@ void CacheRewiredPlayer() {
 <p>Proceed with the installation and Rewired will set its Script Execution Order.</p>
 <p>&nbsp;</p>
 <hr />
-<h3><a name="missing-unity-input-entries" id="missing-unity-input-entries"></a>Rewired works in the editor but not on PS4, Android, etc.</h3>
+<h3><a name="joystick-axes-dont-work-on-fallback-platforms" id="missing-unity-input-entries2"></a>Joystick axes don't work on Xbox One, PS4, Android, iOS, etc.</h3>
+<p><a href="#exception-input-manager-entries-not-setup">Please see the following topic.</a></p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="exception-input-manager-entries-not-setup" id="exception-input-manager-entries-not-setup"></a>Exception: &quot;Message: Input Axis MouseAxis1 is not setup.&quot;</h3>
+<p>Rewired was not installed properly (canceled during installation) preventing it from installing the Unity Input Manager entries necessary for supporting input on Unity fallback platforms and for getting mouse input when Native Mouse Handling is unavailable or disabled. Another possible cause is that these entries were deleted by some other asset installed after Rewired. This can happen with assets that contain an entire project. These assets will warn you before installation that they will overwrite the entire project. It can also happen if the asset contains its own Input Manager settings and overwrites the file instead of adding entries to it.</p>
+<p>The solution is to re-run the Rewired installation script by going to the menu:</p>
+<ul>
+  <li> Window -&gt; Rewired -&gt; Setup -&gt; Run Installer</li>
+</ul>
+<p>Proceed with the installation and Rewired will add the necessary Input Manager entries.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="missing-unity-input-entries" id="missing-unity-input-entries"></a>Rewired works in the editor but not on Xbox One, PS4, Android, iOS, etc.</h3>
 <p>If Rewired works in the editor but not on certain platforms, check the log file. The logs will tell you if Rewired was unable to initialize or any other errors that may have occurred.</p>
 <p>The most common reason for this issue is that Rewired was not installed properly (canceled during installation) preventing it from installing the Unity Input Manager entries necessary for supporting input on Unity fallback platforms. Another possible cause is that these entries were deleted by some other asset installed after Rewired. This can happen with assets that contain an entire project. These assets will warn you before installation that they will overwrite the entire project. It can also happen if the asset contains its own Input Manager settings and overwrites the file instead of adding entries to it.</p>
 <p>The solution is to re-run the Rewired installation script by going to the menu:</p>
@@ -401,7 +432,16 @@ void CacheRewiredPlayer() {
 <p>&nbsp;</p>
 <hr />
 <h3><a name="digital-axis-smoothing" id="android-joystick-keyboard-keys2"></a>When a keyboard key or D-Pad is pressed, GetAxis value ramps up/down slowly instead instantly returning 1/-1</h3>
-<p><a href="InputBehaviors.html">Please read the documentaion on Input Behaviors</a>. The <a href="InputBehaviors.html#digital-axis-settings">Digital Axis Settings</a> default to a gravity of 3 and a sensitivity of 3 to mimic the default Unity settings for keyboard keys. These values can be adjusted to customize or disable Digital Axis Smoothing. See <a href="RewiredEditor.html#InputBehaviors">Rewired Editor - Input Behaviors</a> for more information on each option.</p>
+<p>You have left the default Input Behavior Digital Axis settings. <a href="InputBehaviors.html">Please read the documentaion on Input Behaviors</a>.</p>
+<p>Digital Axis Settings:<br />
+  These settings allow buttons and keyboard keys to be treated like axes and return values ranging from -1 to 1 instead of just True and False as is the usual case. This allows you, for instance, to have smooth character movement when using the keyboard for movement controls. The GetAxis value of the Action can be smoothed over time based on the Digital Axis Settings (gravity and sensitivity). See <a href="RewiredEditor.html#InputBehaviors">Rewired Editor - Input Behaviors</a> for more information about each setting.</p>
+<p>The default values have been set to mimic Unity's default Gravity and Sensitivity settings.</p>
+<p>To get an instant on/off value for a keyboard key, do one of the following:</p>
+<ul>
+  <li>Disable Digital Axis Simulation in the Action's Input Behavior.</li>
+  <li>Use player.GetButton and player.GetNegativeButton instead of GetAxis when getting the value of the Action.</li>
+  <li>Use player.GetAxisRaw instead of GetAxis when getting the value of the Action.</li>
+</ul>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="missing-files" id="android-joystick-keyboard-keys3"></a>Some component of Rewired is missing (RewiredStandloneInputModule, Control Mapper, etc.)</h3>
@@ -421,9 +461,10 @@ void CacheRewiredPlayer() {
 <hr />
 <h3><a name="android-joystick-keyboard-keys" id="android-joystick-keyboard-keys"></a>Joystick buttons  activate keyboard keys on Android</h3>
 <p>Rewired uses Unity input as the input source in Android so it is subject to its limitations. Most Android joysticks return keyboard keycode values for certain buttons on the controller such as Left Shoulder (Left Shift), Right Shoulder (Right Shift), Back (ESC), Menu (Menu), etc. These keyboard values can be in additon to or instead of a joystick button value. This can be problematic if you've developed your game for both desktop PCs and Android and have keyboard maps already set up for the desktop and you want to use the same input scheme for an Android build. When you press one of these buttons, if it also has an Action assigned through a keyboard map, you may get 2 values returned -- one for the keyboard map and one for the joystick map.</p>
-<p>An easy way to prevent this is to set <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_ControllerHelper_keyboardEnabled.htm">ReInput.controllers.keyboardEnabled</a> = false to disable all keyboard input on Android. Special provision has been made for certain Android keycodes used by most joysticks such as Back and Menu so that these will still work when activated by a joystick. In addition to solving this issue, disabling keyboard input improves performance slightly.</p>
+<p>An easy way to prevent this is to set <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_ControllerHelper_keyboardEnabled.htm">ReInput.controllers.keyboardEnabled</a> = false to disable all keyboard input on Android. Special provision has been made for certain Android keycodes used by most joysticks such as Back and Menu so that these will still work when activated by a joystick. In addition to solving this issue, disabling keyboard input improves performance slightly. Note that on Android, even when disabling keyboard support certain keys will still function in order to still be able to support certain buttons on joysticks that return keyboard keycodes such as the Back button.</p>
+<p>You can disable keyboard support per-platform on the <a href="RewiredEditor.html#Settings">Rewired Editor - Settings page</a> or through scripting as shown below.</p>
 <pre class="code">void Awake() {
-#if UNITY_ANDROID
+#if UNITY_ANDROID &amp;&amp; !UNITY_EDITOR
     Rewired.ReInput.controllers.keyboardEnabled = false; <span class="comment">// Disable keyboard input on Android platform</span>
 #endif
 }</pre><p></p>
@@ -459,6 +500,49 @@ void CacheRewiredPlayer() {
 <p>On Windows, Steam takes control over all input systems at the OS level. When using a Steam Controller in conjunction with other Raw Input controllers, Steam will prevent all Raw Input controllers from being seen by the system. This is an intentional behavior by Steam because they want to be able to determine what controllers are seen on both the host and client systems when using Steam Streaming, hiding all controllers on the host system and showing the application only those controllers detected on the client device and emulated on the host by Steam. What Steam did not account for is that this breaks compatibility with all non-XInput controllers when using a Steam Controller at the same time. Rewired implements a unique workaround that allows non-XInput controllers to work along side a Steam Controller. Enable this option in the <a href="RewiredEditor.html#Settings">Rewired Input Manager -&gt; Settings</a> page. See the notes on that page for caveats of this workaround.</p>
 <p>&nbsp;</p>
 <hr />
+<h3><a name="windows-xinput-multiple-devices" id="windows-xinput-multiple-devices"></a>Windows, XInput: XInput-compatible device shows up as multiple controllers</h3>
+<p>If Use XInput is enabled and you are seeing multiple XInput devices in Rewired when only one controller is plugged in:</p>
+<p><strong>If you are seeing multiple devices named &quot;XInput Gamepad 1&quot;, &quot;XInput Gamepad 2&quot;, etc:</strong><br />
+  Multiple XInput devices showing up can only be caused at the Windows driver 
+  level. Rewired queries XInput.dll directly to get the list of connected 
+  XInput devices 0-3. There is no intermediary step involved. Therefore, your <br />
+  XInput device is showing up as 2 devices in XInput itself, not Rewired. This is almost always caused by a driver creating multiple devices. Check Windows Device manager for multiple XInput devices under HID and Xbox Peripherals and elsewhere. Uninstall one or all of these drivers, reboot, and try agiain. Another possible cause is if you have a 3rd party tool that 
+  creates emulated XInput devices such as DS4Win, PS3 SCP driver, or 
+other tools that emulate XInput devices. Uninstall these tools/drivers and try again.</p>
+<p><strong>If you are seeing multiple devices, one named &quot;XInput Gamepad 1&quot; and one named something else like &quot;Controller (XBOX One For Windows)&quot;:</strong><br />
+  This error can only happen if the XInput-compatible device does not conform to Microsoft's documented standards for how XInput devices identify themselves. If the device deviates from these standards, Rewired will be unable to filter out XInput devices when it populates its Raw Input or Direct Input device list. This causes it to create both a Raw Input / Direct Input device and an XInput device. The only way to fix these problem devices is to add special case code to manually filter them out individually. <a href="http://guavaman.com/rewired#support" target="_blank">Report this device via the support form on the website</a> and include all relevant controller information shown by the Rewired/DevTools/JoystickElementIdentifier tool. (Create a new scene, add the JoystickElementIdentifier tool to the scene at 0, 0, 0, add an empty Rewired Input Manager, and press Play.) To include a screenshot, please include a link to the image on a filesharing service such as Dropbox.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-xinput-device-always-connected" id="windows-xinput-multiple-devices2"></a>Windows, XInput: XInput-compatible device is always connected even after disconnecting the controller and no connect or disconnect events are sent</h3>
+<p>The most common cause is that you have a 3rd party tool that 
+  creates emulated XInput devices such as the PS3 SCP driver or 
+other tools that emulate XInput devices. Uninstall these tools/drivers and try again. This issue  occurs at the driver level and is not related to Rewired.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-uwp-serialization-errors" id="windows-uwp-serialization-errors"></a>Windows 10 Universal: Serialization errors</h3>
+<p>If you get errors when building the UWP project in visual studio like the following:</p>
+<pre class="code">InvalidCastException: Unable to cast object of type
+'Rewired.Data.Mapping.HardwareJoystickMap' to type
+'UnityEngine.IUnitySerializable'.
+   at UnityEngine.Internal.Types.$UnityType4390.$Invoke0(Int64
+instance, Int64* args)
+   at UnityEngine.Internal.$MethodUtility.InvokeMethod(Int64 instance,
+Int64* args, IntPtr method) 
+(Filename: <Unknown> Line: 0)
+</pre>
+<p>It is caused by the Rewired_Core.dll version being out of sync with the main Rewired_Core.dll used in the editor.</p>
+<p>There are several things you can to do:</p>
+<ul>
+  <li>Try reinstalling the Windows UWP libraries in the Unity editor <a href="SpecialPlatformSupport.html#windows-uwp">as shown here</a>.</li>
+  <li>Clear all cached files  in Visual Studio</li>
+  <li>Make sure the version of Rewired_Core.dll copied to the Visual Studio project matches the version in Unity in the Rewired\Internal\Libraries\Runtime\UWP folder. (The one you would compare to depends on if you're using the .NET or IL2CPP scripting backend.)</li>
+</ul>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="osx-xbox-one-controller-vibration" id="osx-xbox-one-controller-vibration"></a>OSX: XBox One Controller vibration doesn't work</h3>
+<p>In order for vibration to work on the Xbox One Controller on OSX, the <a href="RewiredEditor.html#Settings">input source must be set to Native</a> and you must have <a href="https://github.com/360Controller/360Controller/releases" target="_blank">this driver installed</a> (at least v0.16).</p>
+<p>&nbsp;</p>
+<hr />
 <h3><a name="rewired-standalone-input-module-issues" id="rewired-standalone-input-module-issues"></a>RewiredStandaloneInputModue issues</h3>
 <p><a href="RewiredStandaloneInputModule.html#troubleshooting">Please see Rewired Standalone Input Module - Troubleshooting</a>.</p>
 <p>&nbsp;</p>
@@ -470,6 +554,10 @@ void CacheRewiredPlayer() {
 <h3><a name="xbox-one-profiler" id="dll-not-found-xinput"></a>XBox One: High CPU usage in profiler</h3>
 <p>Debug builds on Xbox One show ridiculously high CPU usage from InputManager_Base.Update, sometimes as high as 28 ms. On Development builds the CPU usage is much, much lower.</p>
 <p>Set Build Type to &quot;Development Build&quot; to avoid the huge debug overhead when profiling.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="high-cpu-usage-deep-profile" id="high-cpu-usage-deep-profile"></a>High CPU usage in profiler when using Deep Profile</h3>
+<p>Deep Profile is notoriously inaccurate when dealing with deep levels of nested method calls because it uses reflection to get method names and such. Profile your game with Deep Profile disabled and you will see a massive increase in speed.</p>
 <p>&nbsp;</p>
 <div class="bottom-pager clearfix">
   <a class="back-button" href="Documentation.html" title="Documentation"><span class="button-img"></span>Documentation</a>
