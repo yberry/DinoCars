@@ -13,41 +13,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentPluginConfig: 
   EventWwu:
-  - PhysicalPath: Events\Default Work Unit.wwu
+  - PhysicalPath: Events/Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{BDDA9FF3-6495-4A16-99E5-4B09AF590E9B}'
-    m_lastTimePsrt1: -515443817
-    m_lastTimePart2: -1999366293
+    Guid: '{24BECAE7-F337-42CD-AAD1-9407B42D674D}'
+    m_lastTimePsrt1: 1753393792
+    m_lastTimePart2: -1999358850
     List: []
   AuxBusWwu:
-  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+  - PhysicalPath: Master-Mixer Hierarchy/Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{F494501C-0062-4F6B-B9DB-0E7E54F9ABF1}'
-    m_lastTimePsrt1: -514675382
-    m_lastTimePart2: -1999366293
+    Guid: '{20F2526A-44EE-4CBA-906B-75343FF0E33E}'
+    m_lastTimePsrt1: 1753393792
+    m_lastTimePart2: -1999358850
     List: []
   StateWwu:
-  - PhysicalPath: States\Default Work Unit.wwu
+  - PhysicalPath: States/Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{6E3BFD85-EDEB-4EBF-8A75-33E62C1271EE}'
-    m_lastTimePsrt1: -503287088
-    m_lastTimePart2: -1999366293
+    Guid: '{1FDE86CE-DFED-4EE0-B8EC-7F008831A6C5}'
+    m_lastTimePsrt1: 1753393792
+    m_lastTimePart2: -1999358850
     List: []
   SwitchWwu:
-  - PhysicalPath: Switches\Default Work Unit.wwu
+  - PhysicalPath: Switches/Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{24E96789-B6A5-4B1F-9986-E6F65AAC2D31}'
-    m_lastTimePsrt1: -503267077
-    m_lastTimePart2: -1999366293
+    Guid: '{A6F674F7-CB06-4F24-8F67-AA24BD294B55}'
+    m_lastTimePsrt1: 1753393792
+    m_lastTimePart2: -1999358850
     List: []
   BankWwu:
-  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+  - PhysicalPath: SoundBanks/Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{C0ECB7E0-0D62-46AF-A7D1-5813039BCD3E}'
-    m_lastTimePsrt1: -503528115
-    m_lastTimePart2: -1999366293
+    Guid: '{0A0AB114-A409-45F3-86D6-01FCC477A54C}'
+    m_lastTimePsrt1: 1753393792
+    m_lastTimePart2: -1999358850
     List: []
-  ExpandedItems: []
+  ExpandedItems:
+  - /CarsDino
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1
