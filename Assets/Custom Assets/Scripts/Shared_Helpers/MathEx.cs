@@ -185,6 +185,18 @@ public static class MathEx
 	public static bool VectorIsNaN(this Vector2 candidate){
 		return float.IsNaN(candidate.x) || float.IsNaN(candidate.y);
 	}
+
+    public static Vector3 CrossTwice(this Vector3 vec, Vector3 other)
+    {
+        var c = Vector3.Cross(vec,other);
+        return Vector3.Cross(c,other);
+    }
+
+    public static Vector3 Cross(this Vector3 vec, Vector3 other)
+    {
+  
+        return Vector3.Cross(vec, other);
+    }
 #else
 
 

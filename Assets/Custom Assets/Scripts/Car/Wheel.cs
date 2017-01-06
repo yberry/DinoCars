@@ -72,7 +72,7 @@ namespace CND.Car
             const float fullCircle = 2f * Mathf.PI * Mathf.Rad2Deg;
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
-
+           
            // var src = transform.rotation * transform.position;
             var nextLength = m_contactInfo.springLength;
             float minCompressedLength = (1f - settings.maxCompression) * settings.baseSpringLength;
@@ -86,7 +86,12 @@ namespace CND.Car
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
 
-            var dotForward = Vector3.Dot(transform.forward,moveDir);
+            var dotForward = Vector3.Dot(
+                Vector3.ProjectOnPlane(transform.forward, transform.up).normalized,
+                Vector3.ProjectOnPlane(moveDir,transform.up).normalized);
+            
+         //   dotForward = Quaternion.FromToRotation(transform.forward, moveDir).y;
+            
 
             var asinForward =  Mathf.Asin(dotForward) / halfPI;
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
@@ -112,8 +117,7 @@ namespace CND.Car
                 float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
 
-                if (Mathf.Abs(dotForward) < 0.99f)
-                    Debug.Log(dotForward);
+               // if (Mathf.Abs(dotForward) < 0.99f) Debug.Log(dotForward);
 
                 curContactInfo.springCompression = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1f;
                 curContactInfo.wasAlreadyOnFloor = m_contactInfo.isOnFloor;
@@ -127,17 +131,19 @@ namespace CND.Car
                 var grav = m_contactInfo.isOnFloor ? gravity : gravity;
                 var gravNorm = grav.normalized;
                 var sqrGrav = grav* grav.magnitude;
-                var dotVelGrav = Vector3.Dot(moveDir, -gravNorm);
+                var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
                 var dotVelY = Vector3.Dot(transform.up, moveDir);
-                dotVelY=(Mathf.Asin(dotVelY) / halfPI);
+                //dotVelY=(Mathf.Asin(dotVelY) / halfPI);
                 var dotGrav = Vector3.Dot(-transform.up, gravNorm);
-                dotGrav = (Mathf.Asin(dotGrav) / halfPI);
-                var damping = dotVelY * settings.damping;
-                var shockCancel = -vel*85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+                //dotGrav = (Mathf.Asin(dotGrav) / halfPI);
+                //var damping = dotVelY * settings.damping;
+                var shockCancel = -vel*95f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-grav * dotGrav + shockCancel /* * (1f-Time.fixedDeltaTime*20f)*/);
-                var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY, Time.fixedDeltaTime, 1f);
-                var springExpand = Mathf.Max(Time.fixedDeltaTime, 1f + moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY);
+                var stickToFloor = (-grav * dotGrav + shockCancel * (1f-Mathf.Abs(dotVelGrav)) /* * (1f-Time.fixedDeltaTime*20f)*/);
+                var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY,
+                    Time.fixedDeltaTime, 1f);
+                var springExpand = Mathf.Clamp(1f+ moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY,
+                    Time.fixedDeltaTime,10f* settings.springForce * settings.baseSpringLength * tolerance * settings.maxExpansion);
                 var springResistance = Mathf.Lerp(
                     curContactInfo.springCompression* curContactInfo.springCompression* curContactInfo.springCompression,
                     Mathf.Clamp01(Mathf.Sin( halfPI*curContactInfo.springCompression)), settings.stiffness) * 100f*Time.fixedDeltaTime;
