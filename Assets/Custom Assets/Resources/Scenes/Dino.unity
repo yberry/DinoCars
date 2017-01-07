@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 65047954}
   - component: {fileID: 65047953}
   - component: {fileID: 65047955}
+  - component: {fileID: 65047956}
   m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
@@ -345,6 +346,21 @@ MonoBehaviour:
     range: 1
     lookForward: 1
   rotationSpeed: 1
+--- !u!114 &65047956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 65047952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09776f90b03535e469193b02e6696282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+  type: 0
+  spline: {fileID: 65047953}
+  active: 0
 --- !u!4 &99349520 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4054038220396840, guid: 7217231f6d7bece46b45af2619aaa996,
