@@ -47,8 +47,7 @@ MonoBehaviour:
     m_lastTimePsrt1: -775530844
     m_lastTimePart2: -1999358825
     List: []
-  ExpandedItems:
-  - /CarsDino_CAR_Motor
+  ExpandedItems: []
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

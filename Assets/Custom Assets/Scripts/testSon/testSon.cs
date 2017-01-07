@@ -4,75 +4,128 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class testSon : MonoBehaviour {
-    public Slider tourMinute;
-    public Slider tourAjout;
-    private bool embrayage;
+    public Slider rotationPerMinuteSlider;
+    public Slider rotationAdditionSlider;
+    private bool gearUpDown;
     public Toggle startButton;
     private bool start;
-    public Button changeVitesse;
-    private bool changeV;
-    public Text valeurTour;
-    public Text valeurAjoutTour;
-    public int nbLimiteTour;
-    public int nbTourEmbrayage;
-    int tourParMinute;
-    int valeurMax;
-    int additionneur;
+    private bool gearDown;
+    private bool gearUp;
+    public Text rotationValueText;
+    public Text addRotationTourText;
+    public int nbRotationLimit;
+    public int nbRotationClutch;
+    public Slider speedValueSlider;
+    public Text speedValueText;
+    public Text currentGearText;
+    int rotationPerMinute;
+    int maxValueRotation;
+    int addition;
+    int currentGear;
+    float speedToAdd;
 
 	// Use this for initialization
 	void Start () {
-        tourParMinute = 0;
-        additionneur = 50;
+        rotationPerMinute = 0;
+        addition = 50;
         start = false;
-        changeV = false;
-        nbLimiteTour = 10000;
-        nbTourEmbrayage = 3000;
+        gearDown = false;
+        nbRotationLimit = 10000;
+        nbRotationClutch = 3000;
+        currentGear = 0;
+        speedToAdd = 0;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    //Vitesse maximale de 300km/h on a 6 vitesses 
+    //On divise par 6 ça fait 50km/h pour chaque vitesse lorsque les tours sont au maximum
+
+    // Update is called once per frame
+    void Update () {
         
         if (start)
         {
-            if (tourParMinute < nbLimiteTour)
+            if (rotationPerMinute < nbRotationLimit && currentGear > 0)
             {
 
-                tourParMinute = tourParMinute + additionneur;
+                rotationPerMinute = rotationPerMinute + addition;
             }
-
-            if (changeV && tourParMinute > nbTourEmbrayage)
+            else if (rotationPerMinute < nbRotationLimit && rotationPerMinute - addition >= 0)
             {
-                tourParMinute = tourParMinute - nbTourEmbrayage;
-                changeV = false;
-            }     
+                rotationPerMinute = rotationPerMinute - addition;
+            }
+            else rotationPerMinute = 0;
+
+
+            if (gearDown && rotationPerMinute>= nbRotationClutch && currentGear >= 0)
+            {
+                rotationPerMinute = rotationPerMinute - nbRotationClutch;
+                currentGear = currentGear-1;
+            }
+            else if(gearUp && rotationPerMinute >= nbRotationClutch && currentGear < 6)
+            {
+                rotationPerMinute = rotationPerMinute - nbRotationClutch;
+                currentGear = currentGear + 1;
+            }
+            else if(gearUp && currentGear==0)
+            {
+                currentGear = currentGear + 1;
+            }
+            gearDown = false;
+            gearUp = false;
         }
         else
         {
-            tourParMinute = 0;
+            rotationPerMinute = 0;
         }
-        setTourMinute(tourParMinute);
-        valeurTour.text = tourParMinute.ToString();
-        valeurAjoutTour.text = additionneur.ToString();
+
+        float pourcentage = 1f*rotationPerMinute / nbRotationLimit;
+        speedToAdd = 50f *pourcentage * currentGear * 1f;
+
+        setSpeedToSlider(speedToAdd);
+        setTourMinute(rotationPerMinute);
+        rotationValueText.text = rotationPerMinute.ToString();
+        addRotationTourText.text = addition.ToString();
+        speedValueText.text = speedToAdd.ToString();
+        currentGearText.text = currentGear.ToString();
+
+        //Wwsise
+        AkSoundEngine.SetRTPCValue("currentGear", currentGear);
+        AkSoundEngine.SetRTPCValue("rotationPerMinute", rotationPerMinute);
+        AkSoundEngine.SetRTPCValue("currentSpeed", speedToAdd);
+    
     }
 
     void setTourMinute(int tour)
     {
-        tourMinute.value = tour;
+        rotationPerMinuteSlider.value = tour;
     }
 
-    public void onEmbrayage()
+    void setSpeedToSlider(float speed)
     {
-        changeV = changeVitesse;
+       
+        speedValueSlider.value = speed;
+    }
+
+    public void onGearDown()
+    {
+        gearDown = true;
+    }
+
+    public void onGearUp()
+    {
+        gearUp = true;
     }
 
     public void onStart()
     {
         start = startButton.isOn;
+        currentGear = 1;
     }
 
     public void onTourAjoutChanged()
     {
-        additionneur = (int)tourAjout.value;
+        addition = (int)rotationAdditionSlider.value;
     }
+
 
 }
