@@ -1,8 +1,38 @@
 fileFormatVersion: 2
 guid: 8016a538d583c594cbdbab491733a9d3
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
+    100000: cut log03
+    100002: Cylinder06
+    100004: Cylinder07
+    100006: Cylinder08
+    100008: Cylinder09
+    100010: Cylinder10
+    100012: Cylinder54
+    100014: //RootNode
+    400000: cut log03
+    400002: Cylinder06
+    400004: Cylinder07
+    400006: Cylinder08
+    400008: Cylinder09
+    400010: Cylinder10
+    400012: Cylinder54
+    400014: //RootNode
+    2300000: cut log03
+    2300002: Cylinder06
+    2300004: Cylinder07
+    2300006: Cylinder08
+    2300008: Cylinder09
+    2300010: Cylinder10
+    2300012: Cylinder54
+    3300000: cut log03
+    3300002: Cylinder06
+    3300004: Cylinder07
+    3300006: Cylinder08
+    3300008: Cylinder09
+    3300010: Cylinder10
+    3300012: Cylinder54
     4300000: cut log03
     4300002: Cylinder10
     4300004: Cylinder06
@@ -10,6 +40,7 @@ ModelImporter:
     4300008: Cylinder08
     4300010: Cylinder07
     4300012: Cylinder54
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -17,19 +48,24 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -46,24 +82,29 @@ ModelImporter:
     useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
