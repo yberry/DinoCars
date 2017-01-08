@@ -13,6 +13,24 @@ public class CurveMovementInspector : Editor {
         curveMovement = target as CurveMovement;
 
         EditorGUI.BeginChangeCheck();
+        BezierSpline spline = (BezierSpline)EditorGUILayout.ObjectField("Spline", curveMovement.spline, typeof(BezierSpline), !EditorUtility.IsPersistent(target));
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(curveMovement, "Spline");
+            EditorUtility.SetDirty(curveMovement);
+            curveMovement.spline = spline;
+        }
+
+        EditorGUI.BeginChangeCheck();
+        int curve = EditorGUILayout.IntSlider("Num curve", curveMovement.Curve, 0, spline.CurveCount - 1);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(curveMovement, "Nb curve");
+            EditorUtility.SetDirty(curveMovement);
+            curveMovement.Curve = curve;
+        }
+
+        EditorGUI.BeginChangeCheck();
         MovementDirection direction = (MovementDirection)EditorGUILayout.EnumPopup("Movement Direction", curveMovement.direction);
         if (EditorGUI.EndChangeCheck())
         {
@@ -31,21 +49,12 @@ public class CurveMovementInspector : Editor {
         }
 
         EditorGUI.BeginChangeCheck();
-        BezierSpline spline = (BezierSpline)EditorGUILayout.ObjectField("Spline", curveMovement.spline, typeof(BezierSpline), !EditorUtility.IsPersistent(target));
+        float amplitude = EditorGUILayout.FloatField("Amplitude", curveMovement.amplitude);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(curveMovement, "Spline");
+            Undo.RecordObject(curveMovement, "Amplitude Movement");
             EditorUtility.SetDirty(curveMovement);
-            curveMovement.spline = spline;
-        }
-
-        EditorGUI.BeginChangeCheck();
-        int curve = EditorGUILayout.IntSlider("Num curve", curveMovement.Curve, 0, spline.CurveCount - 1);
-        if (EditorGUI.EndChangeCheck())
-        {
-            Undo.RecordObject(curveMovement, "Nb curve");
-            EditorUtility.SetDirty(curveMovement);
-            curveMovement.Curve = curve;
+            curveMovement.amplitude = amplitude;
         }
 
         EditorGUI.BeginChangeCheck();
