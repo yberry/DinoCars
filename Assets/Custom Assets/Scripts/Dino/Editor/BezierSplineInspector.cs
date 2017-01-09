@@ -63,12 +63,26 @@ public class BezierSplineInspector : Editor
             DrawSelectedPointInspector();
         }*/
         DrawPointsInspector();
+
+        Color oldCol = GUI.backgroundColor;
+
+        GUI.backgroundColor = new Color(0.5f, 1f, 0.5f);
         if (GUILayout.Button("Add Curve"))
         {
             Undo.RecordObject(spline, "Add Curve");
             spline.AddCurve();
             EditorUtility.SetDirty(spline);
         }
+
+        GUI.backgroundColor = new Color(1f, 0.5f, 0.5f);
+        if (GUILayout.Button("Remove Last Curve"))
+        {
+            Undo.RecordObject(spline, "Remove Last Curve");
+            spline.RemoveCurve();
+            EditorUtility.SetDirty(spline);
+        }
+
+        GUI.backgroundColor = oldCol;
     }
 
     private void DrawSelectedPointInspector()

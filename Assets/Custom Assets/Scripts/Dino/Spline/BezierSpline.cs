@@ -227,17 +227,35 @@ public class BezierSpline : MonoBehaviour
     {
         Vector3 point = points[points.Length - 1];
         Array.Resize(ref points, points.Length + 3);
-        point.x += 1f;
+        point.z += 10f;
         points[points.Length - 3] = point;
-        point.x += 1f;
+        point.z += 10f;
         points[points.Length - 2] = point;
-        point.x += 1f;
+        point.z += 10f;
         points[points.Length - 1] = point;
 
         Array.Resize(ref modes, modes.Length + 1);
         modes[modes.Length - 1] = modes[modes.Length - 2];
         EnforceMode(points.Length - 4);
 
+        ResetLoop();
+    }
+
+    public void RemoveCurve()
+    {
+        if (CurveCount <= 1)
+        {
+            return;
+        }
+
+        Array.Resize(ref points, points.Length - 3);
+        Array.Resize(ref modes, modes.Length - 1);
+
+        ResetLoop();
+    }
+
+    void ResetLoop()
+    {
         if (loop)
         {
             points[points.Length - 1] = points[0];
