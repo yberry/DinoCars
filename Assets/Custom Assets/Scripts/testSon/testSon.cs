@@ -30,10 +30,12 @@ public class testSon : MonoBehaviour {
         addition = 50;
         start = false;
         gearDown = false;
-        nbRotationLimit = 10000;
+        nbRotationLimit = 12000;
         nbRotationClutch = 3000;
         currentGear = 0;
         speedToAdd = 0;
+        
+
     }
 
     //Vitesse maximale de 300km/h on a 6 vitesses 
@@ -88,10 +90,10 @@ public class testSon : MonoBehaviour {
         speedValueText.text = speedToAdd.ToString();
         currentGearText.text = currentGear.ToString();
 
-        //Wwsise
-        AkSoundEngine.SetRTPCValue("currentGear", currentGear);
-        AkSoundEngine.SetRTPCValue("rotationPerMinute", rotationPerMinute);
-        AkSoundEngine.SetRTPCValue("currentSpeed", speedToAdd);
+        //Wwise
+        AkSoundEngine.SetRTPCValue("Gear", currentGear);
+        AkSoundEngine.SetRTPCValue("RPM", rotationPerMinute);
+        AkSoundEngine.SetRTPCValue("Velocity", speedToAdd);
     
     }
 
