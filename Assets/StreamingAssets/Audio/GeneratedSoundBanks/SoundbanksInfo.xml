@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="120">
+	<RootPaths>
+		<ProjectRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\GUILLON.victoria\Documents\CarsDinoProject\DinoCars\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="979736363" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Car_Motor</ObjectPath>
+			<ShortName>Car_Motor</ShortName>
+			<Path>Car_Motor.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1950444439" Name="Gear_Change" ObjectPath="\Events\Default Work Unit\Gear_Change"/>
+				<Event Id="1256202815" Name="Play" ObjectPath="\Events\Default Work Unit\Play"/>
+				<Event Id="1281810935" Name="Start" ObjectPath="\Events\Default Work Unit\Start"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="387274097" Language="SFX">
+					<ShortName>Ferrari_575M.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Ferrari_575M_41E511B6.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>
