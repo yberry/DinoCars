@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -122,7 +122,7 @@
     <ul>
       <li>Works in Unity free and Pro.</li>
       <li>Player-centric input system.</li>
-      <li>Full hot-plugging support on Windows, OSX, Linux, Windows 8 Store, Windows 10 Universal, Ouya, and Xbox One. (Other platforms depend on Unity's input system's support for hot-plugging on that platform.)</li>
+      <li>Full hot-plugging support on Windows, OSX, Linux, Windows 8 Store, Windows 10 Universal, Ouya, Xbox One, and PS4. (Other platforms depend on Unity's input system's support for hot-plugging on that platform.)</li>
       <li>Extended native input support on several platforms.</li>
       <li>Optional XInput support for Windows (mandatory for Windows 8 Store).</li>
       <li>Fallback on Unity input for all other platforms. Most features still work.</li>
@@ -147,7 +147,8 @@
       <li>For any controller not included, you can map an Unknown controller which includes all possible buttons/axes on the platform (Windows 128 buttons &amp; 32 axes, etc.) Regardless of whether you define a map for this, users will always be able to manually map every element on the controller. This means support for the vast majority of USB and Bluetooth controllers. <span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications">1</a>]</span></li>
       <li>Controller template system so you can either choose to create default maps for every controller you wish to explicitly support, or save time and just map the template. All controllers that use that template will be mapped automatically. (Comes with a Dual Axis Gamepad template that works for the included gamepads.) User can always map any remaining controller elements even if they're not defined on the template.</li>
       <li>Named buttons and controller elements for supported controllers (for help messages and config screens).</li>
-      <li>Vibration (Windows, Windows 8 Store, Windows 10 Universal, Linux, XBox One currently).</li>
+      <li>Vibration (Windows, Windows 8 Store, Windows 10 Universal, OSX, Linux, XBox One, PS4 currently).</li>
+      <li>Advanced controller features such as vibration, touchpad, light, and gyro on the Dual Shock 4.</li>
       <li>Custom Controllers  - Any source can be used to drive the controller's element values. Custom Controllers can be used for on-screeen touch controllers and more.</li>
     </ul>
     <h4>Mapping:<br>
@@ -176,7 +177,7 @@
       <li>Double-press/click support with customizable timing.</li>
       <li>GetButtonDown buffer -- allows you to make GetButtonDown respond for longer than a single frame to help with timing issues when user is pressing the button rapidly.</li>
       <li>Keyboard modifier support - Map keyboard controls with up to 3 modifiers - Control, Alt, Shift, and Command (mac).</li>
-      <li>Axis calibration (min, max, zero, deadzone)</li>
+      <li>Axis calibration (min, max, zero, deadzone, sensitivity)</li>
     </ul>
     <h4>Players:<br />
     </h4>
@@ -251,8 +252,8 @@
       <li>iOS</li>
       <li>Linux*</li>
       <li>Sony PSM (Sony PlayStation Vita)</li>
-      <li>Sony PlayStation 4</li>
-      <li>Microsoft XBox One*</li>
+      <li>Sony PlayStation 4* <span style="vertical-align: super; font-size: 65%">[<a href="#clarifications">2</a>]</span></li>
+      <li>Microsoft XBox One* <span style="vertical-align: super; font-size: 65%">[<a href="#clarifications">2</a>]</span></li>
       <li>Ouya*</li>
       <li>Apple TV (tvOS)</li>
       <li>Amazon Fire TV</li>
@@ -263,6 +264,7 @@
     <p style="font-size: 85%">* Platform features Extended Native Support</p>
     <a name="clarifications" id="clarifications"></a>
     <p style="font-size: 65%"><span style="vertical-align: super">1</span> Controller must be compatible with underlying system. On Windows the controller must be compatible with Raw Input, Direct Input, or XInput. On OSX, it must be compatible with I/O Kit. Support for exotic controller types not guaranteed.</p>
+    <p style="font-size: 65%"><span class="superscript">2</span> These platforms make use of Unity's special platform-specific input classes which allow for much greater control over input than with just UnityEngine.Input and are functionally equivalent to native input libraries.</p>
     <p>&nbsp;</p>
 <div class="bottom-pager clearfix">
 	    <a class="back-button" href="Documentation.html" title="Documentation"><span class="button-img"></span>Documentation</a>

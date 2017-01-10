@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -128,15 +128,17 @@
     <h3><a name="joysticks" id="joysticks"></a>Joysticks</h3>
     <p>Joysticks are the most common Controller type and include most external non-mouse, non-keyboard USB or Bluetooth input peripherals that are connected to the system. (Certain exotic device types cannot be seen as Joysticks by Rewired.) Joysticks may come in various forms such as gamepads, flight sticks, steering wheels, balance boards, etc.</p>
     <p><strong><a name="joystick-assignment" id="joysticks3"></a>Joystick Assignment</strong><br />
-      In order to use a Joystick in Rewired's Player-based system, first the Player which should be in control of the Joystick must have that joystick assigned. The Player will then use that Joystick as one of its input sources when calculating the values of its input Actions (provided the Player also has one or more Joystick Maps to map joystick elements to Actions. <a href="ControllerMaps.html">See Controller Maps for more information</a>.) A Player may have any number of Joysticks assigned, and Joysticks may be shared among any number of Players (this is rare.)</p>
-    <p>Joysticks can be assigned/deassigned to/from a Player via scripting (<a href="HowTos.html#assigning-joysticks">see here for more information</a>), but it is more common to allow Rewired to automatically assign Joysticks to Players.</p>
+      In order to use a Joystick in Rewired's Player-based system, first the Player which should be in control of the Joystick must have that joystick assigned. (<a href="#joystick-auto-assignment">See Joystick Auto-Assignment</a>.) Once the Joystick is assigned to the Player, Rewired will attempt to load any Joystick Maps for that Player from the defaults assigned to the Player in the Rewired Input Manager for the particular Joystick in question. The Player will then use that Joystick as one of its input sources when calculating the values of its input Actions provided the Player also has one or more Joystick Maps which map joystick elements to Actions. (<a href="ControllerMaps.html">See Controller Maps for more information</a>.) A Player may have any number of Joysticks assigned, and Joysticks may be shared among any number of Players (this is rare.)</p>
+    <p>Joysticks can be assigned and removed from a Player via scripting (<a href="HowTos.html#assigning-joysticks">see here for more information</a>), but it is more common to allow Rewired to automatically assign Joysticks to Players.</p>
     <p><a name="joystick-auto-assignment" id="joysticks4"></a><strong>Joystick Auto-Assignment</strong></p>
-    <p>By default, Joysticks will be assigned to Players (excluding the System Player) automatically based on the Joystick Auto-Assignment settings in the <a href="http://guavaman.com/projects/rewired/docs/RewiredEditor.html#Settings">Rewired Editor - Settings</a>. These settings allow you to change various options for how Joysticks are auto-assigned to Players based on the needs of your game. Joystick auto-assignment can be disabled if you'd prefer to <a href="HowTos.html#assigning-joysticks">assign joysticks manually through scripting</a>. Joystick auto-assignment can also be <a href="#RewiredEditor.html#Players">selectively disabled per player in the Rewired Editor</a> and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Player_ControllerHelper_excludeFromControllerAutoAssignment.htm">via scripting</a>.</p>
+    <p>By default, Joysticks will be assigned to Players (excluding the System Player) automatically based on the Joystick Auto-Assignment settings in the <a href="http://guavaman.com/projects/rewired/docs/RewiredEditor.html#Settings">Rewired Editor - Settings</a>. These settings allow you to change various options for how Joysticks are auto-assigned to Players based on the needs of your game. Joystick auto-assignment can be disabled if you'd prefer to <a href="HowTos.html#assigning-joysticks">assign joysticks manually through scripting</a>. Joystick auto-assignment can also be <a href="RewiredEditor.html#Players">selectively disabled per player in the Rewired Editor</a> and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Player_ControllerHelper_excludeFromControllerAutoAssignment.htm">via scripting</a>.</p>
     <p>Note: One common issue that arises is when you connect multiple controllers and want a single Player to be able to use any of the connected controllers. Based on the default settings, Rewired will assign only one controller per-Player. In order to allow auto-assignment of multiple Joysticks to the same Player, Max Joysticks Per Player must be raised to a value greater than 1. All these settings are configurable and have descriptions as to their function.</p>
     <p><strong><a name="joystick-maps" id="joysticks5"></a>Joystick Maps</strong><br />
   Please see <a href="ControllerMaps.html#joystick-maps">Controller Maps - Joystick Maps</a> for more information. </p>
     <p><strong><a name="joystick-events" id="joysticks6"></a>Joystick Connect and Disconnect Events</strong><br />
       You can detect when a Joystick is connected or disconnected through the use of events. <a href="HowTos.html#connect-disconnect-events">See How To's - Receiving joystick connect and disconnect events</a> for more information.</p>
+    <p><strong><a name="detecting-joysticks-at-start" id="joysticks13"></a>Checking for Joysticks at the Start of the Game</strong></p>
+    <p>Please see <a href="http://guavaman.com/projects/rewired/docs/HowTos.html#connect-disconnect-events">How To's - Receiving Joystick connect and disconnect events</a> for important information.</p>
     <p>&nbsp;</p>
     <h3><strong><a name="keyboard" id="joysticks7"></a></strong>Keyboard</h3>
     <p>The keyboard works similarly to Joysticks in many ways, but there are a few notable differences:</p>

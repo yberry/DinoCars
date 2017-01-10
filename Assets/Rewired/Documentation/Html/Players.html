@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -124,7 +124,7 @@
       <p><strong>Accessing Players</strong></p>
       <p>The <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_PlayerHelper.htm">ReInput.players</a> property has methods to get access to a Player by id or name or to get a list of all Players. It's recommended you store a reference to the Player in  Awake and maintain that reference for the duration of the game. See <a href="HowTos.html#get-player">Getting a Player</a> for an example of how to get a Player.</p>
 
-    <p><strong>System Player</strong></p>
+    <p><strong><a name="system-player" id="system-player"></a>System Player</strong></p>
 <p>The System player exists an an option for handling system Actions such as Save, Load, etc. You can assign controllers and maps to the System player just as with any other player. Joysticks are never auto-assigned to the System player, but you can assign them manually to the System player through scripting.</p>
 <p><strong>Getting Input</strong></p>
 <p>In Rewired, you generally get input from the Player, not the controllers themselves. Please see <a href="HowTos.html#get-input">How To's - Getting Input</a> for more information.</p>
@@ -133,7 +133,7 @@
     <p>The <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">Player</a> class contains many methods for getting, adding, and removing all types of controller maps. (Access these methods through the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">Player.controllers.maps</a> helper object.) Additionally, assignment conflict checking and saving/loading maps is handled through the Player class.</p>
     <p>Even if a controller is assigned to a Player, if no maps are assigned, no input will be possible. You should define starting maps for joysticks, the keyboard, and the mouse for each Player in the <a href="RewiredEditor.html">Rewired Editor</a>. You can also load and assign maps during runtime through scripting via the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class. </p>
     <p><strong><a name="controllers" id="controllers"></a>Players and Controllers</strong></p>
-    <p>A Player is essentially a container for controllers and Controller Maps. The Controller Maps contained in Player provide a means to associate an Actions to controller elements (button, key, axis, etc.). There are some slight differences between how the different types of controllers are handled by the Player.</p>
+    <p>A Player is essentially a container for controllers and Controller Maps. The Controller Maps contained in Player provide a means to associate Actions to controller elements (button, key, axis, etc.). There are some slight differences between how the different types of controllers are handled by the Player.</p>
     <p>Rewired currently has 4 types of Controller classes:</p>
     <ul>
       <li>Joystick (a device attached to the system that is not a keyboard or mouse.)</li>

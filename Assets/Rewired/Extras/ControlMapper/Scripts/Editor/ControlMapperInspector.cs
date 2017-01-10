@@ -20,6 +20,7 @@ namespace Rewired.UI.ControlMapper {
         #region Inspector Variable Name Consts
 
         private const string c_rewiredInputManager = "_rewiredInputManager";
+        private const string c_dontDestroyOnLoad = "_dontDestroyOnLoad";
 
         private const string c_openOnStart = "_openOnStart";
 
@@ -41,6 +42,9 @@ namespace Rewired.UI.ControlMapper {
         private const string c_keyboardInputFieldCount = "_keyboardInputFieldCount";
         private const string c_mouseInputFieldCount = "_mouseInputFieldCount";
         private const string c_controllerInputFieldCount = "_controllerInputFieldCount";
+
+        private const string c_showFullAxisInputFields = "_showFullAxisInputFields";
+        private const string c_showSplitAxisInputFields = "_showSplitAxisInputFields";
 
         private const string c_allowElementAssignmentConflicts = "_allowElementAssignmentConflicts";
 
@@ -117,6 +121,7 @@ namespace Rewired.UI.ControlMapper {
             properties = new Dictionary<string, SerializedProperty>();
 
             AddProperty(c_rewiredInputManager);
+            AddProperty(c_dontDestroyOnLoad);
 
             AddProperty(c_openOnStart);
 
@@ -138,6 +143,9 @@ namespace Rewired.UI.ControlMapper {
             AddProperty(c_keyboardInputFieldCount);
             AddProperty(c_mouseInputFieldCount);
             AddProperty(c_controllerInputFieldCount);
+
+            AddProperty(c_showFullAxisInputFields);
+            AddProperty(c_showSplitAxisInputFields);
 
             AddProperty(c_allowElementAssignmentConflicts);
 
@@ -202,6 +210,7 @@ namespace Rewired.UI.ControlMapper {
             EditorGUILayout.Space();
             using(new EditorGUILayoutSection(true, style_sectionBkg)) {
                 EditorGUILayout.PropertyField(properties[c_rewiredInputManager]);
+                EditorGUILayout.PropertyField(properties[c_dontDestroyOnLoad]);
             }
 
             DrawLayout();
@@ -291,6 +300,35 @@ namespace Rewired.UI.ControlMapper {
                     EditorGUILayout.PropertyField(properties[c_ignoreMouseY]);
                 }
             }        
+
+            // Input field options
+            using(new EditorGUILayoutSection(true, style_sectionBkg)) {
+                EditorGUILayout.LabelField(new GUIContent("Input Field Options:", "Various options for the input field grid."), style_sectionLabel);
+                EditorGUILayout.Space();
+                EditorGUILayout.PropertyField(properties[c_showFullAxisInputFields]);
+                EditorGUILayout.PropertyField(properties[c_showSplitAxisInputFields]);
+                if(!properties[c_showFullAxisInputFields].boolValue) {
+                    if(!properties[c_showSplitAxisInputFields].boolValue) { // both are disabled
+                        EditorGUILayout.HelpBox("No axis input fields will be displayed! The user will be unable to make any assignments to axis-type Actions.", MessageType.Error);
+                    } else {
+                        EditorGUILayout.HelpBox(
+                            "Full-axis input fields will not be displayed. This field is required if you have made any full-axis assignments " +
+                            "in the Rewired Input Manager or in saved XML user data. Disabling this field when you have full-axis assignments will result in the " +
+                            "inability for the user to view, remove, or modify these full-axis assignments. In addition, these assignments may cause conflicts when " + 
+                            "trying to remap the same axes to Actions.",
+                            MessageType.Warning
+                        );
+                    }
+                } else if(!properties[c_showSplitAxisInputFields].boolValue) {
+                    EditorGUILayout.HelpBox(
+                        "Split-axis input fields will not be displayed. These fields are required to assign buttons, keyboard keys, and hat or D-Pad directions to axis-type Actions. " +
+                        "If you have made any split-axis assignments or button/key/D-pad assignments to axis-type Actions in the Rewired Input Manager or " +
+                        "in saved XML user data, disabling these fields will result in the inability for the user to view, remove, or modify these assignments. " +
+                        "In addition, these assignments may cause conflicts when trying to remap the same elements to Actions.",
+                        MessageType.Warning
+                    );
+                }
+            }
 
             // Mapping sets
             using(new EditorGUILayoutSection(true, style_sectionBkg)) {

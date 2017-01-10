@@ -76,7 +76,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -102,27 +102,28 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: fa46ba0cfabbd2d4fbda8b1e2baac383, type: 3}
   baseNoise: {fileID: 0}
   parasites: {fileID: 0}
-  effectIntensity: 1
+  effectIntensity: 0.75
   onlyHalfScreen: 0
-  minWhiteNoise: 0.025
-  maxWhiteNoise: 0.075
+  skipEffect: 0
+  minWhiteNoise: 0.05
+  maxWhiteNoise: 0.2
   red: 1
-  green: 0.79
-  blue: 0.21
+  green: 0.7
+  blue: 0.3
   redAlpha: 1
-  greenAlpha: 0.51
-  blueAlpha: 0.16
-  minAlpha: 0
-  blurDistance: {x: 64, y: 0}
-  blurXsteps: 72
-  blurYsteps: 2
-  distortionX: 0.0005
-  exponentialNess: 0.67
-  minXSpacing: 50
-  maxXSpacing: 300
+  greenAlpha: 0.7
+  blueAlpha: 0.3
+  minAlpha: 0.5
+  blurDistance: {x: 50.32, y: 0.01}
+  blurXsteps: 96
+  blurYsteps: 16
+  distortionX: 0.00075
+  exponentialNess: 0.7
+  minXSpacing: 80
+  maxXSpacing: 200
   minYSpacing: 3
-  maxYSpacing: 13
-  parasiteLength: 15
+  maxYSpacing: 5
+  parasiteLength: 5
   AAlevel: 1
   downSamplingX: 1
   downSamplingY: 1

@@ -119,7 +119,7 @@ img {
 }
 
 pre.code {
-	font-size: 80%;
+	font-size: 90%;
 	background-color: #eee;
 	padding: 2em;
 	margin: 2em;
@@ -155,7 +155,9 @@ table {
 }
 
 .right {
-	float: right;	
+	float: right;
+	margin-left: 20px;
+	margin-bottom: 20px;
 }
 
 .content {
@@ -276,4 +278,39 @@ a.forward-button .button-img {
 .supported-controllers-table .controller-type {
 	font-size: 120%;
 	font-weight: bold;	
+}
+
+.supported-controllers-table .template-icon {
+	display: block;
+	width: 24px;
+	height: 24px;
+}
+
+.supported-controllers-table .template-icon-gamepad {
+    background-image: url("../images/icon-template-gamepad.png");
+}
+
+.supported-controllers-table .template-icon-hotas {
+    background-image: url("../images/icon-template-hotas.png");
+}
+
+.supported-controllers-table .template-icon-flight-yoke {
+    background-image: url("../images/icon-template-flight-yoke.png");
+}
+
+.supported-controllers-table .template-icon-flight-pedals {
+    background-image: url("../images/icon-template-flight-pedals.png");
+}
+
+.supported-controllers-table .template-icon-racing-wheel {
+    background-image: url("../images/icon-template-racing-wheel.png");
+}
+
+.question:before {
+	content: "Q: ";
+	font-weight: bold;
+}
+
+.question {
+	font-weight: bold;
 }
