@@ -15,38 +15,77 @@ MonoBehaviour:
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{BDDA9FF3-6495-4A16-99E5-4B09AF590E9B}'
-    m_lastTimePsrt1: -515443817
-    m_lastTimePart2: -1999366293
-    List: []
+    Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
+    m_lastTimePsrt1: -1287894698
+    m_lastTimePart2: -1999357794
+    List:
+    - Name: Gear_Change
+      Path: Default Work Unit\Gear_Change
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Gear_Change
+        ObjectType: 3
+      ID: 1950444439
+      Guid: 467b027111ae9648872acb9b3630f144
+      maxAttenuation: 0
+    - Name: Play
+      Path: Default Work Unit\Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play
+        ObjectType: 3
+      ID: 1256202815
+      Guid: 7aa47b59cc36ff48ade5a6fbb5febaa9
+      maxAttenuation: 0
+    - Name: Start
+      Path: Default Work Unit\Start
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Start
+        ObjectType: 3
+      ID: 1281810935
+      Guid: 179f9b8682219d469f562552e3a6b0d2
+      maxAttenuation: 0
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{F494501C-0062-4F6B-B9DB-0E7E54F9ABF1}'
-    m_lastTimePsrt1: -514675382
-    m_lastTimePart2: -1999366293
+    Guid: '{8AF1870F-F097-4779-BE1C-A5E68D0C94B1}'
+    m_lastTimePsrt1: -775374428
+    m_lastTimePart2: -1999358825
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{6E3BFD85-EDEB-4EBF-8A75-33E62C1271EE}'
-    m_lastTimePsrt1: -503287088
-    m_lastTimePart2: -1999366293
+    Guid: '{0891A86F-4F8E-4585-8095-DAEFB505EF7F}'
+    m_lastTimePsrt1: -775374428
+    m_lastTimePart2: -1999358825
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{24E96789-B6A5-4B1F-9986-E6F65AAC2D31}'
-    m_lastTimePsrt1: -503267077
-    m_lastTimePart2: -1999366293
+    Guid: '{50A5922F-946B-429A-93FF-F44A60F66DB5}'
+    m_lastTimePsrt1: -775530844
+    m_lastTimePart2: -1999358825
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
-    Guid: '{C0ECB7E0-0D62-46AF-A7D1-5813039BCD3E}'
-    m_lastTimePsrt1: -503528115
-    m_lastTimePart2: -1999366293
-    List: []
+    Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
+    m_lastTimePsrt1: -1287785022
+    m_lastTimePart2: -1999357794
+    List:
+    - Name: Car_Motor
+      Path: Default Work Unit\Car_Motor
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car_Motor
+        ObjectType: 7
+      ID: 979736363
+      Guid: 0ffee3c1d0b6e74fa3b19a665a64f48e
   ExpandedItems: []
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
