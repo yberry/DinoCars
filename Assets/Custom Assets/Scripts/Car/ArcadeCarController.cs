@@ -36,6 +36,8 @@ namespace CND.Car
         public float tractionControl;
         [Range(0, 1)]
         public float driftControl;
+        [Range(0, 1000)]
+        public float downForce;
 
         public Vector3 m_CentreOfMassOffset;
         public bool orientationFix;
@@ -73,10 +75,16 @@ namespace CND.Car
         {
             prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
+
+            
             ApplySteering();
             ApplyMotorForces();
+            ApplyDownForce();
+
             if (orientationFix)
                 CorrectOrientation();
+
+         
         }
 
         private void DebugRefresh()
@@ -116,6 +124,11 @@ namespace CND.Car
         public override string DebugHUDString()
         {
             return base.DebugHUDString()+" "+GetGear()+"/"+transmissionCurves.Length;
+        }
+
+        void ApplyDownForce()
+        {
+            rBody.AddForce(-transform.up * Mathf.Abs(downForce * rBody.velocity.magnitude));
         }
 
         void ApplySteering()
@@ -181,11 +194,13 @@ namespace CND.Car
             int gear = GetGear() - 1;
             var gearSpeed = transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var accelPower = Mathf.Lerp(Mathf.Clamp01(SpeedRatio-Time.fixedDeltaTime*5f)* targetSpeed / powerRatio, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
-
+            var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * targetSpeed / powerRatio;
+            var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
             const float speedDecay = 0.95f;
             Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
-            Vector3 nextForwardVel = contact.forwardDirection * Mathf.Max(absForward* accelPower );// * Time.fixedDeltaTime * 100f;
+            Vector3 nextForwardVel = contact.forwardDirection * (absForward* accelPower ) 
+                + contact.forwardDirection * Physics.gravity.magnitude * gravForward;// * Time.fixedDeltaTime * 100f;
             //
             Vector3 nextSidewaysVel = Vector3.Lerp(
                 inertiaCancel * (1f -  Time.fixedDeltaTime*10f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),

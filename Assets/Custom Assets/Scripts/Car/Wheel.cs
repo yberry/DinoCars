@@ -68,7 +68,7 @@ namespace CND.Car
         {
             RaycastHit hit;
             ContactInfo curContactInfo=new ContactInfo();
-            const float halfPI= Mathf.PI * (0.5f);
+            const float halfPI= (float)(System.Math.PI * 0.5);
             const float fullCircle = 2f * Mathf.PI * Mathf.Rad2Deg;
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
@@ -86,22 +86,26 @@ namespace CND.Car
             curContactInfo.relativeRotation = steerRot;
             curContactInfo.forwardDirection = steerRot* transform.forward;
 
+            var projMoveDir= Vector3.ProjectOnPlane(moveDir, transform.up).normalized;
             var dotForward = Vector3.Dot(
                 Vector3.ProjectOnPlane(transform.forward, transform.up).normalized,
-                Vector3.ProjectOnPlane(moveDir,transform.up).normalized);
-            
-         //   dotForward = Quaternion.FromToRotation(transform.forward, moveDir).y;
-            
+                projMoveDir);
+            var dotSideways = Vector3.Dot(
+                Vector3.ProjectOnPlane(-transform.right, transform.up).normalized,
+                projMoveDir);
 
-            var asinForward =  Mathf.Asin(dotForward) / halfPI;
+            //   dotForward = Quaternion.FromToRotation(transform.forward, moveDir).y;
+
+
+            var asinForward = MathEx.DotToLerp(dotForward); //asin(dot)/(pi/2)
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
-            var asinSide = Mathf.Asin(-Vector3.Dot(moveDir, transform.right)) / halfPI;
+            var asinSide = MathEx.DotToLerp(dotSideways);
             if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
             curContactInfo.angularVelocity = (curContactInfo.angularVelocity + moveDelta.magnitude * wheelCircumference) % wheelCircumference;
             angularVelAngle += curContactInfo.angularVelocity * Mathf.Sign(asinForward);
 
             curContactInfo.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? asinForward : 1;
-            curContactInfo.sidewaysRatio = moveDir != Vector3.zero ? asinSide : 1f- curContactInfo.forwardRatio; //leftOrRightness 
+            curContactInfo.sidewaysRatio = moveDir != Vector3.zero ? dotSideways : 1f- curContactInfo.forwardRatio; //leftOrRightness 
             curContactInfo.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(curContactInfo.sidewaysRatio)).normalized;
             
             curContactInfo.forwardFriction = settings.maxForwardFriction * Mathf.Abs(curContactInfo.forwardRatio);
@@ -109,6 +113,17 @@ namespace CND.Car
             
             curContactInfo.pushPoint = Vector3.Lerp(transform.position, wheelCenter, 0);
             curContactInfo.springCompression = m_contactInfo.springCompression;
+
+            var sqrtMoveMag = Mathf.Sqrt(moveDelta.magnitude);
+            var vel = curContactInfo.velocity;
+            var sqrVel = vel * vel.magnitude;  
+            var gravNorm = gravity.normalized;
+            var sqrGrav = gravity * gravity.magnitude;
+            var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
+            var dotVelY = Vector3.Dot(transform.up, moveDir);
+            //dotVelY=(Mathf.Asin(dotVelY) / halfPI);
+            var dotDownGrav = Vector3.Dot(-transform.up, gravNorm);
+            //dotGrav = (Mathf.Asin(dotGrav) / halfPI);
 
             const float tolerance = 1.025f;
             
@@ -126,24 +141,15 @@ namespace CND.Car
                 curContactInfo.springLength = springLength;
    
 
-                var vel = curContactInfo.velocity;
-                var sqrVel = vel * vel.magnitude;
-                var grav = m_contactInfo.isOnFloor ? gravity : gravity;
-                var gravNorm = grav.normalized;
-                var sqrGrav = grav* grav.magnitude;
-                var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
-                var dotVelY = Vector3.Dot(transform.up, moveDir);
-                //dotVelY=(Mathf.Asin(dotVelY) / halfPI);
-                var dotGrav = Vector3.Dot(-transform.up, gravNorm);
-                //dotGrav = (Mathf.Asin(dotGrav) / halfPI);
+                
                 //var damping = dotVelY * settings.damping;
-                var shockCancel = -vel*95f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+                var shockCancel = -vel *85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-grav * dotGrav + shockCancel * (1f-Mathf.Abs(dotVelGrav)) /* * (1f-Time.fixedDeltaTime*20f)*/);
-                var springDamp = Mathf.Clamp( 1f - vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY,
+                var stickToFloor = (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel * (1f - Mathf.Clamp01(MathEx.DotToLerp( -dotVelGrav)))); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
+                var springDamp = Mathf.Clamp( 1f- (vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY),
                     Time.fixedDeltaTime, 1f);
                 var springExpand = Mathf.Clamp(1f+ moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY,
-                    Time.fixedDeltaTime,10f* settings.springForce * settings.baseSpringLength * tolerance * settings.maxExpansion);
+                    Time.fixedDeltaTime, 10f* settings.springForce * settings.baseSpringLength * tolerance * settings.maxExpansion);
                 var springResistance = Mathf.Lerp(
                     curContactInfo.springCompression* curContactInfo.springCompression* curContactInfo.springCompression,
                     Mathf.Clamp01(Mathf.Sin( halfPI*curContactInfo.springCompression)), settings.stiffness) * 100f*Time.fixedDeltaTime;
@@ -167,7 +173,7 @@ namespace CND.Car
                     curContactInfo.isOnFloor = false;
                 } else  {
                     curContactInfo.hit = default(RaycastHit);
-                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength  * settings.maxExpansion, 10f*Time.fixedDeltaTime);
+                    curContactInfo.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength  * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 10f*Time.fixedDeltaTime);
                     curContactInfo.springCompression = ( settings.baseSpringLength - curContactInfo.springLength ) / compressionMargin;
                 }
 
