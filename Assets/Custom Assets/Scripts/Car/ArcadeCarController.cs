@@ -19,6 +19,11 @@ namespace CND.Car
         {
             return CurrentSpeed.ToString("0.") + " Km/H";
         }
+
+        public virtual float GetRPMRatio()
+        {
+            return Mathf.Abs(Mathf.Clamp( rBody.velocity.magnitude,0,10)*0.1f);
+        }
     }
 
     public class ArcadeCarController : BaseCarController
@@ -119,6 +124,24 @@ namespace CND.Car
         int GetNextGear()
         {
             return 1;
+        }
+
+        override public float GetRPMRatio()
+        {
+            int gear = GetGear()-1;
+            if (gear >= 0)
+            {
+                float curGearOutput = transmissionCurves[ gear].Evaluate(accelOutput);
+                float maxCurGearOutput = transmissionCurves[gear].Evaluate(1);
+                return curGearOutput / maxCurGearOutput;
+            }
+            else if (gear == -1)
+            {
+                float curGearOutput = transmissionCurves[gear].Evaluate(accelOutput);
+                float maxCurGearOutput = transmissionCurves[gear].Evaluate(-1);
+                return curGearOutput / maxCurGearOutput;
+            }
+            return 0;
         }
 
         public override string DebugHUDString()
