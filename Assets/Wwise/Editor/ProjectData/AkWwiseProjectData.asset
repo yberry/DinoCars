@@ -86,10 +86,7 @@ MonoBehaviour:
         ObjectType: 7
       ID: 979736363
       Guid: 0ffee3c1d0b6e74fa3b19a665a64f48e
-  ExpandedItems:
-  - /CarsDino_CAR_Motor
-  - /CarsDino_CAR_Motor/SoundBanks
-  - /CarsDino_CAR_Motor/SoundBanks/Default Work Unit
+  ExpandedItems: []
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1
