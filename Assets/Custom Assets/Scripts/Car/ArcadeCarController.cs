@@ -7,6 +7,10 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
+        [SerializeField, Range(0, 5000)]
+        protected float targetSpeed = 100f;
+        protected float TargetSpeed { get { return targetSpeed; } }
+
         const float speedKph = 3.6f;
         const float speedMph = 2.23693629f;
 
@@ -34,8 +38,7 @@ namespace CND.Car
 
     public class ArcadeCarController : BaseCarController
     {
-        [Range(0,5000)]
-        public float targetSpeed=100f;
+
         public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
         [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
         public AnimationCurve[] transmissionCurves;
@@ -137,15 +140,17 @@ namespace CND.Car
             int gear = GetGear()-1;
             if (gear >= 0)
             {
-                float curGearOutput = transmissionCurves[ gear].Evaluate(accelOutput);
                 float maxCurGearOutput = transmissionCurves[gear].Evaluate(1);
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/transmissionCurves.Length;
+               
                 return curGearOutput / maxCurGearOutput;
             }
             else if (gear == -1)
             {
-                float curGearOutput = transmissionCurves[gear].Evaluate(accelOutput);
-                float maxCurGearOutput = transmissionCurves[gear].Evaluate(-1);
-                return curGearOutput / maxCurGearOutput;
+                float maxCurGearOutput = Mathf.Abs(transmissionCurves[0].Evaluate(-1));
+                float curGearOutput = (CurrentSpeed / (TargetSpeed *maxCurGearOutput));
+
+                return - curGearOutput / maxCurGearOutput;
             }
             return 0;
         }

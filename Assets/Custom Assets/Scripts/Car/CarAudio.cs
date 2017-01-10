@@ -17,7 +17,7 @@ namespace CND.Car
 
         public float nbRotationLimit = 12000;
         public float nbRotationClutch = 3000;
-
+        [DisplayModifier(true)]
         public float RPM;
         public float maxValueRotation;
         float addition=50;
@@ -33,6 +33,7 @@ namespace CND.Car
         void Start()
         {
             play = true;
+           
         }
 
 
@@ -68,16 +69,6 @@ namespace CND.Car
             if (play)
             {
 
-                if (gearDown && RPM >= nbRotationClutch && currentGear != 0)
-                {
-                    RPM = RPM - nbRotationClutch;
-                   
-                }
-                else if (gearUp && RPM >= nbRotationClutch && currentGear < 6)
-                {
-                    RPM = RPM - nbRotationClutch;                   
-                }
-
                 gearDown = false;
                 gearUp = false;
             }
@@ -86,29 +77,15 @@ namespace CND.Car
                 RPM = 0;
             }
 
-            float pourcentage = RPM / nbRotationLimit;
+            RPM = carController.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
+            
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
-            AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio()* nbRotationLimit);
+            AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
         }
 
-
-        public void OnGearDown()
-        {
-            gearDown = true;
-        }
-
-        public void OnGearUp()
-        {
-            gearUp = true;
-        }
-
-        public void OnStart()
-        {
-            currentGear = 1;
-        }
 
     }
 }

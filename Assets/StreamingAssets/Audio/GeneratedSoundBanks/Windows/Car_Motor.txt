@@ -1,0 +1,16 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1256202815	Play			\Default Work Unit\Play	
+	1281810935	Start			\Default Work Unit\Start	
+	1950444439	Gear_Change			\Default Work Unit\Gear_Change	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	796049864	RPM			\Default Work Unit\RPM	
+	1172844112	Gear			\Default Work Unit\Gear	
+	3519441192	Velocity			\Default Work Unit\Velocity	
+
+Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	491765183	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Factory Crankcase REV\Ferrari 575M\CrankcaseAudio REV	
+
+Plug-in Media	ID	Name	Source file	Type	Wwise Object Path	Notes	Data Size
+	387274097	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Ferrari_575M_41E511B6.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Factory Crankcase REV\Ferrari 575M\CrankcaseAudio REV		527248
+
