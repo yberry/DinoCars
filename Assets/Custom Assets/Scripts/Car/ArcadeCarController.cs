@@ -7,9 +7,8 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
-        [SerializeField, Range(0, 5000)]
-        protected float targetSpeed = 100f;
-        protected float TargetSpeed { get { return targetSpeed; } }
+
+        public virtual float TargetSpeed { get { return rBody.velocity.magnitude+10f; } }
 
         const float speedKph = 3.6f;
         const float speedMph = 2.23693629f;
@@ -39,7 +38,8 @@ namespace CND.Car
     public class ArcadeCarController : BaseCarController
     {
 
-        public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
+        [SerializeField, Range(0, 5000)]
+        protected float targetSpeed = 100f;       
         [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
         public AnimationCurve[] transmissionCurves;
         [Range(0,90)]
@@ -52,13 +52,12 @@ namespace CND.Car
         public float driftControl;
         [Range(0, 1000)]
         public float downForce;
-
         public Vector3 m_CentreOfMassOffset;
         public bool orientationFix;
 
-        
+        public override float TargetSpeed {get {return targetSpeed; }}
+        public float SpeedRatio { get { return CurrentSpeed / targetSpeed; } }
         WheelManager wheelMgr;
-
 
         [HideInInspector]
         public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
@@ -71,17 +70,12 @@ namespace CND.Car
         float prevSteerAngleDeg, effectiveSteerAngleDeg;
         public float TargetSteerAngleDeg { get { return steering * maxTurnAngle; } }
 
-
-
-
         // Use this for initialization
         void Start()
         {
             wheelMgr = GetComponent<WheelManager>();
             rBody = GetComponent<Rigidbody>();
 
-
-            
         }
 
         // Update is called once per frame
@@ -90,10 +84,10 @@ namespace CND.Car
             prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
 
-            
+            ApplyDownForce();
             ApplySteering();
             ApplyMotorForces();
-            ApplyDownForce();
+           
 
             if (orientationFix)
                 CorrectOrientation();
@@ -126,8 +120,8 @@ namespace CND.Car
 
         protected override int GetGear()
         {
-            float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.25f : 0.25f;            
-            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));
+            float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;            
+            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));
         }
 
         int GetNextGear()
@@ -157,7 +151,7 @@ namespace CND.Car
 
         public override string DebugHUDString()
         {
-            return base.DebugHUDString()+" "+GetGear()+"/"+transmissionCurves.Length;
+            return base.DebugHUDString()+" "+GetGear()+"/"+transmissionCurves.Length+" ("+GetRPMRatio().ToString("0.##" )+ ")";
         }
 
         void ApplyDownForce()
@@ -233,18 +227,18 @@ namespace CND.Car
             var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
             const float speedDecay = 0.95f;
             Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
-            Vector3 nextForwardVel = contact.forwardDirection * (absForward* accelPower ) 
-                + contact.forwardDirection * Physics.gravity.magnitude * gravForward;// * Time.fixedDeltaTime * 100f;
-            //
+            Vector3 nextForwardVel = contact.forwardDirection * (absForward * accelPower);
+           nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;// * Time.fixedDeltaTime * 100f;
+            
             Vector3 nextSidewaysVel = Vector3.Lerp(
-                inertiaCancel * (1f -  Time.fixedDeltaTime*10f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
+                inertiaCancel * (1f -  Time.fixedDeltaTime*50f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
                 inertiaCancel* contact.sideFriction,
                 absForward);
 
-            Vector3 nextDriftVel =Vector3.Lerp(nextSidewaysVel+ nextForwardVel, nextForwardVel + inertiaCancel*absSide, driftControl);
+            Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel + inertiaCancel * (1f + Time.fixedDeltaTime * 50f) , driftControl);
             Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
-            Vector3 nextFinalVel=Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, tractionControl);
+            Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, tractionControl);
 
            
 #if DEBUG

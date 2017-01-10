@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace CND.Car
 {
-
+    public interface IRemovableChildren { }
     public partial class Wheel : MonoBehaviour
     {
+       
         [System.Serializable]
-        public struct Settings// : System.Object
+        public struct Settings
         {
             [Header("Suspension"), Space(2.5f)]
             [Range(0, 10)]

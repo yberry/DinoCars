@@ -80,10 +80,15 @@ namespace CND.Car
             RPM = carController.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
-            
+           
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
+
+            if (UnityEditor.EditorUtility.audioMasterMute)
+                AkSoundEngine.StopAll();
+        
+
         }
 
 

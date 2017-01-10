@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#define KJ_DISPLAYMOD_DRAWER
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -9,17 +11,20 @@ public class DisplayModifierAttribute : PropertyAttribute {
 	public bool readOnly { get; protected set; }
 	public bool overrideName { get; protected set; }
 	public bool startExpanded { get; protected set; }
-	public bool extraLabelLine { get; protected set; }
-
-	public DisplayModifierAttribute(bool readOnly = false, bool labelAbove = false, bool startExpanded = true)
+    public bool noChildrenFolder { get; protected set; }
+    public bool extraLabelLine { get; protected set; }
+    
+	public DisplayModifierAttribute(bool readOnly = false, bool labelAbove = false, bool startExpanded = true, bool noChildrenFolder=false)
 	{
 		extraLabelLine = labelAbove;
 		this.readOnly = readOnly;
 		this.startExpanded = startExpanded;
-	}
+        this.noChildrenFolder = noChildrenFolder;
 
-	public DisplayModifierAttribute(string name, bool readOnly=false, bool labelAbove = false, bool startExpanded=true)
-		:this(readOnly,labelAbove,startExpanded)
+    }
+
+	public DisplayModifierAttribute(string name, bool readOnly=false, bool labelAbove = false, bool startExpanded=true, bool noChildrenFolder = false)
+		:this(readOnly,labelAbove,startExpanded, noChildrenFolder)
 	{
 		OverrideName(name);
 	}
@@ -38,7 +43,63 @@ public class DisplayModifierAttribute : PropertyAttribute {
 [CustomPropertyDrawer(typeof(DisplayModifierAttribute))]
 public class DisplayModifierDrawer : PropertyDrawer
 {
-	protected bool isInit;
+    protected class ChildrenProperties
+    {
+        System.Reflection.FieldInfo fieldInfo;
+
+        System.Reflection.FieldInfo[] fields;
+        SerializedProperty[] members;
+        float height = 0;
+
+        public ChildrenProperties(System.Reflection.FieldInfo rootFieldInfo){
+            fieldInfo = rootFieldInfo;
+        }
+
+        public float GetExpandedPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            if (fields == null)
+            {
+                fields = fieldInfo.FieldType.GetFields();
+                members = new SerializedProperty[fields.Length];
+
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    var subMember = property.FindPropertyRelative(fields[i].Name);
+                    if (subMember != null)
+                    {
+                        members[i] = subMember;
+                        height += EditorGUI.GetPropertyHeight(subMember);
+                    }
+
+                }
+            }
+            return height + 2;
+        }
+
+        public void CreateGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginProperty(position, label, property);
+            int indent = EditorGUI.indentLevel;
+            for (int i = 0; i < members.Length; i++)
+            {
+                var height = EditorGUI.GetPropertyHeight(members[i]);
+                position.height = height;
+                // string path = fieldInfo.Name + "." + fields[i].Name;
+                EditorGUI.indentLevel = indent;
+                if (members[i] != null)
+                {
+                    EditorGUI.PropertyField(position, members[i]);
+                }
+
+                position.y += height;
+
+            }
+            
+            EditorGUI.EndProperty();
+        }
+    }
+
+    protected bool isInit;
 	protected bool checkedForRange;
 	protected RangeAttribute rangeAttribute;
 
@@ -48,15 +109,23 @@ public class DisplayModifierDrawer : PropertyDrawer
 	protected bool checkedForExtraLine;
 	protected bool extraLabelLine;
 
-	public DisplayModifierDrawer():base()
+    protected ChildrenProperties children;
+
+
+    public DisplayModifierDrawer():base()
 	{
 		
 	}
 
 	public void Init(SerializedProperty property, GUIContent label)
 	{
+        var dispModAttr = (attribute as DisplayModifierAttribute);
+        if (property.hasChildren && dispModAttr.noChildrenFolder && children.IsNull())
+        {
+            children = new ChildrenProperties(fieldInfo);
+        }
 
-		if (!checkedForRange) {
+        if (!checkedForRange) {
 			ReadRangeOptionalAttribute();
 		}
 
@@ -68,7 +137,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 			ReadTextAreaAttribute();
 		}
 
-		if ((attribute as DisplayModifierAttribute).startExpanded && !property.isExpanded)
+		if (dispModAttr.startExpanded && !property.isExpanded)
 			property.isExpanded = true;
 
 		isInit = true;
@@ -79,8 +148,8 @@ public class DisplayModifierDrawer : PropertyDrawer
 		if (!isInit) Init(property,label);
 
 		bool addLine = !(property.propertyType == SerializedPropertyType.Boolean) && extraLabelLine;
-		return EditorGUI.GetPropertyHeight(property, label, true)+(addLine ?
-			EditorGUI.GetPropertyHeight(property.propertyType, label):0);
+        float height = children.IsNotNull() ? children.GetExpandedPropertyHeight(property, label) : EditorGUI.GetPropertyHeight(property, label, true);
+		return height+(addLine ? EditorGUI.GetPropertyHeight(property.propertyType, label):0);
 	}
 
 	
@@ -105,11 +174,19 @@ public class DisplayModifierDrawer : PropertyDrawer
 				EditorGUI.LabelField(position, "TextArea not supported by DisplayModifier");
 				//EditorGUI.PropertyField(position, property, false);
 			} else {
-				EditorGUI.PropertyField(position, property, label, true);
-				
-			}
-			
-		}
+                if (property.hasChildren && attr.noChildrenFolder)
+                {
+                    if (attr.noChildrenFolder && children.IsNotNull())
+                        children.CreateGUI(position, property, label);
+                } else
+                {
+                    EditorGUI.PropertyField(position, property, label, true);
+                }
+                 
+
+            }
+
+        }
 		else {
 
 			if (extraLabelLine ) {
@@ -120,6 +197,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 				EditorGUI.Slider(position, property, rangeAttribute.min, rangeAttribute.max,  label);
 			else if (property.propertyType == SerializedPropertyType.Integer)
 				EditorGUI.IntSlider(position, property, (int)rangeAttribute.min, (int)rangeAttribute.max, label);
+
 		}
 
 		GUI.enabled = true;

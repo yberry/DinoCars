@@ -15,7 +15,7 @@ namespace CND.Car
         public float steerAngleDeg { get; set; }
         public GameObject wheelGraphics;
 
-        // [DisplayModifier(startExpanded:true)]
+        [DisplayModifier(noChildrenFolder:true)]        
         public Settings settings=Settings.CreateDefault();
         protected ContactInfo m_contactInfo;
         public ContactInfo contactInfo { get { return m_contactInfo; } }
@@ -143,9 +143,10 @@ namespace CND.Car
 
                 
                 //var damping = dotVelY * settings.damping;
-                var shockCancel = -vel *85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
-                var reflect =  Vector3.Reflect(vel , hit.normal);
-                var stickToFloor = (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel * (1f - Mathf.Clamp01(MathEx.DotToLerp( -dotVelGrav)))); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
+                var shockCancel = Vector3.Slerp(-vel.normalized, transform.up, dotVelY)* vel.magnitude *85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+                shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLerp(-dotVelGrav)));
+                var reflect =  Vector3.Reflect(vel , hit.normal) * 85f * Time.fixedDeltaTime * Time.fixedDeltaTime;
+                var stickToFloor = (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel ); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
                 var springDamp = Mathf.Clamp( 1f- (vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY),
                     Time.fixedDeltaTime, 1f);
                 var springExpand = Mathf.Clamp(1f+ moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY,
@@ -157,7 +158,7 @@ namespace CND.Car
                 Vector3 pushForce = Vector3.Lerp(
                     stickToFloor* springResistance * springDamp,
                     stickToFloor * springResistance * springExpand,
-                     curContactInfo.springCompression);
+                     curContactInfo.springCompression) ;
 
                 curContactInfo.upForce = pushForce;
                 /* curContactInfo.pushForce = Vector3.Lerp(
@@ -266,7 +267,8 @@ namespace CND.Car
     }
 
 #region  Drawer
-#if UNITY_EDITOR
+
+#if UNITY_EDITOR && DISABLED
     [CustomPropertyDrawer(typeof(Wheel.Settings))]
     public class WheelSettingsDrawer : PropertyDrawer
     {
