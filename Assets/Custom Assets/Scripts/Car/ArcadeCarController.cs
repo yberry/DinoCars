@@ -11,7 +11,8 @@ namespace CND.Car
         const float speedMph = 2.23693629f;
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
-        
+        public int CurrentGear { get { return GetGear(); } }
+
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
 
@@ -23,6 +24,11 @@ namespace CND.Car
         public virtual float GetRPMRatio()
         {
             return Mathf.Abs(Mathf.Clamp( rBody.velocity.magnitude,0,10)*0.1f);
+        }
+
+        protected virtual int GetGear()
+        {
+            return 1;
         }
     }
 
@@ -115,7 +121,7 @@ namespace CND.Car
             accelOutput = Mathf.SmoothStep(accelInput, accelInput * accelSign, accelInput*0.5f+0.5f);// accel;// Mathf.MoveTowards(accelOutput, accelInput, accelSign* accel);
         }
 
-        int GetGear()
+        protected override int GetGear()
         {
             float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.25f : 0.25f;            
             return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));

@@ -15,15 +15,14 @@ namespace CND.Car
         private bool gearDown;
         private bool gearUp;
 
-        public int nbRotationLimit = 12000;
-        public int nbRotationClutch = 3000;
+        public float nbRotationLimit = 12000;
+        public float nbRotationClutch = 3000;
 
-        public int RPM;
-        public int maxValueRotation;
-        int addition=50;
+        public float RPM;
+        public float maxValueRotation;
+        float addition=50;
+        int prevGear;
         int currentGear;
-        float speedToAdd;
-
 
         void Awake()
         {
@@ -43,39 +42,42 @@ namespace CND.Car
         // Update is called once per frame
         void Update()
         {
+
+            CheckGearSwitch();
             ManageSound();
+                        
+        }
+
+        void CheckGearSwitch()
+        {
+            prevGear = currentGear;
+            currentGear = carController.CurrentGear;
+
+            if (prevGear != currentGear)
+            {
+                gearUp = prevGear < currentGear;
+                gearDown = !gearUp;
+
+            }
+            gearDown = gearUp = false;
+
         }
 
         void ManageSound()
         {
             if (play)
             {
-                if (RPM < nbRotationLimit && currentGear > 0)
-                {
 
-                    RPM = RPM + addition;
-                }
-                else if (RPM < nbRotationLimit && RPM - addition >= 0)
-                {
-                    RPM = RPM - addition;
-                }
-                else RPM = 0;
-
-
-                if (gearDown && RPM >= nbRotationClutch && currentGear >= 0)
+                if (gearDown && RPM >= nbRotationClutch && currentGear != 0)
                 {
                     RPM = RPM - nbRotationClutch;
-                    currentGear = currentGear - 1;
+                   
                 }
                 else if (gearUp && RPM >= nbRotationClutch && currentGear < 6)
                 {
-                    RPM = RPM - nbRotationClutch;
-                    currentGear = currentGear + 1;
+                    RPM = RPM - nbRotationClutch;                   
                 }
-                else if (gearUp && currentGear == 0)
-                {
-                    currentGear = currentGear + 1;
-                }
+
                 gearDown = false;
                 gearUp = false;
             }
@@ -85,12 +87,11 @@ namespace CND.Car
             }
 
             float pourcentage = RPM / nbRotationLimit;
-            speedToAdd = 50f * pourcentage * currentGear;
 
             //Wwise
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio()* nbRotationLimit);
-            AkSoundEngine.SetRTPCValue("Velocity", speedToAdd);
+            AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
         }
 
 
