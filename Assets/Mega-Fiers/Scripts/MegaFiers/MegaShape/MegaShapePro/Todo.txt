@@ -1,0 +1,104 @@
+﻿Todos from code:
+
+BUG: Wont rebuild unless paths are set in Lofter
+BUG: crossrot = 0 we get assertion in some Sphere.cpp file
+
+IDEA: Games can be made in a 2D way on a hidden level and then mapped to loft, so can have action happening around a loft
+
+TODO: Option for creating a mesh object per layer
+TODO: Double sided
+TODO: Spline code to return normal at point and or velocity
+TODO: make sure start and ends are correct
+TODO: Start and end should be in section so can stop and start bits, could do with new loft
+TODO: split into multiple objects so can be culled
+TODO: calc own normals
+TODO: Random scatter of objects, start, end, width and curve, offset and curve
+TODO: Curve for vert spacing across and along
+TODO: Loft a mesh with a deform to cross section and path
+TODO: Need to get auto sub object builder working so we have no issues with vertex counts
+TODO: Parent lofts or target lofts need to be from scene
+TODO: Per object rot addition
+TODO: range for random spacing
+TODO: array for mains to vary weights for each
+TODO: noise to verts
+TODO: other objects to use in line
+TODO: distribute by random and weight or set repeats
+TODO: Use gameobject instead of mesh for clone/scatter objects so can set multi mats correctly
+TODO: Make all work with multiple materials
+TODO: Have limit on verts before new mesh built
+TODO: distance for crossverts so can do better positioning
+TODO: multiple clone and scatter objects with weights, also noise values for rot and scale
+TODO: rules for clone, ie 1 of this follwed by 4 of this etc
+TODO: mirror for clone
+TODO: As well as snap to top bottom have clip to top bottom to flatten off
+TODO: Get this working with Layers building their own data
+TODO: Color values to transition textures
+TODO: 2nd uv coords
+TODO: Optimize interp to provide tangent and or normal at same time
+TODO: Mesh builders should be multithreaded if possible, should be easy for most
+TODO: Add a line shape with length and number of points
+TODO: curves for scales, general offset, bank etc
+TODO: Auto banking on turn
+TODO: Auto length dist based on curve, add same for cross section
+TODO: Scale option so will attempt to scale main object to exactly fit curve
+TODO: Change all start and ends to start and length
+TODO: Spacing between start and ends and mid objs
+TODO: Loft a mesh with a deform to cross section and path
+TODO: Need to get auto sub object builder working so we have no issues with vertex counts
+TODO: Parent lofts or target lofts need to be from scene
+TODO: Per object rot addition
+TODO: range for random spacing
+TODO: array for mains to vary weights for each
+TODO: noise to verts
+TODO: other objects to use in line
+TODO: distribute by random and weight or set repeats
+TODO: Auto fill path
+TODO: Have an object be inserted as an object with option to deform mesh
+TODO: Flip option to help radomize
+TODO: Noise and scale per instance.
+TODO: In clone complex, spline and surface need ability to insert another object, so going to need
+to run through and build object list to get count setc for length and for any random or special rules
+TODO: Create layer icons in inspector 
+TODO: mesh from multiple cross sections, in two directions
+TODO: Pivot change per loft
+TODO: For mesh colliders could build from polys near the object
+TODO: Get lofts building on threads, best if we can split a layer on a thread then get best performance
+TODO: Add offset curves for this
+TODO: If snapping curves pick knot to snap
+TODO: Physuv option
+TODO: x offset for uv by graph
+TODO: Option to use path world space or local space
+TODO: multiple cross sections
+TODO: mesh deform, path deform but with cross sections as well
+TODO: Cross alpha adjust on clone
+TODO: Snap and clip on complex loft
+TODO: Along with SplineNotify method need a SurfaceNotify so can tell clones etc a surface has changed
+TODO: Scatter objects to surface (no combine of mesh just set transforms)
+TODO: lerp value from calc up to rot value maybe
+TODO: Rotation curves for section along loft, useful for corners
+TODO: Option in shapes editor to align child curves
+TODO: Option to flip capped ends
+TODO: Option Snap curves to zero for multiple curves
+TODO: texture atlas support?
+TODO: mesh deform, path deform but with cross sections as well
+TODO: Curve for vert spacing
+TODO: Angle value 
+
+DONE: Should support multiple cross sections?
+DONE: Option to define start and length to do, easier for moving things along
+DONE: Spacing between start and ends and mid objs
+DONE: Clone to use path
+DONE: Tell all other lofts about a layer update like spline to get correct realtime updates
+DONE: Clone to use path
+DONE: New Loft layer, scatter. 
+DONE: Tell all other lofts about a layer update like spline to get correct realtime updates
+DONE: Script to add to object to position on a spline or surface
+DONE: Weights for random objects
+DONE: Cap ends
+DONE: multiple cross sections
+DONE: On open curves dont wrap back to start and dont allow wrapping of value
+DONE: Option to add curves to spline (add will duplicate current curve)
+DONE: Add limits for start, length, cross etc to Loft object for sliders
+DONE: Script to add to objects to position and orient them to a surface via alpha and calpha
+DONE: say we have a wall loft say where we want that around another loft
+DONE: Normal from layer we are applying to to govern up for new layer, ie wall will be perp to ground

@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Moo Grass
+  m_Shader: {fileID: 4800000, guid: b841a33dd76b28e4cb52dc9dc58f8278, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BaseTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 50b989c4d87926241bf22a996cd99f8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _BlueTex
+      second:
+        m_Texture: {fileID: 2800000, guid: caf158a1940966640af271860812f311, type: 3}
+        m_Scale: {x: 5, y: 5}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DecalTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _GreenTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 9b13e855c27cbe2488ba88bd84dbd53a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Illum
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _RedTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 9f8838f4e5c74a64290d01be5b324f7f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _BlueAmt
+      second: 1
+    - first:
+        name: _EmissionLM
+      second: 0
+    - first:
+        name: _GreenAmt
+      second: 1
+    - first:
+        name: _RedAmt
+      second: 1
+    - first:
+        name: _Shininess
+      second: 0.7
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.89552236, g: 0.7351303, b: 0.7351303, a: 1}
+    - first:
+        name: _Emission
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _SpecColor
+      second: {r: 1, g: 1, b: 1, a: 1}
