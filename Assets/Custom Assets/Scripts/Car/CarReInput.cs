@@ -11,7 +11,7 @@ public class CarReInput : MonoBehaviour {
     public Rewired.Player pInput;
     [DisplayModifier(true)]
     public BaseCarController car;
-
+    public CameraFOVTest cam;
 
     [Header("Debug Options")]
     public bool testSteering;
@@ -48,8 +48,9 @@ public class CarReInput : MonoBehaviour {
 
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
         bool boost = pInput.GetButton(Globals.BtnAction3);
-
         car.Move(h, fwd,  back, handbrake, boost);
+        cam.Boost(boost);
+
 #else
             car.Move(h, v, v, 0f);
 #endif

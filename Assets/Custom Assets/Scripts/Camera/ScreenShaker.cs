@@ -8,10 +8,11 @@ public class ScreenShaker : MonoBehaviour
 
     public float ShakeAmount = 0.1f;
     public float DecreaseFactor = 1.0f;
-    public Camera camRef;
+    public GameObject camRef;
 
     private new Camera camera;
     private Vector3 cameraPos;
+    private Quaternion cameraRot;
     private float shake = 0.0f;
 
     // Use this for initialization
@@ -32,6 +33,7 @@ public class ScreenShaker : MonoBehaviour
         {
             // Shake the camera.
             this.cameraPos = camRef.transform.localPosition;
+            this.cameraRot = camRef.transform.localRotation;
             this.camera.transform.localPosition = Random.insideUnitSphere * this.ShakeAmount * this.shake + this.camRef.transform.localPosition;
             this.shake -= Time.deltaTime * this.DecreaseFactor;
             if (this.shake <= 0.0f)
@@ -39,7 +41,7 @@ public class ScreenShaker : MonoBehaviour
                 // Clamp the shake amount back to zero, and reset the camera position to our cached value.
                 this.shake = 0.0f;
                 this.camera.transform.localPosition = this.cameraPos;
-                //this.camera.transform.localRotation.eulerAngles = this.cameraRot;
+                this.camera.transform.localRotation = this.cameraRot;
             }
         }
     }
@@ -51,7 +53,7 @@ public class ScreenShaker : MonoBehaviour
             // If we aren't, cache the camera position.
             // Guess camera evolution 
             this.cameraPos = camRef.transform.localPosition;
-            //this.cameraRot = camRef.transform.localRotation.eulerAngles;
+            this.cameraRot = camRef.transform.localRotation;
         }
 
         // Set the 'shake' value.

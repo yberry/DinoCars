@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CameraFOVTest : MonoBehaviour {
 
+
     [Header("Paramètres FOV")]
     public float FOVBoost = 90;
     public float FOVDefault = 50;
@@ -49,15 +50,19 @@ public class CameraFOVTest : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
+	}
+
+    public void Boost(bool boutonA)
+    {
+        if (Input.GetKeyDown(KeyCode.Space) || boutonA)
         {
             pressed = true;
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || boutonA == false)
         {
             pressed = false;
         }
-        if (boostUtilisé == false && pressed == true )
+        if (boostUtilisé == false && pressed == true)
         {
             this.shaker.Shake(shakePower, true);
             reload = true;
@@ -90,14 +95,15 @@ public class CameraFOVTest : MonoBehaviour {
                 if (jaugeDeBoost > 0)
                 {
                     jaugeDeBoost--;
-                }else { 
+                }
+                else {
                     boostUtilisé = true;
                 }
             }
         }
         else
         {
-            if (cam.fieldOfView > FOVDefault )
+            if (cam.fieldOfView > FOVDefault)
             {
                 this.shaker.Shake(shakePower, false);
                 if (ForceLines.maxParticles > flMaxParticulesDefault)
@@ -127,17 +133,20 @@ public class CameraFOVTest : MonoBehaviour {
                 if (temps < delais)
                 {
                     temps++;
-                } else {
-                    if(jaugeDeBoost < jaugeDeBoostInit){
+                }
+                else {
+                    if (jaugeDeBoost < jaugeDeBoostInit)
+                    {
                         jaugeDeBoost++;
-                    }else { 
-                    boostUtilisé = false;
+                    }
+                    else {
+                        boostUtilisé = false;
                         reload = false;
-                    temps = 0;
+                        temps = 0;
                     }
                 }
             }
         }
-        slider.value = (jaugeDeBoost/jaugeDeBoostInit);
-	}
+        slider.value = (jaugeDeBoost / jaugeDeBoostInit);
+    }
 }
