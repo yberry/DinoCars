@@ -7,11 +7,16 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
+        [SerializeField, Range(0, 5000)]
+        protected float targetSpeed = 100f;
+        protected float TargetSpeed { get { return targetSpeed; } }
+
         const float speedKph = 3.6f;
         const float speedMph = 2.23693629f;
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
-        
+        public int CurrentGear { get { return GetGear(); } }
+
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
 
@@ -19,12 +24,21 @@ namespace CND.Car
         {
             return CurrentSpeed.ToString("0.") + " Km/H";
         }
+
+        public virtual float GetRPMRatio()
+        {
+            return Mathf.Abs(Mathf.Clamp( rBody.velocity.magnitude,0,10)*0.1f);
+        }
+
+        protected virtual int GetGear()
+        {
+            return 1;
+        }
     }
 
     public class ArcadeCarController : BaseCarController
     {
-        [Range(0,5000)]
-        public float targetSpeed=100f;
+
         public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
         [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
         public AnimationCurve[] transmissionCurves;
@@ -110,7 +124,7 @@ namespace CND.Car
             accelOutput = Mathf.SmoothStep(accelInput, accelInput * accelSign, accelInput*0.5f+0.5f);// accel;// Mathf.MoveTowards(accelOutput, accelInput, accelSign* accel);
         }
 
-        int GetGear()
+        protected override int GetGear()
         {
             float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.25f : 0.25f;            
             return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));
@@ -119,6 +133,26 @@ namespace CND.Car
         int GetNextGear()
         {
             return 1;
+        }
+
+        override public float GetRPMRatio()
+        {
+            int gear = GetGear()-1;
+            if (gear >= 0)
+            {
+                float maxCurGearOutput = transmissionCurves[gear].Evaluate(1);
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/transmissionCurves.Length;
+               
+                return curGearOutput / maxCurGearOutput;
+            }
+            else if (gear == -1)
+            {
+                float maxCurGearOutput = Mathf.Abs(transmissionCurves[0].Evaluate(-1));
+                float curGearOutput = (CurrentSpeed / (TargetSpeed *maxCurGearOutput));
+
+                return - curGearOutput / maxCurGearOutput;
+            }
+            return 0;
         }
 
         public override string DebugHUDString()

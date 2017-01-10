@@ -13,13 +13,14 @@ public class testSon : MonoBehaviour {
     private bool gearUp;
     public Text rotationValueText;
     public Text addRotationTourText;
-    public int nbRotationLimit;
-    public int nbRotationClutch;
+    public int nbRotationLimit = 12000;
+    public int nbRotationClutch = 3000;
     public Slider speedValueSlider;
     public Text speedValueText;
     public Text currentGearText;
-    int rotationPerMinute;
-    int maxValueRotation;
+
+    public int rotationPerMinute;
+    public int maxValueRotation;
     int addition;
     int currentGear;
     float speedToAdd;
@@ -28,10 +29,7 @@ public class testSon : MonoBehaviour {
 	void Start () {
         rotationPerMinute = 0;
         addition = 50;
-        start = false;
-        gearDown = false;
-        nbRotationLimit = 12000;
-        nbRotationClutch = 3000;
+
         currentGear = 0;
         speedToAdd = 0;
         
