@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PluginInfo Project="CarsDino_CAR_Motor" Platform="Mac" BasePlatform="Mac">
+	<Plugins>
+		<Plugin Name="CrankcaseAudio REV" ID="27267154" DLL="CrankcaseAudioREVModelPlayer"/>
+	</Plugins>
+</PluginInfo>

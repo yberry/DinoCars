@@ -1,8 +1,8 @@
-
+#define NEWCAR
 using System;
 using UnityEngine;
 
-
+#if NEWCAR
 namespace CND.Car
 {
     public enum CarDriveType
@@ -18,7 +18,7 @@ namespace CND.Car
         KPH
     }
 
-    public class CarController : MonoBehaviour
+    public partial class CarController : BaseCarController
     {
 
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.FourWheelDrive;
@@ -29,13 +29,25 @@ namespace CND.Car
         [SerializeField] private float m_MaximumSteerAngle;
         [Range(0, 1)] [SerializeField] private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
         [Range(0, 1)] [SerializeField] private float m_TractionControl; // 0 is no traction control, 1 is full interference
-        [SerializeField] private float m_FullTorqueOverAllWheels;
+
+        [SerializeField] [DisplayModifier(true)] private float m_appliedTorqueOverAllWheels;
+        [SerializeField] private float m_baseTorque;
+        [SerializeField] private float m_boostTorque;
         [SerializeField] private float m_ReverseTorque;
         [SerializeField] private float m_MaxHandbrakeTorque;
+        [SerializeField] [DisplayModifier(true)] private float m_appliedTopSpeed = 0;
+        [SerializeField] private float m_baseTopSpeed = 200;
+        [SerializeField] private float m_boostSpeed = 400;
+        
+        [SerializeField][Range(0.00001f,10)] private float m_boostDuration = 3;
+        [SerializeField] [DisplayModifier(true)] private float m_boostTimer = 0;
+
+
         [SerializeField] private float m_Downforce = 100f;
         [SerializeField] private SpeedType m_SpeedType;
-        [SerializeField] private float m_Topspeed = 200;
-        [SerializeField] private static int NoOfGears = 5;
+
+
+        [SerializeField] private  int NoOfGears = 5;
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
         [SerializeField] private float m_BrakeTorque;
@@ -48,21 +60,23 @@ namespace CND.Car
         private float m_OldRotation;
         private float m_CurrentTorque;
         private Rigidbody m_Rigidbody;
-        private const float k_ReversingThreshold = 0.00001f;//0.01f;
+        private const float k_ReversingThreshold = 0.01f;
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
         public float CurrentSteerAngle { get { return m_SteerAngle; } }
         public float CurrentSpeed { get { return m_Rigidbody.velocity.magnitude * GetSpeedMultiplier(); } }
-        public float MaxSpeed { get { return m_Topspeed; } }
+        public float MaxSpeed { get { return m_baseTopSpeed; } }
+        public float CurrentTorque { get { return m_CurrentTorque; } }
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
         public SpeedType SpeedMeterType { get { return m_SpeedType; } set { m_SpeedType = value; } }
 
         const float speedKph= 3.6f;
         const float speedMph = 2.23693629f;
-       
 
+
+        public bool BoostEnabled { get; protected set; }
         // Use this for initialization
         private void Start()
         {
@@ -71,14 +85,35 @@ namespace CND.Car
             {
                 m_WheelMeshLocalRotations[i] = m_WheelMeshes[i].transform.localRotation;
             }
-            m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
+            m_CurrentTorque = m_appliedTorqueOverAllWheels - (m_TractionControl * m_appliedTorqueOverAllWheels);
             m_Rigidbody = GetComponent<Rigidbody>();
             UpdateValues();
+            
+            
+        }
+
+        public bool driveTest = false;
+        private void FixedUpdate()
+        {
+            //autorun
+            if (driveTest)
+            {
+                /*
+                var nextVel = Vector3.Slerp(m_Rigidbody.velocity, transform.forward * 100, 0.125f);
+                var nexPos = Vector3.Lerp(transform.position, transform.position + nextVel * Time.deltaTime, 0.5f);
+                m_Rigidbody.MovePosition(nexPos);
+                */
+                // m_Rigidbody.AddForceAtPosition(transform.forward * 10*Time.fixedDeltaTime, m_Rigidbody.centerOfMass, ForceMode.VelocityChange);
+                m_Rigidbody.AddForce(transform.forward * 10 * Time.fixedDeltaTime, ForceMode.VelocityChange);
+
+            }
+
+
         }
 
         private void OnValidate()
         {
-            if (Application.isPlaying)
+            
                 UpdateValues();
         }
 
@@ -87,7 +122,6 @@ namespace CND.Car
             switch (m_SpeedType)
             {
                 case SpeedType.MPH:
-
                     return speedMph;
 
                 case SpeedType.KPH:
@@ -99,8 +133,13 @@ namespace CND.Car
 
         private void UpdateValues()
         {
-            m_WheelColliders[0].attachedRigidbody.centerOfMass = m_CentreOfMassOffset;
+#if DEBUG
+            if (!m_Rigidbody)
+                m_Rigidbody = GetComponent<Rigidbody>();
 
+            m_Rigidbody.ResetCenterOfMass();
+            m_Rigidbody.centerOfMass += m_CentreOfMassOffset;
+#endif
             m_MaxHandbrakeTorque = float.MaxValue;
             
         }
@@ -164,9 +203,16 @@ namespace CND.Car
         }
 
 
-        public void Move(float steering, float accel, float footbrake, float handbrake)
+        public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
-            for (int i = 0; i < 4; i++)
+
+            if (boost)
+            {
+                BoostEnabled = (m_boostTimer >= 0);
+            }
+            
+
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 Quaternion quat;
                 Vector3 position;
@@ -183,9 +229,14 @@ namespace CND.Car
 
             //Set the steer on the front wheels.
             //Assuming that wheels 0 and 1 are the front wheels.
-            m_SteerAngle = steering * m_MaximumSteerAngle;
-            m_WheelColliders[0].steerAngle = m_SteerAngle;
-            m_WheelColliders[1].steerAngle = m_SteerAngle;
+            m_SteerAngle = Mathf.Lerp(m_SteerAngle,steering * m_MaximumSteerAngle,0.1f);
+            if (m_WheelColliders.Length > 0)
+            {
+                m_WheelColliders[0].steerAngle = m_SteerAngle;
+                m_WheelColliders[1].steerAngle = m_SteerAngle;
+
+            }
+
 
             SteerHelper();
             ApplyDrive(accel, footbrake);
@@ -209,30 +260,55 @@ namespace CND.Car
             TractionControl();
         }
 
+        public void ManageBoost()
+        {
+            float boostProgress = 0;
+            if (BoostEnabled)
+            {
+                m_boostTimer += Time.deltaTime;
+                if (m_boostTimer < m_boostDuration)
+                {
+                    
+                    boostProgress = m_boostTimer / m_boostDuration;
+                }
+                else
+                {
+                    m_boostTimer = -1;
+                    BoostEnabled = false;
+                }
+
+            } else //cooldown
+            {
+                if (m_boostTimer < 0)
+                    m_boostTimer += Time.deltaTime;
+                else
+                    m_boostTimer = 0;
+            }
+
+            
+
+            m_appliedTopSpeed = Mathf.SmoothStep(m_baseTopSpeed, m_boostSpeed, boostProgress*10);
+            m_appliedTorqueOverAllWheels = Mathf.SmoothStep(m_baseTorque, m_boostTorque, boostProgress * 10);
+        }
 
         private void CapSpeed()
         {
             float speed = m_Rigidbody.velocity.magnitude;
-            switch (m_SpeedType)
+            float modspeed = speed*GetSpeedMultiplier();
+            if (modspeed > m_appliedTopSpeed)
             {
-                case SpeedType.MPH:
+                var targetSpeed = m_appliedTopSpeed / GetSpeedMultiplier();
 
-                    speed *= speedMph;
-                    if (speed > m_Topspeed)
-                        m_Rigidbody.velocity = (m_Topspeed / speedMph) * m_Rigidbody.velocity.normalized;
-                    break;
+                m_Rigidbody.velocity = Mathf.SmoothStep(speed, targetSpeed, 0.05f) * m_Rigidbody.velocity.normalized;
 
-                case SpeedType.KPH:
-                    speed *= speedKph;
-                    if (speed > m_Topspeed)
-                        m_Rigidbody.velocity = (m_Topspeed / speedKph) * m_Rigidbody.velocity.normalized;
-                    break;
             }
+
         }
 
 
         private void ApplyDrive(float accel, float footbrake)
         {
+            if (m_WheelColliders == null || m_WheelColliders.Length == 0) return;
 
             float thrustTorque;
             switch (m_CarDriveType)
@@ -259,7 +335,7 @@ namespace CND.Car
 
             for (int i = 0; i < 4; i++)
             {
-                if (CurrentSpeed > 5 && Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f)
+                if (CurrentSpeed > 5 && Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f) //old magic number=50
                 {
                     m_WheelColliders[i].brakeTorque = m_BrakeTorque * footbrake;
                 }
@@ -274,7 +350,7 @@ namespace CND.Car
 
         private void SteerHelper()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < m_WheelColliders.Length; i++)
             {
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
@@ -296,8 +372,9 @@ namespace CND.Car
         // this is used to add more grip in relation to speed
         private void AddDownForce()
         {
-            m_WheelColliders[0].attachedRigidbody.AddForce(-transform.up * m_Downforce *
+           /* m_WheelColliders[0].attachedRigidbody.AddForce(-transform.up * m_Downforce *
                                                          m_WheelColliders[0].attachedRigidbody.velocity.magnitude);
+ */
         }
 
 
@@ -308,6 +385,7 @@ namespace CND.Car
         // these effects are controlled through the WheelEffects class
         private void CheckForWheelSpin()
         {
+
             // loop through all wheels
             for (int i = 0; i < 4; i++)
             {
@@ -337,10 +415,75 @@ namespace CND.Car
                 m_WheelEffects[i].EndSkidTrail();
             }
         }
-
+#if !OLD_TRACTION
         // crude traction control that reduces the power to wheel if the car is wheel spinning too much
         private void TractionControl()
         {
+            ManageBoost();
+            WheelHit[] wheelHits = new WheelHit[m_CarDriveType == CarDriveType.FourWheelDrive ? 4 : 2];
+
+            switch (m_CarDriveType)
+            {
+                case CarDriveType.FourWheelDrive:
+                    // loop through all wheels
+                    for (int i = 0; i < wheelHits.Length; i++)
+                    {
+                        m_WheelColliders[i].GetGroundHit(out wheelHits[i]);
+                    }
+                    break;
+
+                case CarDriveType.RearWheelDrive:
+                    m_WheelColliders[2].GetGroundHit(out wheelHits[0]);
+                    m_WheelColliders[3].GetGroundHit(out wheelHits[1]);
+                    break;
+
+                case CarDriveType.FrontWheelDrive:
+                    m_WheelColliders[0].GetGroundHit(out wheelHits[0]);
+                    m_WheelColliders[1].GetGroundHit(out wheelHits[1]);
+                    break;
+            }
+
+            AdjustTorque(wheelHits);
+        }
+
+
+        private void AdjustTorque(WheelHit[] wheelHits)
+        {
+            float finalTorqueChange = 0;
+
+            for (int i=0; i< wheelHits.Length; i++)
+            {
+                var slip = wheelHits[i].forwardSlip;
+                var clampedSlip= Mathf.Clamp(1f - slip, -1, 1);
+                var torque = 10 * m_TractionControl * (1f - slip) * (slip - m_SlipLimit > 0 ? -1 : 1);
+                var boost = 10*Mathf.Max(0, (m_appliedTorqueOverAllWheels / m_baseTorque) - 1f);
+
+                finalTorqueChange += torque + boost;
+                /*
+                if (slip >= m_SlipLimit && m_CurrentTorque >= 0)
+                {
+                    m_CurrentTorque -= 10 * m_TractionControl;
+                }
+                else
+                {
+                    m_CurrentTorque += 10 * m_TractionControl;
+                    m_CurrentTorque += 10 * Mathf.Max(0, (m_appliedTorqueOverAllWheels / m_baseTorque) - 1f);
+
+                    if (m_CurrentTorque > m_appliedTorqueOverAllWheels)
+                    {
+                        m_CurrentTorque = m_appliedTorqueOverAllWheels;
+                    }
+                }
+                */
+            }
+
+            m_CurrentTorque = Mathf.Clamp(m_CurrentTorque+ finalTorqueChange, 0, m_appliedTorqueOverAllWheels);
+        }
+#elif OLD_TRACTION
+        // crude traction control that reduces the power to wheel if the car is wheel spinning too much
+        private void TractionControl()
+        {
+            ManageBoost();
             WheelHit wheelHit;
             switch (m_CarDriveType)
             {
@@ -349,7 +492,6 @@ namespace CND.Car
                     for (int i = 0; i < 4; i++)
                     {
                         m_WheelColliders[i].GetGroundHit(out wheelHit);
-
                         AdjustTorque(wheelHit.forwardSlip);
                     }
                     break;
@@ -382,12 +524,17 @@ namespace CND.Car
             else
             {
                 m_CurrentTorque += 10 * m_TractionControl;
-                if (m_CurrentTorque > m_FullTorqueOverAllWheels)
+                m_CurrentTorque += 10*Mathf.Max(0,(m_appliedTorqueOverAllWheels/m_baseTorque)-1f);
+
+                if (m_CurrentTorque > m_appliedTorqueOverAllWheels)
                 {
-                    m_CurrentTorque = m_FullTorqueOverAllWheels;
+                    m_CurrentTorque = m_appliedTorqueOverAllWheels;
                 }
             }
+
+            m_CurrentTorque = Mathf.Max(0, m_CurrentTorque);
         }
+#endif
 
 
         private bool AnySkidSoundPlaying()
@@ -404,8 +551,55 @@ namespace CND.Car
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position + m_CentreOfMassOffset, 0.25f);
+
+
+            var centerOfMass = transform.position + Quaternion.LookRotation(transform.forward, transform.up)* m_Rigidbody.centerOfMass;
+           
+            Gizmos.DrawWireSphere(centerOfMass, 0.25f);
+
+            if (!Application.isPlaying) return;
+
+            WheelHit wheelHit;
+            for (int i=0; i < m_WheelColliders.Length; i++)
+            {
+                m_WheelColliders[i].GetGroundHit(out wheelHit);
+                var t= m_WheelColliders[i].motorTorque;
+                var fSlip = wheelHit.forwardSlip;
+
+                Gizmos.color = Color.LerpUnclamped(Color.green, Color.red, fSlip);
+                Gizmos.DrawSphere(m_WheelColliders[i].transform.position + Vector3.up * 0.5f, 0.125f);
+            }
+
+            
+            var velocityEnd = centerOfMass + m_Rigidbody.velocity;
+            var halfVelocityEnd = centerOfMass + m_Rigidbody.velocity * 0.5f;
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(velocityEnd, 0.25f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(centerOfMass, velocityEnd);
+            Gizmos.DrawLine(centerOfMass + transform.right * 0.25f, halfVelocityEnd);
+            Gizmos.DrawLine(centerOfMass + transform.right * -0.25f, halfVelocityEnd);
+            Gizmos.color = Color.green*0.75f;
+            var forwardLine = m_CentreOfMassOffset+ transform.forward;
+            /*
+            Gizmos.DrawLine(centerOfMass, centerOfMass+ forwardLine);
+            Gizmos.DrawLine(centerOfMass+ m_Rigidbody.velocity.normalized* forwardLine.magnitude, centerOfMass + forwardLine);
+            */
+        }
+
+        private void OnDisable()
+        {
+#if DEBUG
+            if (Application.isEditor)
+            {
+                UpdateValues();
+            }
+
+#endif
         }
     }
 
 }
+
+
+#endif// NEWCAR

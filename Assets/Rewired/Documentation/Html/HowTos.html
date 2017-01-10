@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -109,7 +109,7 @@
     	<div class="main-body">
 	        <div class="logo"><a href="http://guavaman.com/projects/rewired" title="Rewired"><img src="files/images/rewired-logo.png" width="173" height="139" alt="Rewired" /></a></div>
                      
-          <h1>
+            <h1>
             <!-- InstanceBeginEditable name="PageHeader" -->How To's
       <!-- InstanceEndEditable -->
             </h1>
@@ -123,44 +123,46 @@
       <li><a href="#get-player">Getting a Player</a></li>
       <li><a href="#get-input">Getting input</a></li>
       <li><a href="#get-controller">Getting a Controller</a></li>
-      <li><a href="#connect-disconnect-events">Receiving joystick connect and disconnect events</a></li>
-      <li><a href="#assigning-joysticks">Assigning joysticks to players</a></li>
-      <li><a href="#enabling-disabling-controller-maps">Enabling and disabling controller maps</a></li>
-      <li><a href="#managing-controller-maps-runtime">Managing controller maps at runtime</a></li>
-      <li><a href="#loading-controller-maps-runtime">Loading controller maps at runtime</a></li>
+      <li><a href="#connect-disconnect-events">Receiving Joystick connect and disconnect events</a></li>
+      <li><a href="#assigning-joysticks">Assigning Joysticks to players</a></li>
+      <li><a href="#enabling-disabling-controller-maps">Enabling and disabling Controller Maps</a></li>
+      <li><a href="#managing-controller-maps-runtime">Managing Controller Maps at runtime</a></li>
+      <li><a href="#loading-controller-maps-runtime">Loading Controller Maps at runtime</a></li>
       <li><a href="#get-element-name-for-action">Displaying a button/axis/key name to the user for an Action</a></li>
-      <li><a href="#display-glyph-for-action">Displaying a glyph for a controller element mapped to an Action</a></li>
-      <li><a href="#display-glyph-for-active-elements">Displaying a glyph for the currently active controller elements</a></li>
+      <li><a href="#display-glyph-for-action">Displaying a glyph for a Joystick element mapped to an Action</a></li>
+      <li><a href="#display-glyph-for-active-elements">Displaying a glyph for the currently active Joystick elements</a></li>
       <li><a href="#get-contributing-input-sources">Getting contributing input sources for an Action</a></li>
-      <li><a href="#last-used-controller">Determining which controller was last used</a></li>
-      <li><a href="#calibrating-controller-axes">Calibrating controller axes</a></li>
+      <li><a href="#last-used-controller">Determining which Controller was last used</a></li>
+      <li><a href="#calibrating-controller-axes">Calibrating Joystick axes</a></li>
       <li><a href="#Vibration-Rumble">Vibration/Rumble</a></li>
+      <li><a href="#button-press-types">Handling button presses of various types</a></li>
       <li><a href="#button-combos">Handling multi-button Actions</a></li>
+      <li><a href="#excluding-players-from-joystick-assignment">Excluding certain Players from Joystick auto-assignment</a></li>
+      <li><a href="#changing-configuration-settings-at-runtime">Changing configuration settings at runtime</a></li>
       <li><a href="#converting-scripts">Converting scripts from UnityEngine.Input to Rewired</a></li>
-      <li><a href="#exporting-actions">Exporting   Actions as constants for use in scripting</a></li>
+      <li><a href="#exporting-constants">Exporting   constants for use in scripting</a></li>
       <li><a href="#actionid-property-drawer">Displaying a drop-down list of Actions in the inspector of a script</a></li>
-      <li><a href="#press-start-to-join">Implementing a &quot;Press Start to Join&quot; controller assignment system</a></li>
-      <li><a href="#controller-mapping-screen">Creating a controller mapping screen</a></li>
-      <li><a href="#saving-loading-controller-maps">Saving and loading controller maps</a></li>
-      <li><a href="#saving-loading-calibration-maps">Saving and loading calibration maps</a></li>
+      <li><a href="#press-start-to-join">Implementing a &quot;Press Start to Join&quot; Joystick assignment system</a></li>
+      <li><a href="#saving-loading-controller-maps">Saving and loading Controller Maps</a></li>
+      <li><a href="#saving-loading-calibration-maps">Saving and loading Calibration Maps</a></li>
       <li><a href="#modifying-input-behaviors-during-runtime">Modifying Input Behaviors during runtime</a></li>
       <li><a href="#on-screen-touch-controllers">Creating on-screen touch controllers</a></li>
+      <li><a href="#controller-mapping-screen">Creating a controller mapping screen</a></li>
       <li><a href="#new-controller-definitions">Creating new controller definitions</a></li>
       <li><a href="#new-controller-templates">Creating new controller templates</a></li>
       <li><a href="#add-controller-to-existing-controller-template">Adding a controller to an existing controller template</a></li>
       <li><a href="#excluding-controller-definitions">Excluding controller definitions</a></li>
-      <li><a href="#identifying-recognized-controllers">Identifying recognized controllers by type</a></li>
-      <li><a href="#identifying-joysticks-windows-fallback-or-webplayer">Identifying joysticks on Windows fallback or Windows Webplayer platforms</a></li>
+      <li><a href="#identifying-recognized-controllers">Identifying recognized Joysticks by type</a></li>
+      <li><a href="#identifying-joysticks-windows-fallback-or-webplayer">Identifying controllers on Windows fallback or Windows Webplayer platforms</a></li>
       <li><a href="#hide-input-settings-launcher">Hiding input settings on the Unity launcher</a></li>
       <li><a href="#optimization">Optimizing performance</a></li>
-      <li><a href="#configuring-arcadeguns-g500">Configuring ArcadeGuns G-500 AimTrak Light Guns</a></li>
-      <li><a href="#Logitech-G27">Logitech G27 Racing Wheel Support</a></li>
-      <li><a href="#Saitek-TPM">Saitek Pro Flight TPM Panel Support</a></li>
+      <li><a href="#unity-ui">Using Rewired to control Unity's new UI</a></li>
+      <li><a href="#appletv-siri-remote">Using Apple Siri Remote on Apple TV</a></li>
+      <li><a href="#using-arcadeguns-g500">Using ArcadeGuns G-500 AimTrak Light Guns</a></li>
       <li><a href="#dualshock-4-special-features">Using Sony DualShock 4 special features</a></li>
       <li><a href="#raildriver-special-features">Using P.I. Engineering Rail Driver special features</a></li>
       <li><a href="#xbox-one-controller-special-features">Using XBox One controller special features on XBox One platform</a></li>
-      <li><a href="#appletv-siri-remote">Using Apple Siri Remote on Apple TV</a></li>
-      <li><a href="#unity-ui">Using Rewired to control Unity's new UI</a></li>
+      <li><a href="#ps4-gamepad-special-features">Using PS4 gamepad special features on PS4 platform</a></li>
     </ul>
     <p>&nbsp;</p>
     <hr />
@@ -169,22 +171,22 @@
     <p><strong>Global Information:</strong></p>
     <ul>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput.htm">ReInput</a> - The main class for accessing all input-related information. </li>
-  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_PlayerHelper.htm">ReInput.players</a> - Players and Player-related information. </li>
-    <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_ControllerHelper.htm">ReInput.controllers</a> - Controllers and controller-related information of all types.</li>
-    <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_MappingHelper.htm">ReInput.mapping</a> - Controller Map, Action, Input Behavior and other data in the Rewired Input Manager.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_PlayerHelper.htm">ReInput.players</a> - <a href="Players.html">Players</a> and Player-related information. </li>
+    <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_ControllerHelper.htm">ReInput.controllers</a> - <a href="Controllers.html">Controllers</a> and controller-related information of all types.</li>
+    <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_MappingHelper.htm">ReInput.mapping</a> - <a href="ControllerMaps.html">Controller Map</a>, <a href="Actions.html">Action</a>, <a href="InputBehaviors.html">Input Behavior</a> and other data in the <a href="RewiredEditor.html">Rewired Input Manager</a>.</li>
     </ul>
     <p><strong>Player-Related Information:</strong></p>
     <ul>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">Player</a> - Get input from the Player.</li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper.htm">Player.controllers</a> - All controller-related information in a Player.</li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">Player.controllers.maps</a> - All map-related information in a Player.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">Player</a> - Get input from the <a href="Players.html">Player</a>.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper.htm">Player.controllers</a> - All <a href="Controllers.html">Controller</a>-related information in a <a href="Players.html">Player</a>.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">Player.controllers.maps</a> - All <a href="ControllerMaps.html">Controller Map</a>-related information in a <a href="Players.html">Player</a>.</li>
     </ul>
     <p>&nbsp;</p>
     <p>More classes are listed in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/N_Rewired.htm">API reference</a>.</p>
 <p>&nbsp;</p>
     <hr />
     <h3><a name="get-player" id="get-player"></a>Getting a Player</h3>
-<p>Get a Player by id or name through <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_PlayerHelper_GetPlayer.htm">ReInput.players.GetPlayer</a></p>
+<p>Get a <a href="Players.html">Player</a> by id or name through <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_PlayerHelper_GetPlayer.htm">ReInput.players.GetPlayer</a></p>
 <p>More methods for accessing Players: <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_PlayerHelper.htm" target="_blank">ReInput.players</a></p>
     <pre class="code">
 using UnityEngine;
@@ -226,13 +228,13 @@ public class MyClass : MonoBehaviour {
 <p>Get input through the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">Player</a> class.</p>
 <p>Rewired mirrors Unity's method nomenclature for getting input values:</p>
 <ul>
-  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButton.htm">Player.GetButton</a> - Gets the button held state of an Action. This will return TRUE as long as the button is held.            This also applies to axes being used as buttons. </li>
-  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDown.htm">Player.GetButtonDown</a> - Gets the button just pressed state of an Action. This will only return TRUE only on the first frame the button is pressed or for the duration of the Button Down Buffer time limit if set in the Input Behavior assigned to this Action.            This also applies to axes being used as buttons. </li>
-  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonUp.htm">Player.GetButtonUp</a> - Get the button just released state for an Action. This will only return TRUE for the first frame the button is released.            This also applies to axes being used as buttons.</li>
-  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetAxis.htm">Player.GetAxis</a> - Gets the axis value of an Action.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButton.htm">Player.GetButton</a> - Gets the button held state of an <a href="Actions.html">Action</a>. This will return TRUE as long as the button is held.            This also applies to axes being used as buttons. </li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDown.htm">Player.GetButtonDown</a> - Gets the button just pressed state of an <a href="Actions.html">Action</a>. This will only return TRUE only on the first frame the button is pressed or for the duration of the Button Down Buffer time limit if set in the <a href="InputBehaviors.html">Input Behavior</a> assigned to this <a href="Actions.html">Action</a>.            This also applies to axes being used as buttons. </li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonUp.htm">Player.GetButtonUp</a> - Get the button just released state for an <a href="Actions.html">Action</a>. This will only return TRUE for the first frame the button is released.            This also applies to axes being used as buttons.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetAxis.htm">Player.GetAxis</a> - Gets the axis value of an <a href="Actions.html">Action</a>.</li>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player.htm">There are many more methods available in the Player class.</a></li>
   </ul>
-<p>All Actions can be queried for Button or Axis value regardless of the underlying hardware mapped to that Action.</p>
+<p>All Actions can be queried for Button or Axis value regardless of the underlying hardware mapped to that <a href="Actions.html">Action</a>.</p>
 <pre class="code">
 using UnityEngine;
 using Rewired;
@@ -256,7 +258,7 @@ public class MyClass : MonoBehaviour {
     }
 }    </pre>
 <p><strong>Event Method:</strong></p>
-<p>Use delegates to receive input events from a Player. There are <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_AddInputEventDelegate.htm">numerous overloads</a> available that allow you to register to receive events on different update loops, for specific input event types, and for specific Actions.</p>
+<p>Use delegates to receive input events from a <a href="Players.html">Player</a>. There are <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_AddInputEventDelegate.htm">numerous overloads</a> available that allow you to register to receive events on different update loops, for specific input event types, and for specific <a href="Actions.html">Actions</a>. For a list of event types and whether they require additional arguments, see <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_InputActionEventType.htm">InputActionEventType</a>.</p>
 <pre class="code">
 public class MyClass : MonoBehaviour {
     public int playerId;
@@ -278,6 +280,9 @@ public class MyClass : MonoBehaviour {
 
         <span class="comment">// This event will be called when the &quot;Fire&quot; button is first released</span>
         player.AddInputEventDelegate(OnFireButtonUp, UpdateLoopType.Update, InputActionEventType.ButtonJustReleased, &quot;Fire&quot;);
+
+        <span class="comment">// This event will be called when the &quot;Jump&quot; button is held for at least 2 seconds and then released</span>
+        player.AddInputEventDelegate(OnJumpButtonUp, UpdateLoopType.Update, InputActionEventType.ButtonPressedForTimeJustReleased, &quot;Jump&quot;, new object[] { 2.0f });
 
         <span class="comment">// The update loop you choose for the event matters. Make sure your chosen update loop is enabled in</span>
         <span class="comment">// the Settings page of the Rewired editor or you won't receive any events.</span>
@@ -305,9 +310,13 @@ public class MyClass : MonoBehaviour {
     void OnFireButtonUp(InputActionEventData data) {
         Debug.Log("Fire Released!");
     }
+    
+    void OnJumpButtonUp(InputActionEventData data) {
+        Debug.Log("Jump!");
+    }
 }</pre>
 <p><strong>Controller Method:</strong></p>
-<p>A third method would be to get input directly from a controller's buttons and axes. This is generally not the best choice as you will lose all the advantages of the player-centric system including mapping. Methods for accessing element values can be found in the respective controller classes:</p>
+<p>A third method would be to get input directly from a <a href="Controllers.html">Controller's</a> buttons and axes. This is generally not the best choice as you will lose all the advantages of the player-centric system including mapping. Methods for accessing element values can be found in the respective <a href="Controllers.html">Controller</a> classes:</p>
 <ul>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Joystick.htm">Joystick</a></li>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Keyboard.htm">Keyboard</a></li>
@@ -344,7 +353,7 @@ void LogJoystickElementValues(Joystick joystick) {
 <p>&nbsp;</p>
 <hr />
 <h3><a name="get-controller" id="get-controller"></a>Getting a Controller</h3>
-<p>You generally don't need to get controllers for normal gameplay input tasks, but there are certain times when you need to get a controller such as during controller remapping. There are a number of ways you can get controllers.</p>
+<p>You generally don't need to get <a href="Controllers.html">Controllers</a> for normal gameplay input tasks, but there are certain times when you need to get a <a href="Controllers.html">Controller</a> such as during <a href="Controllers.html">Controller</a> remapping. There are a number of ways you can get <a href="Controllers.html">Controllers</a>.</p>
 <p><strong>To get  a specific controller:</strong><br />
   <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_GetController.htm">ReInput.controllers.GetController</a><br />
 <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_GetController.htm">player.controllers.GetController</a><br />
@@ -364,11 +373,11 @@ void LogJoystickElementValues(Joystick joystick) {
   <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Player_ControllerHelper_CustomControllers.htm">player.controllers.CustomControllers</a></p>
 <p>&nbsp;</p>
 <hr />
-    <h3><a name="connect-disconnect-events" id="connect-disconnect-events"></a>Receiving joystick connect and disconnect events</h3>
-    <p>To receive an event when a controller is connected, register for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerConnectedEvent.htm">ReInput.ControllerConnectedEvent</a>.<br />
-    To receive an event when a controller is fully disconnected, register for  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerDisconnectedEvent.htm">ReInput.ControllerDisconnectedEvent</a>.<br />
-    To receive an event when a controller is about to be disconnected, register for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerDisconnectedEvent.htm">ReInput.ControllerPreDisconnectEvent</a>.</p>
-    <p>Note: Joysticks are not guaranteed to be available on Awake or Start on all platforms or input sources. If joysticks are available immediately to Rewired on Awake, joystick connected events will not be sent. If joystick availability is delayed, a controller connected event will be sent when Rewired detects the joystick. If you need to check for the presence of joysticks at the beginning of your game, you should always check in both Awake or Start and by subscribing to the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerConnectedEvent.htm">ReInput.ControllerConnectedEvent</a>.</p>
+    <h3><a name="connect-disconnect-events" id="connect-disconnect-events"></a>Receiving Joystick connect and disconnect events</h3>
+    <p>To receive an event when a <a href="Controllers.html#joysticks">Joystick</a> is connected, register for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerConnectedEvent.htm">ReInput.ControllerConnectedEvent</a>.<br />
+    To receive an event when a <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> is fully disconnected, register for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerDisconnectedEvent.htm">ReInput.ControllerDisconnectedEvent</a>.<br />
+    To receive an event when a <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> is about to be disconnected, register for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerDisconnectedEvent.htm">ReInput.ControllerPreDisconnectEvent</a>.</p>
+    <p>Note: <a href="Controllers.html#joysticks">Joysticks</a> are not guaranteed to be available on Awake or Start on all platforms or input sources. If <a href="Controllers.html#joysticks">Joysticks</a> are available immediately to Rewired on Awake, <a href="Controllers.html#joysticks">Joystick</a> connected events will not be sent. If <a href="Controllers.html#joysticks">Joystick</a> availability is delayed, a <a href="Controllers.html">Controller</a> connected event will be sent when Rewired detects the controller. If you need to check for the presence of <a href="Controllers.html#joysticks">Joysticks</a> at the beginning of your game, you should always check in both Awake or Start and by subscribing to the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_ReInput_ControllerConnectedEvent.htm">ReInput.ControllerConnectedEvent</a>.</p>
     <pre class="code">
 using UnityEngine;
 using Rewired;
@@ -401,8 +410,8 @@ public MyClass : MonoBehaviour {
     }
 }</pre>
     <hr />
-    <h3><a name="assigning-joysticks" id="assigning-joysticks"></a>Assigning joysticks to players</h3>
-    <p>Joysticks will be assigned to Players automatically if you have enabled and configured joystick auto-assignment in the <a href="RewiredEditor.html#Settings">Rewired Editor under Settings</a>. However, if you wish to manually assign or unassign joysticks, you can do so with the following methods:</p>
+    <h3><a name="assigning-joysticks" id="assigning-joysticks"></a>Assigning Joysticks to players</h3>
+    <p><a href="Controllers.html#joysticks">Joysticks</a> will be assigned to <a href="Players.html">Players</a> automatically if you have enabled and configured <a href="Controllers.html#joysticks">Joystick</a> auto-assignment in the <a href="RewiredEditor.html#Settings">Rewired Editor under Settings</a>. However, if you wish to manually assign or unassign <a href="Controllers.html#joysticks">Joysticks</a>, you can do so with the following methods:</p>
     <p><strong>Player class:</strong></p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_AddController.htm">player.controllers.AddController</a></li>
@@ -416,10 +425,12 @@ public MyClass : MonoBehaviour {
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_IsControllerAssigned.htm">ReInput.controllers.IsControllerAssigned</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_IsCustomControllerAssignedToPlayer.htm">ReInput.controllers.IsControllerAssignedToPlayer</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_RemoveControllerFromAllPlayers.htm">ReInput.controllers.RemoveControllerFromAllPlayers</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_AutoAssignJoystick.htm">ReInput.controllers.AutoAssignJoystick</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_AutoAssignJoysticks.htm">ReInput.controllers.AutoAssignJoysticks</a></li>
     </ul>
     <p>&nbsp;</p>
-    <p>Also, see <a href="#connect-disconnect-events">Receiving joystick connect and disconnect events</a> to get a notification when a controller is connected or disconnected.</p>
-    <pre class="code">
+    <p>Also, see <a href="#connect-disconnect-events">Receiving joystick connect and disconnect events</a> to get a notification when a <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> is connected or disconnected.</p>
+<pre class="code">
 <span class="comment">// Example: Shows how to assign Joysticks manually to the next Player that doesn't have one assigned.</span>
 
 void Awake() {
@@ -437,7 +448,7 @@ void Awake() {
 
 <span class="comment">// This will be called when a controller is connected</span>
 void OnControllerConnected(ControllerStatusChangedEventArgs args) {
-    if(args.controllerType != ControllerType.Joystick) return; // skip if this isn't a Joystick
+    if(args.controllerType != ControllerType.Joystick) return; <span class="comment">// skip if this isn't a Joystick</span>
  
     <span class="comment">// Assign Joystick to first Player that doesn't have any assigned</span>
     AssignJoystickToNextOpenPlayer(ReInput.controllers.GetJoystick(args.controllerId));
@@ -450,19 +461,39 @@ void AssignJoystickToNextOpenPlayer(Joystick j) {
         return;
     }
 }</pre>
+<p>You can also use the joystick auto-assign system to automatically assign certain Joysticks while excluding others:</p>
+<pre class="code"><span class="comment">// Joystick Auto-Assignment is disabled in the Rewired Input Manager, but you can still use it to
+// assign one or all Joysticks at any time.</span>
+
+<span class="comment"></span>void OnControllerConnected(ControllerStatusChangedEventArgs args) {
+    if(args.controllerType != ControllerType.Joystick) return; <span class="comment">// skip if this isn't a Joystick</span>
+
+    <span class="comment">// Get the Joystick from ReInput</span>
+    Joystick joystick = ReInput.controllers.GetJoystick(args.controllerId);
+    if(joystick == null) return;
+
+    <span class="comment">// Exclude the Apple Siri Remote -- it will be left unassigned</span>
+    <span class="comment">// The Siri Remote's Hardware Type Guid is bc043dba-df07-4135-929c-5b4398d29579
+    // <a href="#identifying-recognized-controllers">See this for more information on Hardware Type GUID</a>.</span>
+    if(joystick.hardwareTypeGuid == new System.Guid(&quot;bc043dba-df07-4135-929c-5b4398d29579&quot;)) return;
+ 
+    <span class="comment">// Assign Joystick to first Player that doesn't have any assigned</span>
+    ReInput.controllers.AutoAssignJoystick(joystick);
+}</pre>
 <p>&nbsp;</p>
 <hr />
-    <h3><a name="enabling-disabling-controller-maps" id="enabling-disabling-controller-maps"></a>Enabling and disabling controller maps</h3>
-    <p><a href="ControllerMaps.html">Controller Maps</a> can be enabled or disabled at will via scripting. This can be useful if you want to change game modes and have a different set of controls become active. For example, opening a menu screen. Disabled controller maps will not return any value when the Player is queried for an Action's input value. Controller Maps are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
-    <p>The easiest way to enable and disable maps in a Player is to use the following methods:</p>
+    <h3><a name="enabling-disabling-controller-maps" id="enabling-disabling-controller-maps"></a>Enabling and disabling Controller Maps</h3>
+    <p><a href="ControllerMaps.html">Controller Maps</a> can be enabled or disabled at will via scripting. This can be useful if you want to change game modes and have a different set of controls become active. For example, opening a menu screen. Disabled <a href="ControllerMaps.html">Controller Maps</a> will not return any value when the <a href="Players.html">Player</a> is queried for an <a href="Actions.html">Action's</a> input value. <a href="ControllerMaps.html">Controller Maps</a> are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
+    <p>The easiest way to enable and disable maps in a <a href="Players.html">Player</a> is to use the following methods:</p>
     <ul>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetAllMapsEnabled.htm">player.controllers.maps.SetAllMapsEnabled</a> - Set enabled state on all maps owned by the Player or all maps for a specific controller type.</li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetMapsEnabled.htm">player.controllers.maps.SetMapsEnabled</a> - Set enabled state on a group of maps owned by the Player by controller type, category, and layout.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetAllMapsEnabled.htm">player.controllers.maps.SetAllMapsEnabled</a> - Set enabled state on all maps owned by the <a href="Players.html">Player</a> or all maps for a specific <a href="Controllers.html">Controller</a> type.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetMapsEnabled.htm">player.controllers.maps.SetMapsEnabled</a> - Set enabled state on a group of maps owned by the <a href="Players.html">Player</a> by <a href="Controllers.html">Controller</a> type, <a href="MapCategories.html">Map Category</a>, and <a href="Layouts.html">Layout</a>.</li>
       </ul>
-    <p>Example: Set enabled state on all of a Player's controller maps in a certain category for all controller types with one line of code.</p>
+    <p>Example: Set enabled state on all of a <a href="Players.html">Player's</a> <a href="ControllerMaps.html">Controller Maps</a> in a certain <a href="MapCategories.html">Map Category</a> for all <a href="Controllers.html">Controller</a> types with one line of code.</p>
     <pre class="code">
 <span class="comment">// The quick way - one line of code</span>
 player.controllers.maps.SetMapsEnabled(state, categoryName);</pre>
+<p><strong>NOTE:</strong> The above SetMapsEnabled and SetAllMapsEnabled methods are not persistent flags in Player that will set a certain category of map enabled/disabled upon loading. They are simply shortcuts for the below methods that iterate the maps currently loaded in the Player and set them enabled/disabled at the time the method is called. When new Controller Maps are loaded in the Player, either manually or when a Joystick is assigned, the newly loaded maps will be enabled/disabled based on the default enabled state settings for these maps on the Player page in the Rewired Input Manager, not based on previous calls to SetMapsEnabled.</p>
 <p>You can also enable and disable maps one by one by getting the maps one by one:</p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetMap.htm">player.controllers.maps.GetMap</a></li>
@@ -471,7 +502,7 @@ player.controllers.maps.SetMapsEnabled(state, categoryName);</pre>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetAllMapsInCategory.htm">player.controllers.maps.GetAllMapsInCategory</a></li>
     </ul>
     <p>Once you have the map, enable or disable it by setting <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ControllerMap_enabled.htm">controllerMap.enabled</a> = true or <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ControllerMap_enabled.htm">controllerMap.enabled</a> = false. Disabled maps will not contribute to input.</p>
-<p>Example: Set enabled state on all of a Player's controller maps in a certain category for all controller types one by one.</p>
+<p>Example: Set enabled state on all of a <a href="Players.html">Player's</a> <a href="ControllerMaps.html">Controller Maps</a> in a certain <a href="MapCategories.html">Map Category</a> for all <a href="Controllers.html">Controller</a> types one by one.</p>
 <pre class="code">
 <span class="comment"></span><span class="comment">// The manual way - iterate all Controller Maps in a category and set the state manually</span>
 foreach(ControllerMap map in player.controllers.maps.GetAllMapsInCategory(categoryName)) {
@@ -479,8 +510,8 @@ foreach(ControllerMap map in player.controllers.maps.GetAllMapsInCategory(catego
 }  </pre>
 <p>&nbsp;</p>
     <hr />
-    <h3><a name="managing-controller-maps-runtime" id="enabling-disabling-controller-maps2"></a>Managing controller maps at runtime</h3>
-    <p><a href="ControllerMaps.html">Controller Maps</a> can be added, removed, cleared, and reloaded during gameplay via scripting. This can be useful if you want to load the default controller maps as defined in the Rewired Editor after having made changes, or to load a controller map in a different Layout. Controller Maps are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
+    <h3><a name="managing-controller-maps-runtime" id="enabling-disabling-controller-maps2"></a>Managing Controller Maps at runtime</h3>
+    <p><a href="ControllerMaps.html">Controller Maps</a> can be added, removed, cleared, and reloaded during gameplay via scripting. This can be useful if you want to load the default <a href="ControllerMaps.html">Controller Maps</a> as defined in the Rewired Editor after having made changes, or to load a <a href="ControllerMaps.html">Controller Map</a> in a different <a href="Layouts.html">Layout</a>. <a href="ControllerMaps.html">Controller Maps</a> are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
     <p>Methods:</p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_AddMap.htm">player.controllers.maps.AddMap</a></li>
@@ -492,7 +523,7 @@ foreach(ControllerMap map in player.controllers.maps.GetAllMapsInCategory(catego
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_MapHelper_LoadDefaultMaps.htm">player.controllers.maps.LoadDefaultMaps</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Methods_T_Rewired_Player_ControllerHelper_MapHelper.htm">More methods for controller map management</a></li>
       </ul>
-    <p>Each Controller Map contains a list of <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">Action Element Maps</a>, which bind Actions to a specific elements on a controller. Each ActionElementMap represents one binding. The <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">various properties of the ActionElementMap</a> determine the specifics of the binding, such as the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ActionElementMap_elementType.htm">elementType</a> and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ActionElementMap_elementIndex.htm">elementIndex</a>.</p>
+    <p>Each <a href="ControllerMaps.html">Controller Map</a> contains a list of <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">Action Element Maps</a>, which bind <a href="Actions.html">Actions</a> to a specific elements on a <a href="Controllers.html">Controller</a>. Each ActionElementMap represents one binding. The <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">various properties of the ActionElementMap</a> determine the specifics of the binding, such as the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ActionElementMap_elementType.htm">elementType</a> and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ActionElementMap_elementIndex.htm">elementIndex</a>.</p>
 <pre class="code"><span class="comment">// Iterate over all Mouse Maps assigned to this Player and log the element type and index for each ActionElementMap</span>
 foreach(var controllerMap in player.controllers.maps.GetMaps(ControllerType.Mouse, 0)) {
     foreach(var actionElementMap in controllerMap.AllMaps) { <span class="comment">// iterate over all maps regardless of type</span>
@@ -504,15 +535,15 @@ foreach(var controllerMap in player.controllers.maps.GetMaps(ControllerType.Mous
 }</pre>
     <p>&nbsp;</p>
 <hr />
-    <h3><a name="loading-controller-maps-runtime" id="enabling-disabling-controller-maps3"></a>Loading controller maps at runtime</h3>
-    <p>Before a <a href="Players.html">Player</a> can use a <a href="ControllerMaps.html">Controller Map</a>, it first must be loaded into that Player. Controller Maps are loaded for each Player automatically at start (or, in the case of Joysticks, they are loaded when a Joystick is assigned to the Player) based on the Controller Map assignments you've made in the <a href="RewiredEditor.html#Players">Players page of the Rewired Input Manager</a>.</p>
-    <p>To assign the Controller Map at   runtime via scripting or reload a default map (for example if you want to   revert controls to the defaults), you would use the following methods to load a default Controller Map from the   Rewired Input Manager into a Player.</p>
+    <h3><a name="loading-controller-maps-runtime" id="enabling-disabling-controller-maps3"></a>Loading Controller Maps at runtime</h3>
+    <p>Before a <a href="Players.html">Player</a> can use a <a href="ControllerMaps.html">Controller Map</a>, it first must be loaded into that <a href="Players.html">Player</a>. <a href="ControllerMaps.html">Controller Maps</a> are loaded for each <a href="Players.html">Player</a> automatically at start (or, in the case of <a href="Controllers.html#joysticks">Joysticks</a>, they are loaded when a <a href="Controllers.html#joysticks">Joystick</a> is assigned to the <a href="Players.html">Player</a>) based on the <a href="ControllerMaps.html">Controller Map</a> assignments you've made in the <a href="RewiredEditor.html#Players">Players page of the Rewired Input Manager</a>.</p>
+    <p>To assign the <a href="ControllerMaps.html">Controller Map</a> at   runtime via scripting or reload a default map (for example if you want to   revert controls to the defaults), you would use the following methods to load a default <a href="ControllerMaps.html">Controller Map</a> from the   Rewired Input Manager into a <a href="Players.html">Player</a>.</p>
     <p>Methods:</p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_LoadMap.htm">player.controllers.maps.LoadMap</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_MapHelper_LoadDefaultMaps.htm">player.controllers.maps.LoadDefaultMaps</a></li>
 </ul>
-    <p>These methods load the Controller Maps you've created in the Rewired Input Manager into the Player. You can load Controller Maps that have not been assigned to the Player in the Rewired Input Manager or replace existing Controller Maps that are already assigned. Documentation about each overload can be found in the method links above.</p>
+    <p>These methods load the <a href="ControllerMaps.html">Controller Maps</a> you've created in the Rewired Input Manager into the <a href="Players.html">Player</a>. You can load <a href="ControllerMaps.html">Controller Maps</a> that have not been assigned to the <a href="Players.html">Player</a> in the Rewired Input Manager or replace existing <a href="ControllerMaps.html">Controller Maps</a> that are already assigned. Documentation about each overload can be found in the method links above.</p>
     <pre class="code">
 <span class="comment"></span><span class="comment">// Re-load the keyboard maps that were assigned to this Player in the Rewired Input Manager</span>
 player.controllers.maps.LoadDefaultMaps(ControllerType.Keyboard);
@@ -525,7 +556,7 @@ foreach(Joystick joystick in player.controllers.Joysticks) {
     <p>&nbsp;</p>
 <hr />
     <h3><a name="get-element-name-for-action" id="get-element-name-for-action"></a>Displaying a button/axis/key name to the user for an Action    </h3>
-    <p>If you want to display some help text on the screen telling the user which button/key/axis to press for a particular Action, you can get this information from the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ActionElementMap_elementIdentifierName.htm">ActionElementMap.elementIdenfitierName</a> property. The following example shows various ways to get this information for an Action.</p>
+    <p>If you want to display some help text on the screen telling the user which button/key/axis to press for a particular <a href="Actions.html">Action</a>, you can get this information from the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ActionElementMap_elementIdentifierName.htm">ActionElementMap.elementIdenfitierName</a> property. The following example shows various ways to get this information for an <a href="Actions.html">Action</a>.</p>
     <pre class="code">Player player = Rewired.ReInput.players.GetPlayer(0);
 
 <span class="comment">// If set to true, only enabled maps will be returned</span>
@@ -615,17 +646,17 @@ foreach(Joystick j in player.controllers.Joysticks) {
 }    </pre>
     <p>&nbsp;</p>
     <hr />
-    <h3><a name="display-glyph-for-action" id="display-glyph-for-action"></a>Displaying a glyph for a controller element mapped to an Action</h3>
-    <p>There are three steps involved in displaying on-screen glyphs for controller elements:</p>
+    <h3><a name="display-glyph-for-action" id="display-glyph-for-action"></a>Displaying a glyph for a Joystick element mapped to an Action</h3>
+    <p>There are three steps involved in displaying on-screen glyphs for <a href="Controllers.html#joysticks">Joystick</a> elements:</p>
     <ol>
-      <li>Create the controller element glyph graphics.</li>
-      <li>Create a lookup table of controller element glyphs.</li>
+      <li>Create the <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> element glyph graphics.</li>
+      <li>Create a lookup table of <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> element glyphs.</li>
       <li>Display the glyph on-screen.</li>
       </ol>
     <p>Step 1:<br />
       Obviously this is up to you to decide how your glyphs will look and in what data format they will be in.</p>
 <p>Step 2:<br />
-  You will need to create a lookup table that associates particular Element Identifiers from particular controllers to the glyphs. This could be in any format you choose -- a database lookup, serialized data in a MonoBehaviour, etc.</p>
+  You will need to create a lookup table that associates particular Element Identifiers from particular <a href="Controllers.html#joysticks">Joysticks</a> to the glyphs. This could be in any format you choose -- a database lookup, serialized data in a MonoBehaviour, etc.</p>
 <p>This would look something like this in concept:</p>
 <table width="100%" border="0">
   <tr>
@@ -656,14 +687,14 @@ foreach(Joystick j in player.controllers.Joysticks) {
 <p>&nbsp;</p>
 <p>Step 3:<br />
 Display the glyph on screen. This is up to you however you choose to do so depending on your data format and needs.</p>
-<p>You can retrieve the glpyh based on the Joystick's GUID and the current Element Identifier Id mapped to a particular Action.</p>
+<p>You can retrieve the glpyh based on the <a href="Controllers.html#joysticks">Joystick's</a> GUID and the current Element Identifier Id mapped to a particular <a href="Actions.html">Action</a>.</p>
 <p>Here are the basic steps:</p>
 <ol>
-  <li>Get the last used controller from the Player using <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_GetLastActiveController.htm">Player.controllers.GetLastActiveController</a>.</li>
-  <li>Determine the type of the controller using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Controller_type.htm">Controller.type</a> property.</li>
-  <li>If a Joystick, identify this Joystick as a recognized type using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">Joystick.hardwareTypeGuid</a> property. (The type GUID for each recognized controller can be found in the HardwareJoystickMap definition for each controller on the Settings page.)</li>
-  <li>Check if any element on this controller is mapped to the Action in question using one of the following methods:
-    <ul>
+  <li>Get the last used <a href="Controllers.html">Controller</a> from the <a href="Players.html">Player</a> using <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_GetLastActiveController.htm">Player.controllers.GetLastActiveController</a>.</li>
+  <li>Determine the type of the <a href="Controllers.html">Controller</a> using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Controller_type.htm">Controller.type</a> property.</li>
+  <li>If a <a href="Controllers.html#joysticks">Joystick</a>, identify this <a href="Controllers.html#joysticks">Joystick</a> as a recognized type using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">Joystick.hardwareTypeGuid</a> property. (The type GUID for each recognized <a href="Controllers.html">Controller</a> can be found in the HardwareJoystickMap definition for each <a href="Controllers.html">Controller</a> on the Settings page.)</li>
+  <li>Check if any element on this <a href="Controllers.html">Controller</a> is mapped to the <a href="Actions.html">Action</a> in question using one of the following methods:
+<ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetFirstElementMapWithAction.htm">Player.controllers.maps.GetFirstElementMapWithAction</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetFirstButtonMapWithAction.htm">Player.controllers.maps.GetFirstButtonMapWithAction</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetFirstAxisMapWithAction.htm">Player.controllers.maps.GetFirstAxisMapWithAction</a></li>
@@ -675,7 +706,7 @@ Display the glyph on screen. This is up to you however you choose to do so depen
   <li>If the element is mapped, use this information to look up the glyph from your lookup table using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">ActionElementMap.elementIdentifierId</a> property and the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">Joystick.hardwareTypeGuid</a> property.</li>
   <li>Optional: Further information about the mapping can be found in the ActionElementMap such as the Axis Range, Axis Contribution, type, or other useful information should you need more specific glyphs for a finer level of detail.</li>
   </ol>
-<p>Below is a basic example that shows both one method of storing the glyph lookup data and how to get the current element glyph for an Action.</p>
+<p>Below is a basic example that shows both one method of storing the glyph lookup data and how to get the current element glyph for an <a href="Actions.html">Action</a>.</p>
 <pre class="code">
 <span class="comment">// ShowControllerGlyphs.cs</span>
 using UnityEngine;
@@ -810,7 +841,7 @@ namespace Rewired.Demos {
 }</pre>
 <p>&nbsp;</p>
 <hr />
-    <h3><a name="display-glyph-for-active-elements" id="display-glyph-for-active-elements"></a>Displaying a glyph for the currently active controller elements</h3>
+    <h3><a name="display-glyph-for-active-elements" id="display-glyph-for-active-elements"></a>Displaying a glyph for the currently active Joystick elements</h3>
 <p>Very similar to <a href="#display-glyph-for-action">the previous example</a>, this is a slightly modified process:</p>
 <pre class="code">using UnityEngine;
 using System.Collections;
@@ -890,29 +921,33 @@ namespace Rewired.Demos {
     <p>&nbsp;</p>
     <hr />
     <h3><a name="get-contributing-input-sources" id="get-contributing-input-sources"></a>Getting contributing input sources for an Action</h3>
-<p>You can get information about all the input sources currently contributing to the value of an Action in a Player. There are several methods available to get this information:</p>
+<p>You can get information about all the input sources currently contributing to the value of an <a href="Actions.html">Action</a> in a <a href="Players.html">Player</a>. There are several methods available to get this information:</p>
 <ul>
   <li>  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetCurrentInputSources.htm">Player.GetCurrentInputSources</a></li>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_IsCurrentInputSource.htm">Player.IsCurrentInputSource</a></li>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_InputActionEventData_GetCurrentInputSources.htm">InputActionEventData.GetCurrentInputSource</a></li>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_InputActionEventData_IsCurrentInputSource.htm">InputActionEventData.IsCurrentInputSource </a></li>
 </ul>
-<p>You can either retrieve a list of all input sources currently contributing to input or query whether a controller type or an individual controller contributed input.</p>
-<p>You can get data about the current input sources and then use that to tell which controllers or even which individual elements on the controllers were used to provide the input in the current frame.</p>
+<p>You can either retrieve a list of all input sources currently contributing to input or query whether a <a href="Controllers.html">Controller</a> type or an individual <a href="Controllers.html">Controller</a> contributed input.</p>
+<p>You can get data about the current input sources and then use that to tell which <a href="Controllers.html">Controllers</a> or even which individual elements on the <a href="Controllers.html">Controllers</a> were used to provide the input in the current frame.</p>
 <p>See <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_InputActionSourceData.htm">InputActionSourceData</a> for more information on data returned.</p>
 <p>&nbsp;</p>
     <hr />
-    <h3><a name="last-used-controller" id="last-used-controller"></a>Determining which controller was last used</h3>
-    <p>You can determine which controller or controller type was last used by any Player or an individual Player. One common use of this technique is to switch on-screen glyphs depending on whether the player is using a mouse/keyboard or a joystick.</p>
+    <h3><a name="last-used-controller" id="last-used-controller"></a>Determining which Controller was last used</h3>
+    <p>You can determine which <a href="Controllers.html">Controller</a> or what type of Controller was last used system-wide<a href="Players.html"></a> or by an individual <a href="Players.html">Player</a>. One common use of this technique is to switch on-screen glyphs depending on whether the user is using a mouse/keyboard or a <a href="Controllers.html#joysticks">Joystick</a>.</p>
     <p>Use the following methods:</p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_GetLastActiveController.htm">ReInput.controllers.GetLastActiveController</a></li>
+      
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_GetLastActiveControllerType.htm">ReInput.controllers.GetLastActiveControllerType</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_GetLastActiveController.htm">Player.controllers.GetLastActiveController</a></li>
-    </ul>
-    <p>Then you can get the controller type from <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Controller_type.htm">Controller.type.</a></p>
+      </ul>
+    <p>The ReInput methods will get the last active controller of all controllers regardless of whether or not it is assigned to a Player or any of the elements have been mapped.  This is most useful for one-player games.</p>
+    <p>The Player.controllers.GetLastActiveController method will get the last active controller used by that Player. Be aware that only mapped elements determine whether a Controller just became active. For example, if you're testing to see if the mouse is the last active controller, if nothing is mapped to the left mouse button and it is clicked, it will not be considered the last active controller in the Player.</p>
+<p>Then you can get the <a href="Controllers.html">Controller</a> type from <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Controller_type.htm">Controller.type.</a></p>
     <pre class="code">
 <span class="comment">// Get last controller from a Player and the determine the type of controller being used</span>
-Controller controller = player.GetLastActiveController();
+Controller controller = player.controllers.GetLastActiveController();
 if(controller != null) {
   switch(controller.type) {
     case ControllerType.Keyboard:
@@ -929,18 +964,39 @@ if(controller != null) {
       break;
   }
 }</pre>
+<p>You can also subscribe to events instead of polling:</p>
+<ul>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_AddLastActiveControllerChangedDelegate.htm">ReInput.controllers.AddLastActiveControllerChangedDelegate</a></li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_ControllerHelper_RemoveLastActiveControllerChangedDelegate.htm">ReInput.controllers.RemoveLastActiveControllerChangedDelegate</a></li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_ClearLastActiveControllerChangedDelegates.htm">ReInput.controllers.ClearLastActiveControllerChangedDelegates</a></li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_AddLastActiveControllerChangedDelegate.htm">Player.controllers.AddLastActiveControllerChangedDelegate</a></li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_RemoveLastActiveControllerChangedDelegate.htm">Player.controllers.RemoveLastActiveControllerChangedDelegate</a></li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_ClearLastActiveControllerChangedDelegates.htm">Player.controllers.ClearLastActiveControllerChangedDelegates</a></li>
+</ul>
 <p>&nbsp;</p>
 <hr />
-    <h3><a name="calibrating-controller-axes" id="calibrating-controller-axes"></a>Calibrating controller axes</h3>
-    <p>The general process of calibrating controller axes is as follows:</p>
+    <h3><a name="calibrating-controller-axes" id="calibrating-controller-axes"></a>Calibrating Joystick axes</h3>
+    <p>The general process of calibrating <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> axes is as follows:</p>
     <ol>
-      <li><a href="#get-controller">Get the controller</a></li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ControllerWithAxes_calibrationMap.htm">Get the calibration map from the controller</a></li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_CalibrationMap_GetAxis.htm">Get the AxisCalibration for the axis from the calibration map</a></li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_AxisCalibration.htm">Set the calibrated values in the AxisCalibration object</a></li>
+      <li><a href="#get-controller">Get the Joystick.</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ControllerWithAxes_calibrationMap.htm">Get the Calibration Map from the Joystick.</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_CalibrationMap_GetAxis.htm">Get the AxisCalibration for the Axis from the Calibration Map.</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_AxisCalibration.htm">Set the calibrated values in the AxisCalibration object.</a></li>
     </ol>
-    <p>You can see an example of axis calibration in Rewired/Examples/ControlRemapping1.<br />
-    </p>
+    <p>You can see an example of axis calibration in Rewired/Examples/ControlRemapping1.</p>
+    <p><strong>Enabled</strong><br />
+      The enabled state of the Axis can be set with the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_enabled.htm">AxisCalibration.enabled</a> property. Disabled Axes always return 0.</p>
+    <p><strong>Dead zone</strong><br />
+      The dead zone of the Axis can be set with the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_deadZone.htm">AxisCalibration.deadZone</a> property. If the Axis's absolute value is less than or equal to the dead zone, it will return 0.</p>
+<p><strong>Min, max, zero</strong><br />
+The Axis's value can be converted to a new range using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_calibratedMin.htm">AxisCalibration.calibratedMin</a>, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_calibratedMax.htm">AxisCalibration.calibratedMax</a>, and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_calibratedZero.htm">AxisCalibration.calibratedZero</a> properties. These can be used to transform the value of an Axis such as a gamepad trigger that returns -1 at a resting state into a more useful range of 0 when at rest, 1 when fully pressed. If <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_applyRangeCalibration.htm">AxisCalibration.applyRangeCalibration</a> is set to false, these transformations will not be applied.</p>
+    <p><strong>Invert</strong><br />
+      If <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_invert.htm">AxisCalibration.invert</a> is set to true, the final value will be multiplied by -1. This can be used to correct an inverted Axis.<br />
+</p>
+    <p><strong>Sensitivity</strong><br />
+      In order to set axis sensitivity, you must set the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_sensitivityType.htm">AxisCalibration.sensitivityType</a> to determine how it will be calculated. If <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_sensitivityType.htm">AxisCalibration.sensitivityType</a> is set to Multiplier 
+      or Power, the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_sensitivity.htm">AxisCalibration.sensitivity</a> property is used to calculate the value. If <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_sensitivityType.htm">AxisCalibration.sensitivityType</a> is set to Curve, the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_AxisCalibration_sensitivityCurve.htm">AxisCalibration.sensitivityCurve</a> property is used to calculate the value.<br />
+  </p>
 <p><strong>Useful API Reference:</strong></p>
 <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_CalibrationMap.htm">CalibrationMap<br />
 </a><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_AxisCalibration.htm">AxisCalibration</a><br />
@@ -953,7 +1009,7 @@ if(controller != null) {
 <h3><a name="Vibration-Rumble" id="Vibration-Rumble"></a>Vibration/Rumble</h3>
 <p>Rewired supports vibration on compatible controllers on certain platforms. <a href="FAQ.html#force-feedback">See this for more information</a>.</p>
 <p>Important: You must have XInput enabled in the Rewired Input Manager on the Windows Standalone platform for Xbox 360 controller vibration support.</p>
-<p>Just get the controller(s) from the Player class and set the motor levels on 
+<p>Just get the <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a>(s) from the <a href="Players.html">Player</a> class and set the motor levels on 
   each of them. </p>
 <pre class="code">
 <span class="comment">// Set vibration by motor type</span>
@@ -969,21 +1025,67 @@ foreach(Joystick j in player.controllers.Joysticks) {
     if(j.vibrationMotorCount &gt; 1) j.SetVibration(1, rightMotorValue);
 }
 
+<span class="comment">// Set vibration for a certain duration</span>
+foreach(Joystick j in player.controllers.Joysticks) {
+    if(!j.supportsVibration) continue;
+    if(j.vibrationMotorCount &gt; 0) j.SetVibration(0, leftMotorValue, 1.0f); <span class="comment">// 1 second duration</span>
+}
+
 <span class="comment">// Stop vibration</span>
 foreach(Joystick j in player.controllers.Joysticks) {
     j.StopVibration();
 }</pre>
-<p>This would set vibration on all controllers assigned to the player.</p>
+<p>This would set vibration on all <a href="Controllers.html#joysticks">Joysticks</a><a href="Controllers.html"></a> assigned to the <a href="Players.html">Player</a>.</p>
 <p>There are also these functions/properties in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Joystick.htm">Joystick</a> class:<br />
-  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_SetVibration.htm">Joystick.SetVibration</a><br />
-  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_StopVibration.htm">Joystick.StopVibration</a><br />
   <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/F_Rewired_Joystick_supportsVibration.htm">Joystick.supportsVibration</a><br />
+  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_vibrationMotorCount.htm">Joystick.vibrationMotorCount</a><br />
+  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_GetVibration.htm">Joystick.GetVibration</a><br />
+  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_SetVibration.htm">Joystick.SetVibration</a><br />
+  <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_StopVibration.htm">Joystick.StopVibration</a><br/>
   <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_vibrationLeftMotor.htm">Joystick.vibrationLeftMotor</a><br />
   <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_vibrationRightMotor.htm">Joystick.vibrationRightMotor</a></p>
 <p>&nbsp;</p>
 <hr />
+<h3><a name="button-press-types" id="button-press-types"></a>Handling button presses of various types</h3>
+<p>Rewired has a number of  methods for handling button presses in a variety of ways.</p>
+<p><strong>Most Common:</strong></p>
+<ul>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButton.htm">Player.GetButton</a>: Gets the button held state of an Action. This will return TRUE as long as the button is held. This also applies to axes being used as buttons.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDown.htm">Player.GetButtonDown</a>: Gets the button just pressed state of an Action. This will only return TRUE only on the first frame the button is pressed or for the duration of the Button Down Buffer time limit if set in the Input Behavior assigned to this Action. This also applies to axes being used as buttons.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonUp.htm">Player.GetButtonUp</a>: Get the button just released state for an Action. This will only return TRUE for the first frame the button is released. This also applies to axes being used as buttons.</li>
+  </ul>
+<p><strong>Double Press:</strong></p>
+<ul>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDoublePressHold.htm">Player.GetButtonDoublePressHold</a>: Gets the button double pressed and held state of an Action. This will return TRUE after a double press and the button is then held.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonDoublePressDown.htm">Player.GetButtonDoublePressDown</a>: Gets the button double pressed state of an Action. This will return TRUE only on the first frame of a double press.</li></ul>
+<p><strong>Timed Presses:</strong></p>
+<ul>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonTimedPress.htm">Player.GetButtonTimedPress</a>: Gets the button held state of an Action after being held for a period of time. This will return TRUE only after the button has been held for the specified time and will continue to return TRUE until the button is released. This also applies to axes being used as buttons.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonTimedPressDown.htm">Player.GetButtonTimedPressDown</a>: Gets the button state of an Action after being held for a period of time. This will return TRUE only on the frame in which the button had been held for the specified time. This also applies to axes being used as buttons.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonTimedPressUp.htm">Player.GetButtonTimedPressUp</a>: Gets the button state of an Action after being held for a period of time and then released. This will return TRUE only on the frame in which the button had been held for at least the specified time and then released. This also applies to axes being used as buttons.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonShortPress.htm">Player.GetButtonShortPress</a>: Gets the button held state of an Action after being held for a period of time. This will return TRUE only after the button has been held for the specified time and will continue to return TRUE until the button is released. This also applies to axes being used as buttons. The button short press time is set in the Input Behavior assigned to the Action. For a custom duration, use GetButtonTimedPress instead.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonShortPressDown.htm">Player.GetButtonShortPressDown</a>: 	
+    Gets the button state of an Action after being held for a period of time. This will return TRUE only on the frame in which the button had been held for the specified time. This also applies to axes being used as buttons. The button short press time is set in the Input Behavior assigned to the Action. For a custom duration, use GetButtonTimedPressDown instead.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonShortPressUp.htm">Player.GetButtonShortPressUp</a>: Gets the button state of an Action after being held for a period of time and then released. This will return TRUE only on the frame in which the button had been held for at least the specified time and then released. This also applies to axes being used as buttons. The button short press time is set in the Input Behavior assigned to the Action. For a custom duration, use GetButtonTimedPressUp instead.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonLongPress.htm">Player.GetButtonLongPress</a>: Gets the button held state of an Action after being held for a period of time. This will return TRUE only after the button has been held for the specified time and will continue to return TRUE until the button is released. This also applies to axes being used as buttons. The button long press time is set in the Input Behavior assigned to the Action. For a custom duration, use GetButtonTimedPress instead.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonLongPressDown.htm">Player.GetButtonLongPressDown</a>: Gets the button state of an Action after being held for a period of time. This will return TRUE only on the frame in which the button had been held for the specified time. This also applies to axes being used as buttons. The button long press time is set in the Input Behavior assigned to the Action. For a custom duration, use GetButtonTimedPressDown instead.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonLongPressUp.htm">Player.GetButtonLongPressUp</a>: Gets the button state of an Action after being held for a period of time and then released. This will return TRUE only on the frame in which the button had been held for at least the specified time and then released. This also applies to axes being used as buttons. The button long press time is set in the Input Behavior assigned to the Action. For a custom duration, use GetButtonTimedPressUp instead.</li>
+  </ul>
+<p><strong>History:</strong></p>
+<ul>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonPrev.htm">Player.GetButtonPrev</a>: Gets the button held state of an Action during the previous frame.</li>
+</ul>
+<p><strong>Time Information:</strong></p>
+<ul>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonTimePressed.htm">Player.GetButtonTimePressed</a>: Gets the length of time in seconds that a button has been continuously held down. Returns 0 if the button is not currently pressed.</li>
+  <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_GetButtonTimeUnpressed.htm">Player.GetButtonTimeUnpressed</a>: Gets the length of time in seconds that a button has not been pressed. Returns 0 if the button is currently pressed.</li>
+  </ul>
+<p><strong>Negative Buttons:</strong></p>
+<p>Each of the methods above also has a corresponding Negative Button method which is named the same except with NegativeButton in place of Button. These serve to allow you to use axes as buttons and will trigger when the negative side of the axis is activated while the standard Button version will trigger only when the positive side of the axis is activated. However, it is usually easier to just map each pole of the axis to a seperate Action (split axis) so that each Action can just be queried with GetButton.</p>
+<p>&nbsp;</p>
+<hr />
 <h3><a name="button-combos" id="does-rewired-support-x-controller4"></a>Handling multi-button Actions</h3>
-<p>Rewired does not currently have a way to bind multiple controller elements to a single Action except for keyboard modifier keys and indirectly through the use of <a href="CustomControllers.html">Custom Controllers</a>. To handle button combos, they should be handled in code based on your individual needs (timings, which needs to be pressed first, what cancels what out, etc). In these cases, it can help to think of it as if you're using Actions as buttons:</p>
+<p>Rewired does not currently have a way to bind multiple <a href="Controllers.html">Controller</a> elements to a single <a href="Actions.html">Action</a> except for keyboard modifier keys and indirectly through the use of <a href="CustomControllers.html">Custom Controllers</a>. To handle button combos, they should be handled in code based on your individual needs (timings, which needs to be pressed first, what cancels what out, etc). In these cases, it can help to think of it as if you're using <a href="Actions.html">Actions</a> as buttons:</p>
 <pre class="code">
 <span class="comment">// This example shows a simple handling of a 2-button combo where the
 // modifier button must be held down and the primary button pressed</span>
@@ -994,46 +1096,55 @@ bool primary = player.GetButtonDown(&quot;PrimaryAction&quot;); <span class="com
 if(modifier &amp;&amp; primary) { <span class="comment">// modifier was held or just pressed and primary was just pressed</span>
     <span class="comment">// Do something</span>
 }</pre>
-<p>The constituent Actions can be remapped by the user freely and nothing breaks. You also don't have to worry about the complexities of trying to allow the user to remap actual physical button combos for an Action and worrying about what else may already mapped to the constituent buttons. In addition, this kind of Action combo will work across multiple controllers and controller types since Rewired's player-based input system is largely controller agnostic.</p>
+<p>The constituent <a href="Actions.html">Actions</a> can be remapped by the user freely and nothing breaks. You also don't have to worry about the complexities of trying to allow the user to remap actual physical button combos for an <a href="Actions.html">Action</a> and worrying about what else may already mapped to the constituent buttons. In addition, this kind of <a href="Actions.html">Action</a> combo will work across multiple <a href="Controllers.html">Controllers</a> and <a href="Controllers.html">Controller</a> types since Rewired's <a href="Players.html">Player</a>-based input system is largely controller agnostic.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="excluding-players-from-joystick-assignment" id="excluding-players-from-joystick-assignment"></a>Excluding certain Players from Joystick auto-assignment</h3>
+<p>The <a href="Controllers.html#joystick-auto-assignment">joystick auto-assignment system</a> has a number of options available, including the option to exclude certain Players from auto-assignment. The &quot;Exclude from Joy Auto Assign&quot; checkbox <a href="RewiredEditor.html#Players">on the Player in the Rewired Editor</a> allows you to selectively disable joystick auto-assignment for certain Players. Additionally, this can be set in scripting with the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Player_ControllerHelper_excludeFromControllerAutoAssignment.htm">player.controllers.excludeFromControllerAssignment</a> property.</p>
+<p>Also, the Settings page of the Rewired Editor has <a href="RewiredEditor.html#settings-joystick-auto-assignment">a number of options which can be set for Joystick auto-assignment</a>. The &quot;Assign to Playing Players Only&quot; option allows to you exclude Players who are not currently playing or have been disabled by setting the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Player_isPlaying.htm">Player.isPlaying</a> property to False.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="changing-configuration-settings-at-runtime" id="changing-configuration-settings-at-runtime"></a>Changing configuration settings at runtime</h3>
+<p>Most configuration settings can be changed at runtime through ReInput.configuration. Please see the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_ConfigHelper.htm">ReInput.ConfigHelper API reference</a> for more information.</p>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="converting-scripts" id="converting-scripts"></a>Converting scripts from UnityEngine.Input to Rewired</h3>
 <p><strong>Unity Input Override (the easy way):</strong></p>
 <p> Rewired includes the <a href="UnityInputOverride.html">Unity Input Override</a> script to make converting most scripts from Unity input to Rewired effortless and automatic, requiring no code changes to work. It even works with most assets downloaded from the Unity Asset Store. <a href="UnityInputOverride.html">See Unity Input Override for more information</a>.</p>
 <p><strong>Modifying script code to use Rewired instead of Unity input (the harder way):</strong></p>
-<p>Converting a script from UnityEngine.Input is a very straightforward process for a single player game. For a quick conversion, simply do a two find and replace operations:</p>
+<p>Converting a script from UnityEngine.Input is a very straightforward process for a single player game. For a quick conversion, simply do  two find and replace operations:</p>
 <ul>
   <li> &quot;Input.GetButton&quot; -&gt; &quot;Rewired.ReInput.players.GetPlayer(0).GetButton&quot;</li>
   <li>&quot;Input.GetAxis&quot; -&gt; &quot;Rewired.ReInput.players.GetPlayer(0).GetAxis&quot;</li>
 </ul>
-<p>This will get the value of each Action from Player 0 for all GetButton, GetButtonDown, GetButtonUp, GetAxis, and GetAxisRaw calls.</p>
-<p>You will also need to create the Actions in the Rewired Input Manager that match the string names expected in the code. And of course you will have to create Keyboard, Mouse, Joystick, and/or Custom Controller maps and assign them to Players as is standard Rewired practice.</p>
-<p>If your code has Input.GetKey calls, if you want those to instead use Rewired Actions, you will want to change these to &quot;Rewired.ReInput.players.GetPlayer(0).GetButton&quot; and replace the Unity KeyCode with the name or id of the Action you want to use.</p>
-<p>You could also cache the Player object on Awake for the Player in question and use that variable in the find/replace operation, but the above example provides a quick method to convert most scripts that use UnityEngine.Input to Rewired.</p>
+<p>This will get the value of each <a href="Actions.html">Action</a> from Player 0 for all GetButton, GetButtonDown, GetButtonUp, GetAxis, and GetAxisRaw calls.</p>
+<p>You will also need to create the <a href="Actions.html">Actions</a> in the Rewired Input Manager that match the string names expected in the code. And of course you will have to create <a href="ControllerMaps.html">Keyboard, Mouse, Joystick, and/or Custom Controller Maps</a> and assign them to <a href="Players.html">Players</a> as is standard Rewired practice.</p>
+<p>If your code has Input.GetKey calls, if you want those to instead use Rewired <a href="Actions.html">Actions</a>, you will want to change these to &quot;Rewired.ReInput.players.GetPlayer(0).GetButton&quot; and replace the Unity KeyCode with the name or id of the <a href="Actions.html">Action</a> you want to use.</p>
+<p>You could also cache the <a href="Players.html">Player</a> object on Awake for the <a href="Players.html">Player</a> in question and use that variable in the find/replace operation, but the above example provides a quick method to convert most scripts that use UnityEngine.Input to Rewired.</p>
 <p>&nbsp;</p>
 <hr />
-<h3><a name="exporting-actions" id="converting-scripts3"></a>Exporting  Actions as constants for use in scripting</h3>
-<p>In the <a href="RewiredEditor.html#Actions">Rewired Input Manager -&gt; Actions page</a>, click &quot;Export Actions to Consts&quot; to export all Actions to a CS file containing a statc class and a list of Action id constants. This allows you to use Rewired Actions in scripts without having to type in strings which are prone to typos, plus it allows you take advantage of auto-complete in your IDE. Using constants is also more efficient because integer comparison is faster than  string comparison. You may change the name of the exported class afterwards if you like.</p>
-<p>Note: The exported constants will only be valid for the Rewired Input Manager from which they were exported. If you have multiple different Rewired Input Managers with different input configurations, you will have to export from both and rename one of the class names so they don't conflict. Also, if you add or delete any Actions in the Rewired Input Manager, the constant list must be exported again.</p>
+<h3><a name="exporting-constants" id="converting-scripts3"></a>Exporting  constants for use in scripting</h3>
+<p>On the <a href="RewiredEditor.html#Tools">Rewired Input Manager -&gt; Tools page</a>, the section &quot;Export Constants&quot; allows you to export all <a href="Actions.html">Actions</a>, <a href="MapCategories.html">Map Categories</a>, and <a href="Layouts.html">Layouts</a>, to a CS file containing a list of constants. For example, this allows you to use Rewired <a href="Actions.html">Actions</a> in scripts without having to type in strings which are prone to typos, plus it allows you take advantage of auto-complete in your IDE. Using constants is also more efficient because integer comparison is faster than  string comparison.</p>
+<p>Note: The exported constants will only be valid for the Rewired Input Manager from which they were exported. If you have multiple different Rewired Input Managers with different input configurations, you will have to export from both and use a different parent class name for each so they don't conflict. Also, if you add or delete any relevant items in the Rewired Input Manager, the constant list must be exported again.</p>
 <pre class="code">
 <span class="comment">// The Action id constants can be used in place of strings throughout the Rewired API</span>
 
 void Update() {
     Player player = ReInput.players.GetPlayer(0);
-    bool fire = player.GetButton(RewiredActions.Fire) <span class="comment">// get the value of &quot;Fire&quot; by using the Action id constant instead of a string</span>
+    bool fire = player.GetButton(RewiredConsts.Action.Fire) <span class="comment">// get the value of &quot;Fire&quot; by using the Action id constant instead of a string</span>
 }</pre>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="actionid-property-drawer" id="converting-scripts2"></a>Displaying a drop-down list of Actions in the inspector of a script</h3>
-<p>You can display a list of Rewired Actions in a MonoBehaviour script by using the ActionIdPropertyAttribute which will automatically create a Unity property drawer in the inspector.</p>
+<p>You can display a list of Rewired <a href="Actions.html">Actions</a> in a MonoBehaviour script by using the ActionIdPropertyAttribute which will automatically create a Unity property drawer in the inspector.</p>
 <p><img src="files/images/howtos_actionidproperty.png" alt="ActionIdProperty" /></p>
 <p>There are two steps:</p>
 <ol>
-  <li><a href="#exporting-actions">Export a list of Action id constants from the Rewired Input Manager</a></li>
+  <li><a href="#exporting-consts">Export a list of Action id constants from the Rewired Input Manager</a></li>
   <li>Create a public integer field in your script and add the ActionIdProperty attribute</li>
   </ol>
 <p><strong>Using the ActionIdProperty attribute</strong></p>
-<p>In your MonoBehaviour script, create an integer field (or array/list) and add the ActionIdProperty attribute above it. You must pass this attribute a class Type that contains a list public integer constants. Each constant will be displayed in the drop-down list.</p>
+<p>In your MonoBehaviour script, create an integer field (or array/list) and add the ActionIdProperty attribute above it. You must pass this attribute a class Type that contains a list of public integer constants. Each constant will be displayed in the drop-down list.</p>
 <p>Optional: You can also pass ActionIdProperty an integer Enum type and it will display each item in the enumeration. The drawback of using Enums is that you will have to cast the enum value to an int each time you want to use it in the Rewired API.</p>
 <pre class="code">using UnityEngine;
 using Rewired;
@@ -1042,7 +1153,7 @@ public class MyClass : MonoBehaviour {
 
     <span class="comment">// This attribute denotes this int field as a Rewired Action Id property and will display a drop-down list</span>
     <span class="comment">// The class RewiredActions was exported from the Rewired Input Manager and contains a list of Action id constants</span>
-    [ActionIdProperty(typeof(RewiredActions))]
+    [ActionIdProperty(typeof(RewiredConsts.Action))]
     public int rewiredAction1;
 
     void Update() {
@@ -1057,23 +1168,23 @@ public class MyClass : MonoBehaviour {
 }</pre>
 <p>&nbsp;</p>
 <hr />
-<h3><a name="press-start-to-join" id="press-start-to-join"></a>Implementing a &quot;Press Start to Join&quot; controller assignment system</h3>
-<p>Normally, Rewired will assign controllers to Players when each controller is detected based on settings in the Rewired Input Manager -&gt; Settings page. This will assign a controller to each Player in order as they become available so that the first joystick is assigned to Player 0, the second to Player 1, and so on. But the question has come up many times as to how to be able to let users just pick up any attached controller and press &quot;Start&quot;, then have that player join as the next available Player with that controller assigned. This kind of assignment method isn't as straightforward to implement.</p>
-<p>First you should understand a little bit how controller maps work. Controller maps are loaded by the Player, not the Controller, therefore there is no Action named &quot;Start&quot; in that controller from which to generate input unless you assign that controller to a Player first. Because if this, you cannot simply ask each unassigned controller for the value of &quot;Start&quot; to determine if a player wants to join because it doesn't have access to any controller maps.<br />
+<h3><a name="press-start-to-join" id="press-start-to-join"></a>Implementing a &quot;Press Start to Join&quot; Joystick assignment system</h3>
+<p>Normally, Rewired will assign <a href="Controllers.html#joysticks">Joysticks</a><a href="Controllers.html"></a> to <a href="Players.html">Players</a> when each controller<a href="Controllers.html"></a> is detected based on settings in the Rewired Input Manager -&gt; Settings page. This will assign a <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> to each <a href="Players.html">Player</a> in order as they become available so that the first <a href="Controllers.html#joysticks">Joystick</a> is assigned to Player 0, the second to Player 1, and so on. But the question has come up many times as to how to be able to let users just pick up any attached controller and press &quot;Start&quot;, then have that player join as the next available <a href="Players.html">Player</a> with that <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> assigned. This kind of assignment method isn't as straightforward to implement.</p>
+<p>First you should understand a little bit how <a href="ControllerMaps.html">Controller Maps</a> work. <a href="ControllerMaps.html">Controller maps</a> are loaded by the <a href="Players.html">Player</a>, not the <a href="Controllers.html">Controller</a>, therefore there is no <a href="Actions.html">Action</a> named &quot;Start&quot; in the <a href="Controllers.html#joysticks">Joystick</a> from which to generate input unless you assign that <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> to a <a href="Players.html">Player</a> first. Because of this, you cannot simply ask each unassigned <a href="Controllers.html#joysticks">Joystick</a><a href="Controllers.html"></a> for the value of &quot;Start&quot; to determine if a player wants to join because it doesn't have access to any <a href="ControllerMaps.html">Controller Maps</a>.<br />
 </p>
 <p>There are various ways this assignment scheme can be achieved. Each method has its own advantages and disadvantages. Please read through them and decide which is most appropriate for your game.</p>
 <p><strong>Method 1: Using a variable Rewired.Player as an input source for your own Player object.</strong><br />
 </p>
 <ol>
-  <li>Make your Players (let's say Player 0 – 3) in the editor.</li>
-  <li>Assign them all joystick maps for the controllers you want to support.</li>
-  <li>Create a &ldquo;Start&rdquo; action and be sure it is assigned in the controller maps you assigned to the Players on some button -- preferably, multiple buttons just to be sure in case a particular controller has no Start button (or &ldquo;Center 2&rdquo; as defined in the <a href="http://guavaman.com/projects/rewired/docs/ControllerMaps.html#dual-analog-gamepad-template" target="_blank" rel="nofollow">Dual Analog Gamepad Template</a>.) A safe bet would be to put it on &ldquo;Center 2&rdquo; and &ldquo;Action Bottom Row 1&rdquo; for the Dual Analog Gamepad Template, and Button 0 on <a href="http://guavaman.com/projects/rewired/docs/ControllerMaps.html#unknown-controllers" target="_blank" rel="nofollow">Unknown Controller</a> (if you're defining an Unknown Controller map).</li>
-  <li>Leave controller auto assignment enabled. Rewired will give each Rewired.Player a controller if available.</li>
+  <li>Make your <a href="Players.html">Players</a> (let's say Player 0 – 3) in the editor.</li>
+  <li>Assign them all <a href="ControllerMaps.html">Joystick Maps</a> for the<a href="Controllers.html#joysticks">Joysticks</a> you want to support.</li>
+  <li>Create a &ldquo;Start&rdquo; action and be sure it is assigned in the <a href="ControllerMaps.html">Joystick Maps</a> you assigned to the <a href="Players.html">Players</a> on some button -- preferably, multiple buttons just to be sure in case a particular <a href="Controllers.html#joysticks">Joystick</a> has no Start button (or &ldquo;Center 2&rdquo; as defined in the <a href="http://guavaman.com/projects/rewired/docs/ControllerMaps.html#dual-analog-gamepad-template" target="_blank" rel="nofollow">Dual Analog Gamepad Template</a>.) A safe bet would be to put it on &ldquo;Center 2&rdquo; and &ldquo;Action Bottom Row 1&rdquo; for the Dual Analog Gamepad Template, and Button 0 on <a href="http://guavaman.com/projects/rewired/docs/ControllerMaps.html#unknown-controllers" target="_blank" rel="nofollow">Unknown Controller</a> (if you're defining an Unknown Controller Map).</li>
+  <li>Leave <a href="Controllers.html#joysticks">Joystick</a> auto-assignment enabled. Rewired will give each <a href="Players.html">Rewired.Player</a> a <a href="Controllers.html#joysticks">Joystick</a> if available.</li>
   <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_PlayerHelper_Players.htm" target="_blank" rel="nofollow">Loop through all Rewired.Players</a> and check for player.GetButtonDown(&ldquo;Start&rdquo;).</li>
-  <li>Now in your game code, simply assign whichever Rewired.Player returned TRUE to your game-side player object. Your game-side player object may be Player[0], but the Rewired.Player doesn&rsquo;t have to be. The user could press a button on the controller assigned to Rewired.Player[3], but you can still then use Rewired.Player[3] as the input source for your game-side Player[0].</li>
+  <li>Now in your game code, simply assign whichever <a href="Players.html">Rewired.Player</a> returned TRUE to your game-side player object. Your game-side player object may be Player[0], but the <a href="Players.html">Rewired.Player</a> doesn&rsquo;t have to be. The user could press a button on the <a href="Controllers.html#joysticks">Joystick</a> assigned to Rewired.Player[3], but you can still then use Rewired.Player[3] as the input source for your game-side Player[0].</li>
 </ol>
 <p><br />
-  If you also support Keyboard and Mouse, at that point you might want to go ahead and load the appropriate keyboard map layouts for your Player[0] into Rewired.Player[3]. This works best if keyboard layouts for the various in-game players will be fixed. IE: Player 1 always uses the WASD set, Player 2 always uses JIKM, etc. (There are ways to make this assignment dynamic too but that's not covered here.)</p>
+  If you also support Keyboard and Mouse, at that point you might want to go ahead and load the appropriate keyboard map <a href="Layouts.html">Layouts</a> for your Player[0] into Rewired.Player[3]. This works best if keyboard <a href="Layouts.html">Layouts</a> for the various in-game players will be fixed. IE: Player 1 always uses the WASD set, Player 2 always uses JIKM, etc. (There are ways to make this assignment dynamic too but that's not covered here.)</p>
 <p>The following code shows an example of one implmentation of Method 1:</p>
 <pre class="code">
 <span class="comment">/* Prerequisites:<br /> * 1. Create &quot;JoinGame&quot; Action.<br /> * 2. Create Map Categories &quot;Assignment&quot; and &quot;UI&quot;.<br /> * 3. Create Joystick and Keyboard Maps in the &quot;Assignment&quot; category that map &quot;JoinGame&quot;<br /> *    to some buttons/keys such as &quot;Start&quot; on in the Dual Analog Gamepad Template and &quot;Space&quot;<br /> *    and/or &quot;Enter&quot; in the Keyboard Map.<br /> * 4. Create Joystick and Keyboard Maps in the &quot;UI&quot; category for controlling the UI.<br /> * 5. Assign the &quot;Assignment&quot; maps to each Player (assign the Keyboard Map to only 1 Player unless you've<br /> *    created multiple in different layouts for each Player to use). Ensure they are set to be enabled on start.<br /> * 6. Assign the &quot;UI&quot; maps to each Player setting them to be disabled on start.<br /> * 7. Leave joystick auto-assignment enabled.<br /> */</span>
@@ -1145,18 +1256,18 @@ namespace Rewired.Demos {
 <p>&nbsp;</p>
 <p><strong>Method 2: Easy but does not detect &quot;Start&quot;, only any button press:</strong></p>
 <ol>
-  <li><a href="RewiredEditor.html#settings">Disable controller auto assignment</a> in the Rewired Editor.</li>
-  <li>In your script, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_ControllerHelper_Joysticks.htm" target="_blank" rel="nofollow">iterate over all joysticks</a> and check for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Controller_GetAnyButtonDown.htm" target="_blank">any button press</a>.</li>
-  <li><a href="#assigning-joysticks">Assign that joystick</a> to the first player.</li>
+  <li><a href="RewiredEditor.html#settings">Disable Joystick auto-assignment</a> in the Rewired Editor.</li>
+  <li>In your script, <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_ControllerHelper_Joysticks.htm" target="_blank" rel="nofollow">iterate over all Joysticks</a> and check for <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Controller_GetAnyButtonDown.htm" target="_blank">any button press</a>.</li>
+  <li><a href="#assigning-joysticks">Assign that Joystick</a> to the first <a href="Players.html">Player</a>.</li>
   </ol>
 <p>&nbsp;</p>
 <p><strong>Method 3: Detect &quot;Start&quot; button press manually:</strong></p>
     <ol>
-      <li> <a href="RewiredEditor.html#settings">(Optional) disable controller auto assignment</a> in the Rewired Editor.</li>
-      <li>  <a href="#assigning-joysticks">Assign all controllers</a> to the System Player on start so we can detect the result of Actions on Start and whenever one is connected.</li>
-      <li>  <a href="#get-input">Check for the value of the &quot;Start&quot; Action</a> you've created and assigned to the Start button or other appropriate button in your controller maps.</li>
-      <li><a href="#get-contributing-input-sources">Get a list of contributing input sources for the &quot;Start&quot; Action</a> and get the target controller from <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_InputActionSourceData_controller.htm">InputActionSourceData.controller</a>.</li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_AddController.htm" target="_blank" rel="nofollow">Assign that controller to Player 1 and deassign it from System</a>.</li>
+      <li> <a href="RewiredEditor.html#settings">(Optional) disable Joystick auto-assignment</a> in the Rewired Editor.</li>
+      <li>  <a href="#assigning-joysticks">Assign all Joysticks</a> to the <a href="Players.html#system-player">System Player</a> on start so we can detect the result of <a href="Actions.html">Actions</a> on Start and whenever one is connected.</li>
+      <li>  <a href="#get-input">Check for the value of the &quot;Start&quot; Action</a> you've created and assigned to the Start button or other appropriate button in your <a href="ControllerMaps.html">Joystick Maps</a>.</li>
+      <li><a href="#get-contributing-input-sources">Get a list of contributing input sources for the &quot;Start&quot; Action</a> and get the target <a href="Controllers.html#joysticks">Joystick</a> from <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_InputActionSourceData_controller.htm">InputActionSourceData.controller</a>.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_AddController.htm" target="_blank" rel="nofollow">Assign that Joystick to Player 1 and deassign it from System</a>.</li>
 </ol>
   </ol>
   <p>The following code shows an example implementation of Method 3:</p>
@@ -1294,11 +1405,11 @@ namespace Rewired.Demos {
   <p>&nbsp;</p>
   <p>    A quicker but less accurate method would be to do step 1-3 above then:<strong><br />
       </strong><br />
-    Loop through each controller in the System Player and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Controller_GetLastTimeAnyButtonPressed.htm" target="_blank" rel="nofollow">find out which controller was the last to have any button pressed</a> and assign that controller to the Player.<br />
+    Loop through each <a href="Controllers.html#joysticks">Joystick</a> in the <a href="Players.html#system-player">System Player</a> and <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Controller_GetLastTimeAnyButtonPressed.htm" target="_blank" rel="nofollow">find out which Joystick was the last to have any button pressed</a> and assign that <a href="Controllers.html#joysticks">Joystick</a> to the <a href="Players.html">Player</a>.<br />
     <br />
-    This isn't perfect since any button could have been pressed on any controller besides the ones assigned to the &quot;Start&quot; action, but in most cases it would probably work fine.<br />
+    This isn't perfect since any button could have been pressed on any <a href="Controllers.html#joysticks">Joystick</a> besides the ones assigned to the &quot;Start&quot; action, but in most cases it would probably work fine.<br />
     <br />
-    There are also other functions to get the last active controller, but they won't help you here because you're only concerned with the &quot;Start&quot; button press and not axes, etc.<br />
+    There are also other functions to get the last active <a href="Controllers.html#joysticks">Joystick</a>, but they won't help you here because you're only concerned with the &quot;Start&quot; button press and not axes, etc.<br />
     <br />
     <strong>Method 4:</strong> This method only works if you know your users are going to only be using one specific controller type (such as an Xbox controller on an Xbox system).<br />
     </p>
@@ -1309,50 +1420,23 @@ namespace Rewired.Demos {
     </ol>
   <p>&nbsp;</p>
 <hr />
-    <h3><a name="controller-mapping-screen" id="controller-mapping-screen"></a>Creating a controller mapping screen</h3>
-    <p>Rewired now includes <a href="ControlMapper.html">Control Mapper</a>, a customizable UI control mapping system built with uGUI that should fit the needs of many games. Please see <a href="ControlMapper.html">Control Mapper</a> for more information.</p>
-    <p><strong>Creating a mapping screen from scratch</strong></p>
-    <p>Creating a mapping screen can be a difficult task. To get you started, see the example mapping screen in Rewired/Examples/ControlRemapping1. You should be able to adapt this remapping example to fit the needs of your game. The example uses Unity's legacy GUI system.</p>
-    <p>Every game's needs are different with regards to user mapping screens. The example project was built for a fairly complex game with a number of players and various game modes and supports saving and loading maps, controller assignment, element remapping, calibration, conflict checking, and more. You should be able to learn what you need to from the example project to customize your own mapping screen.</p>
-    <p><strong>IMPORTANT NOTE:</strong><br />
-    The ControlRemapping1 demo is  2,000 lines of code. If you are afraid of reading through that much code, stop now and use <a href="ControlMapper.html">Control Mapper</a> instead. The vast majority of that code is GUI code to handle all the modal boxes and such. There is a wealth of information in this demo.</p>
-    <p>Just as a brief summary, the basic process for changing an element's mapping goes like this:</p>
-    <ol>
-      <li> <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_PlayerHelper_GetPlayer.htm">Get the Player</a> for which you are changing element mappings.</li>
-      <li>Get the ControllerMap you want to modify from the Player.<br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">Various functions here</a> can help in finding it. For example:<br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetMap.htm">player.controllers.maps.GetMap</a></li>
-      <li>Modify an existing ActionElementMap or create a new one with your new assignment. You have your choice of ways to do this, some of which are:<br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ControllerMap_ReplaceOrCreateElementMap.htm">ControllerMap.ReplaceOrCreateElementMap</a><br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ControllerMap_ReplaceElementMap.htm">ControllerMap.ReplaceElementMap</a><br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ControllerMap_GetFirstElementMapWithAction.htm">ControllerMap.GetFirstElementMapWithAction</a> (then modify its properties directly)<br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ControllerMap_GetElementMapsWithAction.htm">ControllerMap.GetElementMapsWithAction</a><br />
-        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Methods_T_Rewired_ControllerMap.htm">There are more methods here.</a></li>
-    </ol>
-<p> Note that the above summary does not include the extra steps as shown in the demo which cover conflict checking, how to map axes to buttons and vice versa, dealing with split axes, how to poll for input, saving/loading, and a whole lot more. That's all detailed in the demo, so please read through it to learn how it's done.</p>
-    <p><strong>IMPORTANT NOTE 2:<br />
-    </strong>Creating your own control remapping system is not for beginners and requires patience and a certain level of programming skill. If you do not have the necessary programming skills, patience, or willingness to roll up your sleeves and dig into the code to learn how to do it, you shouldn't attempt it. If your programming skills are at a level where you need a step-by-step tutorial, this topic is too advanced for you. The purpose of this example is to learn the API. If you are looking for a drop-in control remapping system that doesn't require coding, please see <a href="ControlMapper.html">Control Mapper</a>.</p>
-<p><strong>Question:</strong> Can you give me a quick and simple example of how to handle control remapping?</p>
-<p><a href="FAQ.html#control-remapping">See this answer in the FAQ</a>.</p>
-<p>&nbsp;</p>
-<hr />
-    <h3><a name="saving-loading-controller-maps" id="saving-loading-controller-maps"></a>Saving and loading controller maps</h3>
-    <p><a href="UserDataStore.html">UserDataStore</a> is a class designed to help with saving and loading of controller maps, Input Behaviors, calibration settings, and more. Please see <a href="UserDataStore.html">User Data Store</a> for more information.</p>
-    <p>There are several steps involved in saving and loading controller maps.</p>
+    <h3><a name="saving-loading-controller-maps" id="saving-loading-controller-maps"></a>Saving and loading Controller Maps</h3>
+    <p><a href="UserDataStore.html">UserDataStore</a> is a class designed to help with saving and loading of <a href="ControllerMaps.html">Controller Maps</a>, <a href="InputBehaviors.html">Input Behaviors</a>, calibration settings, and more. Please see <a href="UserDataStore.html">User Data Store</a> for more information.</p>
+    <p>There are several steps involved in saving and loading <a href="ControllerMaps.html">Controller Maps</a>.</p>
 <p><strong>Saving:</strong></p>
     <ol>
-      <li>Get the save data from each Player in XML format.</li>
+      <li>Get the save data from each <a href="Players.html">Player</a> in XML format.</li>
       <li>Save the data to a storage medium.</li>
     </ol>
     <p><strong>Loading:</strong></p>
     <ol>
-      <li>Identify the controllers you want to load maps for.</li>
+      <li>Identify the <a href="Controllers.html">Controllers</a> you want to load maps for.</li>
       <li>Load the map data in XML format.</li>
-      <li>Set the map data in the Player.</li>
+      <li>Set the map data in the <a href="Players.html">Player</a>.</li>
     </ol>
     <p>Rewired  includes a basic system for storing the saved XML data -- <a href="UserDataStore.html">UserDataStore_PlayerPrefs</a> which may not be suitable for everyone. Since every game and platform may have different requirements for data storage, you will probably want to write your own data storage system for your specific needs. You will have to save the data in a format most suitable to your game and platform. Possible options are PlayerPrefs, a database, binary or text files, cloud storage, etc. (<a href="UserDataStore.html">UserDataStore</a> can optionally be extended to support any storage medium.)<br />
     </p>
-    <p>The example mapping demo in Rewired/Examples/ControlRemapping1 includes saving and loading of Controller Maps, Axis Calibration Maps, and Input Behaviors. See this demo project to learn the process of saving and loading. Note: The demo project uses PlayerPrefs for the data storage medium. This is not ideal, but was done for simplicity and cross-platform compatibility for the example. It should not be difficult to substitute another storage medium suitable to your platform.    </p>
+    <p>The example mapping demo in Rewired/Examples/ControlRemapping1 includes saving and loading of <a href="ControllerMaps.html">Controller Maps</a>, Axis Calibration Maps, and <a href="InputBehaviors.html">Input Behaviors</a>. See this demo project to learn the process of saving and loading. Note: The demo project uses PlayerPrefs for the data storage medium. This is not ideal, but was done for simplicity and cross-platform compatibility for the example. It should not be difficult to substitute another storage medium suitable to your platform. </p>
     <p><strong>Example Code from the ControlRemapping1 (see example in Rewired/Examples/ControlRemapping1 for complete code)</strong></p>
     <pre class="code">private void SaveAllMaps() {
     <span class="comment">// This example uses PlayerPrefs because its convenient, though not efficient, but you could use any data storage method you like.</span>
@@ -1445,20 +1529,20 @@ private void LoadAllMaps() {
     }
 }</pre>
     <p><strong>Loading the Default Controller Maps:</strong></p>
-<p>Default controller maps are stored in the Rewired Input Manager. You can load the defaults for a Player by using these methods:</p>
+<p>Default <a href="ControllerMaps.html">Controller Maps</a> are stored in the Rewired Input Manager. You can load the defaults for a <a href="Players.html">Player</a> by using these methods:</p>
     <ul>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_MapHelper_LoadDefaultMaps.htm">player.controllers.maps.LoadDefaultMaps</a> - Loads all default maps from the Rewired Input Manager for all currently-connected devices. Replaces any existing maps already existing in Player.</li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_LoadMap.htm">player.controllers.maps.LoadMap</a> - Loads a single map from the Rewired Input Manager.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_MapHelper_LoadDefaultMaps.htm">player.controllers.maps.LoadDefaultMaps</a> - Loads all default <a href="ControllerMaps.html">Controller Maps</a> from the Rewired Input Manager for all currently-connected devices. Replaces any existing  <a href="ControllerMaps.html">Controller Maps</a> already existing in <a href="Players.html">Player</a>.</li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_LoadMap.htm">player.controllers.maps.LoadMap</a> - Loads a single  <a href="ControllerMaps.html">Controller Map</a> from the Rewired Input Manager.</li>
     </ul>
     <p>&nbsp;</p>
     <p><strong>Useful API Reference:</strong></p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_GetSaveData.htm">Player.GetSaveData</a> - Get all save data from the player at once. This includes controller map data.</p>
-    <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">player.controllers.maps</a> - Methods to get, set, and work with controller maps in Player.</p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_GetSaveData.htm">Player.GetSaveData</a> - Get all save data from the player at once. This includes <a href="ControllerMaps.html"> Controller Map</a> data.</p>
+    <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">player.controllers.maps</a> - Methods to get, set, and work with <a href="ControllerMaps.html"> Controller Maps</a> in <a href="Players.html">Player</a>.</p>
     <p>&nbsp;</p>
 <hr />
-    <h3><a name="saving-loading-calibration-maps" id="saving-loading-calibration-maps"></a>Saving and loading calibration maps</h3>
-    <p><a href="UserDataStore.html">UserDataStore</a> is a class designed to help with saving and loading of controller maps, Input Behaviors, calibration settings, and more. Please see <a href="UserDataStore.html">User Data Store</a> for more information.</p>
-    <p>The process for saving and loading calibration maps is very similar to <a href="#saving-loading-controller-maps">Saving and loading controller maps</a>, except instead of getting the maps from the Player, you must get the Calibration Map data from the controllers themselves.</p>
+    <h3><a name="saving-loading-calibration-maps" id="saving-loading-calibration-maps"></a>Saving and loading Calibration Maps</h3>
+    <p><a href="UserDataStore.html">UserDataStore</a> is a class designed to help with saving and loading of <a href="ControllerMaps.html"> Controller Maps</a>, <a href="InputBehaviors.html">Input Behaviors</a>, calibration settings, and more. Please see <a href="UserDataStore.html">User Data Store</a> for more information.</p>
+    <p>The process for saving and loading calibration maps is very similar to <a href="#saving-loading-controller-maps">Saving and loading Controller Maps</a>, except instead of getting the maps from the <a href="Players.html">Player</a>, you must get the Calibration Map data from the <a href="Controllers.html">Controllers</a> themselves.</p>
     <p><strong>Example Code from the ControlRemapping1 (see example in Rewired/Examples/ControlRemapping1 for complete code)</strong></p>
     <pre class="code">private void SaveAllMaps() {
     <span class="comment">// ... Removed controller map saving code</span>
@@ -1483,28 +1567,67 @@ private void LoadAllMaps() {
     }
 }    </pre>
     <p><strong>Useful API Reference:</strong></p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">player.controllers.maps</a> - Methods to get, set, and work with controller maps in Player.</p>
-    <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ControllerWithAxes_calibrationMap.htm">Joystick.calibrationMap</a> - Get the calibration map from the controller</p>
-    <p><span class="code"><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_GetCalibrationMapSaveData.htm">Joystick.GetCalibrationMapSaveData</a></span> - Get the calibration map save data</p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">player.controllers.maps</a> - Methods to get, set, and work with <a href="ControllerMaps.html">Controller Maps</a> in <a href="Players.html">Player</a>.</p>
+    <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ControllerWithAxes_calibrationMap.htm">Joystick.calibrationMap</a> - Get the Calibration Map from the <a href="Controllers.html">Controller</a>.</p>
+    <p><span class="code"><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Joystick_GetCalibrationMapSaveData.htm">Joystick.GetCalibrationMapSaveData</a></span> - Get the Calibration Map save data.</p>
     <p>&nbsp;</p>
     <hr />
     <h3><a name="modifying-input-behaviors-during-runtime" id="modifying-input-behaviors-during-runtime"></a>Modifying Input Behaviors during runtime</h3>
-    <p>Get the Input Behavior you wish to modify from the Player.</p>
-    <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_MappingHelper_GetInputBehaviors.htm">ReInput.mapping.GetInputBehaviors</a> - Gets a list of input behaviors from a specific player.<br />
-    <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_MappingHelper_GetInputBehavior.htm">ReInput.mapping.GetInputBehavior</a> - Get a specific Input Behavior from a Player.</p>
-    <p>Once you have the Input Behavior, modify any property you wish.</p>
+    <p>Get the <a href="InputBehaviors.html">Input Behavior</a> you wish to modify from the <a href="Players.html">Player</a>.</p>
+    <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_MappingHelper_GetInputBehaviors.htm">ReInput.mapping.GetInputBehaviors</a> - Gets a list of <a href="InputBehaviors.html">input behavior</a>s from a specific player.<br />
+    <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_MappingHelper_GetInputBehavior.htm">ReInput.mapping.GetInputBehavior</a> - Get a specific <a href="InputBehaviors.html">Input Behavior</a> from a <a href="Players.html">Player</a>.</p>
+    <p>Once you have the <a href="InputBehaviors.html">Input Behavior</a>, modify any property you wish.</p>
     <p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_InputBehavior.htm">API Reference - InputBehavior</a></p>
-    <p>You can save Input Behaviors to XML so your runtime changes can be loaded in another game session. The example mapping demo in Rewired/Examples/ControlRemapping1 includes saving and loading of Controller Maps, Axis Calibration Maps, and Input Behaviors. See the example for information on how to save and load Input Behaviors.</p>
+    <p>You can save <a href="InputBehaviors.html">Input Behaviors</a> to XML so your runtime changes can be loaded in another game session. The example mapping demo in Rewired/Examples/ControlRemapping1 includes saving and loading of <a href="ControllerMaps.html">Controller Maps</a>, Axis Calibration Maps, and <a href="InputBehaviors.html">Input Behaviors</a>. See the example for information on how to save and load <a href="InputBehaviors.html">Input Behaviors</a>.</p>
     <p>&nbsp;</p>
 <hr />
     <h3><a name="on-screen-touch-controllers" id="on-screen-touch-controllers"></a>Creating on-screen touch controllers</h3>
     <p>Touch controllers can be created with the help of <a href="CustomControllers.html">Custom Controllers</a>.</p>
     <p>Please see the touch controller example in Rewired/Examples/CustomControllers_Touch.</p>
-    <p>In a future update, a ready-made drop-in touch controller may be included.</p>
+    <p>In a future update, ready-made drop-in touch controllers may be included.    </p>
+    <p>&nbsp;</p>
+    <hr />
+    <h3><a name="controller-mapping-screen" id="controller-mapping-screen"></a>Creating a controller mapping screen</h3>
+    <p>Rewired now includes <a href="ControlMapper.html">Control Mapper</a>, a customizable UI control mapping system built with Unity UI that should fit the needs of many games. Please see <a href="ControlMapper.html">Control Mapper</a> for more information.</p>
+    <p><strong>Creating a mapping screen from scratch</strong></p>
+    <p>Creating a mapping screen can be a difficult task. To get you started, see the example mapping screen in Rewired/Examples/ControlRemapping1. You should be able to adapt this remapping example to fit the needs of your game. The example uses Unity's legacy GUI system.</p>
+    <p>Every game's needs are different with regards to user mapping screens. The example project was built for a fairly complex game with a number of players and various game modes and supports saving and loading <a href="ControllerMaps.html">Controller Maps</a>, <a href="Controllers.html#joysticks">Joystick</a> assignment, element remapping, calibration, conflict checking, and more. You should be able to learn what you need to from the example project to customize your own mapping screen.</p>
+    <p><strong>IMPORTANT NOTE:</strong><br />
+      The ControlRemapping1 demo is  2,000 lines of code. If you are afraid of reading through that much code, stop now and use <a href="ControlMapper.html">Control Mapper</a> instead. The vast majority of that code is GUI code to handle all the modal boxes and such. There is a wealth of information in this demo.</p>
+    <p>Before beginning, it is very important to understand the Controller Map structure and how input is processed in a Player. Please read <a href="ControllerMaps.html">Controller Maps</a> and also <a href="ControllerMaps.html#how-input-is-processed">Controller Maps - How Input is Processed in Controller Maps</a> for more information.</p>
+    <p>Just as a brief summary, the basic process for changing an element's mapping goes like this:</p>
+    <ol>
+      <li> <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ReInput_PlayerHelper_GetPlayer.htm">Get the Player</a> for which you are changing element mappings.</li>
+      <li>Get the <a href="ControllerMaps.html">ControllerMap</a> you want to modify from the <a href="Players.html">Player</a>.<br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Player_ControllerHelper_MapHelper.htm">Various functions here</a> can help in finding it. For example:<br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_GetMap.htm">player.controllers.maps.GetMap</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_ControllerHelper_PollingHelper.htm">Poll for input from a Controller</a> to determine the element the user wants to bind.</li>
+      <li>Optionally <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ReInput_ControllerHelper_ConflictCheckingHelper.htm">check for element assignment conflicts</a>.</li>
+      <li>Modify an existing <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ActionElementMap.htm">ActionElementMap</a> or create a new one with your new assignment. You have your choice of ways to do this, some of which are:<br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ControllerMap_ReplaceOrCreateElementMap.htm">ControllerMap.ReplaceOrCreateElementMap</a><br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ControllerMap_ReplaceElementMap.htm">ControllerMap.ReplaceElementMap</a><br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ControllerMap_GetFirstElementMapWithAction.htm">ControllerMap.GetFirstElementMapWithAction</a> (then modify its properties directly)<br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_ControllerMap_GetElementMapsWithAction.htm">ControllerMap.GetElementMapsWithAction</a><br />
+        <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Methods_T_Rewired_ControllerMap.htm">There are more methods here.</a></li>
+    </ol>
+    <p> Note that the above summary does not include the extra steps as shown in the demo which cover conflict checking, how to map axes to buttons and vice versa, dealing with split axes, how to poll for input, saving/loading, and a whole lot more. That's all detailed in the demo, so please read through it to learn how it's done.</p>
+    <p><strong>IMPORTANT NOTE 2:<br />
+    </strong>Creating your own control remapping system is not for beginners and requires patience and a certain level of programming skill. If you do not have the necessary programming skills, patience, or willingness to roll up your sleeves and dig into the code to learn how to do it, you shouldn't attempt it. If your programming skills are at a level where you need a step-by-step tutorial, this topic is too advanced for you. The purpose of this example is to learn the API. If you are looking for a drop-in control remapping system that doesn't require coding, please see <a href="ControlMapper.html">Control Mapper</a>.</p>
+    <p><strong>Question:</strong> Can you give me a quick and simple example of how to handle control remapping?</p>
+    <p><a href="FAQ.html#control-remapping">See this answer in the FAQ</a>.</p>
+    <p><strong>Question:</strong> I do not want to read through the code of ControlRemapping1 or Control Mapper because they're too long and complex and I do not like reading other people's code. Give me a simple example.</p>
+    <p> <a href="http://guavaman.com/projects/rewired/files/docs/RewiredSimpleJoystickRemapping.zip">This link contains a super minimalist joystick remapping example</a> and <a href="http://guavaman.com/projects/rewired/files/docs/ControlRemappingDemo_KeyboardBasic.zip">this link contains a keyboard remapping example</a>. <strong>I do not endorse using these  
+      examples</strong> to learn how to use the Rewired API for controller remapping because 
+      they are a gross over-simplification of the process and completely disregard 
+      many very important issues with regard to remapping controls, all of which 
+      are handled properly and demonstrated in both the ControlRemapping1 demo
+      code and in the Control Mapper code. I strongly suggest you read through the 
+      source code in ControlRemapping1 if you want to learn how the remapping API 
+      works when used properly.</p>
     <p>&nbsp;</p>
     <hr />
     <h3><a name="new-controller-definitions" id="new-controller-definitions"></a>Creating new controller definitions</h3>
-    <p><em>This is an advanced topic. Creating definitions requires a number of tools to help identify the elements and requires thorough testing on several platforms if you desire cross-platform compatibility. To make this process easier, if you have a joystick you want to support, please let me know via the support form on the website. I will do my best to get ahold of the controller and add definitions for it. If I cannot, you can arrange to mail the controller to me and I will add definitions for it and then mail it back to you.</em></p>
+    <p><em>This is an advanced topic. Creating definitions requires a number of tools to help identify the elements and requires thorough testing on several platforms if you desire cross-platform compatibility. To make this process easier, if you have a controller you want to support, please let me know via the support form on the website. I will do my best to get ahold of the controller and add definitions for it. If I cannot, you can arrange to mail the controller to me and I will add definitions for it and then mail it back to you.</em></p>
     <p><a href="https://www.youtube.com/watch?v=VkYVkRnjgjk" target="_blank">A video tutorial is available on YouTube here.</a></p>
     <p><strong>IMPORTANT:</strong> Not all controllers are suitable for automatic recognition. Creating definitions for some controllers can cause many problems. <a href="FAQ.html#addding-controller-definitions">Read this first before making a new controller definition</a>.</p>
     <p>You can create your own controller definitions if you want to support a specific controller without requiring the user manually map their controller elements. However there are several things you need to be aware of if you want to modify the list of supported controllers:</p>
@@ -1522,7 +1645,7 @@ private void LoadAllMaps() {
       <li>Drag and drop your new Hardware Joystick Map into the new element in the array.</li>
       <li>Now, to edit your new Hardware Joystick Map, click its file and then click &quot;Launch Hardware Joystick Map Editor&quot; in the inspector.</li>
       
-      <li>Edit the hardware joystick map. The process is as follows:
+      <li>Edit the Hardware Joystick Map. The process is as follows:
         <ul>
           <li>Create Element Identifiers for each of the controller's physical elements. An element can be designated as an Axis or a Button.</li>
           <li>Select a platform you wish to map such as Raw/Direct Input.</li>
@@ -1538,7 +1661,7 @@ private void LoadAllMaps() {
 <p><img src="files/images/hardwarejoystickmapeditor_settings.png" alt="Hardware Joystick Map Editor" /></p>
 <hr />
     <h3><a name="new-controller-templates" id="new-controller-templates"></a>Creating new controller templates</h3>
-<p><em>This is an advanced topic. Creating definitions requires a number of tools to help identify the elements and requires thorough testing on several platforms if you desire cross-platform compatibility. To make this process easier, if you have a joystick you want to support, please let me know via the support form on the website. I will do my best to get ahold of the controller and add definitions for it. If I cannot, you can arrange to mail the controller to me and I will add definitions for it and then mail it back to you.</em></p>
+<p><em>This is an advanced topic. Creating definitions requires a number of tools to help identify the elements and requires thorough testing on several platforms if you desire cross-platform compatibility. To make this process easier, if you have a controller you want to support, please let me know via the support form on the website. I will do my best to get ahold of the controller and add definitions for it. If I cannot, you can arrange to mail the controller to me and I will add definitions for it and then mail it back to you.</em></p>
     <p>See <a href="#new-controller-definitions">Creating new controller definitions</a> for precautions on working with ControllerDataFiles and Hardware Joystick Maps as the same rules apply here.</p>
     <ol>
       <li>Create a new HardwareJoystickTemplateMap object from the menu: Window -&gt; Rewired -&gt; Create -&gt; Assets -&gt; Hardware Joystick Template Map.</li>
@@ -1551,7 +1674,7 @@ private void LoadAllMaps() {
     <p>&nbsp;</p>
 <hr />
     <h3><a name="add-controller-to-existing-controller-template" id="new-controller-templates2"></a>Adding a controller to an existing controller template</h3>
-    <p><em>This is an advanced topic. Creating definitions requires a number of tools to help identify the elements and requires thorough testing on several platforms if you desire cross-platform compatibility. To make this process easier, if you have a joystick you want to support, please let me know via the support form on the website. I will do my best to get ahold of the controller and add definitions for it. If I cannot, you can arrange to mail the controller to me and I will add definitions for it and then mail it back to you.</em></p>
+    <p><em>This is an advanced topic. Creating definitions requires a number of tools to help identify the elements and requires thorough testing on several platforms if you desire cross-platform compatibility. To make this process easier, if you have a controller you want to support, please let me know via the support form on the website. I will do my best to get ahold of the controller and add definitions for it. If I cannot, you can arrange to mail the controller to me and I will add definitions for it and then mail it back to you.</em></p>
     <p>See <a href="#new-controller-definitions">Creating new controller definitions</a> for precautions on working with ControllerDataFiles and Hardware Joystick Maps as the same rules apply here.</p>
     <p><a href="https://www.youtube.com/watch?v=VkYVkRnjgjk" target="_blank">A video tutorial is available on YouTube here.</a></p>
     <p>You can add a new controller definition to an existing template. Be sure the new controller has similar elements and a similar layout. The steps are as follows:</p>
@@ -1581,34 +1704,34 @@ private void LoadAllMaps() {
     </ol>
   <p>&nbsp;</p>
 <hr />
-  <h3><a name="identifying-recognized-controllers" id="identifying-recognized-controllers"></a>Identifying recognized controllers by type</h3>
-<p><br /> 
-  If you need to identify a controller for some reason (you're building a controller element glyph table for example), you can determine the identity of a joystick by using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">joystick.hardwareTypeGuid property</a>. This will return the unique GUID of the joystick type. (Note: This is a Rewired-generated GUID, not  from the hardware.) This GUID can be found in each HardwareJoystickMap on the Settings page.</p>
-<p>If a controller is not a recognized controller, it will always return Guid.Empty (all zeros).</p>
+  <h3><a name="identifying-recognized-controllers" id="identifying-recognized-controllers"></a>Identifying recognized Joysticks by type</h3>
+<p>
+  If you need to identify a <a href="Controllers.html#joysticks">Joystick</a> for some reason (you're building a controller element glyph table for example), you can determine the identity of a <a href="Controllers.html#joysticks">Joystick</a> by using the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">joystick.hardwareTypeGuid property</a>. This will return the unique GUID of the <a href="Controllers.html#joysticks">Joystick</a> type. (Note: This is a Rewired-generated GUID, not  from the hardware.) This GUID can be found in each HardwareJoystickMap on the Settings page.</p>
+<p>If a <a href="Controllers.html#joysticks">Joystick</a> is not a recognized controller, it will always return Guid.Empty (all zeros).</p>
 <p>&nbsp; </p>
 <hr />
-  <h3><a name="identifying-joysticks-windows-fallback-or-webplayer" id="identifying-joysticks-windows-fallback-or-webplayer"></a>Identifying joysticks on Windows fallback or Windows Webplayer platforms</h3>
-<p><strong>Update:</strong> Unity fixed this issue on Windows in Unity 4.6.3p1 and an early version of Unity 5.x. You can check if the current version of Unity includes the fix by checking the value of <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_unityJoystickIdentificationRequired.htm">ReInput.unityJoystickIdentificationRequired</a>. If true, you should allow your players to manually identify joysticks using the methods described below.</p>
+  <h3><a name="identifying-joysticks-windows-fallback-or-webplayer" id="identifying-joysticks-windows-fallback-or-webplayer"></a>Identifying controllers on Windows fallback or Windows Webplayer platforms</h3>
+<p><strong>Update:</strong> Unity fixed this issue on Windows in Unity 4.6.3p1 and an early version of Unity 5.x. You can check if the current version of Unity includes the fix by checking the value of <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_unityJoystickIdentificationRequired.htm">ReInput.unityJoystickIdentificationRequired</a>. If true, you should allow your players to manually identify controllers using the methods described below.</p>
 <p><strong>Update 2:</strong> Windows UWP in Unity fallback mode also has this same issue.</p>
-<p>Because of limitations of Unity's input system, you need to take special measures on these platforms for joysticks on Windows Standalone (only if you're <strong>not</strong> using native input -- Raw Input, Direct Input, or XInput -- native input does not have this problem) and Windows Webplayer (native input is not available in Webplayer). Note: This procedure is not required for OSX or other platforms.</p>
+<p>Because of limitations of Unity's input system, you need to take special measures on these platforms for controllers on Windows Standalone (only if you're <strong>not</strong> using native input -- Raw Input, Direct Input, or XInput -- native input does not have this problem) and Windows Webplayer (native input is not available in Webplayer). Note: This procedure is not required for OSX or other platforms.</p>
 
-<p>Unity's input system has a major problem that makes it impossible to accurately identify which joystick id belongs to which physical joystick in Windows. To solve this issue, at game start and at any point a joystick is either connected or disconnected, you should ask the user to manually identify each joystick one-by-one by pressing a button on the joystick that matches the name displayed on-screen.</p>
+<p>Unity's input system has a major problem that makes it impossible to accurately identify which joystick id belongs to which physical controller in Windows. To solve this issue, at game start and at any point a controller is either connected or disconnected, you should ask the user to manually identify each controller one-by-one by pressing a button on the controller that matches the name displayed on-screen.</p>
 <p>Rewired provides several functions to facilitate joystick identification:</p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_GetUnityJoystickIdFromAnyButtonOrAxisPress.htm">GetUnityJoystickIdFromAnyButtonOrAxisPress</a> - Returns the 0 based id of the Unity joystick whose button or axis was pressed. -1 if no button or axis was pressed on any joystick.            Use this to identify joysticks when using Unity's input system.            This has no effect if Unity Input is not handling input on the current platform. </p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_GetUnityJoystickIdFromAnyButtonPress.htm">GetUnityJoystickIdFromAnyButtonPress</a> - Returns the 0 based id of the Unity joystick whose button was pressed. -1 if no button was pressed on any joystick.            Use this to identify joysticks when using Unity's input system.            This has no effect if Unity Input is not handling input on the current platform. </p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetUnityJoystickIdFromAnyButtonOrAxisPress.htm">ReInput.controllers.SetUnityJoystickIdFromAnyButtonOrAxisPress</a> - Sets a Unity joystick as the input source of a Joystick.            The first Unity joystick that returns a button or axis press will be assigned to the Joystick.            While no buttons or axes are pressed, this will return False. When a press is detected, it will return True and assign the joystick id. </p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetUnityJoystickIdFromAnyButtonPress.htm">ReInput.controllers.SetUnityJoystickIdFromAnyButtonPress</a> - Sets a Unity joystick as the input source of a Joystick.            The first Unity joystick that returns a button press will be assigned to the Joystick.            While no buttons are pressed, this will return False. When a button press is detected, it will return True and assign the joystick id. </p>
-<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetUnityJoystickId.htm">ReInput.controllers.SetUnityJoystickId</a> - Sets a Unity joystick as the input source of a Joystick.            Use this to remap a joystick to its source when reconnected on platforms that use Unity Input.            This has no effect if Unity Input is not handling input on the current platform.</p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_GetUnityJoystickIdFromAnyButtonOrAxisPress.htm">GetUnityJoystickIdFromAnyButtonOrAxisPress</a> - Returns the 0 based id of the Unity joystick whose button or axis was pressed. -1 if no button or axis was pressed on any joystick.            Use this to identify controllers when using Unity's input system.            This has no effect if Unity Input is not handling input on the current platform. </p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_GetUnityJoystickIdFromAnyButtonPress.htm">GetUnityJoystickIdFromAnyButtonPress</a> - Returns the 0 based id of the Unity joystick whose button was pressed. -1 if no button was pressed on any joystick.            Use this to identify controllers when using Unity's input system.            This has no effect if Unity Input is not handling input on the current platform. </p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetUnityJoystickIdFromAnyButtonOrAxisPress.htm">ReInput.controllers.SetUnityJoystickIdFromAnyButtonOrAxisPress</a> - Sets a Unity joystick as the input source of a <a href="Controllers.html#joysticks">Joystick</a>.            The first Unity joystick that returns a button or axis press will be assigned to the <a href="Controllers.html#joysticks">Joystick</a>.            While no buttons or axes are pressed, this will return False. When a press is detected, it will return True and assign the joystick id. </p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetUnityJoystickIdFromAnyButtonPress.htm">ReInput.controllers.SetUnityJoystickIdFromAnyButtonPress</a> - Sets a Unity joystick as the input source of a <a href="Controllers.html#joysticks">Joystick</a>. The first Unity joystick that returns a button press will be assigned to the <a href="Controllers.html#joysticks">Joystick</a>.            While no buttons are pressed, this will return False. When a button press is detected, it will return True and assign the joystick id. </p>
+<p><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetUnityJoystickId.htm">ReInput.controllers.SetUnityJoystickId</a> - Sets a Unity joystick as the input source of a <a href="Controllers.html#joysticks">Joystick</a>.            Use this to remap a <a href="Controllers.html#joysticks">Joystick</a> to its source when reconnected on platforms that use Unity Input.            This has no effect if Unity Input is not handling input on the current platform.</p>
 <p>An example is included in Rewired/Examples/FallbackJoystickIdentification which you can look at to see how this is done.</p>
 <p>The basic idea is this:</p>
 <ol>
   <li>At game start, pop up a GUI asking the user to press a button on each named controller.</li>
-  <li>When the user presses the button, set the joystick id on the joystick so Rewired can identify which joystick it is.</li>
-  <li>Repeat the above steps for each joystick in the system.</li>
-  <li>Any time a joystick is connected or disconnected, repeat the whole identification process for every joystick.</li>
+  <li>When the user presses the button, set the joystick id on the <a href="Controllers.html#joysticks">Joystick</a> so Rewired can identify which physical controller it is.</li>
+  <li>Repeat the above steps for each controller attached to the system.</li>
+  <li>Any time a controller is connected or disconnected, repeat the whole identification process for every controller.</li>
 </ol>
-<p>Once the joysticks are properly identified, you can use Rewired as usual to receive input, remap controllers, etc. and everything will function properly.</p>
-<p>Note: If the user has more than one joystick with identical names, there is no way to distinguish between the various controllers for identification. The order that the user identifies the controllers may change joystick to player assignments. There is nothing you can do to prevent this. If this happens, the user will have to reassign the controllers to players manually using a controller mapping screen. See <a href="#controller-mapping-screen">Creating a controller mapping screen</a> for more information.</p>
+<p>Once the controllers are properly identified, you can use Rewired as usual to receive input, remap controllers, etc. and everything will function properly.</p>
+<p>Note: If the user has more than one controller with identical names, there is no way to distinguish between the various controllers for identification. The order that the user identifies the controllers may change <a href="Controllers.html#joysticks">Joystick</a> to <a href="Players.html">Player</a> assignments. There is nothing you can do to prevent this. If this happens, the user will have to reassign the <a href="Controllers.html#joysticks">Joysticks</a> to <a href="Players.html">players</a> manually using a controller mapping screen. See <a href="#controller-mapping-screen">Creating a controller mapping screen</a> for more information.</p>
 <p><strong>FallbackJoystickIdentificationDemo.cs from Rewired/Examples/FallbackJoystickIdentification</strong></p>
 <pre class="code">
 <span class="comment">// This example shows how to have the user manually identify joysticks by name to assit with a Unity<br />// bug where joysticks cannot be associated with a Unity joystick ID without manual intervention when<br />// using Unity as the input source (as opposed to native input).
@@ -1754,63 +1877,47 @@ using System.Collections.Generic;
 <p>For mobile platforms, squeezing out as much performance as possible is important. Here are some tips to help optimize Rewired's performance in your game:</p>
 <ul>
   <li>If you do not ever get input in FixedUpdate or OnGUI in your game, make sure these Update Loops are disabled in the <a href="RewiredEditor.html#Settings">Rewired Input Manager - Settings</a> page. Each additional update loop you have enabled increases CPU usage of Rewired.</li>
-  <li>The more Players, Actions, enabled Controller Maps, and ActionElementMap bindings you have, the more cpu time is required to evaluate input for each of these every update.</li>
-  <li><a href="#enabling-disabling-controller-maps">Disable all Controller Maps</a> that are not needed in the current game state. For example, if you have a Map Category for UI controls, disable all UI Controller Maps when the UI is not displayed.</li>
-  <li>If your game doesn't need keyboard input on certain platforms, disable it:
-<pre class="code">
-void Awake() {
-    <span class="comment">// Disable keyboard input on Android builds to improve performance</span>
-#if !UNITY_EDITOR &amp;&amp; UNITY_ANDROID
-    <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_ReInput_ControllerHelper_keyboardEnabled.htm">ReInput.controllers.keyboardEnabled</a> = false;
-#endif
-}</pre></li>
-</ul>
-<p><strong> Note:</strong> Unity's profiler in Debug builds tends to report significantly inflated CPU usage for Rewired's InputManager_Base.Update. For example, testing shows that on the PlayStation Vita platform, the profiler will report CPU time up to 2x actual CPU time when timed manually in a Release build. <a href="Troubleshooting.html#xbox-one-profiler">XBox One can report CPU usage of 20x the CPU usage when using a Debug build vs a Development build.</a> Rest assured, Rewired's core update loop has already been heavily optimized -- there are no further reasonable optimizations to be done to the main update loop.</p>
+  <li>The more <a href="Players.html">Players</a>, <a href="Actions.html">Actions</a>, enabled <a href="ControllerMaps.html">Controller Maps</a>, and ActionElementMap bindings you have, the more cpu time is required to evaluate input for each of these every update.</li>
+  <li><a href="#enabling-disabling-controller-maps">Disable all Controller Maps</a> that are not needed in the current game state. For example, if you have a <a href="MapCategories.html">Map Category</a> for UI controls, disable all UI <a href="ControllerMaps.html">Controller Maps</a> when the UI is not displayed.</li>
+  <li>Use integer contstants instead of string names for calling methods that take an Action, Map Category, or Layout. String comparison is slower than integer comparison. See <a href="#exporting-consts">Exporting constants for use in scripting</a> for information on how to get a list of constants.</li>
+  <li>If your game doesn't need keyboard input on certain platforms, disable it using the platform options in the <a href="RewiredEditor.html#Settings">Rewired Editor - Settings</a> page.</li>
+  </ul>
+<p><strong>Input Events</strong><br />
+  If you are getting input by using input events, you are shifting the burden of polling for input events on Rewired instead of your scripts which increases its CPU usage. Not only that, but any code in your script that is run in the input event callback will be attributed by the profiler to InputManager_Base instead of your script.</p>
+<p><strong>Unity Profiler, Debug Build, and Unity Editor Performance</strong><br />
+  Unity's profiler in Debug builds tends to report significantly inflated CPU usage for Rewired's InputManager_Base.Update. For example, testing shows that on the PlayStation Vita platform, the profiler will report CPU time up to 2x actual CPU time when timed manually in a Release build. <a href="Troubleshooting.html#xbox-one-profiler">XBox One can report CPU usage of 20x the CPU usage when using a Debug build vs a Development build.</a> In testing on Windows, release builds performed on average 2.5x faster in Unity 4.3 and 3.5x faster in Unity 5.4 than when timed inside the Unity editor. Rest assured, Rewired's core update loop has already been heavily optimized for performance.</p>
+<p><strong>Deep Profile</strong><br />
+  If you enable Deep Profile in the Unity Profiler, InputManager_Base will show a drastically inflated CPU usage due to the fact that Deep Profile uses reflection to get method information. The depth of Rewired's call stack dramatically increases this performance penalty, making it look as if Rewired is taking a huge percentage of the processing time when in reality this is just profiler overhead.</p>
 <p>&nbsp;</p>
-  <hr />
-  <h3><a name="configuring-arcadeguns-g500" id="configuring-arcadeguns-g500"></a>Configuring ArcadeGuns G-500 AimTrak Light Guns</h3>
-  <p>For the lightguns to work properly in Rewired, you must set the light gun mode to &quot;Joystick&quot; in the Arcade Guns Pro Utility. You should include this information in the documentation of your game so your users will know how the light guns should be configured.</p>
-  <p>The button layout for the guns should be as follows:</p>
-  <table width="100%" border="0">
-    <tr>
-      <td><strong>Element</strong></td>
-      <td><strong>On-Screen</strong></td>
-      <td><strong>Off-Screen</strong></td>
-      </tr>
-    <tr>
-      <td>Trigger</td>
-      <td>Button 3</td>
-      <td>Button 4</td>
-      </tr>
-    <tr>
-      <td>Small Button</td>
-      <td>Button 1</td>
-      <td>Button 5</td>
-      </tr>
-    <tr>
-      <td>Large Button</td>
-      <td>Button 2</td>
-      <td>Button 6</td>
-      </tr>
-  </table>
+<hr />
+<h3><a name="unity-ui" id="unity-ui"></a>Using Rewired to control Unity's new UI</h3>
+<p><a href="RewiredStandaloneInputModule.html">See Rewired Standalone Input Module for information.</a></p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="appletv-siri-remote" id="appletv-siri-remote"></a>Using Apple Siri Remote on Apple TV</h3>
+<p>In general, the Siri Remote works like any other <a href="Controllers.html#joysticks">Joystick</a> in Rewired.</p>
+<p>Special mappable elements on the Remote:</p>
+<ul>
+  <li><strong>Touchpad X, Y</strong> - The X and Y values returned by the remote touchpad. This value is affected by the remote's current relative/absolute setting. This can be changed by setting <a href="http://docs.unity3d.com/Manual/tvOS.html" target="_blank">UnityEngine.Apple.TV.Remote.reportAbsoluteDpadValues</a>.</li>
+  <li><strong>Pitch</strong> - Returns a -1.0 to +1.0 value based on the current tilt of the remote. Returns 0 when the remote is held with the touchpad end of the remote facing directly up. Positive values correspond to a tilt of the remote toward the screen relative to the 0 position. Negative values correspond to a tilt of the remote away from the screen relative to the 0 position.</li>
+  <li><strong>Rotate</strong> - Returns a -1.0 to +1.0 value based on the current rotation of the remote. Returns 0 when the remote is held with the touchpad end of the remote facing directly up. Positive values correspond to a clockwise rotation of the remote from the 0 position. Negative values correspond to a counter-clockwise rotation of the remote from the 0 position.</li>
+  <li><strong>Acceleration X, Y, Z</strong> - Returns the acceleration X, Y, and Z vectors.</li>
+  <li><strong>Gravity X, Y, Z</strong> - Returns the Gravity X, Y, and Z vectors.</li>
+</ul>
+<p><strong>Joystick Assignment<br />
+</strong>If using <a href="Controllers.html#joysticks">Joystick</a> auto-assignment (enabled by default), the Siri Remote is treated as any other <a href="Controllers.html#joysticks">Joystick</a> and will be assigned to the first <a href="Players.html">Player</a> found that needs a <a href="Controllers.html#joysticks">Joystick</a> assigned based on your current settings. If making a 1-player game, it is highly recommended that you raise the &quot;Max Joysticks Per Player&quot; setting to a large number such as 100 so that all attached <a href="Controllers.html#joysticks">Joysticks</a> will be assigned to the <a href="Players.html">Player</a>. This will allow the <a href="Players.html">Player</a> to use the Siri Remote or any gamepad attached without issue.</p>
+<p>Please see the <a href="http://docs.unity3d.com/Manual/tvOS.html" target="_blank">Unity Documentation for Apple TV</a> for more information on special considerations for publishing on tvOS.</p>
+<p>&nbsp;</p>
+<hr />
+  <h3><a name="using-arcadeguns-g500"></a>Using ArcadeGuns G-500 AimTrak Light Guns</h3>
+  <p>In order for the AimTrak G-500 to work with Rewired, the device must first be configured properly. See <a href="SupportedControllers.html#configuring-arcadeguns-g500">Supported Controllers - Configuring ArcadeGuns G-500 AimTrak Light Guns</a> for more information.</p>
+  <p>The data returned by the AimTrak light guns is not processed by Rewired into  a screen-space or world-space coordinate system. The data is returned as it is received from the device. The data must be processed in your scripts in the appropriate manner for your intended use.</p>
+<p>The easiest way to tell that the data is from the AimTrak would be to create 2 special <a href="Actions.html">Actions</a> specifically for this controller. Something like AimTrakX and AimTrackY. Then in your scripts you can simply check for these <a href="Actions.html">Actions</a> and process the values in to the appropriate coordinate system. Alternately, you could check an <a href="#get-contributing-input-sources">Action's contributing input sources</a> to determine if that <a href="Actions.html">Action</a> was contributed to by the AimTrak by checking the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">joystick.hardwareTypeGuid</a> property. If the guid is 1708268b-3914-42c4-a339-7bf4fe83fde2, then it is from the AimTrak G-500. (This guid can be found in the HardwareJoystickMap controller definition.)</p>
   <p>&nbsp;</p>
-  <p>It should be noted that the data returned by the AimTrak light guns is not processed by Rewired into  a screen-space or world-space coordinate system. The data is returned as it is received from the device. The data must be processed in your scripts in the appropriate manner for your intended use.</p>
-  <p>The easiest way to tell that the data is from the AimTrak would be to create 2 special Actions specifically for this controller. Something like AimTrakX and AimTrackY. Then in your scripts you can simply check for these Actions and process the values in to the appropriate coordinate system. Alternately, you could check an Action's <a href="#get-contributing-input-sources">contributing input sources</a> to determine if that Action was contributed to by the AimTrak by checking the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/P_Rewired_Joystick_hardwareTypeGuid.htm">joystick.hardwareTypeGuid</a> property. If the guid is 1708268b-3914-42c4-a339-7bf4fe83fde2, then it is from the AimTrak G-500. (This guid can be found in the HardwareJoystickMap controller definition.)</p>
-  <p>&nbsp;</p>
-  <hr />
-  <h3><a name="Logitech-G27" id="Logitech-G27"></a>Logitech G27 Racing Wheel Support</h3>
-  <p>On Windows, users must install the latest Logitech drivers for the G27 or the mappings in Rewired will be incorrect.</p>
-  <p>In order to use force feedback on the Logitech G27, you must use the <a href="https://www.assetstore.unity3d.com/en/#!/content/6630" target="_new">Logitech Gaming SDK</a> which can be downloaded free from the Unity Asset Store. The SDK is only available for Windows.  </p>
-  <p>While Rewired provides maps for <a href="SupportedControllers.html#Logitech-G27">several platforms</a> other than Windows, there is no official support of these platforms by Logitech, and therefore no force feedback SDK available. Additionally, the steering wheel may become somewhat rigid  because the centering spring may engage automatically on some platforms. Currently there is no recommended solution to these issues.</p>
-  <p>&nbsp;</p>
-  <hr />
-  <h3><a name="Saitek-TPM" id="Logitech-G"></a>Saitek Pro Flight TPM Panel Support</h3>
-  <p>Each time upon attaching the device to the system, you must push and pull each shaft fully through its complete range of motion. This will calibrate the device internally so that the axes report the correct values. This information should be included in your game manual so your players know how to use the device properly.</p>
-  <p>&nbsp;</p>
-  <hr />
-  <h3><a name="dualshock-4-special-features" id="Logitech-G2"></a>Using Sony DualShock 4 special features</h3>
-  <p>The Sony DualShock 4 supports vibration, gyro/accelerometer, touchpad, and changing the light color on Windows Standalone only at present (<a href="http://guavaman.com/projects/rewired/docs/RewiredEditor.html#Settings">Enhanced Device Support</a> option required.)</p>
-  <p>The special features of this controller are accessible through the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ControllerExtensions_DualShock4Extension.htm">Rewired.ControllerExtensions.DualShock4Extension</a> class.</p>
+<hr />
+  <h3><a name="dualshock-4-special-features"></a>Using Sony DualShock 4 special features</h3>
+  <p>The Sony DualShock 4 supports vibration, gyro/accelerometer, touchpad, and changing the light color on Windows Standalone and OSX* only at present (<a href="http://guavaman.com/projects/rewired/docs/RewiredEditor.html#Settings">Enhanced Device Support</a> option required.) If you're developing for the PlayStation 4, see <a href="#ps4-gamepad-special-features">Using PS4 gamepad special features on PS4 platform</a> instead. (* Special features are only supported on OSX via wired USB connection.)</p>
+<p>The special features of this controller are accessible through the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ControllerExtensions_DualShock4Extension.htm">Rewired.ControllerExtensions.DualShock4Extension</a> class.</p>
   <p>An example on how to use this class is shown below:</p>
 <pre class="code">
 using Rewired;
@@ -1901,46 +2008,83 @@ class RailDriverTest {
 <p>&nbsp;</p>
 <hr />
 <h3><a name="xbox-one-controller-special-features" id="raildriver-special-features2"></a>Using XBox One controller special features on XBox One platform</h3>
-<p>Special controller features of the XBox One gamepad such as vibration can be accessed via the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Platforms_XboxOne_XboxOneGamepadExtension.htm">XboxOneGamepadExtension</a> class available in the Joystick class as seen in the example below:
+<p>Special controller features of the XBox One gamepad such as vibration can be accessed via the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Platforms_XboxOne_XboxOneGamepadExtension.htm">XboxOneGamepadExtension</a> class available in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Joystick.htm">Joystick</a> class as seen in the example below. Note that the platform input source must be set to Native and Disable Native Input must be set to false or no special features will be available.
 <pre class="code">
 using Rewired;
 using Rewired.Platforms.XboxOne;
 
 class XBoxOneTest {
 
-  void MyMethod() {
+    void MyMethod() {
 
-      <span class="comment">// Set vibration in all controllers in player</span>
-      foreach(Joystick joystick in player.controllers.Joysticks) {
+        <span class="comment">// Set vibration in all controllers in player</span>
+        foreach(Joystick joystick in player.controllers.Joysticks) {
 
-#if UNITY_XBOXONE &amp;&amp; !UNITY_EDITOR
-          <span class="comment">// Get the ControllerExtension for Xbox One and set left gamepad motor to full value</span>
-<span class="comment">          // Note: Vibration can also be set in a more generic way through Joystick.SetVibration by using the motor index.</span><br />          joystick.GetExtension&lt;XboxOneGamepadExtension&gt;().SetVibration(XboxOneGamepadMotorType.LeftMotor, 1.0f);
-#else
-          <span class="comment">// Set first motor to full value</span>
-          joystick.SetVibration(0, 1.0f);
-#endif<br />    }
+            <span class="comment">// Get the ControllerExtension for Xbox One and set left gamepad motor to full value</span>
+            var extension = joystick.GetExtension&lt;XboxOneGamepadExtension&gt;();
+
+            if(extension != null) { <span class="comment">// this is an Xbox One gamepad on the Xbox One platform</span>
+
+                <span class="comment">// Set vibration using the XboxOneGamepadMotorType enum</span>
+                extension.SetVibration(XboxOneGamepadMotorType.LeftMotor, 1.0f);
+
+            } else { <span class="comment">// any other controller</span>
+
+<span class="comment">                // Vibration can also be set in a more generic way through
+                // Joystick.SetVibration by using the motor index</span>
+                <span class="comment">// This method can also be used to set vibration on the Xbox One Platform</span>
+                joystick.SetVibration(0, 1.0f); <span class="comment">// set first motor to full value</span>
+            }<br />        }
+    }
+}</pre>&nbsp;
+<hr />
+<h3><a name="ps4-gamepad-special-features" id="raildriver-special-features3"></a>Using PS4 gamepad special features on PS4 platform</h3>
+<p>Special controller features of the PS4 gamepad such as vibration, gyro, accelerometer, touchpad, and light color can be accessed via the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Platforms_PS4_PS4GamepadExtension.htm">PS4GamepadExtension</a> class available in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_Joystick.htm">Joystick</a> class as seen in the example below.  Note that the platform input source must be set to Native and Disable Native Input must be set to false or no special features will be available.</p>
+<pre class="code">using Rewired;
+using Rewired.Platforms.PS4;
+
+class PS4Test {
+
+  <span class="comment">// Getting and setting various values on all PS4 gamepads assigned to this Player</span>
+  public void TestPS4(Player player) {
+
+<span class="comment">    // Loop through all Joysticks assigned to this Player</span>
+    foreach(Joystick joystick in player.controllers.Joysticks) {
+
+      <span class="comment">// Get the PS4 Gamepad Extension from the Joystick</span>
+      var ext = joystick.GetExtension&lt;PS4GamepadExtension&gt;();
+      if(ext == null) continue; <span class="comment">// this is not a PS4 gamepad, skip it</span>
+
+      <span class="comment">// Get the accelerometer value</span>
+      Vector3 accelerometer = ext.GetAccelerometerValue();
+
+      <span class="comment">// Get the gyroscope value</span>
+      Vector3 gyro = ext.GetLastGyroscopeValue();
+
+      <span class="comment">// Get the controller orientation</span>
+      Quaternion orientation = ext.GetOrientation();
+
+      <span class="comment">// Get the touch positions for both fingers</span>
+      bool touch1isTouching, touch2isTouching;
+      Vector2 touch1Pos, touch2Pos;
+      touch1isTouching = ext.GetTouchPosition(0, out touch1Pos);
+      touch2isTouching = ext.GetTouchPosition(1, out touch2Pos);
+
+      <span class="comment">// Get/Set vibration
+      // Note: Vibration can also be set in a generic way through Joystick.SetVibration</span>
+      float vibration = ext.GetVibration(PS4GamepadMotorType.WeakMotor);
+      ext.SetVibration(PS4GamepadMotorType.StrongMotor, 1.0f); <span class="comment">// set vibration on a single motor by type</span>
+      ext.SetVibration(1.0f, 1.0f); <span class="comment">// set vibration on both motors simultaneously</span>
+      ext.StopVibration(); <span class="comment">// stop all vibration</span>
+
+      <span class="comment">// Set the light color</span>
+      ext.SetLightColor(new Color(1.0f, 1.0f, 0.0f, 0.5f)); <span class="comment">// alpha is multiplied by rgb to get final value</span>
+
+      <span class="comment">// Reset the light color</span>
+      ext.ResetLight();
+    }
   }
-}</pre>&nbsp;</p>
-<hr />
-<h3><a name="appletv-siri-remote" id="appletv-siri-remote"></a>Using Apple Siri Remote on Apple TV</h3>
-<p>In general, the Siri Remote works like any other joystick in Rewired.</p>
-<p>Special mappable elements on the Remote:</p>
-<ul>
-  <li><strong>Touchpad X, Y</strong> - The X and Y values returned by the remote touchpad. This value is affected by the remote's current relative/absolute setting. This can be changed by setting <a href="http://docs.unity3d.com/Manual/tvOS.html" target="_blank">UnityEngine.Apple.TV.Remote.reportAbsoluteDpadValues</a>.</li>
-  <li><strong>Pitch</strong> - Returns a -1.0 to +1.0 value based on the current tilt of the remote. Returns 0 when the remote is held with the touchpad end of the remote facing directly up. Positive values correspond to a tilt of the remote toward the screen relative to the 0 position. Negative values correspond to a tilt of the remote away from the screen relative to the 0 position.</li>
-  <li><strong>Rotate</strong> - Returns a -1.0 to +1.0 value based on the current rotation of the remote. Returns 0 when the remote is held with the touchpad end of the remote facing directly up. Positive values correspond to a clockwise rotation of the remote from the 0 position. Negative values correspond to a counter-clockwise rotation of the remote from the 0 position.</li>
-  <li><strong>Acceleration X, Y, Z</strong> - Returns the acceleration X, Y, and Z vectors.</li>
-  <li><strong>Gravity X, Y, Z</strong> - Returns the Gravity X, Y, and Z vectors.</li>
-</ul>
-<p><strong>Joystick Assignment<br />
-</strong>If using auto-joystick assignment (enabled by default), the Siri Remote is treated as any other joystick and will be assigned to the first Player found that needs a controller assigned based on your current settings. If making a 1-player game, it is highly recommended that you raise the Max Joysticks Per Player setting to a large number such as 100 so that all attached controllers will be assigned to the Player. This will allow the Player to use the Siri Remote or any gamepad attached without issue.</p>
-<p>Please see the <a href="http://docs.unity3d.com/Manual/tvOS.html" target="_blank">Unity Documentation for Apple TV</a> for more information on special considerations for publishing on tvOS.</p>
-<p>&nbsp;</p>
-<hr />
-  <h3><a name="unity-ui" id="unity-ui"></a>Using Rewired to control Unity's new UI</h3>
-<p><a href="RewiredStandaloneInputModule.html">See Rewired Standalone Input Module for information.</a></p>
-  <p>&nbsp;</p>
+}</pre>
 <div class="bottom-pager clearfix">
   <a class="back-button" href="Documentation.html" title="Documentation"><span class="button-img"></span>Documentation</a>
 </div>

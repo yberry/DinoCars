@@ -48,11 +48,17 @@ namespace Rewired.UI.ControlMapper {
         [Tooltip("{0} = Action Name")]
         private string _joystickElementAssignmentPollingWindowMessage = "Now press a button or move an axis to assign it to {0}.";
         [SerializeField]
+        [Tooltip("This text is only displayed when split-axis fields have been disabled and the user clicks on the full-axis field. Button/key/D-pad input cannot be assigned to a full-axis field.\n{0} = Action Name")]
+        private string _joystickElementAssignmentPollingWindowMessage_fullAxisFieldOnly = "Now move an axis to assign it to {0}.";
+        [SerializeField]
         [Tooltip("{0} = Action Name")]
         private string _keyboardElementAssignmentPollingWindowMessage = "Press a key to assign it to {0}. Modifier keys may also be used. To assign a modifier key alone, hold it down for 1 second.";
         [SerializeField]
         [Tooltip("{0} = Action Name")]
         private string _mouseElementAssignmentPollingWindowMessage = "Press a mouse button or move an axis to assign it to {0}.";
+        [SerializeField]
+        [Tooltip("This text is only displayed when split-axis fields have been disabled and the user clicks on the full-axis field. Button/key/D-pad input cannot be assigned to a full-axis field.\n{0} = Action Name")]
+        private string _mouseElementAssignmentPollingWindowMessage_fullAxisFieldOnly = "Move an axis to assign it to {0}.";
         [SerializeField]
         private string _elementAssignmentConflictWindowMessage = "Assignment Conflict";
         [SerializeField]
@@ -212,11 +218,17 @@ namespace Rewired.UI.ControlMapper {
         public string GetJoystickElementAssignmentPollingWindowMessage(string actionName) {
             return string.Format(_joystickElementAssignmentPollingWindowMessage, actionName);
         }
+        public string GetJoystickElementAssignmentPollingWindowMessage_FullAxisFieldOnly(string actionName) {
+            return string.Format(_joystickElementAssignmentPollingWindowMessage_fullAxisFieldOnly, actionName);
+        }
         public string GetKeyboardElementAssignmentPollingWindowMessage(string actionName) {
             return string.Format(_keyboardElementAssignmentPollingWindowMessage, actionName);
         }
         public string GetMouseElementAssignmentPollingWindowMessage(string actionName) {
             return string.Format(_mouseElementAssignmentPollingWindowMessage, actionName);
+        }
+        public string GetMouseElementAssignmentPollingWindowMessage_FullAxisFieldOnly(string actionName) {
+            return string.Format(_mouseElementAssignmentPollingWindowMessage_fullAxisFieldOnly, actionName);
         }
         public string GetElementAlreadyInUseBlocked(string elementName) {
             return string.Format(_elementAlreadyInUseBlocked, elementName);

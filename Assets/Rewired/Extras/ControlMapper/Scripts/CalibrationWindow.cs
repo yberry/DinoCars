@@ -394,6 +394,11 @@ namespace Rewired.UI.ControlMapper {
             if(index < 0 || index >= axisButtons.Count) return;
             if(axisButtons[index] == null) return;
             axisButtons[index].interactable = false; // disable this axis
+#if UNITY_5_3_OR_NEWER
+            // Unity changed the system so when interactible is set to false,
+            // the Selectable is immediately deselected.
+            axisButtons[index].Select(); // force select after Unity deselects it
+#endif
             // Enable other axes
             for(int i = 0; i < axisButtons.Count; i++) {
                 if(i == index) continue;

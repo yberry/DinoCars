@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -145,7 +145,7 @@
     <p>&nbsp;</p>
 <hr />
 <h3>Rewired Actions</h3>
-    <p><img src="files/images/controlmapper_rewiredstandaloneinputmodule.png" width="572" height="379" class="right" />Four Actions must be set up in the Rewired Input Manager and the RewiredStandaloneInputModule in order to control the UI. <strong>These four Actions must have names that match exactly in both the Rewired Input Manager and the RewiredStandaloneInputModule</strong>.</p>
+    <p><img src="files/images/controlmapper_rewiredstandaloneinputmodule.png" width="469" height="275" class="right" />Four Actions must be set up in the Rewired Input Manager and the RewiredStandaloneInputModule in order to control the UI. <strong>These four Actions must have names that match exactly in both the Rewired Input Manager and the RewiredStandaloneInputModule</strong>.</p>
     <ol>
       <li>Horizontal Axis - The Action that will control Left/Right movement in the UI.</li>
       <li>Vertical Axis - The Action that will control Up/Down movement in the UI.</li>
@@ -184,7 +184,7 @@
     <p><strong>Problem: Receiving duplicate mouse clicks when clicking on a UI button</strong></p>
     <p>Do not assign UI Submit or Cancel Actions to Mouse Left Button or Mouse Right Button or you will receive double-clicks evey time the mouse button is pressed over a button. The mouse button click on a UI element is based on mouse cursor position and does not use the Action system.</p>
 <p></p>
-    <p><strong>Problem: Unity UI navigation with joystick or keyboard doesn't work</strong></p>
+    <p><strong><a name="troubleshooting-joystick-keyboard-doesnt-work" id="troubleshooting-joystick-keyboard-doesnt-work"></a>Problem: Unity UI navigation with joystick or keyboard doesn't work</strong></p>
     <p>While this is a general Unity UI usage issue and not a Rewired issue in any way,  because I've received so many support requests where this ends up being the answer, I've decided to post it here.</p>
     <ul>
       <li><em>Unity UI cannot be controlled by keyboard or joystick unless you specify a current or starting Selectable GameObject in the Unity UI EventSystem.</em></li>
@@ -201,8 +201,8 @@ void SetSelected(GameObject selectableObject) {
     <p>Please refer to the <a href="http://docs.unity3d.com/Manual/UISystem.html" target="_blank">Unity documentation</a> for information on how to use Unity UI.</p>
     <p>&nbsp;</p>
     <hr />
-    <h3><a name="faq" id="faq"></a>Frequently Asked Questions:</h3>
-    <p><strong>Q: Does the Rewired Standalone Input Module do _________?</strong></p>
+    <h3><a name="faq" id="faq"></a>FAQ:</h3>
+    <p class="question">Does the Rewired Standalone Input Module do _________?</p>
     <p>If the Unity StandaloneInputModule doesn't do it, neither does the RewiredStandaloneInputModule.</p>
     <p>The RewiredStandaloneInputModule is just a modified version of Unity's open-source StandaloneInputModule. The only changes to it are to make it work with Rewired as the input source. No enhancements have been made to this module.</p>
     <p>Please refer to the <a href="http://docs.unity3d.com/Manual/script-StandaloneInputModule.html">Unity documentation on the StandaloneInputModule</a> for usage.</p>
