@@ -35,7 +35,9 @@ public static class Globals {
     public static readonly string Axis_X2 = "AnalogX2";  //rightstick X
     public static readonly string Axis_Y2 = "AnalogY2";    //rightstick Y
 
-    public static readonly string Axis_Z1 = "AnalogZ";       //triggers 
+    public static readonly string Axis_Z = "AnalogZ";       //triggers 
+    public static readonly string Axis_Z1 = "AnalogZ1";       //triggers 
+    public static readonly string Axis_Z2 = "AnalogZ2";       //triggers 
     public static readonly string Axis_ZPos = "AnalogZ+";
     public static readonly string Axis_ZNeg = "AnalogZ-";
 

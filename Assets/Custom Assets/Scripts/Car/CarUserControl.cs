@@ -24,7 +24,8 @@ namespace CND.Car
             float v = CrossPlatformInputManager.GetAxis("Vertical");
 #if !MOBILE_INPUT
             float handbrake = CrossPlatformInputManager.GetAxis("Jump");
-            m_Car.Move(h, v, Mathf.Min(v,0), handbrake);
+            bool boost = CrossPlatformInputManager.GetButton("Action");
+            m_Car.Move(h, v, Mathf.Min(v,0), handbrake, boost);
 #else
             m_Car.Move(h, v, v, 0f);
 #endif

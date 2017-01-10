@@ -87,8 +87,8 @@ public class DisplayModifierDrawer : PropertyDrawer
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
 		DisplayModifierAttribute attr = attribute as DisplayModifierAttribute;
-
-		GUIStyle s=new GUIStyle(EditorStyles.textArea);
+        var origIndent = EditorGUI.indentLevel;
+        GUIStyle s=new GUIStyle(EditorStyles.textArea);
 		label = EditorGUI.BeginProperty(position, label, property);
 
 		GUI.enabled = !attr.readOnly;
@@ -124,7 +124,9 @@ public class DisplayModifierDrawer : PropertyDrawer
 
 		GUI.enabled = true;
 		EditorGUI.EndProperty();
-	}
+        EditorGUI.indentLevel = origIndent;
+
+    }
 	
 	protected void MoveElements(ref Rect position, SerializedProperty property, ref GUIContent label)
 	{

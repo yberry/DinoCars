@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -130,13 +130,22 @@
       <li><a href="#sdl2-windows-xbox-360-vibration-motors">SDL2: Windows - XBox 360 Controller does not allow independent control of vibration motors</a></li>
       <li><a href="#steam-streaming-windows">Steam Streaming / Steam Link: Windows Standalone</a></li>
       <li><a href="#apple-tv-gyro">Apple TV Siri Remote gyroscope does not work</a></li>
-      <li><a href="#xinput-device-name">Windows Standalone: XInput devices on Windows appear as &quot;XInput Gamepad&quot;</a></li>
-      <li><a href="#windows-xinput-devices-use-x360-map">Windows Standalone: All XInput devices use the Xbox 360 Controller map when &quot;Use XInput&quot; is enabled</a></li>
+      <li><a href="#xinput-device-name">Windows Platforms: XInput devices on Windows appear as &quot;XInput Gamepad&quot;</a></li>
+      <li><a href="#windows-xinput-devices-use-x360-map">Windows Platforms: All XInput devices use the Xbox 360 Controller map when &quot;Use XInput&quot; is enabled</a></li>
       <li><a href="#more-than-4-xbox-controllers">More than 4 XBox controllers cannot be used at the same time</a></li>
+      <li><a href="#windows-10-fallback-xbox-one-mapping-issues">Windows Standalone (Unity Fallback, Windows 10): Xbox One Controller L/R and D-Pad mapping problems</a></li>
       <li><a href="#windows-10-xbox-one-crash">Windows Standalone (Raw Input, Windows 10): XBox One controller causes system crash when removed when using Raw Input on Windows 10</a></li>
       <li><a href="#direct-input-windows-10-multiple-xbox-one-controllers-hang">Windows Standalone (Direct Input, Windows 10): Using two or more XBox One controllers  will cause Unity to hang when using Direct Input on Windows 10</a></li>
-      <li><a href="#windows-fallback-xbox-one-controller-mapping">Windows Standalone: XBox One controller has incorrect mapping on Windows XP, Vista, 7, and 8 when using Unity fallback input</a></li>
+      <li><a href="#windows-10-xbox-one-controller-stops-working-after-unplug">Windows Standalone (Windows 10): Xbox One Controller stops working after another controller is unplugged</a></li>
+      <li><a href="#windows-xbox-one-controller-game-center-popup-bug">Windows Standalone (Windows 10): Game Center popup keeps appearing when pressing keyboard keys</a></li>
+      <li><a href="#windows-fallback-xbox-one-controller-mapping">Windows Standalone (Unity Fallback, Windows 10): XBox One controller has incorrect mapping</a></li>
+      <li><a href="#windows-nvidia-shield-controller-problems">Windows Standalone: Nvidia Shield Controller problems on Raw Input and Direct Input</a></li>
       <li><a href="#uwp-il2cpp-controller-disconnect-crash">Windows 10 Universal IL2CPP: Crash when disconnecting controllers</a></li>
+      <li><a href="#windows-ri-hid-error">Windows Editor: &lt;RI.Hid&gt; Failed to create device file: 2 The system cannot find the file specified.</a></li>
+      <li><a href="#ouya-sdk-unity-input-joysticks-do-not-work">Ouya SDK:  Unity input  joysticks do not work when the Ouya SDK is installed</a></li>
+      <li><a href="ouya-sdk-4-controller-limit">Ouya SDK: Cannot use more than 4 controllers</a></li>
+      <li><a href="#serialized-data-corruption-after-import">Serialized data corruption after importing Rewired</a></li>
+      <li><a href="#serialized-data-corruption-after-upgrading-unity">Serialized data corruption after upgrading Unity</a></li>
     </ul>
     <hr />
     <h3><a name="running-in-a-sandbox" id="running-in-a-sandbox"></a>Running in a Sandbox</h3>
@@ -300,12 +309,12 @@ public class RewiredCustomController_AndroidRemote : MonoBehaviour {
 <p>The Apple TV SDK does not expose the raw gyroscope data and thus it is unavailable. The only data that is avalilable is the gravity vector and user acceleration.</p>
 <p>&nbsp;</p>
 <hr />
-<h3><a name="xinput-device-name" id="apple-tv-gyro2"></a>Windows Standalone: XInput devices on Windows appear as &quot;XInput Gamepad&quot;</h3>
-<p>On Windows, with Use XInput enabled, there's no way to differentiate one XInput controller type from another. To XInput, everything is simply Gamepad with an id of 0-3. This is not a Rewired issue, it is a design decision by Microsoft.<br />
+<h3><a name="xinput-device-name" id="apple-tv-gyro2"></a>Windows Platforms: XInput devices on Windows appear as &quot;XInput Gamepad&quot;</h3>
+<p>On Windows, with Use XInput enabled, and always on Windows App Store and Windows 10 Universal builds, there's no way to differentiate one XInput controller type from another. To XInput, everything is simply Gamepad with an id of 0-3. This is not a Rewired issue, it is a design decision by Microsoft.<br />
   <br />
   There is no possible way to associate an   XInput id to the matching HID device to get its name and make it be recognized   as a specific controller. Because of this, you cannot identify an XInput controller by   name in Windows when XInput is enabled. This also affects which controller maps   are loaded for this joystick in Windows when using XInput. Since the device is   simply and Xinput device, it will be loaded from the XBox 360 controller   definition, not the Logitech F310, for example. 
   (However, if you create your controller maps using the Dual Analog Gamepad Template, you don't even need to worry about this.)
-<p>The only way you will be able to identify these   controllers by name is to disable Use XInput in the Rewired Input Manager. Once you do that, you introduce new   issues/limitations:</p>
+<p>The only way you will be able to identify these   controllers by name is to disable Use XInput in the Rewired Input Manager (applies to Windows Standalone only, not Windows App Store or Windows 10 Universal -- XInput cannot be disabled on these platforms). Once you do that, you introduce new   issues/limitations:</p>
 
 <ol>
   <li>L/R triggers are treated as 1 combined axis and both   cannot be pressed simultaneously without canceling each other out.</li>
@@ -315,9 +324,9 @@ public class RewiredCustomController_AndroidRemote : MonoBehaviour {
   <p>&nbsp;</p>
 </ol>
 <hr />
-<h3><a name="windows-xinput-devices-use-x360-map" id="windows-xinput-devices-use-x360-map"></a>Windows Standalone: All XInput devices use the Xbox 360 Controller map when &quot;Use XInput&quot; is enabled</h3>
-<p>As explained in the <a href="#xinput-device-name">previous topic</a>, when Use XInput is enabled, there is no way to differentiate one XInput device from another by name or product/vendor id. Therefore, all XInput devices will use the Xbox 360 Controller map on Windows when Use XInput is enabled. This will match all XInput devices, generic or not, and will provide full coverage of all XInput devices. You cannot map these devices based on the individual device type such as Xbox One or Logitech F310 when using XInput because the device cannot be identified as as specific device type  but rather simply as an XInput gamepad. All XInput gamepads will use Xbox 360 Controller profile when Use XInput is enabled.</p>
-<p>If you disable Use XInput, you will get device-specific identification and recognition, but you will also have the drawbacks <a href="#xinput-device-name">explained in the previous topic</a>.</p>
+<h3><a name="windows-xinput-devices-use-x360-map" id="windows-xinput-devices-use-x360-map"></a>Windows Platforms: All XInput devices use the Xbox 360 Controller map when &quot;Use XInput&quot; is enabled</h3>
+<p>As explained in the <a href="#xinput-device-name">previous topic</a>, when Use XInput is enabled and always on Windows App Store and Windows 10 Universal builds, there is no way to differentiate one XInput device from another by name or product/vendor id. Therefore, all XInput devices will use the Xbox 360 Controller map on Windows when Use XInput is enabled. This will match all XInput devices, generic or not, and will provide full coverage of all XInput devices. You cannot map these devices based on the individual device type such as Xbox One or Logitech F310 when using XInput because the device cannot be identified as as specific device type  but rather simply as an XInput gamepad. All XInput gamepads will use Xbox 360 Controller profile when Use XInput is enabled.</p>
+<p>If you disable Use XInput, you will get device-specific identification and recognition (Windows Standalone only, not Windows App Store or Windows 10 Universal), but you will also have the drawbacks <a href="#xinput-device-name">explained in the previous topic</a>.</p>
 <p>There is rarely ever a need to map these controllers individually by using the specific device-type maps. Just create your Joystick Map using the Dual Analog Gamepad Template and it will cover <a href="SupportedControllers.html">all gamepads listed here</a> regardless of whether or not you have Use XInput enabled.</p>
 <p>&nbsp;</p>
 <hr />
@@ -333,10 +342,15 @@ public class RewiredCustomController_AndroidRemote : MonoBehaviour {
   <li>The Steam Controller as well as Steam Streaming and Steam Link can no longer be supported.</li>
 </ol>
 <p><strong>OSX Standalone</strong><br />
-  XBox 360 controllers on OSX require <a href="https://github.com/360Controller/360Controller" target="_blank"> this XBox 360 driver</a>. This driver also imposes the 4-device limit just like XInput. It is currently not possible to use more than 4 XInput devices simultaneously on OSX. Again, you can mix and match non-XInput controllers to achieve a total count greater than 4. Because the driver is required for the controller to be detected, there is no way to disable the use of this driver and get around this issue.</p>
+  XBox 360 controllers on OSX require <a href="https://github.com/360Controller/360Controller/releases" target="_blank"> this XBox 360 driver</a>. This driver also imposes the 4-device limit just like XInput. It is currently not possible to use more than 4 XInput devices simultaneously on OSX. Again, you can mix and match non-XInput controllers to achieve a total count greater than 4. Because the driver is required for the controller to be detected, there is no way to disable the use of this driver and get around this issue.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-10-fallback-xbox-one-mapping-issues" id="windows-10-xbox-one-crash2"></a>Windows Standalone (Unity Fallback, Windows 10): Xbox One Controller L/R and D-Pad mapping problems</h3>
+<p>Due to Microsoft driver issues, on versions of Windows 10 before the Windows 10 Anniversary Update, the L/R triggers and D-Pad on the Xbox One Controller may be mapped incorrectly and non-functional when using Unity Fallback input. Microsoft made Xbox One Controller driver changes in an early version of Windows 10 that caused the controller mappings to change when retrieving values through the HID driver. This change did not affect XInput. Unity uses a combination of direct HID device access and XInput to get input from XInput compatible devices. This caused the standardized mappings in Unity's input system to break, cross-mapping the D-Pad and the triggers. Microsoft acknowledged this as a mistake and finally rolled back this driver change in the Windows 10 Anniversary Update rolled out on August 2, 2016. After this update, the mappings reverted to the normal mappings consistent with Windows 7. Only users using Windows 10 pre-Anniversary update are affected. This does not affect Rewired if using the native input options instead of Unity fallback input.</p>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="windows-10-xbox-one-crash" id="windows-10-xbox-one-crash"></a>Windows Standalone (Raw Input, Windows 10): XBox One controller causes system crash when removed when using Raw Input on Windows 10</h3>
+<p>Update: This has been fixed as of Windows 10 Anniversary Update.</p>
 <p>This is not a bug or issue with Rewired. A recent Windows Update has introduced a new bug in Windows 10 when using the XBox One controller. When Raw Input is enabled, if the XBox One controller is disconnected at runtime, it will cause the entire system to become unresponsive requiring a hard reboot to fix. I have isolated this issue to a specific Windows API Raw Input function call which is not optional. There is no known workaround for this problem when using Raw Input. This bug has been reported to Microsoft.</p>
 <p>The only possible workaround is to enable Use XInput so the XBox One Controller is handled by XInput instead of Raw Input.</p>
 <p>&nbsp;</p>
@@ -346,9 +360,23 @@ public class RewiredCustomController_AndroidRemote : MonoBehaviour {
 <p>The only possible workaround  is to enable Use XInput so the XBox One Controller is handled by XInput instead of Direct Input.</p>
 <p>&nbsp;</p>
 <hr />
-<h3><a name="windows-fallback-xbox-one-controller-mapping" id="windows-fallback-xbox-one-controller-mapping"></a>Windows Standalone: XBox One controller has incorrect mapping on Windows XP, Vista, 7, and 8 when using Unity fallback input</h3>
-<p>Microsoft changed the XBox One driver in Windows 10 and changed the mappings compared to Windows 7 and prior versions. When using Unity fallback as the input source, it is impossible to differentiate the XBox One controller on Windows versions prior to 10 and Windows 10. Therefore, the mapping for Windows versions prior to 10 is loaded on Windows 10 and the controller mappings are incorrect.</p>
+<h3><a name="windows-10-xbox-one-controller-stops-working-after-unplug" id="windows-10-xbox-one-controller-stops-working-after-unplug"></a>Windows Standalone (Windows 10): Xbox One Controller stops working after another controller is unplugged</h3>
+<p>Applies to Windows 10 after Anniversary Update.</p>
+<p>One or more Xbox One Controllers can stop working after unplugging any other Xbox One Controller. This is an Xbox One Controller driver bug introduced in the Windows Anniversary Update. There is no possible workaround to this issue. If this issue affects your game, please report it to Microsoft. This is not an issue with Rewired.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-xbox-one-controller-game-center-popup-bug" id="windows-xbox-one-controller-game-center-popup-bug"></a>Windows Standalone (Windows 10): Game Center popup keeps appearing when pressing keyboard keys</h3>
+<p>Applies to Windows 10 after Anniversary Update.</p>
+<p>When using Xbox One Controllers, At random, the Game Center popup may begin to appear every time a keyboard key is pressed or when clicking to different windows. This is an Xbox One Controller driver bug introduced in the Windows Anniversary Update. There is no possible workaround to this issue. If this issue affects your game, please report it to Microsoft. This is not an issue with Rewired.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-fallback-xbox-one-controller-mapping" id="windows-fallback-xbox-one-controller-mapping"></a>Windows Standalone (Unity Fallback, Windows 10): XBox One controller has incorrect mapping</h3>
+<p>Microsoft changed the XBox One driver in Windows 10 and changed the mappings compared to Windows 7 and prior versions, then after the Windows 10 Anniversary Update, they reverted this driver  change. When using Unity fallback as the input source, it is impossible to differentiate the XBox One controller on Windows 10 pre and post Anniversary Update. Therefore, the decision was made to support only the newest mapping. Xbox One Controllers will have incorrect mappings on Windows 10 prior to the Anniversary Update.</p>
 <p>This is not an issue when using Raw Input, Direct Input, or XInput. It is advised that you do not use UnityEngine fallback input as the input source on the Windows Standalone platform due to this and many, many other issues.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-nvidia-shield-controller-problems" id="windows-nvidia-shield-controller-problems"></a>Windows Standalone: Nvidia Shield Controller problems on Raw Input and Direct Input</h3>
+<p>With newer firmware versions, the Nvidia Shield Controller has major problems on Raw Input and Direct Input  which cause massive slowdowns making the controller essentially unusable. The only way to support the controller on Windows is to enable Use XInput which is not subject to the same issues. The Nvidia Shield Controller can no longer be safely used on Windows Standalone without Use XInput enabled until Nvidia fixes the firmware problems. If the controller is used without Use XInput enabled, the frame rate will drop to an extremely low level. There is no possible workaround to this issue.</p>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="uwp-il2cpp-controller-disconnect-crash" id="uwp-il2cpp-controller-disconnect-crash"></a>Windows 10 Universal IL2CPP: Crash when disconnecting controllers</h3>
@@ -356,6 +384,37 @@ public class RewiredCustomController_AndroidRemote : MonoBehaviour {
 <p>Note: This issue appears to affect builds running in Visual Studio only. It does not appear to affect Master builds that have been deployed.</p>
 <p>As of Unity 5.3.4f1, after enabling support for standard HID joysticks in the Package.appxmanifest, Unity may crash when disconnecting a non-XInput controller. This is a bug in Unity, not Rewired and there is no possible workaround if you want to support any controllers besides XInput controllers. (To disable support for non-XInput controllers, remove the <a href="SpecialPlatformSupport.html#uwp-enabling-hid-joystick-support">tags added to the Package.appxmanifest mentioned here</a>.) This bug has been reported to Unity, but so far no fix has been announced.</p>
 <p>This issue does not affect Windows 10 Universal builds when using the .NET scripting backend.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="windows-ri-hid-error" id="windows-ri-hid-error"></a>Windows Editor: &lt;RI.Hid&gt; Failed to create device file: 2 The system cannot find the file specified.</h3>
+<p>You may see the following error when starting the Unity Editor:</p>
+<ul>
+  <li>&lt;RI.Hid&gt; Failed to create device file: 2 The system cannot find the file specified.</li>
+</ul>
+<p>This error is logged by Unity itself and is not created by Rewired, nor is it related to Rewired in any way. It cannot be silenced or fixed. <a href="http://forum.unity3d.com/threads/ri-hid-failed-to-create-device-file.202934/" target="_blank">There is a forum thread detailing the issue here</a>.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="ouya-sdk-unity-input-joysticks-do-not-work" id="ouya-4-controller-limit2"></a>Ouya SDK: Unity input joysticks do not work when the Ouya SDK is installed</h3>
+<p>When the Ouya Everywhere SDK is installed in the project, it interferes with Unity's input system on Android builds preventing any joystick axes or buttons from working. At present, there is no known solution to make Unity input work on Android when the Ouya SDK is installed. However, Rewired includes support for the Ouya SDK which will allow you to use the Ouya SDK for joystick input. See the <a href="SpecialPlatformSupport.html#ouya">Special Platform Support - Ouya</a> for installation instructions.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="ouya-sdk-4-controller-limit" id="ouya-sdk-4-controller-limit"></a>Ouya SDK: Cannot use more than 4 controllers</h3>
+<p>When using the Ouya Everywhere SDK for joystick support, you cannot use more than 4 controllers. If you attach additional controllers beyond the 4-controller limit, the controller will be assigned to one of the same id's as another controller and both will control the same player. This is a limitation of the Ouya SDK, not Rewired.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="serialized-data-corruption-after-import" id="serialized-data-corruption-after-import"></a>Serialized data corruption after importing Rewired </h3>
+<p>Unity has a major bug in the Unitypackage importer that can lead to data corruption when importing an asset from the Unity Asset Store or a Unitypackage file.</p>
+<p>If your Unity <a href="http://docs.unity3d.com/Manual/class-EditorManager.html" target="_blank">Editor Settings -&gt; Asset Serialization Mode</a> is set to &quot;Force Binary&quot;, serialized data may be corrupted when you import a Unitypackage. This often happens when a new Unitypackage is imported. If you then re-import the same package over the previous import, it will be imported correctly. If you then delete the imported files and re-import them, they will be corrupted again.</p>
+<p>Corrupted serialized data in Rewired can manifest itself as inexplicable errors and exceptions being thrown for no reason making Rewired completely unusable. The best thing to do in this case is to change the Asset Serialization Mode to &quot;Mixed&quot; or &quot;Force Text&quot; and re-import Rewired. If that's not possible or you don't want to have to wait for all your assets to be re-imported in the new serialization mode, import the Rewired asset twice in a row (do not delete the Rewired folder after the first import). The serialized data should be intact after the second import.</p>
+<p>This bug has been reported to Unity. They have been able to reproduce it and have sent it to the developers for resolution. No ETA was given.</p>
+<p>Last tested version: Unity 5.3.5f0</p>
+<p>Please note that this is a Unity bug and can affect any asset. This is not an issue with Rewired.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="serialized-data-corruption-after-upgrading-unity" id="serialized-data-corruption-after-upgrading-unity"></a>Serialized data corruption after upgrading Unity</h3>
+<p>Unity's data serializer has bugs which can cause serialized data in scenes and prefabs to become corrupt after upgrading Unity and allowing it to re-import the assets. This normally seems to happen with serialized strings. If you've recently upgraded Unity and you start seeing weird errors or warnings logged about Actions missing that have long nonsense string names, your serialized data may have been corrupted in Unity. There is no way to fix this other than to restore a backup. For this and many other reasons, it's imperative that you back up your project before upgrading Unity.</p>
+<p>Please note that this is a Unity bug and can affect any asset. This is not an issue with Rewired.</p>
+<p>&nbsp;</p>
 <div class="bottom-pager clearfix">
   <a class="back-button" href="Documentation.html" title="Documentation"><span class="button-img"></span>Documentation</a>
 </div>

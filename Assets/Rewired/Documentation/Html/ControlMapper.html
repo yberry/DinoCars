@@ -81,12 +81,12 @@
             <strong>Help:</strong>
             <ul>
               <li><a href="SupportedControllers.html" title="Supported Controllers">Supported Controllers</a></li>
+              <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+              <li><a href="KnownIssues.html">Known Issues</a></li>
               <li><a href="SpecialPlatformSupport.html" title="Special Platform Support">Special Platform Support</a></li>
 	          <li><a href="Examples.html" title="Examples">Examples</a></li>
               <li><a href="Integration.html">Integrations</a></li>
 	          <li><a href="Updating.html" title="Updating Rewired">Updating Rewired</a></li>
-	          <li><a href="Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-              <li><a href="KnownIssues.html">Known Issues</a></li>
             </ul>
             <strong>FAQ</strong>
             <ul>
@@ -178,7 +178,7 @@
       <li>GameObject -&gt; Create Other -&gt; Rewired -&gt; UI -&gt; Rewired Event System</li>
       <li>Window -&gt; Rewired -&gt; Create -&gt; UI -&gt; Rewired Event System</li>
       </ul>
-    <p><img src="files/images/controlmapper_rewiredstandaloneinputmodule.png" width="572" height="379" class="right" />Four Actions must be set up in the Rewired Input Manager and the RewiredStandaloneInputModule in order to control the UI. <strong>These four Actions must have names that match exactly in both the Rewired Input Manager and the RewiredStandaloneInputModule</strong>.</p>
+    <p><img src="files/images/controlmapper_rewiredstandaloneinputmodule.png" width="469" height="275" class="right" />Four Actions must be set up in the Rewired Input Manager and the RewiredStandaloneInputModule in order to control the UI. <strong>These four Actions must have names that match exactly in both the Rewired Input Manager and the RewiredStandaloneInputModule</strong>.</p>
     <ol>
       <li>Horizontal Axis - The Action that will control Left/Right movement in the UI.</li>
       <li>Vertical Axis - The Action that will control Up/Down movement in the UI.</li>
@@ -219,10 +219,24 @@
     <p><img src="files/images/controlmapper_userdatastore.png" width="554" height="97" /></p>
     <p>Saving and loading of user data is handled by the <a href="UserDataStore.html">UserDataStore</a> component on the Rewired Input Manager. By default, this component does not exist on the Rewired Input Manager. Without this component, data will never be saved or loaded and will not persist between game sessions.</p>
     <p>If you add a UserDataStore derived component to the Rewired Input Manager, it will be used to save and load data. Rewired includes a UserDataStore_PlayerPrefs component which will use PlayerPrefs to save the controller data. Simply add this component to your Rewired Input Manager and data will be loaded and saved as needed.</p>
+    <p>Control Mapper will save data when any of the following occur:</p>
+    <ul>
+      <li>The Control Mapper window is closed by the user.</li>
+      <li>A joystick is unplugged.</li>
+      </ul>
+    <p>Control Mapper will load saved data when any of the following occur:</p>
+    <ul>
+      <li>At runtime start if &quot;Load Data On Start&quot; is checked in the UserDataStore_PlayerPrefs component inspector.</li>
+      <li>A joystick is plugged in.</li>
+    </ul>
+    <p>If you are using multiple different Rewired Input Managers in different scenes, they all must have a UserDataStore_PlayerPrefs component and the &quot;Player Prefs Key Prefix&quot; must match in order for the same save data to be loaded by each Rewired Input Manager.</p>
     <p>If you don't want to use PlayerPrefs, you can create your own data storage system using UserDataStore. See <a href="UserDataStore.html">User Data Store</a> for more information.</p>
+    <p><strong>IMPORTANT: Saved XML data is not updated when you make changes to the Rewired Input Manager</strong></p>
+    <p>Control Mapper does not manage changes between the Rewired Input Manager and data that is already saved to XML. If you make changes to the Rewired Input Manager settings such as adding new controls to a Joystick Map, these new changes will not be preserved when loading saved XML data. The only automated solutions would be to either clear the save data by clearing Player Prefs so that the Rewired Input Manager defaults are used instead or load the default maps in the Player for the any controllers that changed and save those to XML overwriting the existing saved mappings.</p>
+    <p>Management of saved user data is up to the developer. If you have special needs beyond the basic use cases, you should extend and replace the <a href="UserDataStore.html#playerprefs">UserDataStore_PlayerPrefs</a> component with a new UserDataStore component that meets your specific needs.</p>
     <h3 style="background-color:#FF6"><a name="clear-xml-data" id="clear-xml-data"></a>***IMPORTANT***:</h3>
-    <p> When doing testing, if you open and close the Control Mapper screen or unplug a joystick while the Control Mapper screen is open, you are causing it to save XML data in the registry even if you didn't change any mappings or settings. The next time you start the game (provided the Rewired Input Manager with the UserDataStore_PlayerPrefs component is present in the scene), it will load that saved XML data from the registry, NOT the default settings stored in the Rewired Input Manager. While doing testing, you will most likely want to clear this saved data so the default settings in the Rewired Input Manager are loaded instead of the saved data. This can be done by clearing Player Prefs by opening the &quot;Debug Options&quot; foldout on the Rewired Input Manager inspector.</p>
-    <p>If you are confused by your input configuration not matching what you defined in the Rewired Input Manager, or you are seeing different behaviors in the Unity Editor versus a game build, you most likely are loading XML data that you are unaware that you saved. Clear Player Prefs and everything will reset to the defaults.</p>
+    <p>When doing testing, if you open and close the Control Mapper screen or unplug a joystick while the Control Mapper screen is open, you are causing it to save XML data in the registry even if you didn't change any mappings or settings. The next time you start the game (provided the Rewired Input Manager with the UserDataStore_PlayerPrefs component is present in the scene), it will load that saved XML data from the registry, NOT the default settings stored in the Rewired Input Manager. While doing testing, you will most likely want to clear this saved data so the default settings in the Rewired Input Manager are loaded instead of the saved data. This can be done by clearing Player Prefs by opening the &quot;Debug Options&quot; foldout on the Rewired Input Manager inspector.</p>
+<p>If you are confused by your input configuration not matching what you defined in the Rewired Input Manager, or you are seeing different behaviors in the Unity Editor versus a game build, you most likely are loading XML data that you are unaware that you saved. Clear Player Prefs and everything will reset to the defaults.</p>
     <p>&nbsp;</p>
 <hr />
     <h2><a name="conflict-checking" id="conflict-checking"></a>Conflict Checking</h2>
@@ -280,16 +294,12 @@
     <p>&nbsp;</p>
     <hr />
     <h2><a name="faq" id="faq"></a>Frequently Asked Questions</h2>
-    <p><strong>Q: How can I disable the display of the full-axis field (&quot;Move Vertical&quot;, for example). I only want to show &quot;Move Up&quot; and &quot;Move Down&quot;</strong></p>
-<p>You cannot disable the full-axis assignment field. It is integral to the design of Control Mapper and allows the user to assign any joystick axis to an Action. It also provides a means to invert the axis.</p>
-<p><strong>Q: How can I disable the display of the split-axis fields (&quot;Move Up&quot; and &quot;Move Down&quot;, for example). I only want to show &quot;Move Vertical&quot;</strong></p>
-<p>You cannot disable the split-axis assignment fields. They are integral to the design of Control Mapper and allow the user to assign buttons and certain types of axes such as analog gamepad triggers to Actions. For example, without these fields users could not assign axis-type actions to D-Pads or hats, which are handled as buttons in Rewired.</p>
-<p><strong>Q: How do I center the Control Mapper window?</strong></p>
+    <p class="question">How do I center the Control Mapper window?</p>
 <p>ControlMapper -&gt; Canvas -&gt; MainPageGroup</p>
 <p>Set equal paddings on Left, Top, Right, and Bottom and the window will be centered.</p>
-<p><strong>Q: Is it possible to visually edit the Control Mapper layout in real-time?</strong></p>
+<p class="question">Is it possible to visually edit the Control Mapper layout in real-time?</p>
 <p>Not easily. Control Mapper has many dynamically-generated UI elements which are generated at runtime based on the options set in the inspector. It is not a static UI layout that can easily be edited in real-time. However, you can press Play in the editor and edit some settings to get a preview of how changes might look. In order to commit those settings though, you have to stop Play mode and remake the changes to the game objects while it is not in Play mode.</p>
-<p><strong>Q: I want to customize more  than what's available in the theme settings. How do I do that?</strong></p>
+<p class="question">I want to customize more  than what's available in the theme settings. How do I do that?</p>
 <p>The theme was meant to provide basic customization of the styles on all elements because they're dynamically generated. Basic functional customization is done through the Control Mapper inspector. Anything beyond that is out of the scope of the tool and up to you to implement if you choose to and requires a very good knowledge of Unity UI.</p>
 <p>There are certain areas which you cannot change the layout  because they're generated by scripting such as the columns of input fields. Other things can be moved and reordered such as the various sections at the top. But be aware that some changes will cause problems. One thing everyone seems to want to do is to move the Done button to the bottom. I advise against this because the auto-scroll system put in place for the input field grid will make it so you have to scroll through every Action entry before it will jump down to the Done button. </p>
 <p>Alignments, padding, spacing, etc. can be changed with the standard options in Unity's UI system for the various UI game objects in the hierarchy.</p>
@@ -307,7 +317,7 @@
 <p>Some things you could customize by modifying the prefabs, while some options would be overridden by the theme when it loads.</p>
 <p>The ControlMapper-&gt;Canvas: Canvas Scaler Fitter component governs responsive break points. It can be disabled if you don't need that functionality.</p>
 <p>If you need to modify any source prefab components, it's best to work with copies of everything so you can still update Rewired and not lose your changes. If you copy all the prefabs, you will need to re-assign the copies as the sources for the dynamically generated objects in the ControlMapper inspector -&gt; Advanced Settings -&gt; Internal Data -&gt; Prefabs section.  If you want to customize the popup windows, they are also in the prefabs folder. Same rules apply. Copy them, then re-assign the copies as the prefab sources.</p>
-<p><strong>Q: How can I disable/hide the Pre-Input Assignment Time screen? I don't really need it because my game doesn't use analog input. I tried setting the time to 0 but it still flashes for a moment.</strong></p>
+<p class="question">How can I disable/hide the Pre-Input Assignment Time screen? I don't really need it because my game doesn't use analog input. I tried setting the time to 0 but it still flashes for a moment.</p>
 <p>There is no way to disable that without changing the source code.<br />
   <br />
 Even if your game doesn't use analog input, your players may still use physical analog controls. Disabling this would be a bad idea because the purpose of it is to prevent any inadvertent assignments such as when releasing a stick and its action of auto-centering itself registers as a negative stick movement mapping that to your Action.</p>
@@ -318,7 +328,12 @@ Even if your game doesn't use analog input, your players may still use physical 
     <p>&nbsp;</p>
     <p><strong>Rewired Input Manager</strong></p>
     <p><img src="files/images/controlmapper_inspector_rewired-input-manager.png" width="676" height="47" /></p>
-    <p>You must link a Rewired Input Manager to this field in the inspector. All input data will be read from the Rewired Input Manager linked here.</p>
+    <p>You must link a Rewired Input Manager to this field in the inspector. All input data will be read from the Rewired Input Manager linked here.    </p>
+    <p>&nbsp;</p>
+    <hr />
+    <p><strong>Don't Destroy On Load</strong></p>
+    <p>Set to True to prevent the Game Object from being destroyed when a new scene is loaded.</p>
+    <p>NOTE: Changing this value from True to False at runtime will have no effect because Object.DontDestroyOnLoad cannot be undone once set.</p>
     <p>&nbsp;</p>
     <hr />
     <p><strong>Screen Options</strong></p>
@@ -421,8 +436,26 @@ Even if your game doesn't use analog input, your players may still use physical 
       </tr>
     </table>
     <p>&nbsp;</p>
+<hr />
+    <p><strong><a name="inspector-input-field-options" id="inspector-map-categories-and-actions2"></a>Input Field Options</strong></p>
+    <p><img src="files/images/controlmapper_inspector_input-field-options.png" alt="" width="674" height="88" /></p>
+    <p>Various options for the input field grid.</p>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="22%" valign="top">Show Full Axis Input Fields</td>
+        <td width="78%" valign="top"><p>Display a full-axis input assignment field for every axis-type Action in the input field grid. Also displays an invert toggle for the user  to invert the full-axis assignment direction.</p>
+          <p>IMPORTANT: This field is required if you have made any full-axis assignments in the Rewired Input Manager or in saved XML user data. Disabling this field when you have full-axis assignments will result in the inability for the user to view, remove, or modify these full-axis assignments. In addition, these assignments may cause conflicts when trying to remap the same axes to Actions.</p></td>
+      </tr>
+      <tr>
+        <td valign="top">Show Split Axis Input Fields</td>
+        <td valign="top"><p>Display a positive and negative input assignment field for every axis-type Action in the input field grid.</p>
+          <p>IMPORTANT: These fields are required to assign buttons, keyboard keys, and hat or D-Pad directions to axis-type Actions. If you have made any split-axis assignments or button/key/D-pad assignments to axis-type Actions in the Rewired Input Manager or in saved XML user data, disabling these fields will result in the inability for the user to view, remove, or modify these assignments. In addition, these assignments may cause conflicts when trying to remap the same elements to Actions.</p></td>
+      </tr>
+    </table>
+    <p></p>
+    <p>&nbsp;</p>
     <hr />
-    <p><strong>Map Categories and Actions</strong></p>
+    <p><strong><a name="inspector-map-categories-and-actions" id="inspector-map-categories-and-actions"></a>Map Categories and Actions</strong></p>
     <p><img src="files/images/controlmapper_inspector_maps-and-actions.png" alt="" width="676" height="451" /></p>
     <p>Options for the Map Categories and Actions displayed to the user for input mapping.</p>
     <p>You can define a list of Map Categories to be shown to the user for remapping. You can choose to show one or multiple Map Categories. If you define multiple Map Categories here, a new row of buttons will be shown that will allow the user to select a Map Category for which to create input assignments.</p>
@@ -455,7 +488,7 @@ Even if your game doesn't use analog input, your players may still use physical 
     </table>
     <p>&nbsp;</p>
     <hr />
-    <p><strong>Default Layouts</strong></p>
+    <p><strong><a name="inspector-default-layouts" id="inspector-default-layouts"></a>Default Layouts</strong></p>
     <p><img src="files/images/controlmapper_inspector_default-layouts.png" alt="" width="687" height="163" /></p>
     <p>The controller map Layout that will be shown to the user. This remapping system only supports a single fixed Layout per controller type.</p>
     <p>This Layout defined here is only a suggestion. If a ControllerMap with this Layout is found in the Player, it will be used. Otherwise, the first ControllerMap in the correct category found will be used regardless of the Layout id.</p>

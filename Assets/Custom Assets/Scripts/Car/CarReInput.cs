@@ -10,28 +10,46 @@ public class CarReInput : MonoBehaviour {
     [DisplayModifier(true)]
     public Rewired.Player pInput;
     [DisplayModifier(true)]
-    public CarController car;
+    public BaseCarController car;
 
-    public bool useKeyboard;
+
+    [Header("Debug Options")]
+    public bool testSteering;
+    [Range(-1f,1f)]
+    public float forceDirAt100Kph = 1f;
+  
     // Use this for initialization
     void Start () {
 
         BindPlayerSlot();
-        car = GetComponent<CarController>();
+        car = GetComponent<BaseCarController>();
     }
 
+    bool stickTestForce;
     private void FixedUpdate()
     {
 
         // pass the input to the car!
-        float h = pInput.GetAxis(Globals.Axis_X1);
-        float fwd = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
-        float back = pInput.GetAxis(useKeyboard ? Globals.Axis_Y1 : Globals.Axis_Z1);
 
-       // Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+        
 #if !MOBILE_INPUT
+        float h = pInput.GetAxis(Globals.Axis_X1);
+        if (stickTestForce || testSteering && car.rBody.velocity.magnitude > 42)
+        {
+            stickTestForce = true;
+            h = forceDirAt100Kph;
+        }
+           
+
+        float fwd = pInput.GetAxis(Globals.Axis_Z2);
+        float back = pInput.GetAxis(Globals.Axis_Z1);
+
+        //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
-        car.Move(h, fwd,  back, handbrake);
+        bool boost = pInput.GetButton(Globals.BtnAction3);
+
+        car.Move(h, fwd,  back, handbrake, boost);
 #else
             car.Move(h, v, v, 0f);
 #endif
