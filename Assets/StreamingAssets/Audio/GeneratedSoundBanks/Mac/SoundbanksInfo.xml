@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="11" SoundbankVersion="120">
+	<RootPaths>
+		<ProjectRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\GUILLON.victoria\Documents\CarsDinoProject\DinoCars\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\GeneratedSoundBanks\Mac\</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="979736363" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Car_Motor</ObjectPath>
+			<ShortName>Car_Motor</ShortName>
+			<Path>Car_Motor.bnk</Path>
+			<IncludedEvents>
+				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car_Crash"/>
+				<Event Id="552863873" Name="Car_Drift" ObjectPath="\Events\Default Work Unit\Car_Drift"/>
+				<Event Id="520985213" Name="Play_Motor" ObjectPath="\Events\Default Work Unit\Play_Motor"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="430570743" Language="SFX">
+					<ShortName>Volkswagen_Golf_VR6_2004.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Volkswagen_Golf_VR6_2004_50BEBA13.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

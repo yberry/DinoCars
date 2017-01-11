@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\GUILLON.victoria\Documents\CarsDinoProject\DinoCars\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<SoundBanksRoot>C:\Users\GUILLON.victoria\Documents\CarsDinoProject\DinoCars\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
 	</RootPaths>
@@ -16,14 +16,14 @@
 			<ShortName>Car_Motor</ShortName>
 			<Path>Car_Motor.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1950444439" Name="Gear_Change" ObjectPath="\Events\Default Work Unit\Gear_Change"/>
-				<Event Id="1256202815" Name="Play" ObjectPath="\Events\Default Work Unit\Play"/>
-				<Event Id="1281810935" Name="Start" ObjectPath="\Events\Default Work Unit\Start"/>
+				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car_Crash"/>
+				<Event Id="552863873" Name="Car_Drift" ObjectPath="\Events\Default Work Unit\Car_Drift"/>
+				<Event Id="520985213" Name="Play_Motor" ObjectPath="\Events\Default Work Unit\Play_Motor"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="387274097" Language="SFX">
-					<ShortName>Ferrari_575M.model</ShortName>
-					<Path>Plugins\CrankcaseAudio REV\Ferrari_575M_41E511B6.wem</Path>
+				<File Id="430570743" Language="SFX">
+					<ShortName>Volkswagen_Golf_VR6_2004.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Volkswagen_Golf_VR6_2004_50BEBA13.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>

@@ -84,6 +84,8 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
+            AkSoundEngine.SetRTPCValue("Throttle", currentGear);
+            AkSoundEngine.SetRTPCValue("Gear", currentGear);
         }
 
 

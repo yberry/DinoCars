@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PluginInfo Project="CarsDino_CAR_Motor" Platform="Windows" BasePlatform="Windows">
 	<Plugins>
+		<Plugin Name="Wwise Synth One" ID="9699330" DLL="SynthOne"/>
 		<Plugin Name="CrankcaseAudio REV" ID="27267154" DLL="CrankcaseAudioREVModelPlayer"/>
 	</Plugins>
 </PluginInfo>

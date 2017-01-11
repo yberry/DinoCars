@@ -1,0 +1,22 @@
+Event	ID	Name			Wwise Object Path	Notes
+	410072009	Car_Crash			\Default Work Unit\Car_Crash	
+	520985213	Play_Motor			\Default Work Unit\Play_Motor	
+	552863873	Car_Drift			\Default Work Unit\Car_Drift	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	129	MIDI note velocity			\MIDI note velocity	
+	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
+
+Modulator Envelope	ID	Name			Wwise Object Path	Notes
+	652640863	Modulator Envelope (Custom)				
+	773663610	Modulator Envelope (Custom)				
+	901056879	Modulator Envelope (Custom)				
+
+Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	339952054	FM 01	Wwise Synth One		\Actor-Mixer Hierarchy\Factory Synth One\Instruments\FM 01\FM 01	Audiokinetic Inc. All rights reserved. Content provided by Vincent Gagnon © 2014 Vincent Gagnon
+	853976946	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Factory Crankcase REV\Volkswagen Golf VR6 2004\CrankcaseAudio REV	
+	970241952	CONFIRM 01	Wwise Synth One		\Actor-Mixer Hierarchy\Factory Synth One\UI Sounds\CONFIRM 01\CONFIRM 01	Audiokinetic Inc. All rights reserved. Content provided by Vincent Gagnon © 2014 Vincent Gagnon
+
+Plug-in Media	ID	Name	Source file	Type	Wwise Object Path	Notes	Data Size
+	430570743	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\Plugins\CrankcaseAudio REV\Volkswagen_Golf_VR6_2004_50BEBA13.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Factory Crankcase REV\Volkswagen Golf VR6 2004\CrankcaseAudio REV		823744
+
