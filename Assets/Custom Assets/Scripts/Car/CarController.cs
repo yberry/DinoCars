@@ -202,6 +202,10 @@ namespace CND.Car
 
         }
 
+        public override void Drift(bool active)
+        {
+
+        }
 
         public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {

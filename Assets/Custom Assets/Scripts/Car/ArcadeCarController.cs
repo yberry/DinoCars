@@ -14,6 +14,7 @@ namespace CND.Car
         
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
+        abstract public void Drift(bool active);
 
         public virtual string DebugHUDString()
         {
@@ -23,19 +24,26 @@ namespace CND.Car
 
     public class ArcadeCarController : BaseCarController
     {
+        public CarTurnPreset turnPreset;
+
         [Range(0,5000)]
         public float targetSpeed=100f;
         public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
         [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
         public AnimationCurve[] transmissionCurves;
         [Range(0,90)]
-        public float maxTurnAngle=60f;
+    
+
+        //Variable Utilisée
+        public float maxTurnAngle = 60f;
         [Range(0, 360), Tooltip("Max degrees per second")]
         public float turnSpeed = 1f;
-        [Range(0,1)]
+        [Range(0, 1)]
         public float tractionControl;
         [Range(0, 1)]
         public float driftControl;
+
+
 
         public Vector3 m_CentreOfMassOffset;
         public bool orientationFix;
@@ -65,7 +73,6 @@ namespace CND.Car
             rBody = GetComponent<Rigidbody>();
 
 
-            
         }
 
         // Update is called once per frame
@@ -87,6 +94,23 @@ namespace CND.Car
             rBody.ResetCenterOfMass();
             rBody.centerOfMass += m_CentreOfMassOffset;
 
+        }
+        public override void Drift(bool active)
+        {
+            if (active)
+            {
+              maxTurnAngle = turnPreset.maxTurnAngleD;
+              turnSpeed = turnPreset.turnSpeedD;
+              tractionControl = turnPreset.tractionControlD;
+              driftControl = turnPreset.driftControlD;
+            }
+            else
+            {
+              maxTurnAngle = turnPreset.maxTurnAngleC;
+              turnSpeed = turnPreset.turnSpeedC;
+              tractionControl = turnPreset.tractionControlC;
+              driftControl = turnPreset.driftControlC;
+            }
         }
 
         public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
