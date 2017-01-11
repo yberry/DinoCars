@@ -1784,41 +1784,7 @@ public class MegaShape : MonoBehaviour
 
 			time += Time.deltaTime * speed;
 
-			switch ( LoopMode )
-			{
-				case MegaRepeatMode.Loop:		t = Mathf.Repeat(time, MaxTime); break;
-				case MegaRepeatMode.PingPong:	t = Mathf.PingPong(time, MaxTime); break;
-				case MegaRepeatMode.Clamp:		t = Mathf.Clamp(time, 0.0f, MaxTime); break;
-			}
-
-			for ( int s = 0; s < splines.Count; s++ )
-			{
-				if ( splines[s].splineanim != null && splines[s].splineanim.Enabled )
-				{
-					//Debug.Log("getstate");
-					splines[s].splineanim.GetState1(splines[s], t);
-					splines[s].CalcLength();	//(10);	// could use less here
-				}
-				else
-				{
-					if ( splines[s].animations != null && splines[s].animations.Count > 0 )
-					{
-						for ( int i = 0; i < splines[s].animations.Count; i++ )
-						{
-							Vector3 pos = splines[s].animations[i].con.GetVector3(t);
-
-							switch ( splines[s].animations[i].t )
-							{
-								case 0:	splines[splines[s].animations[i].s].knots[splines[s].animations[i].p].invec		= pos;	break;
-								case 1:	splines[splines[s].animations[i].s].knots[splines[s].animations[i].p].p			= pos;	break;
-								case 2:	splines[splines[s].animations[i].s].knots[splines[s].animations[i].p].outvec	= pos;	break;
-							}
-						}
-
-						splines[s].CalcLength();	//(10);	// could use less here
-					}
-				}
-			}
+            DoAnim();
 		}
 
 		// Options here:
@@ -1882,6 +1848,45 @@ public class MegaShape : MonoBehaviour
 		}
 #endif
 	}
+
+    public void DoAnim()
+    {
+        switch (LoopMode)
+        {
+            case MegaRepeatMode.Loop: t = Mathf.Repeat(time, MaxTime); break;
+            case MegaRepeatMode.PingPong: t = Mathf.PingPong(time, MaxTime); break;
+            case MegaRepeatMode.Clamp: t = Mathf.Clamp(time, 0.0f, MaxTime); break;
+        }
+
+        for (int s = 0; s < splines.Count; s++)
+        {
+            if (splines[s].splineanim != null && splines[s].splineanim.Enabled)
+            {
+                //Debug.Log("getstate");
+                splines[s].splineanim.GetState1(splines[s], t);
+                splines[s].CalcLength();    //(10);	// could use less here
+            }
+            else
+            {
+                if (splines[s].animations != null && splines[s].animations.Count > 0)
+                {
+                    for (int i = 0; i < splines[s].animations.Count; i++)
+                    {
+                        Vector3 pos = splines[s].animations[i].con.GetVector3(t);
+
+                        switch (splines[s].animations[i].t)
+                        {
+                            case 0: splines[splines[s].animations[i].s].knots[splines[s].animations[i].p].invec = pos; break;
+                            case 1: splines[splines[s].animations[i].s].knots[splines[s].animations[i].p].p = pos; break;
+                            case 2: splines[splines[s].animations[i].s].knots[splines[s].animations[i].p].outvec = pos; break;
+                        }
+                    }
+
+                    splines[s].CalcLength();    //(10);	// could use less here
+                }
+            }
+        }
+    }
 
 	// Meshing options
 	public bool				makeMesh = false;
