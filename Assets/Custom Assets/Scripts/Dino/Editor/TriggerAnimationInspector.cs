@@ -31,7 +31,18 @@ public class TriggerAnimationInspector : Editor {
             triggerAnimation.layer = layer;
         }
 
-        if (loft.Layers[layer].layerPath.LoopMode == MegaRepeatMode.Clamp)
+        MegaShape shape = loft.Layers[layer].layerPath;
+
+        EditorGUI.BeginChangeCheck();
+        int curve = EditorGUILayout.IntSlider("Curve", triggerAnimation.curve, 0, shape.splines.Count - 1);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(triggerAnimation, "Curve");
+            EditorUtility.SetDirty(triggerAnimation);
+            triggerAnimation.curve = curve;
+        }
+
+        if (shape.LoopMode == MegaRepeatMode.Clamp)
         {
             EditorGUI.BeginChangeCheck();
             bool col = EditorGUILayout.Toggle("Refresh Collider", triggerAnimation.refreshCollider);

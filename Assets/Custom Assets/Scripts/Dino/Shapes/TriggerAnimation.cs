@@ -6,17 +6,22 @@ using UnityEngine;
 public class TriggerAnimation : MonoBehaviour {
 
     public MegaShapeLoft loft;
-    public int layer;
+    public int layer = 0;
+    public int curve = 0;
     public bool refreshCollider;
 
     MegaShape shape;
     MegaRepeatMode loop;
     bool activated = false;
 
-    void Start()
+    void Awake()
     {
         shape = loft.Layers[layer].layerPath;
         loop = shape.LoopMode;
+    }
+
+    void Start()
+    {
         shape.time = 0f;
         shape.DoAnim();
 
@@ -35,6 +40,10 @@ public class TriggerAnimation : MonoBehaviour {
         }
 
         activated = true;
+
+        MegaLoftLayerSimple megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
+        megaLayer.curve = curve;
+
         switch (loop)
         {
             case MegaRepeatMode.None:
