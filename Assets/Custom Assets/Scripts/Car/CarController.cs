@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-#if NEWCAR
+#if NEWCAR 
 namespace CND.Car
 {
     public enum CarDriveType
@@ -202,8 +202,17 @@ namespace CND.Car
 
         }
 
+		public override void Move(float steering, float accel)
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
+		public override void Action(float footbrake, float handbrake, float boost, float drift)
+		{
+			throw new NotImplementedException();
+		}
+
+		public  void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
 
             if (boost)

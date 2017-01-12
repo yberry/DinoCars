@@ -118,23 +118,29 @@ public class DisplayModifierDrawer : PropertyDrawer
             fieldInfo = rootFieldInfo;
         }
 
+		private void RefreshMembers(SerializedProperty property, GUIContent label)
+		{
+
+			fields = fieldInfo.FieldType.GetFields();
+			members = new SerializedProperty[fields.Length];
+
+			for (int i = 0; i < fields.Length; i++)
+			{
+				var subMember = property.FindPropertyRelative(fields[i].Name);
+				if (subMember != null)
+				{
+					members[i] = subMember;
+				}
+
+			}
+
+		}
+
         public float GetExpandedPropertyHeight(SerializedProperty property, GUIContent label)
         {
             if (fields == null || needRefresh)
             {
-                fields = fieldInfo.FieldType.GetFields();
-                members = new SerializedProperty[fields.Length];
-
-                for (int i = 0; i < fields.Length; i++)
-                {
-                    var subMember = property.FindPropertyRelative(fields[i].Name);
-                    if (subMember != null)
-                    {
-                        members[i] = subMember;     
-                    }
-
-                }
-                
+				RefreshMembers(property,label);
             }
 
             if (needRefresh)
@@ -156,23 +162,28 @@ public class DisplayModifierDrawer : PropertyDrawer
 
         public void CreateGUI(Rect position, SerializedProperty property, GUIContent label, bool refresh)
         {
+			
             needRefresh = refresh;
             EditorGUI.BeginProperty(position, label, property);
             int indent = EditorGUI.indentLevel;
-            for (int i = 0; i < members.Length; i++)
-            {
+			if (members != null)
+			{
+				for (int i = 0; i < members.Length; i++)
+				{
 
-                if (members[i] != null)
-                {
-                    var _height = EditorGUI.GetPropertyHeight(members[i], label, members[i].hasVisibleChildren)+2f;
-                    position.height = _height-1f;
-                    // string path = fieldInfo.Name + "." + fields[i].Name;
-                    EditorGUI.indentLevel = indent;
-                    EditorGUI.PropertyField(position, members[i], members[i].hasVisibleChildren);
-                    position.y += _height+1f;
+					if (members[i] != null)
+					{
+						var _height = EditorGUI.GetPropertyHeight(members[i], label, members[i].hasVisibleChildren) + 2f;
+						position.height = _height - 1f;
+						// string path = fieldInfo.Name + "." + fields[i].Name;
+						EditorGUI.indentLevel = indent;
+						EditorGUI.PropertyField(position, members[i], members[i].hasVisibleChildren);
+						position.y += _height + 1f;
 
-                }
-            }
+					}
+				}
+			}
+
             
             EditorGUI.EndProperty();
         }
@@ -366,19 +377,38 @@ public class DisplayModifierDrawer : PropertyDrawer
 
         if (hideCondVars.IsNull() || hideCondVars.Length == 0) return !trueToHide;
 
-        bool conditionsMet = true;
         for (int i=0; i<hideCondVars.Length;++i)
         {
-            Debug.Log(hideCondVars[i]);
+			if (hideCondVars[i].IsNotNull())
+				Debug.Log(hideCondVars[i].name);
+
             var v = hideCondVars[i];
-            bool b = (v.propertyType == SerializedPropertyType.ObjectReference && v.objectReferenceValue.IsNotNull() || v.propertyType == SerializedPropertyType.Boolean && v.boolValue);
+			bool b = trueToHide;
+
+			if (v.IsNotNull()) {
+				switch (v.propertyType)
+				{
+					case SerializedPropertyType.ObjectReference:
+						if (v.objectReferenceValue as UnityEngine.Object)
+							b = v.objectReferenceValue;
+						else
+							b = (v.objectReferenceValue as System.Object).IsNotNull();
+						break;
+					case SerializedPropertyType.Boolean:
+						b = v.boolValue;
+						break;
+					
+				}
+			}
+
             if (reverseCondVars[i])
                 b = !b;
 
-            if (b != trueToHide) return !trueToHide;
+            if (b != trueToHide) return false;
+
         }
 
-        return conditionsMet;
+        return true;
     }
 
     protected void ReadRangeOptionalAttribute()

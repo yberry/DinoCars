@@ -17,7 +17,8 @@ namespace CND.Car
         public int CurrentGear { get { return GetGear(); } }
 
         public Rigidbody rBody {get; protected set;}
-        abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
+        abstract public void Move(float steering, float accel);
+		abstract public void Action(float footbrake, float handbrake, float boost, float drift);
 
         public virtual string DebugHUDString()
         {
@@ -35,35 +36,105 @@ namespace CND.Car
         }
     }
 
-    public class ArcadeCarController : BaseCarController
+
+
+	public class ArcadeCarController : BaseCarController
     {
-        [Serializable]
-        public class Settings
+
+		#region Nested structures
+		[Serializable]
+        public struct Settings
         {
             [SerializeField, Range(0, 5000)]
-            public float targetSpeed = 100f;
+            public float targetSpeed;
             [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
             public AnimationCurve[] transmissionCurves;
             [Range(0, 90)]
-            public float maxTurnAngle = 42;
+            public float maxTurnAngle;
             [Range(0, 360), Tooltip("Max degrees per second")]
-            public float turnSpeed = 88f;
+            public float turnSpeed;
             [Range(0, 1)]
-            public float tractionControl=0.25f;
+            public float tractionControl;
             [Range(0, 1)]
-            public float driftControl = 0.25f;
+            public float driftControl;
             [Range(0, 1000)]
-            public float downForce=1f;
-            public Vector3 m_CentreOfMassOffset;
+            public float downForce;
+            
+            public Vector3 centerOfMassOffset;
 
             [Header("Debug/Experimental")]
             public bool orientationFix;
+
+            public static Settings Create(
+                float targetSpeed = 100f, AnimationCurve[] transmissionCurves=null,
+                float maxTurnAngle = 42, float turnSpeed = 42f,
+                float tractionControl = 0.25f, float driftControl = 0.25f,
+                float downForce = 1f, Vector3? centerOfMassOffset=null,
+				 bool orientationFix=false
+				)
+            {
+				Settings c;
+                c.targetSpeed = targetSpeed;
+                c.transmissionCurves = transmissionCurves;
+                c.maxTurnAngle = maxTurnAngle;
+                c.turnSpeed = turnSpeed;
+                c.tractionControl = tractionControl;
+                c.driftControl = driftControl;
+                c.downForce = downForce;
+                c.centerOfMassOffset = centerOfMassOffset.HasValue ? centerOfMassOffset.Value : Vector3.zero;
+                c.orientationFix = orientationFix;
+				return c;
+            }
+
+			public  Settings Clone() {
+				var l = this;
+				l.transmissionCurves.CopyTo(this.transmissionCurves,0);
+				return l;
+			}
         }
 
-        [DisplayModifier( foldingMode: DM_FoldingMode.Unparented, hideMode: DM_HidingMode.Default)]
-        public Settings settings;
+		[Serializable]
+		public class SettingsOverride
+		{
+			public CarSettings carSettings;
+			[SerializeField]
+			public bool show;
 
-        public override float TargetSpeed {get {return settings.targetSpeed; }}
+			[DisplayModifier(/* hideMode: DM_HidingMode.GreyedOut,  hidingConditionVars: new[] { "carSettings" }, */ foldingMode: DM_FoldingMode.Unparented  )]
+			public Settings displayedSettings;
+			public bool overrideDefaults;
+
+			public void Refresh()
+			{
+				if (show=carSettings)
+					displayedSettings = carSettings.preset.Clone();
+				//hide = settings;
+			}
+
+			
+		}
+
+
+		#endregion Nested structures
+
+		#region Car settings
+		public CarSettings carSettings;
+
+		[DisplayModifier(hideMode: DM_HidingMode.Hidden, hidingConditions: DM_HidingCondition.TrueOrInit, hidingConditionVars: new[] { "carSettings" }, foldingMode: DM_FoldingMode.Unparented)]
+		public Settings displayedSettings;
+		public bool overrideDefaults;
+
+		/*[SerializeField, Header("Override Settings"), DisplayModifier("Override Settings",	foldingMode: DM_FoldingMode.Unparented)]
+		public SettingsOverride settingsOverride;*/
+
+		[SerializeField, Header("Default Settings"), DisplayModifier( "Default Settings",
+			foldingMode: DM_FoldingMode.Unparented, hideMode: DM_HidingMode.GreyedOut, hidingConditionVars: new[] { "settingsOverride.overrideDefaults" })]
+		public Settings settings;
+		protected Settings curSettings;
+
+		#endregion Car settings
+
+		public override float TargetSpeed {get {return settings.targetSpeed; }}
         public float SpeedRatio { get { return CurrentSpeed / settings.targetSpeed; } }
         WheelManager wheelMgr;
 
@@ -109,24 +180,32 @@ namespace CND.Car
                 rBody = GetComponent<Rigidbody>();
 
             rBody.ResetCenterOfMass();
-            rBody.centerOfMass += settings.m_CentreOfMassOffset;
+            rBody.centerOfMass += settings.centerOfMassOffset;
 
         }
 
-        public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
+
+
+        public override void Move(float steering, float accel)
         {
             this.steering = steering* steering*Mathf.Sign(steering);
             this.accelInput = Mathf.Clamp(accel+footbrake,-1f,1f);
-            this.footbrake = footbrake;
-            this.handbrake = handbrake;
-            this.boost = boost;
 
             var accelSign = Mathf.Sign(accelInput- accelOutput);
             //this.accelInput *= this.accelInput;
             accelOutput = Mathf.SmoothStep(accelInput, accelInput * accelSign, accelInput*0.5f+0.5f);// accel;// Mathf.MoveTowards(accelOutput, accelInput, accelSign* accel);
         }
 
-        protected override int GetGear()
+		public override void Action(float footbrake, float handbrake, float boost, float drift)
+		{
+			this.footbrake = footbrake;
+			this.handbrake = handbrake;
+			this.boost = boost > 0;
+
+		}
+
+
+		protected override int GetGear()
         {
             float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;            
             return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (settings.transmissionCurves.Length + offset) * (SpeedRatio)),-1, settings.transmissionCurves.Length));
@@ -303,7 +382,7 @@ namespace CND.Car
             Gizmos.DrawLine(centerOfMass + transform.right * 0.25f, halfVelocityEnd);
             Gizmos.DrawLine(centerOfMass + transform.right * -0.25f, halfVelocityEnd);
             Gizmos.color = Color.green * 0.75f;
-            var forwardLine = settings.m_CentreOfMassOffset + transform.forward;
+            var forwardLine = settings.centerOfMassOffset + transform.forward;
             /*
             Gizmos.DrawLine(centerOfMass, centerOfMass+ forwardLine);
             Gizmos.DrawLine(centerOfMass+ rBody.velocity.normalized* forwardLine.magnitude, centerOfMass + forwardLine);
@@ -313,7 +392,11 @@ namespace CND.Car
         private void OnValidate()
         {
             DebugRefresh();
-        }
+
+			//curSettings = settingsOverride.overrideDefaults ? settingsOverride.carSettings.preset.Clone() : settings.Clone(); 
+			//settingsOverride.Refresh();
+			//settingsOverride2.Refresh();
+		}
     }
 
 }

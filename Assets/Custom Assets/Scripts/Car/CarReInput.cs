@@ -49,7 +49,8 @@ public class CarReInput : MonoBehaviour {
         float handbrake = pInput.GetAxis(Globals.BtnAction1);
         bool boost = pInput.GetButton(Globals.BtnAction3);
 
-        car.Move(h, fwd,  back, handbrake, boost);
+        car.Move(h, fwd);
+		car.Action(back, handbrake, boost ? 1 : 0, 0);
 #else
             car.Move(h, v, v, 0f);
 #endif

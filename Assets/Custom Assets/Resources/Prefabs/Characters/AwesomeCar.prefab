@@ -673,7 +673,7 @@ MonoBehaviour:
     tractionControl: 0.25
     driftControl: 0.25
     downForce: 25
-    m_CentreOfMassOffset: {x: 0, y: -0.075, z: -0.075}
+    centerOfMassOffset: {x: 0, y: 0, z: 0}
     orientationFix: 0
 --- !u!114 &114301671462212306
 MonoBehaviour:
