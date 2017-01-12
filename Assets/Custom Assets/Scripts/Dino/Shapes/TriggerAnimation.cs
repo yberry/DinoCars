@@ -7,21 +7,65 @@ public class TriggerAnimation : MonoBehaviour {
 
     public MegaShapeLoft loft;
     public int layer;
+    public bool refreshCollider;
 
     MegaShape shape;
+    MegaRepeatMode loop;
+    bool activated = false;
 
     void Start()
     {
         shape = loft.Layers[layer].layerPath;
+        loop = shape.LoopMode;
         shape.time = 0f;
         shape.DoAnim();
+
+        loft.DoCollider = true;
+        loft.BuildMeshFromLayersNew();
+        loft.DoCollider = false;
+
         shape.animate = false;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        loft.DoCollider = true;
-        shape.animate = true;
+        if (activated)
+        {
+            return;
+        }
+
+        activated = true;
+        switch (loop)
+        {
+            case MegaRepeatMode.None:
+                Destroy(gameObject);
+                break;
+
+            case MegaRepeatMode.Loop:
+            case MegaRepeatMode.PingPong:
+                loft.DoCollider = true;
+                shape.animate = true;
+                Destroy(gameObject);
+                break;
+
+            case MegaRepeatMode.Clamp:
+                loft.DoCollider = refreshCollider;
+                shape.animate = true;
+                StartCoroutine(ClampCollider());
+                break;
+        }
+    }
+
+    IEnumerator ClampCollider()
+    {
+        yield return new WaitForSeconds(shape.MaxTime / shape.speed);
+        if (!refreshCollider)
+        {
+            loft.DoCollider = true;
+            loft.BuildMeshFromLayersNew();
+        }
+        loft.DoCollider = false;
+        shape.animate = false;
         Destroy(gameObject);
     }
 }

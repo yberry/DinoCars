@@ -30,5 +30,17 @@ public class TriggerAnimationInspector : Editor {
             EditorUtility.SetDirty(triggerAnimation);
             triggerAnimation.layer = layer;
         }
+
+        if (loft.Layers[layer].layerPath.LoopMode == MegaRepeatMode.Clamp)
+        {
+            EditorGUI.BeginChangeCheck();
+            bool col = EditorGUILayout.Toggle("Refresh Collider", triggerAnimation.refreshCollider);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(triggerAnimation, "Refresh Collider");
+                EditorUtility.SetDirty(triggerAnimation);
+                triggerAnimation.refreshCollider = col;
+            }
+        }
     }
 }
