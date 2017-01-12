@@ -9,6 +9,7 @@ namespace CND.Car
     {
 
         public BaseCarController carController;
+        public Wheel[] wheels;
 
         private bool gearUpDown;
         private bool play;
@@ -28,12 +29,14 @@ namespace CND.Car
         {
             if (!carController)
                 carController = GetComponent<BaseCarController>();
+
+            wheels = GetComponentsInChildren<Wheel>();
         }
         // Use this for initialization
         void Start()
         {
             play = true;
-           
+          
         }
 
 
@@ -77,6 +80,7 @@ namespace CND.Car
                 RPM = 0;
             }
 
+
             RPM = carController.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
@@ -86,6 +90,20 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
             AkSoundEngine.SetRTPCValue("Throttle", currentGear);
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
+         
+
+            foreach (var w in wheels)
+            {
+                var c = w.contactInfo;
+                //var abs = Mathf.Abs(-1); //valeur absolue
+                AkSoundEngine.SetRTPCValue("Skid",1f/* Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude)*/);
+                //AkSoundEngine.SetRTPCValue("Skid", Mathf.Acos(c.sidewaysRatio * c.velocity.magnitude));
+                //AkSoundEngine.SetRTPCValue("Skid", c.sidewaysRatio);
+                AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor ? 0f : 1f);
+                
+            }
+
+
         }
 
 
