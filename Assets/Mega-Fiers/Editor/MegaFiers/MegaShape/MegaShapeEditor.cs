@@ -636,7 +636,7 @@ public class MegaShapeEditor : Editor
 		//undoManager.CheckDirty();
 	}
 
-	void DisplayKnot(MegaShape shape, MegaSpline spline, MegaKnot knot, int i)
+	void DisplayKnot(MegaShape shape, MegaSpline spline, MegaKnot knot, int i, float angle = 0f)
 	{
 		bool recalc = false;
 
@@ -656,6 +656,7 @@ public class MegaShapeEditor : Editor
 		{
 			shape.CalcLength();	//10);
 		}
+        EditorGUILayout.LabelField("Angle", angle.ToString() + " deg");
 		knot.twist = EditorGUILayout.FloatField("Twist", knot.twist);
 		knot.id = EditorGUILayout.IntField("ID", knot.id);
 	}
@@ -683,7 +684,18 @@ public class MegaShapeEditor : Editor
 		{
 			for ( int i = 0; i < spline.knots.Count; i++ )
 			{
-				DisplayKnot(shape, spline, spline.knots[i], i);
+                if (i == 0 || i == spline.knots.Count - 1)
+                {
+                    DisplayKnot(shape, spline, spline.knots[i], i);
+                }
+                else
+                {
+                    Vector3 v1 = spline.knots[i - 1].p;
+                    Vector3 v2 = spline.knots[i + 1].p;
+                    Vector3 v = spline.knots[i].p;
+
+                    DisplayKnot(shape, spline, spline.knots[i], i, Vector3.Angle(v1 - v, v2 - v));
+                }
 				//EditorGUILayout.Separator();
 			}
 		}
