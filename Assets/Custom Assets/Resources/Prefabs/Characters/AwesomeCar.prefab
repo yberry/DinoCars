@@ -514,7 +514,7 @@ MonoBehaviour:
     damping: 1000
     stiffness: 0.5
     mass: 20
-    wheelRadius: 0.35
+    wheelRadius: 0.3
     maxForwardFriction: 1
     maxSidewaysFriction: 1
 --- !u!114 &114080216642132724
@@ -560,7 +560,7 @@ MonoBehaviour:
     damping: 1000
     stiffness: 0.5
     mass: 20
-    wheelRadius: 0.375
+    wheelRadius: 0.35
     maxForwardFriction: 1
     maxSidewaysFriction: 1
 --- !u!114 &114217766517351466
@@ -574,148 +574,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b827940287c2446b0bdb5b047fc637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSpeed: 230
-  transmissionCurves:
-  - serializedVersion: 2
-    m_Curve:
+  settings:
+    targetSpeed: 230
+    transmissionCurves:
     - serializedVersion: 2
-      time: -0.9814813
-      value: -0.25661987
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
+      m_Curve:
+      - serializedVersion: 2
+        time: -0.993469
+        value: -0.3096804
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.166518
+        value: 0.3186561
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 2
+      m_RotationOrder: 0
     - serializedVersion: 2
-      time: 0.00066855387
-      value: 0.0013650965
-      inSlope: 0.46657097
-      outSlope: 0.46657097
-      tangentMode: 0
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.1445343
+        value: 0.528009
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
     - serializedVersion: 2
-      time: 1.0097136
-      value: 0.30372322
-      inSlope: 0.048338827
-      outSlope: 0.048338827
-      tangentMode: 0
-    m_PreInfinity: 0
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.1846994
+        value: 0.7509063
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
     - serializedVersion: 2
-      time: 0.0004263278
-      value: -0.002228823
-      inSlope: 0.011468383
-      outSlope: 0.011468383
-      tangentMode: 0
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.205399
+        value: 0.97372264
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
     - serializedVersion: 2
-      time: 0.27955854
-      value: 0.09676651
-      inSlope: 0.71911085
-      outSlope: 0.71911085
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1.0042391
-      value: 0.5020938
-      inSlope: 0.20877531
-      outSlope: 0.20877531
-      tangentMode: 0
-    m_PreInfinity: 0
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: -0.003435024
-      value: -0.00664426
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-    - serializedVersion: 2
-      time: 0.3222542
-      value: -0.0058215517
-      inSlope: 0.004957021
-      outSlope: 0.004957021
-      tangentMode: 136
-    - serializedVersion: 2
-      time: 0.6604383
-      value: 0.3551101
-      inSlope: 1.5326499
-      outSlope: 1.5326499
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1.006723
-      value: 0.7095317
-      inSlope: 0.33825436
-      outSlope: 0.33825436
-      tangentMode: 0
-    m_PreInfinity: 0
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: -0.003435024
-      value: -0.00664426
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-    - serializedVersion: 2
-      time: 0.50069845
-      value: -0.005408616
-      inSlope: 0.006519079
-      outSlope: 0.006519079
-      tangentMode: 136
-    - serializedVersion: 2
-      time: 0.75473607
-      value: 0.40647924
-      inSlope: 2.2740026
-      outSlope: 2.2740026
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.9972583
-      value: 0.8870159
-      inSlope: 0.41229632
-      outSlope: 0.41229632
-      tangentMode: 0
-    m_PreInfinity: 0
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: -0.003435024
-      value: -0.00664426
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-    - serializedVersion: 2
-      time: 0.54596907
-      value: -0.0061152657
-      inSlope: 0.0024318278
-      outSlope: 0.0024318278
-      tangentMode: 136
-    - serializedVersion: 2
-      time: 0.8666833
-      value: 0.62418664
-      inSlope: 6.8843145
-      outSlope: 6.8843145
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.99801075
-      value: 1.0055295
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 0
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  maxTurnAngle: 45
-  turnSpeed: 90
-  tractionControl: 0.25
-  driftControl: 0.25
-  downForce: 25
-  m_CentreOfMassOffset: {x: 0, y: -0.025, z: -0.0725}
-  orientationFix: 0
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.398583
+        value: 1.26145
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    maxTurnAngle: 42
+    turnSpeed: 42
+    tractionControl: 0.25
+    driftControl: 0.25
+    downForce: 25
+    m_CentreOfMassOffset: {x: 0, y: -0.075, z: -0.075}
+    orientationFix: 0
 --- !u!114 &114301671462212306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -738,7 +697,7 @@ MonoBehaviour:
     damping: 1000
     stiffness: 0.5
     mass: 20
-    wheelRadius: 0.375
+    wheelRadius: 0.35
     maxForwardFriction: 1
     maxSidewaysFriction: 1
 --- !u!114 &114358493479665454
@@ -763,7 +722,7 @@ MonoBehaviour:
     damping: 1000
     stiffness: 0.5
     mass: 20
-    wheelRadius: 0.35
+    wheelRadius: 0.3
     maxForwardFriction: 1
     maxSidewaysFriction: 1
 --- !u!114 &114555418574234862

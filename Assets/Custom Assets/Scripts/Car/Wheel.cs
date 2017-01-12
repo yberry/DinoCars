@@ -5,23 +5,24 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+
 namespace CND.Car
 {
     [System.Serializable]
     public partial class Wheel : MonoBehaviour
     {
 
-        public Vector3 gravity=Physics.gravity;
+        public Vector3 gravity = Physics.gravity;
         public float steerAngleDeg { get; set; }
         public GameObject wheelGraphics;
 
-        [DisplayModifier(noChildrenFolder:true)]        
+
+        [DisplayModifier(foldingMode: DM_FoldingMode.Unparented)]        
         public Settings settings=Settings.CreateDefault();
+
         protected ContactInfo m_contactInfo;
         public ContactInfo contactInfo { get { return m_contactInfo; } }
         protected ContactInfo prevContactInfo;
-
-      
 
         protected Vector3 lastPos;
         protected Vector3 wheelCenter;
@@ -32,7 +33,7 @@ namespace CND.Car
         // Use this for initialization
         void Start()
         {
-        
+            
 
             steerRot = transform.localRotation;
             m_contactInfo.springLength = settings.baseSpringLength;

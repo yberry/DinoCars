@@ -37,26 +37,34 @@ namespace CND.Car
 
     public class ArcadeCarController : BaseCarController
     {
+        [Serializable]
+        public class Settings
+        {
+            [SerializeField, Range(0, 5000)]
+            public float targetSpeed = 100f;
+            [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
+            public AnimationCurve[] transmissionCurves;
+            [Range(0, 90)]
+            public float maxTurnAngle = 42;
+            [Range(0, 360), Tooltip("Max degrees per second")]
+            public float turnSpeed = 88f;
+            [Range(0, 1)]
+            public float tractionControl=0.25f;
+            [Range(0, 1)]
+            public float driftControl = 0.25f;
+            [Range(0, 1000)]
+            public float downForce=1f;
+            public Vector3 m_CentreOfMassOffset;
 
-        [SerializeField, Range(0, 5000)]
-        protected float targetSpeed = 100f;       
-        [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
-        public AnimationCurve[] transmissionCurves;
-        [Range(0,90)]
-        public float maxTurnAngle=60f;
-        [Range(0, 360), Tooltip("Max degrees per second")]
-        public float turnSpeed = 1f;
-        [Range(0,1)]
-        public float tractionControl;
-        [Range(0, 1)]
-        public float driftControl;
-        [Range(0, 1000)]
-        public float downForce;
-        public Vector3 m_CentreOfMassOffset;
-        public bool orientationFix;
+            [Header("Debug/Experimental")]
+            public bool orientationFix;
+        }
 
-        public override float TargetSpeed {get {return targetSpeed; }}
-        public float SpeedRatio { get { return CurrentSpeed / targetSpeed; } }
+        [DisplayModifier( foldingMode: DM_FoldingMode.Unparented, hideMode: DM_HidingMode.Default)]
+        public Settings settings;
+
+        public override float TargetSpeed {get {return settings.targetSpeed; }}
+        public float SpeedRatio { get { return CurrentSpeed / settings.targetSpeed; } }
         WheelManager wheelMgr;
 
         [HideInInspector]
@@ -68,7 +76,7 @@ namespace CND.Car
         bool boost;
 
         float prevSteerAngleDeg, effectiveSteerAngleDeg;
-        public float TargetSteerAngleDeg { get { return steering * maxTurnAngle; } }
+        public float TargetSteerAngleDeg { get { return steering * settings.maxTurnAngle; } }
 
         // Use this for initialization
         void Start()
@@ -87,9 +95,9 @@ namespace CND.Car
             ApplyDownForce();
             ApplySteering();
             ApplyMotorForces();
-           
+            
 
-            if (orientationFix)
+            if (settings.orientationFix)
                 CorrectOrientation();
 
          
@@ -101,7 +109,7 @@ namespace CND.Car
                 rBody = GetComponent<Rigidbody>();
 
             rBody.ResetCenterOfMass();
-            rBody.centerOfMass += m_CentreOfMassOffset;
+            rBody.centerOfMass += settings.m_CentreOfMassOffset;
 
         }
 
@@ -121,7 +129,7 @@ namespace CND.Car
         protected override int GetGear()
         {
             float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;            
-            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));
+            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (settings.transmissionCurves.Length + offset) * (SpeedRatio)),-1, settings.transmissionCurves.Length));
         }
 
         int GetNextGear()
@@ -134,14 +142,14 @@ namespace CND.Car
             int gear = GetGear()-1;
             if (gear >= 0)
             {
-                float maxCurGearOutput = transmissionCurves[gear].Evaluate(1);
-                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/transmissionCurves.Length;
+                float maxCurGearOutput = settings.transmissionCurves[gear].Evaluate(1);
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/ settings.transmissionCurves.Length;
                
                 return curGearOutput / maxCurGearOutput;
             }
             else if (gear == -1)
             {
-                float maxCurGearOutput = Mathf.Abs(transmissionCurves[0].Evaluate(-1));
+                float maxCurGearOutput = Mathf.Abs(settings.transmissionCurves[0].Evaluate(-1));
                 float curGearOutput = (CurrentSpeed / (TargetSpeed *maxCurGearOutput));
 
                 return - curGearOutput / maxCurGearOutput;
@@ -151,19 +159,19 @@ namespace CND.Car
 
         public override string DebugHUDString()
         {
-            return base.DebugHUDString()+" "+GetGear()+"/"+transmissionCurves.Length+" ("+GetRPMRatio().ToString("0.##" )+ ")";
+            return base.DebugHUDString()+" "+GetGear()+"/"+ settings.transmissionCurves.Length+" ("+GetRPMRatio().ToString("0.##" )+ ")";
         }
 
         void ApplyDownForce()
         {
-            rBody.AddForce(-transform.up * Mathf.Abs(downForce * rBody.velocity.magnitude));
+            rBody.AddForce(-transform.up * Mathf.Abs(settings.downForce * rBody.velocity.magnitude));
         }
 
         void ApplySteering()
         {
             //rBody.ResetInertiaTensor();
             effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
-                prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/maxTurnAngle)), turnSpeed*Time.fixedDeltaTime);
+                prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/ settings.maxTurnAngle)), settings.turnSpeed * Time.fixedDeltaTime);
             wheelMgr.SetSteering(effectiveSteerAngleDeg);
             prevSteerAngleDeg = effectiveSteerAngleDeg;
            // Debug.Log("Steering: " + TargetSteerAngleDeg);
@@ -220,9 +228,9 @@ namespace CND.Car
             var absForward = Mathf.Abs(contact.forwardRatio);
             var absSide = Mathf.Abs(contact.sidewaysRatio);
             int gear = GetGear() - 1;
-            var gearSpeed = transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * targetSpeed;
+            var gearSpeed = settings.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * settings.targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * targetSpeed / powerRatio;
+            var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * settings.targetSpeed / powerRatio;
             var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
             var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
             const float speedDecay = 0.95f;
@@ -235,10 +243,10 @@ namespace CND.Car
                 inertiaCancel* contact.sideFriction,
                 absForward);
 
-            Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel + inertiaCancel * (1f + Time.fixedDeltaTime * 50f) , driftControl);
+            Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel + inertiaCancel  , settings.driftControl);
             Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
-            Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, tractionControl);
+            Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, settings.tractionControl);
 
            
 #if DEBUG
@@ -295,7 +303,7 @@ namespace CND.Car
             Gizmos.DrawLine(centerOfMass + transform.right * 0.25f, halfVelocityEnd);
             Gizmos.DrawLine(centerOfMass + transform.right * -0.25f, halfVelocityEnd);
             Gizmos.color = Color.green * 0.75f;
-            var forwardLine = m_CentreOfMassOffset + transform.forward;
+            var forwardLine = settings.m_CentreOfMassOffset + transform.forward;
             /*
             Gizmos.DrawLine(centerOfMass, centerOfMass+ forwardLine);
             Gizmos.DrawLine(centerOfMass+ rBody.velocity.normalized* forwardLine.magnitude, centerOfMass + forwardLine);
