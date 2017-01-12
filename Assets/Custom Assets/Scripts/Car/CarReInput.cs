@@ -9,7 +9,7 @@ public class CarReInput : MonoBehaviour {
     public int playerSlot=1;
     //[DisplayModifier(hideMode: DM_HideMode.Default)]
     public Rewired.Player pInput;
-    [DisplayModifier(hideMode: DM_HidingMode.GreyedOut)]
+    [DisplayModifier(hidingMode: DM_HidingMode.GreyedOut)]
     public BaseCarController car;
 
 

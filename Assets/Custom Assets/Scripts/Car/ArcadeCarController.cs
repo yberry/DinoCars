@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
 
+#endif
 namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
@@ -93,44 +96,25 @@ namespace CND.Car
 			}
         }
 
-		[Serializable]
-		public class SettingsOverride
-		{
-			public CarSettings carSettings;
-			[SerializeField]
-			public bool show;
-
-			[DisplayModifier(/* hideMode: DM_HidingMode.GreyedOut,  hidingConditionVars: new[] { "carSettings" }, */ foldingMode: DM_FoldingMode.Unparented  )]
-			public Settings displayedSettings;
-			public bool overrideDefaults;
-
-			public void Refresh()
-			{
-				if (show=carSettings)
-					displayedSettings = carSettings.preset.Clone();
-				//hide = settings;
-			}
-
-			
-		}
+		
+		
 
 
-		#endregion Nested structures
+        #endregion Nested structures
 
-		#region Car settings
-		public CarSettings carSettings;
+        #region Car settings
 
-		[DisplayModifier(hideMode: DM_HidingMode.Hidden, hidingConditions: DM_HidingCondition.TrueOrInit, hidingConditionVars: new[] { "carSettings" }, foldingMode: DM_FoldingMode.Unparented)]
-		public Settings displayedSettings;
-		public bool overrideDefaults;
+        [Space(5)]
 
-		/*[SerializeField, Header("Override Settings"), DisplayModifier("Override Settings",	foldingMode: DM_FoldingMode.Unparented)]
-		public SettingsOverride settingsOverride;*/
+		[ DisplayModifier("Override Settings",	foldingMode: DM_FoldingMode.Unparented, order = 10)]
+		public SettingsPresetLoader settingsOverride;
 
 		[SerializeField, Header("Default Settings"), DisplayModifier( "Default Settings",
-			foldingMode: DM_FoldingMode.Unparented, hideMode: DM_HidingMode.GreyedOut, hidingConditionVars: new[] { "settingsOverride.overrideDefaults" })]
+			foldingMode: DM_FoldingMode.Unparented, hidingMode: DM_HidingMode.GreyedOut, hidingConditionVars: new[] { "carPreset.carSettings", "carPreset.overrideDefaults" })]
+		
 		public Settings settings;
-		protected Settings curSettings;
+		[UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
+		public Settings defaultSettings;
 
 		#endregion Car settings
 
@@ -394,9 +378,11 @@ namespace CND.Car
             DebugRefresh();
 
 			//curSettings = settingsOverride.overrideDefaults ? settingsOverride.carSettings.preset.Clone() : settings.Clone(); 
-			//settingsOverride.Refresh();
-			//settingsOverride2.Refresh();
+
 		}
+
+
     }
+	
 
 }

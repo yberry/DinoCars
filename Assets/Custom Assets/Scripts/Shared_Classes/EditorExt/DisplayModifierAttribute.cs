@@ -45,30 +45,29 @@ public class DisplayModifierAttribute : PropertyAttribute {
     public string[] conditionVars { get; protected set; }
 
     public DisplayModifierAttribute(bool labelAbove = false,
-        HidingMode hideMode = HidingMode.Default, HidingCondition hidingConditions=HidingCondition.None, string[] hidingConditionVars = null,
+        HidingMode hidingMode = HidingMode.Default, HidingCondition hidingConditions=HidingCondition.None, string[] hidingConditionVars = null,
         FoldingMode foldingMode = FoldingMode.Default)
 	{
 		extraLabelLine = labelAbove;
-		this.hidingMode = hideMode;
-
+		this.hidingMode = hidingMode;
+        this.hidingCondition = hidingConditions;
+        conditionVars = hidingConditionVars;
         if (hidingConditionVars != null && hidingConditionVars.Length > 0)
-        {
-            conditionVars = hidingConditionVars;
-            if (hidingMode == HidingMode.Default)
-                hidingMode = HidingMode.Hidden;
+        {            
+            if (this.hidingMode == HidingMode.Default)
+                this.hidingMode = HidingMode.GreyedOut;
             if (hidingCondition == HidingCondition.None)
                 hidingCondition = HidingCondition.TrueOrInit;
         }
 
         this.foldingMode = foldingMode;
-       
-        
+
     }
 
 	public DisplayModifierAttribute(string name, bool labelAbove = false,
-        HidingMode hideMode = HidingMode.Default, HidingCondition hidingConditions = HidingCondition.None, string[] hidingConditionVars = null,
+        HidingMode hidingMode = HidingMode.Default, HidingCondition hidingConditions = HidingCondition.None, string[] hidingConditionVars = null,
         FoldingMode foldingMode = FoldingMode.Default)
-		:this(labelAbove, hideMode, hidingConditions, hidingConditionVars,  foldingMode)
+		:this(labelAbove, hidingMode, hidingConditions, hidingConditionVars,  foldingMode)
 	{
 		OverrideName(name);
 	}
@@ -101,7 +100,7 @@ public class DisplayModifierAttribute : PropertyAttribute {
 
 #if UNITY_EDITOR
 
-[CustomPropertyDrawer(typeof(DisplayModifierAttribute))]
+[CustomPropertyDrawer(typeof(DisplayModifierAttribute),true)]
 public class DisplayModifierDrawer : PropertyDrawer
 {
     
@@ -179,7 +178,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 						EditorGUI.indentLevel = indent;
 						EditorGUI.PropertyField(position, members[i], members[i].hasVisibleChildren);
 						position.y += _height + 1f;
-
+					
 					}
 				}
 			}
@@ -206,11 +205,11 @@ public class DisplayModifierDrawer : PropertyDrawer
     protected SerializedProperty[] hideCondVars;
     protected bool[] reverseCondVars;
    // protected string
-
+   /*
     public DisplayModifierDrawer():base()
 	{
 		
-	}
+	}*/
 
 	public void Init(SerializedProperty property, GUIContent label)
 	{
@@ -236,10 +235,6 @@ public class DisplayModifierDrawer : PropertyDrawer
 			ReadTextAreaAttribute();
 		}
 
-
-
-
-
         isInit = true;
     }
 
@@ -259,6 +254,8 @@ public class DisplayModifierDrawer : PropertyDrawer
 	
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
+	
+		//base.OnGUI(position, property, label);
         GUI.enabled = true;
         var origIndent = EditorGUI.indentLevel;
         GUIStyle s=new GUIStyle(EditorStyles.textArea);
@@ -357,6 +354,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 
     protected bool CheckHidingConditions(SerializedProperty property, bool trueToHide)
     {
+
         if (hideCondVars.IsNull() && dispModAttr.conditionVars.IsNotNull())
         {
             int condLength = dispModAttr.conditionVars.Length;
@@ -369,13 +367,16 @@ public class DisplayModifierDrawer : PropertyDrawer
                 bool reverse = str.StartsWith("!");
                 reverseCondVars[i] = reverse;
                 str = reverse ? str.Substring(1) : str;
-                hideCondVars[i] = property.serializedObject.FindProperty(str);
-               // Debug.Log(dispModAttr.conditionVars[i]+" - "+str);
+               
+                var path = property.depth > 0 ? property.propertyPath.Replace("."+property.name,".") : null;
+                hideCondVars[i] = property.serializedObject.FindProperty(path+str);
+                //Debug.Log(dispModAttr.conditionVars[i]+" - "+ path+str);
             }
 
         }
 
-        if (hideCondVars.IsNull() || hideCondVars.Length == 0) return !trueToHide;
+        if (hideCondVars.IsNull() || hideCondVars.Length == 0)
+            return !trueToHide;
 
         for (int i=0; i<hideCondVars.Length;++i)
         {
@@ -383,23 +384,25 @@ public class DisplayModifierDrawer : PropertyDrawer
 				Debug.Log(hideCondVars[i].name);
 
             var v = hideCondVars[i];
-			bool b = trueToHide;
+			bool b = v.IsNotNull();
 
-			if (v.IsNotNull()) {
-				switch (v.propertyType)
-				{
-					case SerializedPropertyType.ObjectReference:
-						if (v.objectReferenceValue as UnityEngine.Object)
-							b = v.objectReferenceValue;
-						else
-							b = (v.objectReferenceValue as System.Object).IsNotNull();
-						break;
-					case SerializedPropertyType.Boolean:
-						b = v.boolValue;
-						break;
-					
-				}
-			}
+            if (b)
+            {
+                switch (v.propertyType)
+                {
+                    case SerializedPropertyType.ObjectReference:
+                        if (v.objectReferenceValue as UnityEngine.Object)
+                            b = v.objectReferenceValue;
+                        else
+                            b = (v.objectReferenceValue as System.Object).IsNotNull();
+                        break;
+                    case SerializedPropertyType.Boolean:
+                        b = v.boolValue;
+                        break;
+
+                }
+            }
+            //else continue;
 
             if (reverseCondVars[i])
                 b = !b;

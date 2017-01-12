@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 namespace CND.Car
 {
 	[Serializable, CreateAssetMenu(fileName = "CarControllerSettings", menuName = "CND/Cars/Car Controller Settings")]
@@ -12,5 +14,6 @@ namespace CND.Car
 		[DisplayModifier( foldingMode: DM_FoldingMode.Unparented)]
 		public ArcadeCarController.Settings preset;
 
-	}
+    }
+
 }

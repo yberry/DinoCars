@@ -17,7 +17,7 @@ namespace CND.Car
 
         public float nbRotationLimit = 12000;
         public float nbRotationClutch = 3000;
-        [DisplayModifier(hideMode: DM_HidingMode.GreyedOut)]
+        [DisplayModifier(hidingMode: DM_HidingMode.GreyedOut)]
         public float RPM;
         public float maxValueRotation;
         float addition=50;
