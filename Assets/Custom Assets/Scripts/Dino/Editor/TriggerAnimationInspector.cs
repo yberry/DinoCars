@@ -33,25 +33,11 @@ public class TriggerAnimationInspector : Editor {
 
         MegaShape shape = loft.Layers[layer].layerPath;
 
-        EditorGUI.BeginChangeCheck();
-        int curve = EditorGUILayout.IntSlider("Curve", triggerAnimation.curve, 0, shape.splines.Count - 1);
-        if (EditorGUI.EndChangeCheck())
-        {
-            Undo.RecordObject(triggerAnimation, "Curve");
-            EditorUtility.SetDirty(triggerAnimation);
-            triggerAnimation.curve = curve;
-        }
+        triggerAnimation.UpdateIntSlider(ref triggerAnimation.curve, "Curve", 0, shape.splines.Count - 1);
 
         if (shape.LoopMode == MegaRepeatMode.Clamp)
         {
-            EditorGUI.BeginChangeCheck();
-            bool col = EditorGUILayout.Toggle("Refresh Collider", triggerAnimation.refreshCollider);
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(triggerAnimation, "Refresh Collider");
-                EditorUtility.SetDirty(triggerAnimation);
-                triggerAnimation.refreshCollider = col;
-            }
+            triggerAnimation.UpdateBool(ref triggerAnimation.refreshCollider, "Refresh Collider");
         }
     }
 }

@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class WaveOffset : MonoBehaviour {
 
-    public MegaLoftLayerSimple layer;
+    public MegaShapeLoft loft;
+    public int layer = 0;
     public MegaAxis axis;
-    public bool beginToEnd;
+
+    public bool startToEnd;
+    public float speed;
+    public float amplitude;
+    public float gap;
 
     AnimationCurve curve;
 
     void Awake()
     {
+        MegaLoftLayerSimple megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
         switch (axis)
         {
             case MegaAxis.X:
-                curve = layer.offsetCrvX;
+                curve = megaLayer.offsetCrvX;
                 break;
 
             case MegaAxis.Y:
-                curve = layer.offsetCrvY;
+                curve = megaLayer.offsetCrvY;
                 break;
 
             case MegaAxis.Z:
-                curve = layer.offsetCrvZ;
+                curve = megaLayer.offsetCrvZ;
                 break;
         }
     }
