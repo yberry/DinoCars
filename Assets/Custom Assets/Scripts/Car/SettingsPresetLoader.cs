@@ -9,26 +9,52 @@ namespace CND.Car
 	[System.Serializable]
 	public class SettingsPresetLoader// : MonoBehaviour
 	{
-		public bool HasChanged { get { return prevSettings != carSettings; } }
-		private CarSettings prevSettings = null;
-		public CarSettings carSettings;
+		public enum SyncMode
+		{
+			NoSync, ActiveToPreset, ActiveToDefaults, DefaultsTo
+		}
+		ArcadeCarController car;
 
+		public bool PresetChanged { get { return prevSettings != carSettings; } }
+		//public bool 
+		
+		public CarSettings carSettings;
 		[DisplayModifier(hidingMode: DM_HidingMode.GreyedOut, hidingConditions: DM_HidingCondition.FalseOrNull, hidingConditionVars: new[] { "carSettings" }, foldingMode: DM_FoldingMode.Unparented)]
 		public ArcadeCarController.Settings displayedSettings;
 		[DisplayModifier(hidingMode: DM_HidingMode.GreyedOut, hidingConditions: DM_HidingCondition.FalseOrNull, hidingConditionVars: new[] { "carSettings" }, foldingMode: DM_FoldingMode.Unparented)]
 		public bool overrideDefaults;
 
-		public ButtonProperty save = ButtonProperty.Create("test", ()=> { ButtonTest(); });
+		private CarSettings prevSettings = null;
+		//public ButtonProperty save = ButtonProperty.Create("test", ()=> { ButtonTest(); });
+		public void BindCar(ArcadeCarController car)
+		{
+			this.car = car;
+		}
 
 		public void Refresh()
 		{
 
-			if (HasChanged)
+			if (PresetChanged)
 			{
 				prevSettings = carSettings;
 				displayedSettings = carSettings.preset.Clone();
 			}
+			Coroutine c = new Coroutine();
+		}
 
+		public void CopyPresetToDefaults()
+		{
+			CopySettings(carSettings.preset, car.defaultSettings);
+		}
+		
+		public void CopyDefaultsToPreset()
+		{
+			CopySettings(car.defaultSettings, carSettings.preset);
+		}
+
+		public static void CopySettings(ArcadeCarController.Settings source, ArcadeCarController.Settings dest)
+		{
+			dest = source.Clone();
 		}
 
 		public static void ButtonTest()

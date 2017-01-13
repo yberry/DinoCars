@@ -96,10 +96,6 @@ namespace CND.Car
 			}
         }
 
-		
-		
-
-
         #endregion Nested structures
 
         #region Car settings
@@ -110,11 +106,10 @@ namespace CND.Car
 		public SettingsPresetLoader settingsOverride;
 
 		[SerializeField, Header("Default Settings"), DisplayModifier( "Default Settings",
-			foldingMode: DM_FoldingMode.Unparented, hidingMode: DM_HidingMode.GreyedOut, hidingConditionVars: new[] { "carPreset.carSettings", "carPreset.overrideDefaults" })]
-		
-		public Settings settings;
-		[UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
+			 DM_HidingMode.GreyedOut, new[] { "settingsOverride.carSettings", "settingsOverride.overrideDefaults" }, foldingMode: DM_FoldingMode.Unparented)]		
 		public Settings defaultSettings;
+		[HideInInspector,UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
+		public Settings settings;
 
 		#endregion Car settings
 

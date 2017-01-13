@@ -42,7 +42,7 @@ public class ButtonProperyDrawer : PropertyDrawer
 
 		if (GUI.Button(position, text))
 		{
-
+		
 			//(property as ButtonProperty)
 			/*fieldInfo.GetType().GetMethod("playAction").Invoke();
 				(property.FindPropertyRelative("action"). as System.Action).Invoke();*/

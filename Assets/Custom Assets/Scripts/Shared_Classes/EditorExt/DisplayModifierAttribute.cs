@@ -72,7 +72,25 @@ public class DisplayModifierAttribute : PropertyAttribute {
 		OverrideName(name);
 	}
 
-    [System.Obsolete("Use version with enums")]
+	public DisplayModifierAttribute(
+HidingMode hidingMode, string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
+FoldingMode foldingMode = FoldingMode.Default)
+: this(false, hidingMode, hidingConditions, hidingConditionVars, foldingMode)
+	{
+
+	}
+
+	public DisplayModifierAttribute(string name,
+	HidingMode hidingMode,  string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
+	FoldingMode foldingMode = FoldingMode.Default)
+	: this(hidingMode, hidingConditionVars, hidingConditions,  foldingMode)
+	{
+		OverrideName(name);
+	}
+
+
+
+	[System.Obsolete("Use version with enums")]
     public DisplayModifierAttribute(bool readOnly = false, bool labelAbove = false, bool startExpanded = true, bool noChildrenFolder = false)
     {
         extraLabelLine = labelAbove;
@@ -111,7 +129,9 @@ public class DisplayModifierDrawer : PropertyDrawer
         System.Reflection.FieldInfo[] fields;
         SerializedProperty[] members;
         float height = 0;
-        bool needRefresh=true;
+		const float groupPadding = 3f;
+
+		bool needRefresh=true;
 
         public ChildrenProperties(System.Reflection.FieldInfo rootFieldInfo){
             fieldInfo = rootFieldInfo;
@@ -144,8 +164,9 @@ public class DisplayModifierDrawer : PropertyDrawer
 
             if (needRefresh)
             {
-                height = 0;
-                for (int i = 0; i < fields.Length; i++)
+                height = fields.Length > 1 ? groupPadding*2f :0;
+
+				for (int i = 0; i < fields.Length; i++)
                 {
                     var subMember = property.FindPropertyRelative(fields[i].Name);
                     if (members[i] != null)
@@ -165,8 +186,11 @@ public class DisplayModifierDrawer : PropertyDrawer
             needRefresh = refresh;
             EditorGUI.BeginProperty(position, label, property);
             int indent = EditorGUI.indentLevel;
+			
 			if (members != null)
 			{
+				position.height += groupPadding * 2;
+				position.y += groupPadding;
 				for (int i = 0; i < members.Length; i++)
 				{
 
@@ -181,6 +205,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 					
 					}
 				}
+				position.y += groupPadding +2;
 			}
 
             
@@ -254,15 +279,14 @@ public class DisplayModifierDrawer : PropertyDrawer
 	
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
-	
+		
 		//base.OnGUI(position, property, label);
         GUI.enabled = true;
         var origIndent = EditorGUI.indentLevel;
         GUIStyle s=new GUIStyle(EditorStyles.textArea);
 		label = EditorGUI.BeginProperty(position, label, property);
 
-        
-        switch (dispModAttr.hidingCondition)
+		switch (dispModAttr.hidingCondition)
         {
             case DM_HidingCondition.FalseOrNull: shouldHide = CheckHidingConditions(property,false); break;
             case DM_HidingCondition.TrueOrInit: shouldHide = CheckHidingConditions(property,true); break;
@@ -278,8 +302,6 @@ public class DisplayModifierDrawer : PropertyDrawer
                 default: GUI.enabled = true; break;
             }
         }
-
-
 
         if (dispModAttr.overrideName)
 			label.text = dispModAttr.displayName;
@@ -297,8 +319,18 @@ public class DisplayModifierDrawer : PropertyDrawer
 
                 if (noChildrenFolder && property.hasVisibleChildren)
                 {
-                    DrawChildren(ref position, property, ref label);
-                } else  {
+					//GUI.BeginGroup(position, label);
+					GUIStyle groupStyle = new GUIStyle( EditorStyles.helpBox);
+					groupStyle.stretchWidth = true;
+					groupStyle.padding = new RectOffset(-30, -30, -30, -30);
+					//groupStyle.margin = new RectOffset(-3,- 3,- 3, -3);
+					//groupStyle.border = new RectOffset(100, 100, 100, 100);
+					
+					GUI.Box(position, GUIContent.none, groupStyle);
+					DrawChildren(ref position, property, ref label);
+					//GUI.EndGroup();
+
+				} else  {
                     EditorGUI.PropertyField(position, property, label, property.hasVisibleChildren);
                 }
 
@@ -315,7 +347,8 @@ public class DisplayModifierDrawer : PropertyDrawer
 		}
 
         Close:
-        GUI.enabled = true;
+	
+		GUI.enabled = true;
 		EditorGUI.EndProperty();
         EditorGUI.indentLevel = origIndent;
 
