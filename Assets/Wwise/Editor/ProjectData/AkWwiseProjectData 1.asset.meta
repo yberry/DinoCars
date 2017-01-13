@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 44254c0f49115314b935c8c8f48dbe96
 timeCreated: 1481823232
+=======
+guid: 8cc3f8143f6f63240abf9d84f37398fa
+timeCreated: 1483533659
+>>>>>>> Audio_Car
 licenseType: Free
 NativeFormatImporter:
   userData: 
