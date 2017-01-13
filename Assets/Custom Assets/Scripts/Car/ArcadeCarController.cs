@@ -39,7 +39,10 @@ namespace CND.Car
 
     public class ArcadeCarController : BaseCarController
     {
+        public CarTurnPreset turnPreset;
 
+        [Range(0,5000)]
+        public float targetSpeed=100f;
         public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
         [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
         public AnimationCurve[] transmissionCurves;
