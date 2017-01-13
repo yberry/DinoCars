@@ -16,6 +16,7 @@
 			<ShortName>Car_Motor</ShortName>
 			<Path>Car_Motor.bnk</Path>
 			<IncludedEvents>
+<<<<<<< HEAD
 				<Event Id="1950444439" Name="Gear_Change" ObjectPath="\Events\Default Work Unit\Gear_Change"/>
 				<Event Id="1256202815" Name="Play" ObjectPath="\Events\Default Work Unit\Play"/>
 				<Event Id="1281810935" Name="Start" ObjectPath="\Events\Default Work Unit\Start"/>
@@ -24,6 +25,65 @@
 				<File Id="387274097" Language="SFX">
 					<ShortName>Ferrari_575M.model</ShortName>
 					<Path>Plugins\CrankcaseAudio REV\Ferrari_575M_41E511B6.wem</Path>
+=======
+				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car\Car_Crash"/>
+				<Event Id="2101189585" Name="Car_Skid" ObjectPath="\Events\Default Work Unit\Car\Car_Skid"/>
+				<Event Id="3174479978" Name="Play_Ambiance" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Ambiance"/>
+				<Event Id="520985213" Name="Play_Motor" ObjectPath="\Events\Default Work Unit\Car\Play_Motor"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="314381450" Language="SFX">
+					<ShortName>CarCrash_03.wav</ShortName>
+					<Path>SFX\CarCrash_03_9E69E797.wem</Path>
+				</File>
+				<File Id="323198561" Language="SFX">
+					<ShortName>TireSkid_01.wav</ShortName>
+					<Path>SFX\TireSkid_01_9E69E797.wem</Path>
+				</File>
+				<File Id="369268589" Language="SFX">
+					<ShortName>TireSkid_03.wav</ShortName>
+					<Path>SFX\TireSkid_03_9E69E797.wem</Path>
+				</File>
+				<File Id="430570743" Language="SFX">
+					<ShortName>Volkswagen_Golf_VR6_2004.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Volkswagen_Golf_VR6_2004_50BEBA13.wem</Path>
+				</File>
+				<File Id="439657931" Language="SFX">
+					<ShortName>TireSkid_05.wav</ShortName>
+					<Path>SFX\TireSkid_05_9E69E797.wem</Path>
+				</File>
+				<File Id="452252371" Language="SFX">
+					<ShortName>TireSkid_02.wav</ShortName>
+					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
+				</File>
+				<File Id="458462549" Language="SFX">
+					<ShortName>CarCrash_01.wav</ShortName>
+					<Path>SFX\CarCrash_01_9E69E797.wem</Path>
+				</File>
+				<File Id="655331431" Language="SFX">
+					<ShortName>CarCrash_05.wav</ShortName>
+					<Path>SFX\CarCrash_05_9E69E797.wem</Path>
+				</File>
+				<File Id="723014336" Language="SFX">
+					<ShortName>TireSkid_04.wav</ShortName>
+					<Path>SFX\TireSkid_04_9E69E797.wem</Path>
+				</File>
+				<File Id="881945883" Language="SFX">
+					<ShortName>AmbProto_Loop_01.wav</ShortName>
+					<Path>SFX\AmbProto_Loop_01_4B8CC0C5.wem</Path>
+				</File>
+				<File Id="893191346" Language="SFX">
+					<ShortName>CarCrash_06.wav</ShortName>
+					<Path>SFX\CarCrash_06_9E69E797.wem</Path>
+				</File>
+				<File Id="983630592" Language="SFX">
+					<ShortName>CarCrash_02.wav</ShortName>
+					<Path>SFX\CarCrash_02_9E69E797.wem</Path>
+				</File>
+				<File Id="1028093174" Language="SFX">
+					<ShortName>CarCrash_04.wav</ShortName>
+					<Path>SFX\CarCrash_04_9E69E797.wem</Path>
+>>>>>>> Audio_Car
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
