@@ -11,6 +11,7 @@ public class CarHUD : MonoBehaviour {
 	void Start () {
         if (!car)
             enabled = false;
+
        
     }
 

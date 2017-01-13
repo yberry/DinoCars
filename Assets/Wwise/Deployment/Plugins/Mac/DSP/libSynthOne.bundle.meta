@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: db8017d155ace4e4a89dfd43e7886486
-timeCreated: 1484216396
+timeCreated: 1480530264
 licenseType: Free
 PluginImporter:
   serializedVersion: 1
@@ -15,9 +15,7 @@ PluginImporter:
     Editor:
       enabled: 0
       settings:
-        CPU: AnyCPU
         DefaultValueInitialized: true
-        OS: OSX
     Linux:
       enabled: 0
       settings:

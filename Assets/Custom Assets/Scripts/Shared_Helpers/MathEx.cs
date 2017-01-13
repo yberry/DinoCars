@@ -15,12 +15,9 @@ public static class MathEx
 	public const float E = 2.718281828f;
 	/// <summary> Inverse of E constant </summary>
 	public const float InvE = 1f / E;
-    public const float HalfPI = Mathf.PI * 0.5f;
-    public const float InvHalfPI = 1f/ HalfPI;
-    public const float DoublePI = Mathf.PI * 2f;
 
-    /// <summary>Returns absolute value, and the sign of the input</summary>
-    public static float AbsSign(float input, out float sign){
+	/// <summary>Returns absolute value, and the sign of the input</summary>
+	public static float AbsSign(float input, out float sign){
 
 		if (input > 0){
 			sign = 1;
@@ -188,23 +185,6 @@ public static class MathEx
 	public static bool VectorIsNaN(this Vector2 candidate){
 		return float.IsNaN(candidate.x) || float.IsNaN(candidate.y);
 	}
-
-    public static Vector3 CrossTwice(this Vector3 vec, Vector3 other)
-    {
-        var c = Vector3.Cross(vec,other);
-        return Vector3.Cross(c,other);
-    }
-
-    public static Vector3 Cross(this Vector3 vec, Vector3 other)
-    {
-  
-        return Vector3.Cross(vec, other);
-    }
-
-    public static float DotToLerp(float dot)
-    {
-        return Mathf.Asin(Mathf.Clamp(dot, -1f, 1f)) * InvHalfPI;
-    }
 #else
 
 

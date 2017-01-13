@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b150922da22821a47bf5c05f2ea5ff39
-timeCreated: 1484216396
+timeCreated: 1480530268
 licenseType: Free
 PluginImporter:
   serializedVersion: 1
@@ -15,9 +15,7 @@ PluginImporter:
     Editor:
       enabled: 0
       settings:
-        CPU: X86_64
         DefaultValueInitialized: true
-        OS: Windows
     Linux:
       enabled: 0
       settings:
