@@ -16,16 +16,6 @@
 			<ShortName>Car_Motor</ShortName>
 			<Path>Car_Motor.bnk</Path>
 			<IncludedEvents>
-<<<<<<< HEAD
-				<Event Id="1950444439" Name="Gear_Change" ObjectPath="\Events\Default Work Unit\Gear_Change"/>
-				<Event Id="1256202815" Name="Play" ObjectPath="\Events\Default Work Unit\Play"/>
-				<Event Id="1281810935" Name="Start" ObjectPath="\Events\Default Work Unit\Start"/>
-			</IncludedEvents>
-			<IncludedMemoryFiles>
-				<File Id="387274097" Language="SFX">
-					<ShortName>Ferrari_575M.model</ShortName>
-					<Path>Plugins\CrankcaseAudio REV\Ferrari_575M_41E511B6.wem</Path>
-=======
 				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car\Car_Crash"/>
 				<Event Id="2101189585" Name="Car_Skid" ObjectPath="\Events\Default Work Unit\Car\Car_Skid"/>
 				<Event Id="3174479978" Name="Play_Ambiance" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Ambiance"/>
@@ -83,7 +73,6 @@
 				<File Id="1028093174" Language="SFX">
 					<ShortName>CarCrash_04.wav</ShortName>
 					<Path>SFX\CarCrash_04_9E69E797.wem</Path>
->>>>>>> Audio_Car
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
