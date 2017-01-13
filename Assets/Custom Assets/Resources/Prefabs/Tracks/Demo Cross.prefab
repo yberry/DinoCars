@@ -1,0 +1,487 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1506511281465802}
+  m_IsPrefabParent: 1
+--- !u!1 &1506511281465802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4486584274047190}
+  - component: {fileID: 114508849754517074}
+  m_Layer: 0
+  m_Name: Demo Cross
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4486584274047190
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1506511281465802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3215332, y: 1.2730117, z: -2.2230933}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114508849754517074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1506511281465802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143e0e96c112d104181aa41b9c2431d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: 1
+  col1: {r: 1, g: 1, b: 1, a: 1}
+  col2: {r: 0, g: 0, b: 0, a: 1}
+  KnotCol: {r: 0, g: 1, b: 0, a: 1}
+  HandleCol: {r: 1, g: 0, b: 0, a: 1}
+  VecCol: {r: 0.1, g: 0.1, b: 0.2, a: 0.5}
+  KnotSize: 1
+  stepdist: 0.5
+  normalizedInterp: 1
+  drawHandles: 1
+  drawKnots: 1
+  drawspline: 1
+  drawTwist: 0
+  lockhandles: 1
+  showorigin: 1
+  usesnap: 0
+  usesnaphandles: 0
+  snap: {x: 1, y: 1, z: 1}
+  handleType: 0
+  CursorPos: 0
+  splines:
+  - length: 21.32793
+    closed: 1
+    knots:
+    - p: {x: 5, y: -0.0000000048082534, z: -0.110000014}
+      invec: {x: 5, y: 0.0000000045982893, z: 0.105196595}
+      outvec: {x: 5, y: -0.000000014214796, z: -0.32519662}
+      seglength: 0.61198133
+      length: 0.61198133
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 0
+      - 0.06341899
+      - 0.12519836
+      - 0.18594453
+      - 0.24609998
+      - 0.30599073
+      - 0.3658815
+      - 0.42603692
+      - 0.48678318
+      - 0.54856277
+      - 0.61198133
+      points:
+      - {x: 5, y: -0.0000000048082534, z: -0.110000014}
+      - {x: 4.9948897, y: -0.000000007571371, z: -0.17321278}
+      - {x: 4.980099, y: -0.0000000101933, z: -0.23319553}
+      - {x: 4.9564323, y: -0.000000012638786, z: -0.2891417}
+      - {x: 4.924697, y: -0.00000001487258, z: -0.34024495}
+      - {x: 4.885699, y: -0.000000016859428, z: -0.38569874}
+      - {x: 4.840245, y: -0.000000018564078, z: -0.42469662}
+      - {x: 4.7891417, y: -0.000000019951283, z: -0.4564322}
+      - {x: 4.7331953, y: -0.000000020985789, z: -0.48009887}
+      - {x: 4.6732125, y: -0.000000021632342, z: -0.4948903}
+      - {x: 4.61, y: -0.000000021855694, z: -0.5}
+    - p: {x: 4.61, y: -0.000000021855694, z: -0.5}
+      invec: {x: 4.8251967, y: -0.000000021855694, z: -0.5}
+      outvec: {x: 4.3948035, y: -0.000000021855694, z: -0.5}
+      seglength: 9.220001
+      length: 9.831982
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 0.61198133
+      - 0.9166245
+      - 1.6328378
+      - 2.657731
+      - 3.8884096
+      - 5.2219815
+      - 6.5555534
+      - 7.786233
+      - 8.811126
+      - 9.52734
+      - 9.831982
+      points:
+      - {x: 4.61, y: -0.000000021855694, z: -0.5}
+      - {x: 4.305357, y: -0.000000021855692, z: -0.49999994}
+      - {x: 3.5891438, y: -0.000000021855696, z: -0.50000006}
+      - {x: 2.5642505, y: -0.000000021855694, z: -0.5}
+      - {x: 1.3335718, y: -0.000000021855696, z: -0.5}
+      - {x: 0, y: -0.000000021855694, z: -0.5}
+      - {x: -1.3335718, y: -0.000000021855694, z: -0.5}
+      - {x: -2.5642512, y: -0.000000021855694, z: -0.5}
+      - {x: -3.589144, y: -0.000000021855694, z: -0.5}
+      - {x: -4.305358, y: -0.000000021855694, z: -0.5}
+      - {x: -4.61, y: -0.000000021855694, z: -0.5}
+    - p: {x: -4.61, y: -0.000000021855694, z: -0.5}
+      invec: {x: -4.3948035, y: -0.000000021855694, z: -0.5}
+      outvec: {x: -4.8251967, y: -0.000000021855694, z: -0.5}
+      seglength: 0.61198133
+      length: 10.443965
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 9.831982
+      - 9.8954
+      - 9.95718
+      - 10.017926
+      - 10.078082
+      - 10.137973
+      - 10.197864
+      - 10.258019
+      - 10.318766
+      - 10.380546
+      - 10.443965
+      points:
+      - {x: -4.61, y: -0.000000021855694, z: -0.5}
+      - {x: -4.6732125, y: -0.00000002163234, z: -0.49489027}
+      - {x: -4.733196, y: -0.000000020985789, z: -0.4800989}
+      - {x: -4.7891417, y: -0.000000019951283, z: -0.45643216}
+      - {x: -4.8402452, y: -0.00000001856408, z: -0.42469665}
+      - {x: -4.885699, y: -0.000000016859428, z: -0.38569874}
+      - {x: -4.9246964, y: -0.000000014872578, z: -0.34024492}
+      - {x: -4.9564323, y: -0.000000012638784, z: -0.28914168}
+      - {x: -4.9800987, y: -0.000000010193298, z: -0.23319547}
+      - {x: -4.99489, y: -0.000000007571368, z: -0.17321274}
+      - {x: -5, y: -0.0000000048082534, z: -0.110000014}
+    - p: {x: -5, y: -0.0000000048082534, z: -0.110000014}
+      invec: {x: -5, y: -0.000000014214796, z: -0.32519662}
+      outvec: {x: -5, y: 0.0000000045982893, z: 0.105196595}
+      seglength: 0.22000004
+      length: 10.663966
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 10.443965
+      - 10.496608
+      - 10.528822
+      - 10.545715
+      - 10.552394
+      - 10.553966
+      - 10.555537
+      - 10.562216
+      - 10.579109
+      - 10.611323
+      - 10.663966
+      points:
+      - {x: -5, y: -0.0000000048082534, z: -0.110000014}
+      - {x: -4.9999995, y: -0.0000000025071776, z: -0.05735754}
+      - {x: -5.0000005, y: -0.0000000010990524, z: -0.025143389}
+      - {x: -5, y: -3.6063924e-10, z: -0.008250465}
+      - {x: -5.0000005, y: -6.870096e-11, z: -0.0015716951}
+      - {x: -5, y: 0, z: 0}
+      - {x: -5, y: 6.870103e-11, z: 0.0015716967}
+      - {x: -5, y: 3.6063946e-10, z: 0.008250469}
+      - {x: -5, y: 0.0000000010990532, z: 0.025143407}
+      - {x: -5, y: 0.0000000025071796, z: 0.057357583}
+      - {x: -5, y: 0.0000000048082534, z: 0.110000014}
+    - p: {x: -5, y: 0.0000000048082534, z: 0.110000014}
+      invec: {x: -5, y: -0.0000000045982893, z: -0.105196595}
+      outvec: {x: -5, y: 0.000000014214796, z: 0.32519662}
+      seglength: 0.61198133
+      length: 11.275949
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 10.663966
+      - 10.7273855
+      - 10.789165
+      - 10.849911
+      - 10.910067
+      - 10.969957
+      - 11.029848
+      - 11.090004
+      - 11.15075
+      - 11.21253
+      - 11.275949
+      points:
+      - {x: -5, y: 0.0000000048082534, z: 0.110000014}
+      - {x: -4.9948897, y: 0.000000007571371, z: 0.17321278}
+      - {x: -4.980099, y: 0.0000000101933, z: 0.23319553}
+      - {x: -4.9564323, y: 0.000000012638786, z: 0.2891417}
+      - {x: -4.924697, y: 0.00000001487258, z: 0.34024495}
+      - {x: -4.885699, y: 0.000000016859428, z: 0.38569874}
+      - {x: -4.840245, y: 0.000000018564078, z: 0.42469662}
+      - {x: -4.7891417, y: 0.000000019951283, z: 0.4564322}
+      - {x: -4.7331953, y: 0.000000020985789, z: 0.48009887}
+      - {x: -4.6732125, y: 0.000000021632342, z: 0.4948903}
+      - {x: -4.61, y: 0.000000021855694, z: 0.5}
+    - p: {x: -4.61, y: 0.000000021855694, z: 0.5}
+      invec: {x: -4.8251967, y: 0.000000021855694, z: 0.5}
+      outvec: {x: -4.3948035, y: 0.000000021855694, z: 0.5}
+      seglength: 9.220001
+      length: 20.495945
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 11.275949
+      - 11.580591
+      - 12.296804
+      - 13.321697
+      - 14.552376
+      - 15.885947
+      - 17.219519
+      - 18.450197
+      - 19.47509
+      - 20.191303
+      - 20.495945
+      points:
+      - {x: -4.61, y: 0.000000021855694, z: 0.5}
+      - {x: -4.305357, y: 0.000000021855692, z: 0.49999994}
+      - {x: -3.5891438, y: 0.000000021855696, z: 0.50000006}
+      - {x: -2.5642505, y: 0.000000021855694, z: 0.5}
+      - {x: -1.3335718, y: 0.000000021855696, z: 0.5}
+      - {x: 0, y: 0.000000021855694, z: 0.5}
+      - {x: 1.3335718, y: 0.000000021855694, z: 0.5}
+      - {x: 2.5642512, y: 0.000000021855694, z: 0.5}
+      - {x: 3.589144, y: 0.000000021855694, z: 0.5}
+      - {x: 4.305358, y: 0.000000021855694, z: 0.5}
+      - {x: 4.61, y: 0.000000021855694, z: 0.5}
+    - p: {x: 4.61, y: 0.000000021855694, z: 0.5}
+      invec: {x: 4.3948035, y: 0.000000021855694, z: 0.5}
+      outvec: {x: 4.8251967, y: 0.000000021855694, z: 0.5}
+      seglength: 0.61198133
+      length: 21.107927
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 20.495945
+      - 20.559364
+      - 20.621145
+      - 20.68189
+      - 20.742046
+      - 20.801937
+      - 20.861828
+      - 20.921984
+      - 20.982729
+      - 21.044508
+      - 21.107927
+      points:
+      - {x: 4.61, y: 0.000000021855694, z: 0.5}
+      - {x: 4.6732125, y: 0.00000002163234, z: 0.49489027}
+      - {x: 4.733196, y: 0.000000020985789, z: 0.4800989}
+      - {x: 4.7891417, y: 0.000000019951283, z: 0.45643216}
+      - {x: 4.8402452, y: 0.00000001856408, z: 0.42469665}
+      - {x: 4.885699, y: 0.000000016859428, z: 0.38569874}
+      - {x: 4.9246964, y: 0.000000014872578, z: 0.34024492}
+      - {x: 4.9564323, y: 0.000000012638784, z: 0.28914168}
+      - {x: 4.9800987, y: 0.000000010193298, z: 0.23319547}
+      - {x: 4.99489, y: 0.000000007571368, z: 0.17321274}
+      - {x: 5, y: 0.0000000048082534, z: 0.110000014}
+    - p: {x: 5, y: 0.0000000048082534, z: 0.110000014}
+      invec: {x: 5, y: 0.000000014214796, z: 0.32519662}
+      outvec: {x: 5, y: -0.0000000045982893, z: -0.105196595}
+      seglength: 0.22000004
+      length: 21.32793
+      notlocked: 0
+      twist: 0
+      id: 0
+      lengths:
+      - 21.107927
+      - 21.16057
+      - 21.192783
+      - 21.209677
+      - 21.216356
+      - 21.217928
+      - 21.2195
+      - 21.22618
+      - 21.243073
+      - 21.275288
+      - 21.32793
+      points:
+      - {x: 5, y: 0.0000000048082534, z: 0.110000014}
+      - {x: 4.9999995, y: 0.0000000025071776, z: 0.05735754}
+      - {x: 5.0000005, y: 0.0000000010990524, z: 0.025143389}
+      - {x: 5, y: 3.6063924e-10, z: 0.008250465}
+      - {x: 5.0000005, y: 6.870096e-11, z: 0.0015716951}
+      - {x: 5, y: 0, z: 0}
+      - {x: 5, y: -6.870103e-11, z: -0.0015716967}
+      - {x: 5, y: -3.6063946e-10, z: -0.008250469}
+      - {x: 5, y: -0.0000000010990532, z: -0.025143407}
+      - {x: 5, y: -0.0000000025071796, z: -0.057357583}
+      - {x: 5, y: -0.0000000048082534, z: -0.110000014}
+    animations: []
+    offset: {x: 0, y: 0, z: 0}
+    rotate: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    reverse: 0
+    outlineSpline: -1
+    outline: 0
+    constantSpeed: 0
+    subdivs: 10
+    twistmode: 0
+    splineanim:
+      Enabled: 0
+      knots: []
+  showanimations: 0
+  keytime: 0
+  updateondrag: 1
+  angleError: 0.08
+  areaError: 0.15
+  hardAngle: 88
+  packMargin: 0.0039
+  defRadius: 1
+  smoothonaddknot: 1
+  testtime: 0
+  time: 0
+  animate: 0
+  speed: 1
+  selcurve: 0
+  imported: 0
+  CursorPercent: 0
+  MaxTime: 1
+  LoopMode: 0
+  dolateupdate: 0
+  makeMesh: 0
+  meshType: 0
+  DoubleSided: 1
+  CalcTangents: 0
+  GenUV: 1
+  PhysUV: 0
+  Height: 0
+  HeightSegs: 1
+  Sides: 4
+  TubeStep: 0.1
+  Start: 0
+  End: 100
+  Rotate: 0
+  Pivot: {x: 0, y: 0, z: 0}
+  UVOffset: {x: 0, y: 0}
+  UVRotate: {x: 0, y: 0}
+  UVScale: {x: 1, y: 1}
+  UVOffset1: {x: 0, y: 0}
+  UVRotate1: {x: 0, y: 0}
+  UVScale1: {x: 1, y: 1}
+  UVOffset2: {x: 0, y: 0}
+  UVRotate3: {x: 0, y: 0}
+  UVScale3: {x: 1, y: 1}
+  autosmooth: 0
+  smoothness: 0.75
+  flipNormals: 0
+  mat1: {fileID: 0}
+  mat2: {fileID: 0}
+  mat3: {fileID: 0}
+  UseHeightCurve: 0
+  heightCrv:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  heightOff: 0
+  shapemesh: {fileID: 0}
+  tsides: 8
+  crossType: 0
+  Twist: 0
+  strands: 1
+  tradius: 0.1
+  offset: 0
+  uvtilex: 1
+  uvtiley: 1
+  uvtwist: 0
+  TubeLength: 1
+  TubeStart: 0
+  SegsPerUnit: 20
+  TwistPerUnit: 0
+  strandRadius: 0
+  startAng: 0
+  rotate: 0
+  cap: 0
+  RopeUp: 1
+  scaleX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scaleY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  unlinkScale: 0
+  boxwidth: 0.2
+  boxheight: 0.2
+  raxis: 0
+  ribsegs: 1
+  conform: 0
+  target: {fileID: 0}
+  conformCollider: {fileID: 0}
+  offsets: []
+  last: []
+  conformAmount: 1
+  raystartoff: 0
+  raydist: 10
+  conformOffset: 0
+  conformWeight: 1
+  length: 1
+  width: 10
+  fillet: 0.39
