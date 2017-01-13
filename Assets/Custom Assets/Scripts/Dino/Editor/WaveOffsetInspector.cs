@@ -6,7 +6,6 @@ using UnityEditor;
 [CustomEditor(typeof(WaveOffset))]
 public class WaveOffsetInspector : Editor
 {
-
     WaveOffset waveOffset;
 
     public override void OnInspectorGUI()
@@ -17,8 +16,7 @@ public class WaveOffsetInspector : Editor
         MegaShapeLoft loft = (MegaShapeLoft)EditorGUILayout.ObjectField("Loft", waveOffset.loft, typeof(MegaShapeLoft), true);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(waveOffset, "Loft");
-            EditorUtility.SetDirty(waveOffset);
+            waveOffset.Record("Loft");
             waveOffset.loft = loft;
         }
 
@@ -27,8 +25,7 @@ public class WaveOffsetInspector : Editor
         layer = EditorGUILayout.Popup("Layer", layer + 1, MegaShapeUtils.GetLayers(loft)) - 1;
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(waveOffset, "Loft layer");
-            EditorUtility.SetDirty(waveOffset);
+            waveOffset.Record("Layer");
             waveOffset.layer = layer;
         }
 
@@ -36,14 +33,13 @@ public class WaveOffsetInspector : Editor
         MegaAxis axis = (MegaAxis)EditorGUILayout.EnumPopup("Axis", waveOffset.axis);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(waveOffset, "Axis");
-            EditorUtility.SetDirty(waveOffset);
+            waveOffset.Record("Axis");
             waveOffset.axis = axis;
         }
 
         waveOffset.UpdateBool(ref waveOffset.startToEnd, "Start To End");
         waveOffset.UpdateFloat(ref waveOffset.speed, "Speed");
         waveOffset.UpdateFloat(ref waveOffset.amplitude, "Amplitude");
-        waveOffset.UpdateFloatSlider(ref waveOffset.gap, "Gap", 0f, 1f);
+        waveOffset.UpdateFloat(ref waveOffset.gap, "Gap", 0f, 1f);
     }
 }

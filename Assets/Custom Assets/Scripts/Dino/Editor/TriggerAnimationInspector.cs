@@ -33,7 +33,7 @@ public class TriggerAnimationInspector : Editor {
 
         MegaShape shape = loft.Layers[layer].layerPath;
 
-        triggerAnimation.UpdateIntSlider(ref triggerAnimation.curve, "Curve", 0, shape.splines.Count - 1);
+        triggerAnimation.UpdateInt(ref triggerAnimation.curve, "Curve", 0, shape.splines.Count - 1);
 
         if (shape.LoopMode == MegaRepeatMode.Clamp)
         {

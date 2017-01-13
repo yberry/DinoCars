@@ -5,7 +5,7 @@ using UnityEditor;
 
 public static class EditorTools {
 
-    static void Record(Object obj, string label)
+    public static void Record(this Object obj, string label)
     {
         Undo.RecordObject(obj, label);
         EditorUtility.SetDirty(obj);
@@ -17,18 +17,18 @@ public static class EditorTools {
         int i = EditorGUILayout.IntField(label, field);
         if (EditorGUI.EndChangeCheck())
         {
-            Record(obj, label);
+            obj.Record(label);
             field = i;
         }
     }
 
-    public static void UpdateIntSlider(this Object obj, ref int field, string label, int min, int max)
+    public static void UpdateInt(this Object obj, ref int field, string label, int min, int max)
     {
         EditorGUI.BeginChangeCheck();
         int i = EditorGUILayout.IntSlider(label, field, min, max);
         if (EditorGUI.EndChangeCheck())
         {
-            Record(obj, label);
+            obj.Record(label);
             field = i;
         }
     }
@@ -39,18 +39,18 @@ public static class EditorTools {
         float f = EditorGUILayout.FloatField(label, field);
         if (EditorGUI.EndChangeCheck())
         {
-            Record(obj, label);
+            obj.Record(label);
             field = f;
         }
     }
 
-    public static void UpdateFloatSlider(this Object obj, ref float field, string label, float min, float max)
+    public static void UpdateFloat(this Object obj, ref float field, string label, float min, float max)
     {
         EditorGUI.BeginChangeCheck();
         float f = EditorGUILayout.Slider(label, field, min, max);
         if (EditorGUI.EndChangeCheck())
         {
-            Record(obj, label);
+            obj.Record(label);
             field = f;
         }
     }
@@ -61,7 +61,7 @@ public static class EditorTools {
         bool b = EditorGUILayout.Toggle(label, field);
         if (EditorGUI.EndChangeCheck())
         {
-            Record(obj, label);
+            obj.Record(label);
             field = b;
         }
     }
