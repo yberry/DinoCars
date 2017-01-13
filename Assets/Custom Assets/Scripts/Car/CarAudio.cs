@@ -17,7 +17,7 @@ namespace CND.Car
 
         public float nbRotationLimit = 12000;
         public float nbRotationClutch = 3000;
-        [DisplayModifier(hidingMode: DM_HidingMode.GreyedOut)]
+        [DisplayModifier(DM_HidingMode.GreyedOut)]
         public float RPM;
         public float maxValueRotation;
         float addition=50;
@@ -85,11 +85,13 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
 
-            if (UnityEditor.EditorUtility.audioMasterMute)
+#if UNITY_EDITOR
+			if (UnityEditor.EditorUtility.audioMasterMute)
                 AkSoundEngine.StopAll();
-        
+#endif
 
-        }
+
+		}
 
 
     }

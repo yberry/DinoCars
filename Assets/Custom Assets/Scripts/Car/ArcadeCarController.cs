@@ -91,7 +91,7 @@ namespace CND.Car
 
 			public  Settings Clone() {
 				var l = this;
-				l.transmissionCurves.CopyTo(this.transmissionCurves,0);
+				this.transmissionCurves.CopyTo(l.transmissionCurves,0);
 				return l;
 			}
         }
@@ -102,20 +102,25 @@ namespace CND.Car
 
         [Space(5)]
 
-		[ DisplayModifier("Override Settings",	foldingMode: DM_FoldingMode.Unparented, order = 10)]
+		[ DisplayModifier("Override Settings",	foldingMode: DM_FoldingMode.NoFoldout)]
 		public SettingsPresetLoader settingsOverride;
 
-		[SerializeField, Header("Default Settings"), DisplayModifier( "Default Settings",
-			 DM_HidingMode.GreyedOut, new[] { "settingsOverride.carSettings", "settingsOverride.overrideDefaults" }, foldingMode: DM_FoldingMode.Unparented)]		
+		[SerializeField, Header("Default Settings"),
+			DisplayModifier( "Default Settings",
+			 DM_HidingMode.GreyedOut, new[] { "settingsOverride.carSettings", "settingsOverride.overrideDefaults" }, DM_HidingCondition.TrueOrInit, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]		
 		public Settings defaultSettings;
 		[HideInInspector,UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
 		public Settings settings;
 
 		#endregion Car settings
 
-		public override float TargetSpeed {get {return settings.targetSpeed; }}
-        public float SpeedRatio { get { return CurrentSpeed / settings.targetSpeed; } }
-        WheelManager wheelMgr;
+		public override float TargetSpeed {get {return CurrentSettings.targetSpeed; }}
+        public float SpeedRatio { get { return CurrentSpeed / CurrentSettings.targetSpeed; } }
+		public Settings CurrentSettings { get { return settingsOverride.overrideDefaults ? settingsOverride.displayedSettings : defaultSettings; } }
+		protected Settings CurStg { get { return CurrentSettings; } }
+
+
+		WheelManager wheelMgr;
 
         [HideInInspector]
         public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
@@ -126,7 +131,7 @@ namespace CND.Car
         bool boost;
 
         float prevSteerAngleDeg, effectiveSteerAngleDeg;
-        public float TargetSteerAngleDeg { get { return steering * settings.maxTurnAngle; } }
+        public float TargetSteerAngleDeg { get { return steering * CurStg.maxTurnAngle; } }
 
         // Use this for initialization
         void Start()
@@ -187,7 +192,7 @@ namespace CND.Car
 		protected override int GetGear()
         {
             float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;            
-            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (settings.transmissionCurves.Length + offset) * (SpeedRatio)),-1, settings.transmissionCurves.Length));
+            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (CurStg.transmissionCurves.Length + offset) * (SpeedRatio)),-1, CurStg.transmissionCurves.Length));
         }
 
         int GetNextGear()
@@ -200,14 +205,14 @@ namespace CND.Car
             int gear = GetGear()-1;
             if (gear >= 0)
             {
-                float maxCurGearOutput = settings.transmissionCurves[gear].Evaluate(1);
-                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/ settings.transmissionCurves.Length;
+                float maxCurGearOutput = CurStg.transmissionCurves[gear].Evaluate(1);
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/ CurStg.transmissionCurves.Length;
                
                 return curGearOutput / maxCurGearOutput;
             }
             else if (gear == -1)
             {
-                float maxCurGearOutput = Mathf.Abs(settings.transmissionCurves[0].Evaluate(-1));
+                float maxCurGearOutput = Mathf.Abs(CurStg.transmissionCurves[0].Evaluate(-1));
                 float curGearOutput = (CurrentSpeed / (TargetSpeed *maxCurGearOutput));
 
                 return - curGearOutput / maxCurGearOutput;
@@ -217,19 +222,19 @@ namespace CND.Car
 
         public override string DebugHUDString()
         {
-            return base.DebugHUDString()+" "+GetGear()+"/"+ settings.transmissionCurves.Length+" ("+GetRPMRatio().ToString("0.##" )+ ")";
+            return base.DebugHUDString()+" "+GetGear()+"/"+ CurStg.transmissionCurves.Length+" ("+GetRPMRatio().ToString("0.##" )+ ")";
         }
 
         void ApplyDownForce()
         {
-            rBody.AddForce(-transform.up * Mathf.Abs(settings.downForce * rBody.velocity.magnitude));
+            rBody.AddForce(-transform.up * Mathf.Abs(CurStg.downForce * rBody.velocity.magnitude));
         }
 
         void ApplySteering()
         {
             //rBody.ResetInertiaTensor();
             effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
-                prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/ settings.maxTurnAngle)), settings.turnSpeed * Time.fixedDeltaTime);
+                prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/ CurStg.maxTurnAngle)), CurStg.turnSpeed * Time.fixedDeltaTime);
             wheelMgr.SetSteering(effectiveSteerAngleDeg);
             prevSteerAngleDeg = effectiveSteerAngleDeg;
            // Debug.Log("Steering: " + TargetSteerAngleDeg);
@@ -286,9 +291,9 @@ namespace CND.Car
             var absForward = Mathf.Abs(contact.forwardRatio);
             var absSide = Mathf.Abs(contact.sidewaysRatio);
             int gear = GetGear() - 1;
-            var gearSpeed = settings.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * settings.targetSpeed;
+            var gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * CurStg.targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * settings.targetSpeed / powerRatio;
+            var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * CurStg.targetSpeed / powerRatio;
             var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
             var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
             const float speedDecay = 0.95f;
@@ -301,10 +306,10 @@ namespace CND.Car
                 inertiaCancel* contact.sideFriction,
                 absForward);
 
-            Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel + inertiaCancel  , settings.driftControl);
+            Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel + inertiaCancel  , CurStg.driftControl);
             Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
-            Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, settings.tractionControl);
+            Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, CurStg.tractionControl);
 
            
 #if DEBUG
@@ -361,7 +366,7 @@ namespace CND.Car
             Gizmos.DrawLine(centerOfMass + transform.right * 0.25f, halfVelocityEnd);
             Gizmos.DrawLine(centerOfMass + transform.right * -0.25f, halfVelocityEnd);
             Gizmos.color = Color.green * 0.75f;
-            var forwardLine = settings.centerOfMassOffset + transform.forward;
+            var forwardLine = CurStg.centerOfMassOffset + transform.forward;
             /*
             Gizmos.DrawLine(centerOfMass, centerOfMass+ forwardLine);
             Gizmos.DrawLine(centerOfMass+ rBody.velocity.normalized* forwardLine.magnitude, centerOfMass + forwardLine);
@@ -372,6 +377,12 @@ namespace CND.Car
         {
             DebugRefresh();
 
+			if (Application.isEditor)
+			{
+				settingsOverride.BindCar(this);
+			}
+			
+			settingsOverride.Refresh();
 			//curSettings = settingsOverride.overrideDefaults ? settingsOverride.carSettings.preset.Clone() : settings.Clone(); 
 
 		}

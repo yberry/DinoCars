@@ -3,11 +3,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+
 using DMA = DisplayModifierAttribute;
 using HidingCondition = DM_HidingCondition;
 using HidingMode = DM_HidingMode;
 using FoldingMode = DM_FoldingMode;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public enum DM_HidingMode {
     Default,
@@ -18,7 +22,7 @@ public enum DM_FoldingMode
 {
     Default, Collapsed = Default,
     Expanded,
-    Unparented
+    NoFoldout
 }
 
 public enum DM_HidingCondition
@@ -26,6 +30,13 @@ public enum DM_HidingCondition
     None,
     FalseOrNull,
     TrueOrInit
+}
+
+[System.Flags]
+public enum DM_Decorations
+{
+	None,
+	BoxChildren,
 }
 
 public class DisplayModifierAttribute : PropertyAttribute {
@@ -41,13 +52,15 @@ public class DisplayModifierAttribute : PropertyAttribute {
     public HidingMode hidingMode { get; protected set; }
     public HidingCondition hidingCondition { get; protected set; }
     public FoldingMode foldingMode { get; protected set; }
+	public DM_Decorations decorationFlags { get; protected set; }
 
-    public string[] conditionVars { get; protected set; }
+	public string[] conditionVars { get; protected set; }
 
     public DisplayModifierAttribute(bool labelAbove = false,
-        HidingMode hidingMode = HidingMode.Default, HidingCondition hidingConditions=HidingCondition.None, string[] hidingConditionVars = null,
-        FoldingMode foldingMode = FoldingMode.Default)
+        HidingMode hidingMode = HidingMode.Default, string[] hidingConditionVars = null, HidingCondition hidingConditions=HidingCondition.None, 
+        FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = DM_Decorations.None)
 	{
+
 		extraLabelLine = labelAbove;
 		this.hidingMode = hidingMode;
         this.hidingCondition = hidingConditions;
@@ -57,33 +70,34 @@ public class DisplayModifierAttribute : PropertyAttribute {
             if (this.hidingMode == HidingMode.Default)
                 this.hidingMode = HidingMode.GreyedOut;
             if (hidingCondition == HidingCondition.None)
-                hidingCondition = HidingCondition.TrueOrInit;
+                hidingCondition = HidingCondition.FalseOrNull;
         }
 
         this.foldingMode = foldingMode;
+		decorationFlags = decorations;
 
-    }
+	}
 
 	public DisplayModifierAttribute(string name, bool labelAbove = false,
-        HidingMode hidingMode = HidingMode.Default, HidingCondition hidingConditions = HidingCondition.None, string[] hidingConditionVars = null,
-        FoldingMode foldingMode = FoldingMode.Default)
-		:this(labelAbove, hidingMode, hidingConditions, hidingConditionVars,  foldingMode)
+        HidingMode hidingMode = HidingMode.Default, string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
+        FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = 0)
+		:this(labelAbove, hidingMode, hidingConditionVars, hidingConditions,   foldingMode,decorations)
 	{
 		OverrideName(name);
 	}
 
 	public DisplayModifierAttribute(
-HidingMode hidingMode, string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
-FoldingMode foldingMode = FoldingMode.Default)
-: this(false, hidingMode, hidingConditions, hidingConditionVars, foldingMode)
+		HidingMode hidingMode, string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
+		FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = 0)
+		: this(false, hidingMode, hidingConditionVars, hidingConditions, foldingMode,decorations)
 	{
 
 	}
 
 	public DisplayModifierAttribute(string name,
-	HidingMode hidingMode,  string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
-	FoldingMode foldingMode = FoldingMode.Default)
-	: this(hidingMode, hidingConditionVars, hidingConditions,  foldingMode)
+		HidingMode hidingMode,  string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
+		FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = 0)
+	: this(hidingMode, hidingConditionVars, hidingConditions,  foldingMode,decorations)
 	{
 		OverrideName(name);
 	}
@@ -97,7 +111,7 @@ FoldingMode foldingMode = FoldingMode.Default)
         this.hidingMode = readOnly ? DM_HidingMode.GreyedOut : DM_HidingMode.Default;
         
         this.foldingMode = startExpanded ? FoldingMode.Expanded : FoldingMode.Default;
-        if (noChildrenFolder) foldingMode = FoldingMode.Unparented;
+        if (noChildrenFolder) foldingMode = FoldingMode.NoFoldout;
     }
 
     [System.Obsolete("Use version with enums")]
@@ -116,8 +130,8 @@ FoldingMode foldingMode = FoldingMode.Default)
 
 }
 
-#if UNITY_EDITOR
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(DisplayModifierAttribute),true)]
 public class DisplayModifierDrawer : PropertyDrawer
 {
@@ -155,7 +169,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 
 		}
 
-        public float GetExpandedPropertyHeight(SerializedProperty property, GUIContent label)
+        public float GetExpandedPropertyHeight(SerializedProperty property, GUIContent label, bool needRefresh=false)
         {
             if (fields == null || needRefresh)
             {
@@ -180,11 +194,11 @@ public class DisplayModifierDrawer : PropertyDrawer
             return height + 5;
         }
 
-        public void CreateGUI(Rect position, SerializedProperty property, GUIContent label, bool refresh)
+        public void CreateGUI(ref Rect position, SerializedProperty property, GUIContent label, bool refresh)
         {
 			
             needRefresh = refresh;
-            EditorGUI.BeginProperty(position, label, property);
+			EditorGUI.BeginProperty(position, label, property);
             int indent = EditorGUI.indentLevel;
 			
 			if (members != null)
@@ -207,8 +221,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 				}
 				position.y += groupPadding +2;
 			}
-
-            
+  
             EditorGUI.EndProperty();
         }
     }
@@ -224,11 +237,13 @@ public class DisplayModifierDrawer : PropertyDrawer
 	protected bool checkedForExtraLine;
 	protected bool extraLabelLine;
     protected bool noChildrenFolder;
-    protected bool shouldHide;
+    protected bool hideModeEnabled;
 
     protected ChildrenProperties children;
     protected SerializedProperty[] hideCondVars;
     protected bool[] reverseCondVars;
+
+	protected DM_Decorations decorationFlags;
    // protected string
    /*
     public DisplayModifierDrawer():base()
@@ -239,7 +254,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 	public void Init(SerializedProperty property, GUIContent label)
 	{
         dispModAttr = (attribute as DisplayModifierAttribute);
-        if (property.hasVisibleChildren && dispModAttr.foldingMode == FoldingMode.Unparented && children.IsNull())
+        if (property.hasVisibleChildren && dispModAttr.foldingMode == FoldingMode.NoFoldout && children.IsNull())
         {
             noChildrenFolder = true;
             children = new ChildrenProperties(fieldInfo);
@@ -247,8 +262,9 @@ public class DisplayModifierDrawer : PropertyDrawer
         else if (dispModAttr.foldingMode == FoldingMode.Expanded && !property.isExpanded)
             property.isExpanded = true;
 
+		decorationFlags = dispModAttr.decorationFlags;
 
-        if (!checkedForRange) {
+		if (!checkedForRange) {
 			ReadRangeOptionalAttribute();
 		}
 
@@ -266,93 +282,74 @@ public class DisplayModifierDrawer : PropertyDrawer
 	public override float GetPropertyHeight(SerializedProperty property,GUIContent label)
 	{
 		if (!isInit) Init(property,label);
-        if (dispModAttr.hidingMode == DM_HidingMode.Hidden)
+        if (dispModAttr.hidingMode == DM_HidingMode.Hidden && hideModeEnabled)
         {
             return 0;
         }
 
         bool addLine = !(property.propertyType == SerializedPropertyType.Boolean) && extraLabelLine;
-        float height = children.IsNotNull() ? children.GetExpandedPropertyHeight(property, label) : EditorGUI.GetPropertyHeight(property, label, property.hasVisibleChildren);
+        float height = children.IsNotNull() ? children.GetExpandedPropertyHeight(property, label,true) : EditorGUI.GetPropertyHeight(property, label, property.hasVisibleChildren);
 		return height+(addLine ? EditorGUI.GetPropertyHeight(property, label, property.hasVisibleChildren) :0);
 	}
 
 	
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
-		
+		EditorGUI.BeginChangeCheck();
 		//base.OnGUI(position, property, label);
+		
         GUI.enabled = true;
         var origIndent = EditorGUI.indentLevel;
-        GUIStyle s=new GUIStyle(EditorStyles.textArea);
+       
 		label = EditorGUI.BeginProperty(position, label, property);
 
+		
 		switch (dispModAttr.hidingCondition)
         {
-            case DM_HidingCondition.FalseOrNull: shouldHide = CheckHidingConditions(property,false); break;
-            case DM_HidingCondition.TrueOrInit: shouldHide = CheckHidingConditions(property,true); break;
-            case DM_HidingCondition.None: shouldHide = true; break;
+            case DM_HidingCondition.FalseOrNull: hideModeEnabled = CheckHidingConditions(property,false); break;
+            case DM_HidingCondition.TrueOrInit: hideModeEnabled = CheckHidingConditions(property,true); break;
+            case DM_HidingCondition.None: hideModeEnabled = true; break;
         }
+		//Debug.Log(property.name + " - " + dispModAttr.hidingCondition + " - "  + dispModAttr.hidingCondition + " - shouldHide: "+hideModeEnabled);
 
-        if (shouldHide)
+		
+		if (hideModeEnabled)
         {
             switch (dispModAttr.hidingMode)
             {
-                case DM_HidingMode.Hidden: goto Close;
+                case DM_HidingMode.Hidden: GUI.enabled = false; break;// 
                 case DM_HidingMode.GreyedOut: GUI.enabled = false; break;
                 default: GUI.enabled = true; break;
             }
         }
 
-        if (dispModAttr.overrideName)
-			label.text = dispModAttr.displayName;
-		
+		if (!hideModeEnabled || dispModAttr.hidingMode != DM_HidingMode.Hidden)
+		{
+			if (dispModAttr.overrideName)
+				label.text = dispModAttr.displayName;
 
-		if(rangeAttribute.IsNull() ) {
-			if (extraLabelLine )
-				MoveElements(ref position, property, ref label);
-
-			if (textAreaAttribute.IsNotNull()) {
-				EditorGUI.indentLevel =0;
-				EditorGUI.LabelField(position, "TextArea not supported by DisplayModifier");
-				//EditorGUI.PropertyField(position, property, false);
-			} else {
-
-                if (noChildrenFolder && property.hasVisibleChildren)
-                {
-					//GUI.BeginGroup(position, label);
-					GUIStyle groupStyle = new GUIStyle( EditorStyles.helpBox);
-					groupStyle.stretchWidth = true;
-					groupStyle.padding = new RectOffset(-30, -30, -30, -30);
-					//groupStyle.margin = new RectOffset(-3,- 3,- 3, -3);
-					//groupStyle.border = new RectOffset(100, 100, 100, 100);
-					
-					GUI.Box(position, GUIContent.none, groupStyle);
-					DrawChildren(ref position, property, ref label);
-					//GUI.EndGroup();
-
-				} else  {
-                    EditorGUI.PropertyField(position, property, label, property.hasVisibleChildren);
-                }
-
-            }
-
-        }
-		else {
-
-			if (extraLabelLine ) {
-				MoveElements(ref position, property, ref label);
+			if (rangeAttribute.IsNull())
+			{
+				DrawProperties(ref position, property, ref label);
 			}
+			else
+			{
 
-            DrawSliders(ref position, property, ref label);
+				if (extraLabelLine)
+				{
+					MoveElements(ref position, property, ref label);
+				}
+
+				DrawSliders(ref position, property, ref label);
+			}
 		}
 
-        Close:
-	
+
 		GUI.enabled = true;
 		EditorGUI.EndProperty();
         EditorGUI.indentLevel = origIndent;
-
-    }
+		EditorGUI.EndChangeCheck();
+	}
 	
 	protected void MoveElements(ref Rect position, SerializedProperty property, ref GUIContent label)
 	{
@@ -370,11 +367,60 @@ public class DisplayModifierDrawer : PropertyDrawer
 		label = GUIContent.none;
 	}
 
-    protected void DrawChildren(ref Rect position, SerializedProperty property, ref GUIContent label)
+	protected void DrawProperties(ref Rect position, SerializedProperty property, ref GUIContent label)
+	{
+		if (extraLabelLine)
+			MoveElements(ref position, property, ref label);
+
+		if (textAreaAttribute.IsNotNull())
+		{
+			EditorGUI.indentLevel = 0;
+			EditorGUI.LabelField(position, "TextArea not supported by DisplayModifier");
+			//EditorGUI.PropertyField(position, property, false);
+		}
+		else
+		{
+
+			if (noChildrenFolder && property.hasVisibleChildren)
+			{
+				//GUI.BeginGroup(position, label);
+				GUIStyle groupStyle = new GUIStyle(EditorStyles.helpBox);
+	
+				//groupStyle.padding = new RectOffset(-30, -30, -30, -30);
+				//groupStyle.margin = new RectOffset(-3,- 3,- 3, -3);
+				//groupStyle.border = new RectOffset(100, 100, 100, 100);
+				var pos = position;
+				if (decorationFlags.ContainsFlag(DM_Decorations.BoxChildren)){
+					const float _padding = 5f;
+					pos.x -= _padding;
+					pos.width += _padding*1.5f;
+					pos.height = children.GetExpandedPropertyHeight(property, label);
+					groupStyle.padding = new RectOffset( (int)_padding,(int) _padding, (int)_padding, (int)_padding);
+					groupStyle.stretchWidth = true;
+					
+					GUI.Box(pos, GUIContent.none, groupStyle);
+				}
+
+				DrawChildren(ref position, property, ref label);
+				
+				//GUI.EndGroup();
+
+			}
+			else
+			{
+				EditorGUI.PropertyField(position, property, label, property.hasVisibleChildren);
+			}
+
+		}
+
+	}
+
+
+	protected void DrawChildren(ref Rect position, SerializedProperty property, ref GUIContent label)
     {
 
         if (noChildrenFolder && children.IsNotNull())
-            children.CreateGUI(position, property, label,true);
+            children.CreateGUI(ref position, property, label,GUI.changed);
     }
 
     protected void DrawSliders(ref Rect position, SerializedProperty property, ref GUIContent label)
@@ -391,6 +437,7 @@ public class DisplayModifierDrawer : PropertyDrawer
         if (hideCondVars.IsNull() && dispModAttr.conditionVars.IsNotNull())
         {
             int condLength = dispModAttr.conditionVars.Length;
+
             reverseCondVars = new bool[condLength];
             hideCondVars = new SerializedProperty[condLength];
             for (int i = 0; i < condLength; i++)
@@ -413,8 +460,8 @@ public class DisplayModifierDrawer : PropertyDrawer
 
         for (int i=0; i<hideCondVars.Length;++i)
         {
-			if (hideCondVars[i].IsNotNull())
-				Debug.Log(hideCondVars[i].name);
+			/*if (hideCondVars[i].IsNotNull())
+				Debug.Log(hideCondVars[i].name);*/
 
             var v = hideCondVars[i];
 			bool b = v.IsNotNull();

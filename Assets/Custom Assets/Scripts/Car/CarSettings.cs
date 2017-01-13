@@ -11,7 +11,7 @@ namespace CND.Car
 	public class CarSettings : ScriptableObject
 	{
 		[Header("Basic Settings")]
-		[DisplayModifier( foldingMode: DM_FoldingMode.Unparented)]
+		[DisplayModifier( foldingMode: DM_FoldingMode.NoFoldout)]
 		public ArcadeCarController.Settings preset;
 
     }

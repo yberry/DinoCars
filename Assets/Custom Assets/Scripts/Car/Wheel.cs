@@ -17,7 +17,7 @@ namespace CND.Car
         public GameObject wheelGraphics;
 
 
-        [DisplayModifier(foldingMode: DM_FoldingMode.Unparented)]        
+        [DisplayModifier(foldingMode: DM_FoldingMode.NoFoldout)]        
         public Settings settings=Settings.CreateDefault();
 
         protected ContactInfo m_contactInfo;

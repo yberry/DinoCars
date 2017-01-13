@@ -7,25 +7,38 @@ using UnityEditor;
 namespace CND.Car
 {
 	[System.Serializable]
-	public class SettingsPresetLoader// : MonoBehaviour
+	public class SettingsPresetLoader// : MonoBehaviour//
 	{
 		public enum SyncMode
 		{
-			NoSync, ActiveToPreset, ActiveToDefaults, DefaultsTo
+			NoSync,
+			ActiveToPreset,
+			[HideInInspector]
+			PresetToActive,
+			[HideInInspector]
+			ActiveToDefaults,
+			DefaultsToActive
 		}
+
 		ArcadeCarController car;
 
 		public bool PresetChanged { get { return prevSettings != carSettings; } }
 		//public bool 
 		
 		public CarSettings carSettings;
-		[DisplayModifier(hidingMode: DM_HidingMode.GreyedOut, hidingConditions: DM_HidingCondition.FalseOrNull, hidingConditionVars: new[] { "carSettings" }, foldingMode: DM_FoldingMode.Unparented)]
-		public ArcadeCarController.Settings displayedSettings;
-		[DisplayModifier(hidingMode: DM_HidingMode.GreyedOut, hidingConditions: DM_HidingCondition.FalseOrNull, hidingConditionVars: new[] { "carSettings" }, foldingMode: DM_FoldingMode.Unparented)]
+
+		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings" }, DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
 		public bool overrideDefaults;
+		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings" }, DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
+		public SyncMode PresetSync=SyncMode.ActiveToPreset;
+
+		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings","!overrideDefaults" },  DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
+		public ArcadeCarController.Settings displayedSettings;
 
 		private CarSettings prevSettings = null;
 		//public ButtonProperty save = ButtonProperty.Create("test", ()=> { ButtonTest(); });
+
+
 		public void BindCar(ArcadeCarController car)
 		{
 			this.car = car;
@@ -33,26 +46,44 @@ namespace CND.Car
 
 		public void Refresh()
 		{
-
 			if (PresetChanged)
 			{
 				prevSettings = carSettings;
-				displayedSettings = carSettings.preset.Clone();
+				CopyPresetToActive();
 			}
-			Coroutine c = new Coroutine();
+
+			switch (PresetSync)
+			{
+				case 0: return;
+				case SyncMode.ActiveToPreset: CopyActiveToPreset(); return;
+				case SyncMode.PresetToActive: CopyPresetToActive(); return;
+				case SyncMode.DefaultsToActive: CopyDefaultsToActive(); return;
+				case SyncMode.ActiveToDefaults: CopyActiveToDefaults(); return;
+			}
+
 		}
 
-		public void CopyPresetToDefaults()
+		public void CopyActiveToDefaults()
 		{
-			CopySettings(carSettings.preset, car.defaultSettings);
+			CopySettings(ref displayedSettings, ref car.defaultSettings);
 		}
 		
-		public void CopyDefaultsToPreset()
+		public void CopyDefaultsToActive()
 		{
-			CopySettings(car.defaultSettings, carSettings.preset);
+			CopySettings(ref car.defaultSettings,ref displayedSettings);
 		}
 
-		public static void CopySettings(ArcadeCarController.Settings source, ArcadeCarController.Settings dest)
+		public void CopyPresetToActive()
+		{
+			CopySettings(ref carSettings.preset,ref displayedSettings);
+		}
+
+		public void CopyActiveToPreset()
+		{
+			CopySettings(ref displayedSettings,ref carSettings.preset);
+		}
+
+		public static void CopySettings(ref ArcadeCarController.Settings source,ref  ArcadeCarController.Settings dest)
 		{
 			dest = source.Clone();
 		}
