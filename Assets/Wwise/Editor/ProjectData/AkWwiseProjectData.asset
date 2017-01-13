@@ -16,38 +16,56 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -1287894698
-    m_lastTimePart2: -1999357794
+    m_lastTimePsrt1: 2091812267
+    m_lastTimePart2: -1999357204
     List:
-    - Name: Gear_Change
-      Path: Default Work Unit\Gear_Change
+    - Name: Car_Crash
+      Path: Default Work Unit\Car\Car_Crash
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Gear_Change
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Crash
         ObjectType: 3
-      ID: 1950444439
-      Guid: 467b027111ae9648872acb9b3630f144
+      ID: 410072009
+      Guid: 49885191d5345141821c5dbb7f1e4b22
       maxAttenuation: 0
-    - Name: Play
-      Path: Default Work Unit\Play
+    - Name: Car_Skid
+      Path: Default Work Unit\Car\Car_Skid
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Skid
         ObjectType: 3
-      ID: 1256202815
+      ID: 2101189585
+      Guid: ad5e59ea8b295f4facaf669fe73bbf7d
+      maxAttenuation: 0
+    - Name: Play_Ambiance
+      Path: Default Work Unit\Ambiance\Play_Ambiance
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Ambiance
+        ObjectType: 4
+      - ElementName: Play_Ambiance
+        ObjectType: 3
+      ID: -1120487318
+      Guid: 0e609aa6c8e27a4f8aa5fd27d4516a51
+      maxAttenuation: 0
+    - Name: Play_Motor
+      Path: Default Work Unit\Car\Play_Motor
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Play_Motor
+        ObjectType: 3
+      ID: 520985213
       Guid: 7aa47b59cc36ff48ade5a6fbb5febaa9
-      maxAttenuation: 0
-    - Name: Start
-      Path: Default Work Unit\Start
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Start
-        ObjectType: 3
-      ID: 1281810935
-      Guid: 179f9b8682219d469f562552e3a6b0d2
       maxAttenuation: 0
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -74,8 +92,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: -1287785022
-    m_lastTimePart2: -1999357794
+    m_lastTimePsrt1: 2091402289
+    m_lastTimePart2: -1999357204
     List:
     - Name: Car_Motor
       Path: Default Work Unit\Car_Motor
@@ -86,7 +104,11 @@ MonoBehaviour:
         ObjectType: 7
       ID: 979736363
       Guid: 0ffee3c1d0b6e74fa3b19a665a64f48e
-  ExpandedItems: []
+  ExpandedItems:
+  - /CarsDino_CAR_Motor
+  - /CarsDino_CAR_Motor/Events
+  - /CarsDino_CAR_Motor/Events/Default Work Unit
+  - /CarsDino_CAR_Motor/Events/Default Work Unit/Car
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

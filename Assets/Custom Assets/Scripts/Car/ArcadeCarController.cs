@@ -7,11 +7,16 @@ namespace CND.Car
 {
     public abstract class BaseCarController : MonoBehaviour
     {
+        [SerializeField, Range(0, 5000)]
+        protected float targetSpeed = 100f;
+        protected float TargetSpeed { get { return targetSpeed; } }
+
         const float speedKph = 3.6f;
         const float speedMph = 2.23693629f;
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
-        
+        public int CurrentGear { get { return GetGear(); } }
+
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel, float footbrake, float handbrake, bool boost);
         abstract public void Drift(bool active);
@@ -20,14 +25,21 @@ namespace CND.Car
         {
             return CurrentSpeed.ToString("0.") + " Km/H";
         }
+
+        public virtual float GetRPMRatio()
+        {
+            return Mathf.Abs(Mathf.Clamp( rBody.velocity.magnitude,0,10)*0.1f);
+        }
+
+        protected virtual int GetGear()
+        {
+            return 1;
+        }
     }
 
     public class ArcadeCarController : BaseCarController
     {
-        public CarTurnPreset turnPreset;
 
-        [Range(0,5000)]
-        public float targetSpeed=100f;
         public float SpeedRatio { get { return CurrentSpeed/targetSpeed; } }
         [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
         public AnimationCurve[] transmissionCurves;
@@ -42,6 +54,8 @@ namespace CND.Car
         public float tractionControl;
         [Range(0, 1)]
         public float driftControl;
+        [Range(0, 1000)]
+        public float downForce;
 
 
 
@@ -80,10 +94,16 @@ namespace CND.Car
         {
             prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
+
+            
             ApplySteering();
             ApplyMotorForces();
+            ApplyDownForce();
+
             if (orientationFix)
                 CorrectOrientation();
+
+         
         }
 
         private void DebugRefresh()
@@ -126,7 +146,7 @@ namespace CND.Car
             accelOutput = Mathf.SmoothStep(accelInput, accelInput * accelSign, accelInput*0.5f+0.5f);// accel;// Mathf.MoveTowards(accelOutput, accelInput, accelSign* accel);
         }
 
-        int GetGear()
+        protected override int GetGear()
         {
             float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.25f : 0.25f;            
             return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1 + (transmissionCurves.Length + offset) * (SpeedRatio)),-1, transmissionCurves.Length));
@@ -137,9 +157,34 @@ namespace CND.Car
             return 1;
         }
 
+        override public float GetRPMRatio()
+        {
+            int gear = GetGear()-1;
+            if (gear >= 0)
+            {
+                float maxCurGearOutput = transmissionCurves[gear].Evaluate(1);
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/transmissionCurves.Length;
+               
+                return curGearOutput / maxCurGearOutput;
+            }
+            else if (gear == -1)
+            {
+                float maxCurGearOutput = Mathf.Abs(transmissionCurves[0].Evaluate(-1));
+                float curGearOutput = (CurrentSpeed / (TargetSpeed *maxCurGearOutput));
+
+                return - curGearOutput / maxCurGearOutput;
+            }
+            return 0;
+        }
+
         public override string DebugHUDString()
         {
             return base.DebugHUDString()+" "+GetGear()+"/"+transmissionCurves.Length;
+        }
+
+        void ApplyDownForce()
+        {
+            rBody.AddForce(-transform.up * Mathf.Abs(downForce * rBody.velocity.magnitude));
         }
 
         void ApplySteering()
@@ -205,11 +250,13 @@ namespace CND.Car
             int gear = GetGear() - 1;
             var gearSpeed = transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
-            var accelPower = Mathf.Lerp(Mathf.Clamp01(SpeedRatio-Time.fixedDeltaTime*5f)* targetSpeed / powerRatio, gearSpeed / powerRatio,Mathf.Abs(accelOutput));
-
+            var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * targetSpeed / powerRatio;
+            var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
             const float speedDecay = 0.95f;
             Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
-            Vector3 nextForwardVel = contact.forwardDirection * Mathf.Max(absForward* accelPower );// * Time.fixedDeltaTime * 100f;
+            Vector3 nextForwardVel = contact.forwardDirection * (absForward* accelPower ) 
+                + contact.forwardDirection * Physics.gravity.magnitude * gravForward;// * Time.fixedDeltaTime * 100f;
             //
             Vector3 nextSidewaysVel = Vector3.Lerp(
                 inertiaCancel * (1f -  Time.fixedDeltaTime*10f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
