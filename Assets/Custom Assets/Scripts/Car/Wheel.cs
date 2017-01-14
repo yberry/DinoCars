@@ -23,11 +23,19 @@ namespace CND.Car
         protected ContactInfo m_contactInfo;
         public ContactInfo contactInfo { get { return m_contactInfo; } }
         protected ContactInfo prevContactInfo;
+		protected Triangle prevHitTriangle;
 
         protected Vector3 lastPos;
         protected Vector3 wheelCenter;
         protected Vector3 contactPoint;
         protected Quaternion steerRot;
+
+		protected struct Triangle
+		{
+			public object owner;
+			public int index;
+			public Vector3 a, b, c;
+		}
 
         protected float angularVelAngle = 0f;
         // Use this for initialization
@@ -117,9 +125,9 @@ namespace CND.Car
 
             var sqrtMoveMag = Mathf.Sqrt(moveDelta.magnitude);
             var vel = curContactInfo.velocity;
-            var sqrVel = vel * vel.magnitude;  
+            //var sqrVel = vel * vel.magnitude;  
             var gravNorm = gravity.normalized;
-            var sqrGrav = gravity * gravity.magnitude;
+            //var sqrGrav = gravity * gravity.magnitude;
             var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
             var dotVelY = Vector3.Dot(transform.up, moveDir);
             //dotVelY=(Mathf.Asin(dotVelY) / halfPI);
@@ -130,7 +138,9 @@ namespace CND.Car
             
             if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
-                float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
+
+
+				float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength = settings.baseSpringLength - springLength;
 
                // if (Mathf.Abs(dotForward) < 0.99f) Debug.Log(dotForward);
@@ -140,14 +150,14 @@ namespace CND.Car
                 curContactInfo.isOnFloor = true;
                 curContactInfo.hit = hit;
                 curContactInfo.springLength = springLength;
-   
 
-                
-                //var damping = dotVelY * settings.damping;
-                var shockCancel = Vector3.Slerp(-vel.normalized, transform.up, dotVelY)* vel.magnitude *85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+				var colVel = curContactInfo.otherColliderVelocity= GetColliderVelocity(hit, curContactInfo.wasAlreadyOnFloor);
+				vel += colVel;
+				//var damping = dotVelY * settings.damping;
+				var shockCancel = Vector3.Slerp(-vel.normalized, transform.up, dotVelY)* vel.magnitude *85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLerp(-dotVelGrav)));
                 var reflect =  Vector3.Reflect(vel , hit.normal) * 85f * Time.fixedDeltaTime * Time.fixedDeltaTime;
-                var stickToFloor = (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel ); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
+                var stickToFloor =  (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel ); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
                 var springDamp = Mathf.Clamp( 1f- (vel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY),
                     Time.fixedDeltaTime, 1f);
                 var springExpand = Mathf.Clamp(1f+ moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY,
@@ -196,6 +206,52 @@ namespace CND.Car
             }
 
         }
+
+		Vector3 GetColliderVelocity(RaycastHit hit, bool wasAlreadyOnlFloor)
+		{
+
+			Vector3 nextVel=Vector3.zero;
+			
+			if (hit.collider is MeshCollider)
+			{
+				Triangle surf;
+				surf.owner = hit.collider;
+				surf.index = hit.triangleIndex;
+				
+				int tri = hit.triangleIndex;
+				var col = (MeshCollider)hit.collider;
+				var mesh = col.sharedMesh;
+				var meshTris = mesh.triangles;
+				var meshVerts = mesh.vertices;
+				int t1 = meshTris[tri * 3];
+				int t2 = meshTris[tri * 3 + 1];
+				int t3 = meshTris[tri * 3 + 2];
+				surf.a =  (col.transform.position + col.transform.rotation * meshVerts[t1]);
+				surf.b = (col.transform.position + col.transform.rotation * meshVerts[t2]);
+				surf.c =  (col.transform.position + col.transform.rotation * meshVerts[t3]);
+
+				var velA = (surf.a - prevHitTriangle.a) / Time.fixedDeltaTime;
+				var velB = (surf.b - prevHitTriangle.b) / Time.fixedDeltaTime;
+				var velC = (surf.c - prevHitTriangle.c) / Time.fixedDeltaTime;
+				Vector3 center = hit.barycentricCoordinate;// (surf.a + surf.b + surf.c) / 3f;
+				Vector3 centerVel = (velA + velB + velC) / 3f;
+			
+				float distAH = Vector3.Distance(hit.point, surf.a);
+				float distBH = Vector3.Distance(hit.point, surf.b);
+				float distCH = Vector3.Distance(hit.point, surf.c);
+
+				Vector3 velAH = Vector3.LerpUnclamped(velA, centerVel, distAH/ Vector3.Distance(surf.a, center));
+				Vector3 velBH = Vector3.LerpUnclamped(velB, centerVel, distBH / Vector3.Distance(surf.b, center));
+				Vector3 velCH = Vector3.LerpUnclamped(velC, centerVel, distCH / Vector3.Distance(surf.c, center));
+
+				nextVel=wasAlreadyOnlFloor && prevHitTriangle.index == surf.index ? (velAH + velBH + velCH)/3f : Vector3.zero;
+
+				//Debug.Log("ColliderVel: " + nextVel);
+				prevHitTriangle = surf;
+			}
+			
+			return nextVel;
+		}
 
 #if UNITY_EDITOR
         void OnDrawGizmos()

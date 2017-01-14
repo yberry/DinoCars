@@ -294,25 +294,26 @@ namespace CND.Car
             var gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * CurStg.targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
             var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * CurStg.targetSpeed / powerRatio;
-            var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var accelPower = Mathf.Lerp(inertiaPower, inertiaPower*Time.fixedDeltaTime+  gearSpeed / powerRatio,Mathf.Abs(accelOutput));
             var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
-            float speedDecay = Time.fixedDeltaTime* 95f;
+            float speedDecay = Time.fixedDeltaTime* 85f;
 
-			Vector3 driftCancel = -contact.sideDirection * (contact.velocity.magnitude) *absSide;
-			Vector3 nextForwardVel = Vector3.Lerp(rBody.angularVelocity * speedDecay, contact.forwardDirection * accelPower,1f);// *absForward;
+			
+			Vector3 nextForwardVel = contact.forwardDirection * accelPower;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
-            
-            Vector3 nextSidewaysVel = Vector3.Lerp(
+
+			Vector3 driftCancel = Vector3.Lerp(Vector3.zero,-contact.sideDirection * (contact.velocity.magnitude), absSide);
+			Vector3 nextSidewaysVel = Vector3.Lerp(
 								//inertiaCancel * (1f -  Time.fixedDeltaTime*50f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-				rBody.angularVelocity * speedDecay * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
+				rBody.angularVelocity * speedDecay,// * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
 				driftCancel * contact.sideFriction,
                 absForward);
 			//nextSidewaysVel += rBody.angularVelocity;
 
-			Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel+ driftCancel  , CurStg.driftControl);
+			Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel+ driftCancel, CurStg.driftControl);
             Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
-            Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, CurStg.tractionControl);
+            Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel/*.normalized* nextMergedVel.magnitude*/, CurStg.tractionControl);
 
            
 #if DEBUG
