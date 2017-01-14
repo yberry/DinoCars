@@ -1,16 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class WaveOffset : MonoBehaviour {
+public class WaveOffset : TriggerLoft {
 
-    public MegaShapeLoft loft;
-    public int layer = 0;
     public MegaAxis axis;
 
     public bool startToEnd;
-    public float speed;
+    public float duration;
     public float amplitude;
     public float gap;
 
@@ -56,31 +55,28 @@ public class WaveOffset : MonoBehaviour {
             }
         }
     }
-    float time = 0f;
-    bool active = false;
+    float time;
 
-    void Start()
+    void Awake()
     {
         megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
 
-        AnimationCurve curve = new AnimationCurve();
+        Curve = new AnimationCurve();
 
         if (startToEnd)
         {
-            curve.AddKey(0f, 0f);
-            curve.AddKey(gap / 2f, 0f);
-            curve.AddKey(gap, 0f);
+            Curve.AddKey(0f, 0f);
+            Curve.AddKey(gap * 0.5f, 0f);
+            Curve.AddKey(gap, 0f);
         }
         else
         {
-            curve.AddKey(1f - gap, 0f);
-            curve.AddKey(1f - gap / 2f, 0f);
-            curve.AddKey(1f, 0f);
+            Curve.AddKey(1f - gap, 0f);
+            Curve.AddKey(1f - gap * 0.5f, 0f);
+            Curve.AddKey(1f, 0f);
         }
 
-        Curve = curve;
-
-        Debug.Log(Curve.length);
+        time = startToEnd ? 0f : 1f;
     }
 
     void OnTriggerEnter(Collider col)
@@ -92,7 +88,24 @@ public class WaveOffset : MonoBehaviour {
     {
         if (active)
         {
+            Trigger();
+        }
+    }
 
+    protected override void Trigger()
+    {
+        time += (startToEnd ? 1f : -1f) * Time.fixedDeltaTime / duration;
+
+        float delta = time * (1f - gap);
+
+        Curve.MoveKey(0, new Keyframe(delta, 0f));
+        Curve.MoveKey(1, new Keyframe(gap * 0.5f + delta, amplitude * Mathf.Sin(time * Mathf.PI)));
+        Curve.MoveKey(2, new Keyframe(gap + delta, 0f));
+
+        if (time <= 0f || time >= 1f)
+        {
+            Curve = AnimationCurve.Linear(0f, 0f, 1f, 0f);
+            Destroy(gameObject);
         }
     }
 }

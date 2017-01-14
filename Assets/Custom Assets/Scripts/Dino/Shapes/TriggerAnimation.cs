@@ -1,18 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class TriggerAnimation : MonoBehaviour {
+public class TriggerAnimation : TriggerLoft {
 
-    public MegaShapeLoft loft;
-    public int layer = 0;
     public int curve = 0;
     public bool refreshCollider;
 
     MegaShape shape;
     MegaRepeatMode loop;
-    bool activated = false;
 
     void Awake()
     {
@@ -34,12 +31,17 @@ public class TriggerAnimation : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (activated)
+        if (active)
         {
             return;
         }
 
-        activated = true;
+        Trigger();
+    }
+
+    protected override void Trigger()
+    {
+        active = true;
 
         MegaLoftLayerSimple megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
         megaLayer.curve = curve;
