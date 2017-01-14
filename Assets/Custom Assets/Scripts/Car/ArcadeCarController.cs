@@ -109,8 +109,8 @@ namespace CND.Car
 			DisplayModifier( "Default Settings",
 			 DM_HidingMode.GreyedOut, new[] { "settingsOverride.carSettings", "settingsOverride.overrideDefaults" }, DM_HidingCondition.TrueOrInit, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]		
 		public Settings defaultSettings;
-		[HideInInspector,UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
-		public Settings settings;
+		//[HideInInspector,UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
+		//public Settings settings;
 
 		#endregion Car settings
 
@@ -152,7 +152,7 @@ namespace CND.Car
             ApplyMotorForces();
             
 
-            if (settings.orientationFix)
+            if (CurStg.orientationFix)
                 CorrectOrientation();
 
          
@@ -164,7 +164,7 @@ namespace CND.Car
                 rBody = GetComponent<Rigidbody>();
 
             rBody.ResetCenterOfMass();
-            rBody.centerOfMass += settings.centerOfMassOffset;
+            rBody.centerOfMass += CurStg.centerOfMassOffset;
 
         }
 
@@ -172,7 +172,7 @@ namespace CND.Car
 
         public override void Move(float steering, float accel)
         {
-            this.steering = steering* steering*Mathf.Sign(steering);
+            this.steering = Mathf.Lerp(this.steering,steering/* * steering*Mathf.Sign(steering)*/,Time.fixedDeltaTime*2f);
             this.accelInput = Mathf.Clamp(accel+footbrake,-1f,1f);
 
             var accelSign = Mathf.Sign(accelInput- accelOutput);
@@ -296,17 +296,20 @@ namespace CND.Car
             var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * CurStg.targetSpeed / powerRatio;
             var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
             var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
-            const float speedDecay = 0.95f;
-            Vector3 inertiaCancel = -contact.sideDirection * Mathf.Max(Time.fixedDeltaTime, contact.velocity.magnitude);
-            Vector3 nextForwardVel = contact.forwardDirection * (absForward * accelPower);
-           nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;// * Time.fixedDeltaTime * 100f;
+            float speedDecay = Time.fixedDeltaTime* 95f;
+
+			Vector3 driftCancel = -contact.sideDirection * (contact.velocity.magnitude) *absSide;
+			Vector3 nextForwardVel = Vector3.Lerp(rBody.angularVelocity * speedDecay, contact.forwardDirection * accelPower,1f);// *absForward;
+			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
             
             Vector3 nextSidewaysVel = Vector3.Lerp(
-                inertiaCancel * (1f -  Time.fixedDeltaTime*50f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-                inertiaCancel* contact.sideFriction,
+								//inertiaCancel * (1f -  Time.fixedDeltaTime*50f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
+				rBody.angularVelocity * speedDecay * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
+				driftCancel * contact.sideFriction,
                 absForward);
+			//nextSidewaysVel += rBody.angularVelocity;
 
-            Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel + inertiaCancel  , CurStg.driftControl);
+			Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel+ driftCancel  , CurStg.driftControl);
             Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
             Vector3 nextFinalVel= Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel.normalized* nextMergedVel.magnitude, CurStg.tractionControl);
@@ -380,6 +383,7 @@ namespace CND.Car
 			if (Application.isEditor)
 			{
 				settingsOverride.BindCar(this);
+				settingsOverride.Sync(settingsOverride.SyncDirection);
 			}
 			
 			settingsOverride.Refresh();

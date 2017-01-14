@@ -30,7 +30,7 @@ namespace CND.Car
 		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings" }, DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
 		public bool overrideDefaults;
 		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings" }, DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
-		public SyncMode PresetSync=SyncMode.ActiveToPreset;
+		public SyncMode SyncDirection=SyncMode.ActiveToPreset;
 
 		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings","!overrideDefaults" },  DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
 		public ArcadeCarController.Settings displayedSettings;
@@ -52,7 +52,12 @@ namespace CND.Car
 				CopyPresetToActive();
 			}
 
-			switch (PresetSync)
+
+		}
+
+		public void Sync(SyncMode syncMode)
+		{
+			switch (syncMode)
 			{
 				case 0: return;
 				case SyncMode.ActiveToPreset: CopyActiveToPreset(); return;
