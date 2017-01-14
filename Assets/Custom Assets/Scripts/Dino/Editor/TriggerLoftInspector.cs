@@ -16,8 +16,7 @@ public class TriggerLoftInspector : Editor {
         MegaShapeLoft loft = (MegaShapeLoft)EditorGUILayout.ObjectField("Loft", triggerLoft.loft, typeof(MegaShapeLoft), true);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(triggerLoft, "Loft");
-            EditorUtility.SetDirty(triggerLoft);
+            triggerLoft.Record("Loft");
             triggerLoft.loft = loft;
         }
 
@@ -26,8 +25,7 @@ public class TriggerLoftInspector : Editor {
         layer = EditorGUILayout.Popup("Layer", layer + 1, MegaShapeUtils.GetLayers(loft)) - 1;
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(triggerLoft, "layer");
-            EditorUtility.SetDirty(triggerLoft);
+            triggerLoft.Record("Layer");
             triggerLoft.layer = layer;
         }
     }
