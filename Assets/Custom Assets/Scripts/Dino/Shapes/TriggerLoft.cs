@@ -7,6 +7,7 @@ public abstract class TriggerLoft : MonoBehaviour {
 
     public MegaShapeLoft loft;
     public int layer = 0;
+    public bool refreshCollider;
 
     protected bool active = false;
 

@@ -17,10 +17,5 @@ public class TriggerAnimationInspector : TriggerLoftInspector {
         MegaShape shape = triggerAnimation.loft.Layers[triggerAnimation.layer].layerPath;
 
         triggerAnimation.UpdateInt(ref triggerAnimation.curve, "Curve", 0, shape.splines.Count - 1);
-
-        if (shape.LoopMode == MegaRepeatMode.Clamp)
-        {
-            triggerAnimation.UpdateBool(ref triggerAnimation.refreshCollider, "Refresh Collider");
-        }
     }
 }

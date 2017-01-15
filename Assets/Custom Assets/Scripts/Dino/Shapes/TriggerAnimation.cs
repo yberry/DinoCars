@@ -6,7 +6,6 @@ using UnityEngine;
 public class TriggerAnimation : TriggerLoft {
 
     public int curve = 0;
-    public bool refreshCollider;
 
     MegaShape shape;
     MegaRepeatMode loop;
@@ -54,7 +53,7 @@ public class TriggerAnimation : TriggerLoft {
 
             case MegaRepeatMode.Loop:
             case MegaRepeatMode.PingPong:
-                loft.DoCollider = true;
+                loft.DoCollider = refreshCollider;
                 shape.animate = true;
                 Destroy(gameObject);
                 break;
