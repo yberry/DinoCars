@@ -33,6 +33,7 @@ namespace CND.Car
 		protected struct Triangle
 		{
 			public object owner;
+			public Mesh colMesh;
 			public int index;
 			public Vector3 a, b, c;
 		}
@@ -207,22 +208,45 @@ namespace CND.Car
 
         }
 
+		Mesh mesh;
+		int[] prevTriangles;
+		Vector3[] prevVerts;
+		int[] meshTris;
+		Vector3[] meshVerts;
+
 		Vector3 GetColliderVelocity(RaycastHit hit, bool wasAlreadyOnlFloor)
 		{
-
+		
 			Vector3 nextVel=Vector3.zero;
-			
+
+
 			if (hit.collider is MeshCollider)
 			{
 				Triangle surf;
 				surf.owner = hit.collider;
 				surf.index = hit.triangleIndex;
-				
+				surf.colMesh = null;
+
+
 				int tri = hit.triangleIndex;
 				var col = (MeshCollider)hit.collider;
-				var mesh = col.sharedMesh;
-				var meshTris = mesh.triangles;
-				var meshVerts = mesh.vertices;
+
+
+				if (surf.owner != prevHitTriangle.owner )
+				{					
+					mesh = surf.colMesh=col.sharedMesh;
+					meshTris = prevTriangles= mesh.triangles;
+					meshVerts = prevVerts= mesh.vertices;
+
+				} else
+				{
+					mesh = prevHitTriangle.colMesh;
+					meshTris = prevTriangles;
+					meshVerts = prevVerts;
+					//prevTriangles = 
+				}
+				
+
 				int t1 = meshTris[tri * 3];
 				int t2 = meshTris[tri * 3 + 1];
 				int t3 = meshTris[tri * 3 + 2];
@@ -245,7 +269,7 @@ namespace CND.Car
 				Vector3 velCH = Vector3.LerpUnclamped(velC, centerVel, distCH / Vector3.Distance(surf.c, center));
 
 				nextVel=wasAlreadyOnlFloor && prevHitTriangle.index == surf.index ? (velAH + velBH + velCH)/3f : Vector3.zero;
-
+				
 				//Debug.Log("ColliderVel: " + nextVel);
 				prevHitTriangle = surf;
 			}

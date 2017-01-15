@@ -172,7 +172,7 @@ namespace CND.Car
 
         public override void Move(float steering, float accel)
         {
-            this.steering = Mathf.Lerp(this.steering,steering/* * steering*Mathf.Sign(steering)*/,Time.fixedDeltaTime*2f);
+            this.steering = Mathf.Lerp(this.steering, Mathf.Abs(steering*steering * steering)*Mathf.Sign(steering),0.5f);
             this.accelInput = Mathf.Clamp(accel+footbrake,-1f,1f);
 
             var accelSign = Mathf.Sign(accelInput- accelOutput);
@@ -232,12 +232,19 @@ namespace CND.Car
 
         void ApplySteering()
         {
-            //rBody.ResetInertiaTensor();
-            effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
-                prevSteerAngleDeg, Mathf.SmoothStep(0, TargetSteerAngleDeg, Mathf.Abs(TargetSteerAngleDeg/ CurStg.maxTurnAngle)), CurStg.turnSpeed * Time.fixedDeltaTime);
-            wheelMgr.SetSteering(effectiveSteerAngleDeg);
-            prevSteerAngleDeg = effectiveSteerAngleDeg;
-           // Debug.Log("Steering: " + TargetSteerAngleDeg);
+			//rBody.ResetInertiaTensor();
+
+			float angleRatio = Mathf.Abs( (TargetSteerAngleDeg-prevSteerAngleDeg)  / (CurStg.maxTurnAngle)) * 2f;// - Mathf.Abs(prevSteerAngleDeg)
+			float nextAngle = Mathf.Lerp(prevSteerAngleDeg , TargetSteerAngleDeg, 0.5f*angleRatio+0.5f);
+
+			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
+                prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*Mathf.Clamp01(angleRatio));
+			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg, 1f);
+
+			wheelMgr.SetSteering(finalSteering);
+            prevSteerAngleDeg = finalSteering;
+
+			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);
         }
 
         void ApplyMotorForces()
@@ -294,15 +301,16 @@ namespace CND.Car
             var gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * CurStg.targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
             var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 5f) * CurStg.targetSpeed / powerRatio;
-            var accelPower = Mathf.Lerp(inertiaPower, inertiaPower*Time.fixedDeltaTime+  gearSpeed / powerRatio,Mathf.Abs(accelOutput));
+            var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
             var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
             float speedDecay = Time.fixedDeltaTime* 85f;
 
 			
 			Vector3 nextForwardVel = contact.forwardDirection * accelPower;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
+			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
-			Vector3 driftCancel = Vector3.Lerp(Vector3.zero,-contact.sideDirection * (contact.velocity.magnitude), absSide);
+			Vector3 driftCancel = Vector3.Lerp(Vector3.zero,-contact.sideDirection * (contact.velocity.magnitude), 1f/*absSide*/);
 			Vector3 nextSidewaysVel = Vector3.Lerp(
 								//inertiaCancel * (1f -  Time.fixedDeltaTime*50f) + curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
 				rBody.angularVelocity * speedDecay,// * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
