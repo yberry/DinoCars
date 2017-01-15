@@ -234,11 +234,11 @@ namespace CND.Car
         {
 			//rBody.ResetInertiaTensor();
 
-			float angleRatio = Mathf.Abs( (TargetSteerAngleDeg-prevSteerAngleDeg)  / (CurStg.maxTurnAngle)) * 2f;// - Mathf.Abs(prevSteerAngleDeg)
-			float nextAngle = Mathf.Lerp(prevSteerAngleDeg , TargetSteerAngleDeg, 0.5f*angleRatio);
+			float angleRatio = Mathf.Abs( ((TargetSteerAngleDeg-prevSteerAngleDeg))  / (CurStg.maxTurnAngle))*2f;// - Mathf.Abs(prevSteerAngleDeg)
+			float nextAngle = Mathf.Lerp(prevSteerAngleDeg , TargetSteerAngleDeg, angleRatio);
 
 			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
-                prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*Mathf.Clamp01(angleRatio));
+                prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
 			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg, 1f);
 
 			wheelMgr.SetSteering(finalSteering);
