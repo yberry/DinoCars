@@ -119,6 +119,7 @@ namespace CND.Car
 		public Settings CurrentSettings { get { return settingsOverride.overrideDefaults ? settingsOverride.displayedSettings : defaultSettings; } }
 		protected Settings CurStg { get { return CurrentSettings; } }
 
+		public Vector3 CamTargetPoint { get; protected set; }
 
 		WheelManager wheelMgr;
 
@@ -155,8 +156,9 @@ namespace CND.Car
             if (CurStg.orientationFix)
                 CorrectOrientation();
 
-         
-        }
+			CamTargetPoint = transform.position +(transform.rotation* rBody.centerOfMass) + rBody.velocity;
+
+		}
 
         private void DebugRefresh()
         {
@@ -172,7 +174,7 @@ namespace CND.Car
 
         public override void Move(float steering, float accel)
         {
-            this.steering = Mathf.Lerp(this.steering, Mathf.Abs(steering*steering) *Mathf.Sign(steering),0.25f);
+            this.steering = Mathf.Lerp(this.steering, Mathf.Abs(steering*steering) *Mathf.Sign(steering),0.5f);
             this.accelInput = Mathf.Clamp(accel+footbrake,-1f,1f);
 
             var accelSign = Mathf.Sign(accelInput- accelOutput);
@@ -233,8 +235,8 @@ namespace CND.Car
         void ApplySteering()
         {
 			//rBody.ResetInertiaTensor();
-
-			float angleRatio = Mathf.Abs( ((TargetSteerAngleDeg-prevSteerAngleDeg))  / (CurStg.maxTurnAngle))*2f;// - Mathf.Abs(prevSteerAngleDeg)
+			float ampDelta = Mathf.Abs(TargetSteerAngleDeg/Time.fixedDeltaTime - prevSteerAngleDeg / Time.fixedDeltaTime) *Time.fixedDeltaTime;
+			float angleRatio = Mathf.Abs( (ampDelta)  / (CurStg.maxTurnAngle))*2f;// - Mathf.Abs(prevSteerAngleDeg)
 			float nextAngle = Mathf.Lerp(prevSteerAngleDeg , TargetSteerAngleDeg, angleRatio);
 
 			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
@@ -312,14 +314,14 @@ namespace CND.Car
 
 			Vector3 driftCancel = Vector3.Lerp(-contact.sideDirection * contact.velocity.magnitude * 0.25f, -contact.sideDirection * contact.velocity.magnitude, absSide);
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-						//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-				rBody.angularVelocity * speedDecay * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
+				//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
+				contact.velocity * speedDecay.Squared() * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
 				driftCancel * contact.sideFriction,
-                absForward* absForward);
+                absForward);
 			//nextSidewaysVel += rBody.angularVelocity;
 
 			Vector3 nextDriftVel =Vector3.Lerp(nextForwardVel+ nextSidewaysVel, nextForwardVel+ driftCancel, CurStg.driftControl);
-            Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward*absForward* absForward);
+            Vector3 nextMergedVel = Vector3.Lerp(nextDriftVel, nextForwardVel, absForward);
 
             Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Lerp(nextMergedVel, contact.relativeRotation* nextMergedVel/*.normalized* nextMergedVel.magnitude*/, CurStg.tractionControl);
 
