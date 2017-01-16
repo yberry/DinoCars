@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace CND.Car
 {
-
+    public interface IRemovableChildren { }
     public partial class Wheel : MonoBehaviour
     {
+       
         [System.Serializable]
-        public struct Settings// : System.Object
+        public struct Settings
         {
             [Header("Suspension"), Space(2.5f)]
             [Range(0, 10)]
@@ -72,7 +73,8 @@ namespace CND.Car
             public Vector3 sideDirection { get; internal set; }
             public Quaternion relativeRotation { get; internal set; }
             public Vector3 velocity { get; internal set; }
-            public float angularVelocity { get; internal set; }
+			public Vector3 otherColliderVelocity { get; internal set; }
+			public float angularVelocity { get; internal set; }
             public Vector3 pushPoint { get; internal set; }
             public float springLength { get; internal set; }
             public float springCompression { get; internal set; }
