@@ -9,7 +9,6 @@ namespace CND.Car
     {
 
         public BaseCarController carController;
-        public Wheel[] wheels;
 
         private bool gearUpDown;
         private bool play;
@@ -18,7 +17,7 @@ namespace CND.Car
 
         public float nbRotationLimit = 12000;
         public float nbRotationClutch = 3000;
-        [DisplayModifier(true)]
+        [DisplayModifier(DM_HidingMode.GreyedOut)]
         public float RPM;
         public float maxValueRotation;
         float addition=50;
@@ -29,14 +28,12 @@ namespace CND.Car
         {
             if (!carController)
                 carController = GetComponent<BaseCarController>();
-
-            wheels = GetComponentsInChildren<Wheel>();
         }
         // Use this for initialization
         void Start()
         {
             play = true;
-          
+           
         }
 
 
@@ -80,31 +77,21 @@ namespace CND.Car
                 RPM = 0;
             }
 
-
             RPM = carController.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
-            
+           
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
-            AkSoundEngine.SetRTPCValue("Throttle", currentGear);
-            AkSoundEngine.SetRTPCValue("Gear", currentGear);
-         
 
-            foreach (var w in wheels)
-            {
-                var c = w.contactInfo;
-                //var abs = Mathf.Abs(-1); //valeur absolue
-                AkSoundEngine.SetRTPCValue("Skid",1f/* Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude)*/);
-                //AkSoundEngine.SetRTPCValue("Skid", Mathf.Acos(c.sidewaysRatio * c.velocity.magnitude));
-                //AkSoundEngine.SetRTPCValue("Skid", c.sidewaysRatio);
-                AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor ? 0f : 1f);
-                
-            }
+#if UNITY_EDITOR
+			if (UnityEditor.EditorUtility.audioMasterMute)
+                AkSoundEngine.StopAll();
+#endif
 
 
-        }
+		}
 
 
     }
