@@ -72,7 +72,7 @@ public class TriggerAnimation : TriggerLoft {
         if (!refreshCollider)
         {
             loft.DoCollider = true;
-            loft.BuildMeshFromLayersNew();
+            loft.RefreshCollider();
         }
         loft.DoCollider = false;
         shape.animate = false;

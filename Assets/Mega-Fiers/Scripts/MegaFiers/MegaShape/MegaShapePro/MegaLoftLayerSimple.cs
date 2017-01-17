@@ -374,7 +374,7 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 		Matrix4x4 tm1 = Matrix4x4.identity;
 		MegaMatrix.Translate(ref tm1, pivot);
-		MegaMatrix.Rotate(ref tm1, new Vector3(Mathf.Deg2Rad * crossRot.x, Mathf.Deg2Rad * crossRot.y, Mathf.Deg2Rad * crossRot.z));
+		MegaMatrix.Rotate(ref tm1, Mathf.Deg2Rad * crossRot);
 
 		int lk	= -1;
 
@@ -1319,7 +1319,7 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 		Matrix4x4 tm1 = Matrix4x4.identity;
 		MegaMatrix.Translate(ref tm1, pivot);
-		MegaMatrix.Rotate(ref tm1, new Vector3(Mathf.Deg2Rad * crossRot.x, Mathf.Deg2Rad * crossRot.y, Mathf.Deg2Rad * crossRot.z));
+		MegaMatrix.Rotate(ref tm1, Mathf.Deg2Rad * crossRot);
 
 		if ( enabled )
 		{
