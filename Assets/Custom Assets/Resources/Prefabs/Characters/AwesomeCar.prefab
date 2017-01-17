@@ -552,7 +552,7 @@ MonoBehaviour:
     maxCompression: 0.75
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1500
+    damping: 1250
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.3
@@ -598,7 +598,7 @@ MonoBehaviour:
     maxCompression: 0.75
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1500
+    damping: 1250
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.35
@@ -620,7 +620,7 @@ MonoBehaviour:
     overrideDefaults: 1
     SyncDirection: 1
     displayedSettings:
-      targetSpeed: 220
+      targetSpeed: 250
       transmissionCurves:
       - serializedVersion: 2
         m_Curve:
@@ -714,11 +714,11 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 0
       maxTurnAngle: 42
-      turnSpeed: 84
+      turnSpeed: 42
       tractionControl: 0
-      driftControl: 0
+      driftControl: 0.85
       downForce: 25
-      centerOfMassOffset: {x: 0, y: -0.075, z: -0.1}
+      centerOfMassOffset: {x: 0, y: -0.0575, z: -0.05}
       orientationFix: 0
   defaultSettings:
     targetSpeed: 963
@@ -840,7 +840,7 @@ MonoBehaviour:
     maxCompression: 0.75
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1500
+    damping: 1250
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.35
@@ -865,7 +865,7 @@ MonoBehaviour:
     maxCompression: 0.75
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1500
+    damping: 1250
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.3

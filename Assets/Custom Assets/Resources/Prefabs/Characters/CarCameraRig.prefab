@@ -61,7 +61,8 @@ GameObject:
   - component: {fileID: 4959956529822106}
   - component: {fileID: 54267339340490884}
   - component: {fileID: 114984189514970362}
-  - component: {fileID: 114704774973959084}
+  - component: {fileID: 114554099697873934}
+  - component: {fileID: 114037177868519388}
   m_Layer: 0
   m_Name: CarCameraRig
   m_TagString: Untagged
@@ -173,6 +174,22 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1447272345428876}
   m_Enabled: 1
+--- !u!114 &114037177868519388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875877140948076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db0d79343984354b8086b0507f9ec67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseFOV: 48
+  topSpeedFOV: 54
+  maxFOV: 70
+  dolly: 1
+  shakeAmount: 0
 --- !u!114 &114248744616777712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,6 +259,31 @@ MonoBehaviour:
   separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
   chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
     type: 3}
+--- !u!114 &114554099697873934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875877140948076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be5d814d849f4e4c9d0aac86ab2ca94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_AutoTargetPlayer: 1
+  m_UpdateType: 0
+  m_MoveSpeed: 50
+  m_TurnSpeed: 8
+  m_RollSpeed: 100
+  m_FollowTarget: 1
+  m_FollowTilt: 1
+  m_SpinTurnLimit: 3
+  m_TargetVelocityLowerLimit: 4
+  m_SmoothTurnTime: 0.4
+  baseFOV: 50
+  boostFOV: 100
+  followTargetRatio: 0.33
 --- !u!114 &114581279059310118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,28 +345,6 @@ MonoBehaviour:
   AAlevel: 1
   downSamplingX: 1
   downSamplingY: 1
---- !u!114 &114704774973959084
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875877140948076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d3968294210ba4a9d2bb96dfa74a16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 0}
-  m_AutoTargetPlayer: 1
-  m_UpdateType: 0
-  m_MoveSpeed: 50
-  m_TurnSpeed: 7.5
-  m_RollSpeed: 100
-  m_FollowVelocity: 1
-  m_FollowTilt: 1
-  m_SpinTurnLimit: 3
-  m_TargetVelocityLowerLimit: 4
-  m_SmoothTurnTime: 0.4
 --- !u!114 &114984189514970362
 MonoBehaviour:
   m_ObjectHideFlags: 1

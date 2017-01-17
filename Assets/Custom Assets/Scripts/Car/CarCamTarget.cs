@@ -18,4 +18,5 @@ public class CarCamTarget : MonoBehaviour {
 	void FixedUpdate () {
 		transform.position = car.CamTargetPoint;
 	}
+
 }
