@@ -37,6 +37,7 @@ public enum DM_Decorations
 {
 	None,
 	BoxChildren,
+	MoveLabel
 }
 
 public class DisplayModifierAttribute : PropertyAttribute {
@@ -56,12 +57,12 @@ public class DisplayModifierAttribute : PropertyAttribute {
 
 	public string[] conditionVars { get; protected set; }
 
-    public DisplayModifierAttribute(bool labelAbove = false,
+    public DisplayModifierAttribute(
         HidingMode hidingMode = HidingMode.Default, string[] hidingConditionVars = null, HidingCondition hidingConditions=HidingCondition.None, 
         FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = DM_Decorations.None)
 	{
 
-		extraLabelLine = labelAbove;
+		extraLabelLine = decorations.ContainsFlag(DM_Decorations.MoveLabel);
 		this.hidingMode = hidingMode;
         this.hidingCondition = hidingConditions;
         conditionVars = hidingConditionVars;
@@ -78,22 +79,23 @@ public class DisplayModifierAttribute : PropertyAttribute {
 
 	}
 
-	public DisplayModifierAttribute(string name, bool labelAbove = false,
+	public DisplayModifierAttribute(string name,
         HidingMode hidingMode = HidingMode.Default, string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
         FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = 0)
-		:this(labelAbove, hidingMode, hidingConditionVars, hidingConditions,   foldingMode,decorations)
+		:this( hidingMode, hidingConditionVars, hidingConditions,   foldingMode,decorations)
 	{
 		OverrideName(name);
 	}
-
+	/*
 	public DisplayModifierAttribute(
 		HidingMode hidingMode, string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
 		FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = 0)
-		: this(false, hidingMode, hidingConditionVars, hidingConditions, foldingMode,decorations)
+		: this( hidingMode, hidingConditionVars, hidingConditions, foldingMode,decorations)
 	{
 
 	}
-
+	*/
+	/*
 	public DisplayModifierAttribute(string name,
 		HidingMode hidingMode,  string[] hidingConditionVars = null, HidingCondition hidingConditions = HidingCondition.None,
 		FoldingMode foldingMode = FoldingMode.Default, DM_Decorations decorations = 0)
@@ -102,7 +104,7 @@ public class DisplayModifierAttribute : PropertyAttribute {
 		OverrideName(name);
 	}
 
-
+		*/
 
 	[System.Obsolete("Use version with enums")]
     public DisplayModifierAttribute(bool readOnly = false, bool labelAbove = false, bool startExpanded = true, bool noChildrenFolder = false)
