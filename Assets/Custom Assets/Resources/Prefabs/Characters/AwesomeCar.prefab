@@ -548,11 +548,11 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.33
-    maxCompression: 0.75
+    baseSpringLength: 0.3
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1250
+    damping: 1500
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.3
@@ -594,11 +594,11 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.33
-    maxCompression: 0.75
+    baseSpringLength: 0.3
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1250
+    damping: 1500
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.35
@@ -621,6 +621,7 @@ MonoBehaviour:
     SyncDirection: 1
     displayedSettings:
       targetSpeed: 250
+      boostRatio: 1.5
       transmissionCurves:
       - serializedVersion: 2
         m_Curve:
@@ -718,10 +719,11 @@ MonoBehaviour:
       tractionControl: 0
       driftControl: 0.85
       downForce: 25
-      centerOfMassOffset: {x: 0, y: -0.0575, z: -0.05}
+      centerOfMassOffset: {x: 0, y: -0.06, z: -0.025}
       orientationFix: 0
   defaultSettings:
     targetSpeed: 963
+    boostRatio: 0
     transmissionCurves:
     - serializedVersion: 2
       m_Curve:
@@ -836,11 +838,11 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.33
-    maxCompression: 0.75
+    baseSpringLength: 0.3
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1250
+    damping: 1500
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.35
@@ -861,11 +863,11 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.33
-    maxCompression: 0.75
+    baseSpringLength: 0.3
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
-    damping: 1250
+    damping: 1500
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.3

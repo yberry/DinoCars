@@ -78,7 +78,9 @@ namespace CND.Car
             public Vector3 pushPoint { get; internal set; }
             public float springLength { get; internal set; }
             public float springCompression { get; internal set; }
-            public float forwardRatio { get; internal set; }
+			public float forwardDot { get; internal set; }
+			public float sidewaysDot { get; internal set; }
+			public float forwardRatio { get; internal set; }
             public float sidewaysRatio { get; internal set; }
             public float forwardFriction { get; internal set; }
             public float sideFriction { get; internal set; }

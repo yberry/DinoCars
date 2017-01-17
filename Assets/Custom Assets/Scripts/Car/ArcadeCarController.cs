@@ -317,10 +317,10 @@ namespace CND.Car
 			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
-			Vector3 driftCancel = Vector3.Lerp(-contact.sideDirection * contact.velocity.magnitude * 0.25f, -contact.sideDirection * contact.velocity.magnitude, absSide);
+			Vector3 driftCancel = Vector3.Lerp(-contact.sideDirection * contact.velocity.magnitude * 0, -contact.sideDirection * contact.velocity.magnitude, absSide);
 			Vector3 nextSidewaysVel = Vector3.Lerp(
 				//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-				rBody.velocity * speedDecay * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
+				contact.velocity * speedDecay * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
 				driftCancel * contact.sideFriction,
                 absForward);
 			//nextSidewaysVel += rBody.angularVelocity;
