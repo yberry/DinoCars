@@ -232,13 +232,15 @@ namespace CND.Car
 
         void ApplyDownForce()
         {
-            rBody.AddForce(-transform.up * Mathf.Abs(CurStg.downForce * rBody.velocity.magnitude));
+            rBody.AddForce( -transform.up * Mathf.Abs(CurStg.downForce * rBody.velocity.magnitude));
         }
 
         void ApplySteering()
         {
+
 			//rBody.ResetInertiaTensor();
-			float ampDelta = Mathf.Abs(TargetSteerAngleDeg/Time.fixedDeltaTime - prevSteerAngleDeg / Time.fixedDeltaTime) *Time.fixedDeltaTime;
+			float sqrDt = Time.fixedDeltaTime * Time.fixedDeltaTime;
+			float ampDelta = Mathf.Abs(TargetSteerAngleDeg/ sqrDt - prevSteerAngleDeg / sqrDt) * sqrDt;
 			float angleRatio = Mathf.Abs( (ampDelta)  / (CurStg.maxTurnAngle))*2f;// - Mathf.Abs(prevSteerAngleDeg)
 			float nextAngle = Mathf.Lerp(prevSteerAngleDeg , TargetSteerAngleDeg, angleRatio);
 
@@ -246,7 +248,7 @@ namespace CND.Car
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
 			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg, 1f);
 
-			wheelMgr.SetSteering(finalSteering);
+			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle*0.25f);
             prevSteerAngleDeg = finalSteering;
 
 			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);
@@ -307,7 +309,7 @@ namespace CND.Car
             var powerRatio = (float)(totalContacts * totalWheels);
             var inertiaPower = (contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
             var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
-            var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
+            var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized,Vector3.ClampMagnitude( contact.velocity,1)));
             float speedDecay = Time.fixedDeltaTime* 85f;
 
 			if (boost)
@@ -317,10 +319,12 @@ namespace CND.Car
 			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
-			Vector3 driftCancel = Vector3.Lerp(-contact.sideDirection * contact.velocity.magnitude * 0, -contact.sideDirection * contact.velocity.magnitude, absSide);
+			Vector3 driftCancel = Vector3.Lerp(-rBody.velocity * 0.5f *0,
+				-rBody.velocity*0f - contact.sideDirection * contact.velocity.magnitude, absSide);
+
 			Vector3 nextSidewaysVel = Vector3.Lerp(
 				//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-				contact.velocity * speedDecay * Mathf.Clamp01(1f - contact.sideFriction - Time.fixedDeltaTime),
+				rBody.velocity * speedDecay * Mathf.Clamp01(1f - (contact.sideFriction - Time.fixedDeltaTime)*absSide),
 				driftCancel * contact.sideFriction,
                 absForward);
 			//nextSidewaysVel += rBody.angularVelocity;

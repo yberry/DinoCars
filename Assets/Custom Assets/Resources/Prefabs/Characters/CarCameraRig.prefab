@@ -188,7 +188,7 @@ MonoBehaviour:
   baseFOV: 45
   topSpeedFOV: 60
   maxFOV: 90
-  dolly: 0.66
+  dolly: 0.75
   shakeAmount: 0
 --- !u!114 &114248744616777712
 MonoBehaviour:

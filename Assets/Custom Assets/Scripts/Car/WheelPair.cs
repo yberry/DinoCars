@@ -26,10 +26,15 @@ namespace CND.Car
 
             }
 
-            public void SetSteeringRotation(float degAngle)
+            public void SetSteeringRotation(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
             {
-                left.steerAngleDeg = right.steerAngleDeg = degAngle;
-            }
+				float steerAngleDeg = degAngle;
+				float degAngRatio = degAngle / maxAngle;
+
+				left.steerAngleDeg = degAngle - maxOuterAngleReduction * Mathf.Clamp01(degAngRatio);
+				right.steerAngleDeg = degAngle + maxOuterAngleReduction * Mathf.Clamp01(-degAngRatio);
+	
+			}
             
             public int GetContacts(out Wheel.ContactInfo leftContact, out Wheel.ContactInfo rightContact)
             {

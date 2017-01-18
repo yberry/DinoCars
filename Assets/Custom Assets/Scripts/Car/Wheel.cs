@@ -68,9 +68,12 @@ namespace CND.Car
 
         void ApplySteerRotation()
         {
-            if (steerAngleDeg != 0)
-                steerRot = transform.localRotation * Quaternion.Euler(0, steerAngleDeg, 0);
-        }
+
+			//if (steerAngleDeg != 0)
+			steerRot = transform.localRotation * Quaternion.Euler(0, steerAngleDeg, 0);
+
+
+		}
 
 
 
@@ -79,7 +82,7 @@ namespace CND.Car
             RaycastHit hit;
             ContactInfo curContact=new ContactInfo();
             const float halfPI= (float)(System.Math.PI * 0.5);
-            const float fullCircle = 2f * Mathf.PI * Mathf.Rad2Deg;
+            const float fullCircle = 360f;
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
            
@@ -91,6 +94,7 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             curContact.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
+			curContact.velocity = Vector3.Lerp(m_contactInfo.velocity, curContact.velocity, 0.25f);
 
             Quaternion lookRot = moveDir != Vector3.zero && moveDir != transform.forward ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
@@ -142,7 +146,7 @@ namespace CND.Car
 			
             if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
-
+				const float shockCancelPct = 100;
 
 				float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength =  settings.baseSpringLength - springLength;
@@ -158,7 +162,7 @@ namespace CND.Car
 				var colVel = curContact.otherColliderVelocity= GetColliderVelocity(hit, curContact.wasAlreadyOnFloor);
 				vel += colVel;
 				//var damping = dotVelY * settings.damping;
-				var shockCancel = Vector3.Slerp(-vel.normalized, transform.up, dotVelY)* vel.magnitude *85f*Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+				var shockCancel = Vector3.Lerp(-vel.normalized, transform.up, dotVelY)* vel.magnitude * shockCancelPct * Time.fixedDeltaTime;// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
                 shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLerp(-dotVelGrav)));
                 var reflect =  Vector3.Reflect(vel , hit.normal) * 85f * Time.fixedDeltaTime * Time.fixedDeltaTime;
                 var stickToFloor =  (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel ); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
@@ -167,7 +171,7 @@ namespace CND.Car
                 var springExpand = Mathf.Clamp(1f+ moveDelta.magnitude * Time.fixedDeltaTime * settings.springForce * -dotVelY,
                     Time.fixedDeltaTime, 10f* settings.springForce * settings.baseSpringLength * tolerance * settings.maxExpansion);
                 var springResistance = Mathf.Lerp(
-                    curContact.springCompression* curContact.springCompression* curContact.springCompression,
+                     curContact.springCompression* curContact.springCompression,
                     Mathf.Clamp01(Mathf.Sin( halfPI*curContact.springCompression)), settings.stiffness) * 100f*Time.fixedDeltaTime;
 
                 Vector3 pushForce = Vector3.Lerp(
