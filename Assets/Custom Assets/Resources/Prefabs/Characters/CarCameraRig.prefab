@@ -185,10 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db0d79343984354b8086b0507f9ec67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseFOV: 48
-  topSpeedFOV: 54
-  maxFOV: 70
-  dolly: 1
+  baseFOV: 45
+  topSpeedFOV: 60
+  maxFOV: 90
+  dolly: 0.66
   shakeAmount: 0
 --- !u!114 &114248744616777712
 MonoBehaviour:
