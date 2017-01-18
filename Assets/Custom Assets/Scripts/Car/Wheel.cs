@@ -231,8 +231,10 @@ namespace CND.Car
 				int tri = hit.triangleIndex;
 				var col = (MeshCollider)hit.collider;
 
-
-				if (surf.owner != prevHitTriangle.owner )
+                mesh = surf.colMesh = col.sharedMesh;
+                meshTris = prevTriangles = mesh.triangles;
+                meshVerts = prevVerts = mesh.vertices;
+                /*if (surf.owner != prevHitTriangle.owner )
 				{					
 					mesh = surf.colMesh=col.sharedMesh;
 					meshTris = prevTriangles= mesh.triangles;
@@ -244,7 +246,7 @@ namespace CND.Car
 					meshTris = prevTriangles;
 					meshVerts = prevVerts;
 					//prevTriangles = 
-				}
+				}*/
 				
 
 				int t1 = meshTris[tri * 3];

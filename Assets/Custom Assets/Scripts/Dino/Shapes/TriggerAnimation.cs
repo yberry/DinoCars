@@ -22,7 +22,8 @@ public class TriggerAnimation : TriggerLoft {
         shape.DoAnim();
 
         loft.DoCollider = true;
-        loft.BuildMeshFromLayersNew();
+        loft.RefreshMesh();
+        //loft.BuildMeshFromLayersNew();
         loft.DoCollider = false;
 
         shape.animate = false;

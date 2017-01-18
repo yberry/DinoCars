@@ -174,8 +174,8 @@ public class MegaShapeLoft : MegaShapeBase
 	{
         if (Application.isPlaying)
         {
-            //RefreshMesh();
-            BuildMeshFromLayersNew();
+            RefreshMesh();
+            //BuildMeshFromLayersNew();
         }
         else
         {
@@ -272,8 +272,6 @@ public class MegaShapeLoft : MegaShapeBase
 							Layers[i].CopyVertData(ref verts, ref uvs, offset);
 
 						offset += Layers[i].NumVerts();	//loftverts.Length;
-
-                        transform.GetChild(0).localPosition = verts[verts.Length / 2];
 					}
 				}
 

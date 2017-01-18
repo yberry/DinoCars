@@ -188,6 +188,9 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public override void CopyVertData(ref Vector3[] verts, ref Vector2[] uvs, int offset)
 	{
+        Array.Resize(ref loftverts, verts.Length);
+        Array.Resize(ref loftuvs, uvs.Length);
+
 		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
 		offset += loftverts.Length;
