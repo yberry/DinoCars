@@ -27,9 +27,11 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
-           
-            ManageSuspensions();
-        }
+
+			ManageSuspensions();
+			frontWheels.Stabilize(rBody);
+			rearWheels.Stabilize(rBody);
+		}
 
         public void SetSteering(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
         {

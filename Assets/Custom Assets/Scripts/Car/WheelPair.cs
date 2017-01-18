@@ -16,6 +16,10 @@ namespace CND.Car
 
             public bool lockPositions;
             public Vector3 positionOffset;
+			[Range(0,10000)]
+			public float antiRollForce;
+
+			private float steerAng, maxAng;
 
             public void RefreshPositions(Transform parent)
             {
@@ -28,7 +32,8 @@ namespace CND.Car
 
             public void SetSteeringRotation(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
             {
-				float steerAngleDeg = degAngle;
+				maxAng = maxAngle;
+				float steerAngleDeg = steerAng = degAngle;
 				float degAngRatio = degAngle / maxAngle;
 
 				left.steerAngleDeg = degAngle - maxOuterAngleReduction * Mathf.Clamp01(degAngRatio);
@@ -36,6 +41,23 @@ namespace CND.Car
 	
 			}
             
+			public void Stabilize(Rigidbody rBody)
+			{
+				float appliedAntiRoll;
+
+				float compL = Mathf.Min(1, left.contactInfo.springCompression / left.settings.maxCompression);
+				float compR = Mathf.Min(1, right.contactInfo.springCompression / right.settings.maxCompression);
+
+				appliedAntiRoll = (compL - compR) * antiRollForce;// * (-steerAng/maxAng);
+
+				if (left.contactInfo.wasAlreadyOnFloor)
+					rBody.AddForceAtPosition(left.transform.up * -appliedAntiRoll, left.transform.position,ForceMode.Force);
+
+				if (right.contactInfo.wasAlreadyOnFloor)
+					rBody.AddForceAtPosition(right.transform.up * appliedAntiRoll, right.transform.position, ForceMode.Force);
+
+			}
+
             public int GetContacts(out Wheel.ContactInfo leftContact, out Wheel.ContactInfo rightContact)
             {
                 int contacts = 0;
