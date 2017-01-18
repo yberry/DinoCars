@@ -172,7 +172,16 @@ public class MegaShapeLoft : MegaShapeBase
 
 	void LateUpdate()
 	{
-        RefreshMesh();
+        if (Application.isPlaying)
+        {
+            //RefreshMesh();
+            BuildMeshFromLayersNew();
+        }
+        else
+        {
+            BuildMeshFromLayersNew();
+        }
+        
 	}
 
 	public void BuildMeshFromLayersNew()
@@ -263,12 +272,14 @@ public class MegaShapeLoft : MegaShapeBase
 							Layers[i].CopyVertData(ref verts, ref uvs, offset);
 
 						offset += Layers[i].NumVerts();	//loftverts.Length;
+
+                        transform.GetChild(0).localPosition = verts[verts.Length / 2];
 					}
 				}
 
 				//Vector2[] lmuvs = mesh.uv2;
 
-				//mesh.Clear();
+				mesh.Clear();
 
 				mesh.subMeshCount = smcount;
 				mesh.vertices = verts;
