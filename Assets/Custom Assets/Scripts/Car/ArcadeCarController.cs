@@ -62,7 +62,9 @@ namespace CND.Car
             public float tractionControl;
             [Range(0, 1)]
             public float driftControl;
-            [Range(0, 1000)]
+			[Range(0, 1)]
+			public float steeringHelper;
+			[Range(0, 1000)]
             public float downForce;
             
             public Vector3 centerOfMassOffset;
@@ -73,8 +75,8 @@ namespace CND.Car
             public static Settings Create(
                 float targetSpeed = 100f, AnimationCurve[] transmissionCurves=null, float boostRatio = 1.1f,
 				float maxTurnAngle = 42, float turnSpeed = 42f,
-                float tractionControl = 0.25f, float driftControl = 0.25f,
-                float downForce = 1f, Vector3? centerOfMassOffset=null,
+                float tractionControl = 0.25f, float driftControl = 0.25f, float steeringHelper = 0,
+				float downForce = 1f, Vector3? centerOfMassOffset=null,
 				 bool orientationFix=false
 				)
             {
@@ -89,6 +91,7 @@ namespace CND.Car
                 c.centerOfMassOffset = centerOfMassOffset.HasValue ? centerOfMassOffset.Value : Vector3.zero;
                 c.orientationFix = orientationFix;
 				c.boostRatio = boostRatio;
+				c.steeringHelper = steeringHelper;
 				return c;
             }
 
@@ -121,6 +124,7 @@ namespace CND.Car
         public float SpeedRatio { get { return CurrentSpeed / CurrentSettings.targetSpeed; } }
 		public Settings CurrentSettings { get { return settingsOverride.overrideDefaults ? settingsOverride.displayedSettings : defaultSettings; } }
 		protected Settings CurStg { get { return CurrentSettings; } }
+		public float TargetSteerAngleDeg { get { return steering * CurStg.maxTurnAngle; } }
 
 		public Vector3 CamTargetPoint { get; protected set; }
 
@@ -134,8 +138,14 @@ namespace CND.Car
         Vector3 curVelocity, prevVelocity;
         bool boost;
 
-        float prevSteerAngleDeg, effectiveSteerAngleDeg;
-        public float TargetSteerAngleDeg { get { return steering * CurStg.maxTurnAngle; } }
+		[Header("Debug/Experimental")]
+		[SerializeField]
+		private Vector3 shakeCompensationDebugVar = Vector3.one*0.025f;
+		[SerializeField,Range(0.25f,1),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
+		private float outerWheelSteerRatio=1;
+
+		float prevSteerAngleDeg, effectiveSteerAngleDeg;
+
 
         // Use this for initialization
         void Start()
@@ -192,6 +202,11 @@ namespace CND.Car
 
 		}
 
+		public void SwitchSettings()
+		{
+			settingsOverride.overrideDefaults = ! settingsOverride.overrideDefaults;
+		}
+
 
 		protected override int GetGear()
         {
@@ -238,7 +253,7 @@ namespace CND.Car
 
         void ApplySteering()
         {
-
+			float steerCompensation = ((Mathf.Lerp(rBody.velocity.magnitude, rBody.velocity.sqrMagnitude,0.5f) * Time.fixedDeltaTime) * 0.1f);
 			//rBody.ResetInertiaTensor();
 			float sqrDt = Time.fixedDeltaTime * Time.fixedDeltaTime;
 			float ampDelta = Mathf.Abs(TargetSteerAngleDeg/ sqrDt - prevSteerAngleDeg / sqrDt) * sqrDt;
@@ -247,55 +262,18 @@ namespace CND.Car
 
 			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
-			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg, 0.66f);
+			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 0.75f);
 
-			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle*0.5f);
+			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle* (1f- outerWheelSteerRatio));
             prevSteerAngleDeg = finalSteering;
-
+						
+			var angVel = rBody.angularVelocity;
+			angVel.z /= 1 + steerCompensation * shakeCompensationDebugVar.z;
+			angVel.y /= 1 + steerCompensation * shakeCompensationDebugVar.y;
+			angVel.x /= 1 + steerCompensation * shakeCompensationDebugVar.x;
+			rBody.angularVelocity = angVel;
 			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);
-        }
-
-        void ApplyMotorForces()
-        {
-            int frontContacts = 0, rearContacts = 0;
-
-            frontContacts = wheelMgr.frontWheels.GetContacts(out contactFL, out contactFR);
-            rearContacts = wheelMgr.rearWheels.GetContacts(out contactRL, out contactRR);
-            int contacts = frontContacts + rearContacts;
-            const int totalWheels = 4;
-
-            if (contacts > 0)
-            {
-
-                if (frontContacts > 0)
-                {
-                    if (steering < 0)
-                    {
-                        AddWheelForces(contactFL, contacts, totalWheels);
-                        AddWheelForces(contactFR, contacts, totalWheels);
-                    }
-                    else
-                    {
-                        AddWheelForces(contactFR, contacts, totalWheels);
-                        AddWheelForces(contactFL, contacts, totalWheels);
-                    }
-                }
-
-                
-                if (rearContacts > 0)
-                {
-                    if (steering < 0)
-                    {
-                        AddWheelForces(contactRL, contacts, totalWheels);
-                        AddWheelForces(contactRR, contacts, totalWheels);
-                    } else
-                    {
-                        AddWheelForces(contactRR, contacts, totalWheels);
-                        AddWheelForces(contactRL, contacts, totalWheels);
-                    }
-                }
-            }
-        }
+		}
 
 
         void AddWheelForces(Wheel.ContactInfo contact, int totalContacts, int totalWheels)
@@ -315,18 +293,18 @@ namespace CND.Car
 
 			if (boost)
 				accelPower *= CurStg.boostRatio;
-			
-			Vector3 nextForwardVel = contact.forwardDirection * accelPower * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
+
+			Vector3 nextForwardVel = contact.forwardDirection * accelPower;// * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
 			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
 			Vector3 driftCancel = Vector3.Lerp(-rBody.velocity * 0.5f *0,
-				-rBody.velocity* 0 - contact.sideDirection * rBody.velocity.magnitude, absSide);
+				-rBody.velocity* 0 - contact.sideDirection * rBody.velocity.magnitude, Mathf.Abs( contact.sidewaysDot));
 
 			Vector3 nextSidewaysVel = Vector3.Lerp(
 				//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-				rBody.velocity * speedDecay * Mathf.Clamp01(1f - (contact.sideFriction - Time.fixedDeltaTime)),
-				driftCancel * contact.sideFriction* absSide,
+				rBody.velocity * speedDecay * Mathf.Clamp01(1f - (contact.sideFriction - Time.fixedDeltaTime)) ,
+				driftCancel * contact.sideFriction,
                 absForward);
 			//nextSidewaysVel += rBody.angularVelocity;
 
@@ -347,9 +325,56 @@ namespace CND.Car
                 contact.pushPoint,
                 ForceMode.Acceleration);
 
-        }
 
-        private void CorrectOrientation()
+
+		}
+
+
+		void ApplyMotorForces()
+		{
+			int frontContacts = 0, rearContacts = 0;
+
+			frontContacts = wheelMgr.frontWheels.GetContacts(out contactFL, out contactFR);
+			rearContacts = wheelMgr.rearWheels.GetContacts(out contactRL, out contactRR);
+			int contacts = frontContacts + rearContacts;
+			const int totalWheels = 4;
+
+			if (contacts > 0)
+			{
+
+				if (frontContacts > 0)
+				{
+					if (steering < 0)
+					{
+						AddWheelForces(contactFL, contacts, totalWheels);
+						AddWheelForces(contactFR, contacts, totalWheels);
+					}
+					else
+					{
+						AddWheelForces(contactFR, contacts, totalWheels);
+						AddWheelForces(contactFL, contacts, totalWheels);
+					}
+				}
+
+
+				if (rearContacts > 0)
+				{
+					if (steering < 0)
+					{
+						AddWheelForces(contactRL, contacts, totalWheels);
+						AddWheelForces(contactRR, contacts, totalWheels);
+					}
+					else
+					{
+						AddWheelForces(contactRR, contacts, totalWheels);
+						AddWheelForces(contactRL, contacts, totalWheels);
+					}
+				}
+			}
+		}
+
+
+		private void CorrectOrientation()
         {
             var rotInterp = Quaternion.Slerp(transform.rotation,
                 Quaternion.LookRotation(rBody.velocity.normalized,transform.up),

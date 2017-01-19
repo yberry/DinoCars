@@ -477,7 +477,7 @@ Rigidbody:
   m_GameObject: {fileID: 1653494722449946}
   serializedVersion: 2
   m_Mass: 1500
-  m_Drag: 0.1
+  m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -574,11 +574,13 @@ MonoBehaviour:
     right: {fileID: 114053449215138718}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: 1.25}
+    antiRollForce: 1500
   rearWheels:
     left: {fileID: 114301671462212306}
     right: {fileID: 114117943460069762}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: -1.25}
+    antiRollForce: 1500
 --- !u!114 &114117943460069762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -617,7 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsOverride:
     carSettings: {fileID: 11400000, guid: 4b4e99a4e5d623e4a9fac1456a21b9b0, type: 2}
-    overrideDefaults: 1
+    overrideDefaults: 0
     SyncDirection: 1
     displayedSettings:
       targetSpeed: 250
@@ -715,15 +717,16 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 0
       maxTurnAngle: 42
-      turnSpeed: 24
-      tractionControl: 0.25
+      turnSpeed: 42
+      tractionControl: 0
       driftControl: 1
-      downForce: 25
-      centerOfMassOffset: {x: 0, y: -0.075, z: -0.0175}
+      steeringHelper: 0
+      downForce: 0
+      centerOfMassOffset: {x: 0, y: -0.075, z: -0.0125}
       orientationFix: 0
   defaultSettings:
-    targetSpeed: 963
-    boostRatio: 0
+    targetSpeed: 250
+    boostRatio: 1.5
     transmissionCurves:
     - serializedVersion: 2
       m_Curve:
@@ -818,11 +821,14 @@ MonoBehaviour:
       m_RotationOrder: 0
     maxTurnAngle: 42
     turnSpeed: 42
-    tractionControl: 0.25
-    driftControl: 0.25
-    downForce: 25
-    centerOfMassOffset: {x: 0, y: 0, z: 0}
+    tractionControl: 1
+    driftControl: 1
+    steeringHelper: 0.5
+    downForce: 0
+    centerOfMassOffset: {x: 0, y: -0.075, z: -0.0125}
     orientationFix: 0
+  shakeCompensationDebugVar: {x: 1, y: 0.075, z: 0.025}
+  outerWheelSteerRatio: 1
 --- !u!114 &114301671462212306
 MonoBehaviour:
   m_ObjectHideFlags: 1
