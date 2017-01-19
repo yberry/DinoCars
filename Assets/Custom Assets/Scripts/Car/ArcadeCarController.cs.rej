@@ -1,0 +1,9 @@
+diff a/Assets/Custom Assets/Scripts/Car/ArcadeCarController.cs b/Assets/Custom Assets/Scripts/Car/ArcadeCarController.cs	(rejected hunks)
+@@ -288,7 +288,6 @@
+             int gear = GetGear() - 1;
+             var gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * CurStg.targetSpeed;
+             var powerRatio = (float)(totalContacts * totalWheels);
+-            var inertiaPower = (contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
+             var inertiaPower = Mathf.Sign(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
+             var accelPower = Mathf.Lerp(inertiaPower,/* inertiaPower*Time.fixedDeltaTime*50f+*/ gearSpeed / powerRatio, accelOutput);
+ 			var brakePower = Mathf.Lerp(0,/* inertiaPower*Time.fixedDeltaTime*50f+*/ accelPower, -footbrake);

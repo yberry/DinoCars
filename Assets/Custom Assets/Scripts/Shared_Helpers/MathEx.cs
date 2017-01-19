@@ -201,7 +201,7 @@ public static class MathEx
         return Vector3.Cross(vec, other);
     }
 
-    public static float DotToLerp(float dot)
+    public static float DotToLinear(float dot)
     {
         return Mathf.Asin(Mathf.Clamp(dot, -1f, 1f)) * InvHalfPI;
     }
