@@ -18,42 +18,43 @@
 			<IncludedEvents>
 				<Event Id="4243643777" Name="Car_Boost" ObjectPath="\Events\Default Work Unit\Car\Car_Boost"/>
 				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car\Car_Crash"/>
-				<Event Id="2101189585" Name="Car_Skid" ObjectPath="\Events\Default Work Unit\Car\Car_Skid"/>
+				<Event Id="885871882" Name="Car_Skid_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Play"/>
+				<Event Id="2290073908" Name="Car_Skid_Stop" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Stop"/>
 				<Event Id="3174479978" Name="Play_Ambiance" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Ambiance"/>
 				<Event Id="520985213" Name="Play_Motor" ObjectPath="\Events\Default Work Unit\Car\Play_Motor"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="314381450" Language="SFX">
-					<ShortName>CarCrash_03.wav</ShortName>
-					<Path>SFX\CarCrash_03_9E69E797.wem</Path>
+				<File Id="32068388" Language="SFX">
+					<ShortName>TireSkid_04.wav</ShortName>
+					<Path>SFX\TireSkid_04_9E69E797.wem</Path>
 				</File>
-				<File Id="323198561" Language="SFX">
-					<ShortName>TireSkid_01.wav</ShortName>
-					<Path>SFX\TireSkid_01_9E69E797.wem</Path>
-				</File>
-				<File Id="369268589" Language="SFX">
-					<ShortName>TireSkid_03.wav</ShortName>
-					<Path>SFX\TireSkid_03_9E69E797.wem</Path>
-				</File>
-				<File Id="439657931" Language="SFX">
+				<File Id="303478541" Language="SFX">
 					<ShortName>TireSkid_05.wav</ShortName>
 					<Path>SFX\TireSkid_05_9E69E797.wem</Path>
 				</File>
-				<File Id="452252371" Language="SFX">
-					<ShortName>TireSkid_02.wav</ShortName>
-					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
+				<File Id="314381450" Language="SFX">
+					<ShortName>CarCrash_03.wav</ShortName>
+					<Path>SFX\CarCrash_03_9E69E797.wem</Path>
 				</File>
 				<File Id="458462549" Language="SFX">
 					<ShortName>CarCrash_01.wav</ShortName>
 					<Path>SFX\CarCrash_01_9E69E797.wem</Path>
 				</File>
+				<File Id="475528038" Language="SFX">
+					<ShortName>TireSkid_01.wav</ShortName>
+					<Path>SFX\TireSkid_01_9E69E797.wem</Path>
+				</File>
+				<File Id="524977779" Language="SFX">
+					<ShortName>TireSkid_02.wav</ShortName>
+					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
+				</File>
 				<File Id="655331431" Language="SFX">
 					<ShortName>CarCrash_05.wav</ShortName>
 					<Path>SFX\CarCrash_05_9E69E797.wem</Path>
 				</File>
-				<File Id="723014336" Language="SFX">
-					<ShortName>TireSkid_04.wav</ShortName>
-					<Path>SFX\TireSkid_04_9E69E797.wem</Path>
+				<File Id="704711695" Language="SFX">
+					<ShortName>TireSkid_03.wav</ShortName>
+					<Path>SFX\TireSkid_03_9E69E797.wem</Path>
 				</File>
 				<File Id="881945883" Language="SFX">
 					<ShortName>AmbProto_Loop_01.wav</ShortName>

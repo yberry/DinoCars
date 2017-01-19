@@ -80,6 +80,8 @@ namespace CND.Car
             {
                 RPM = 0;
             }
+
+           
             
             RPM = carController.GetRPMRatio() * nbRotationLimit;
 
@@ -88,17 +90,27 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
+            //AkSoundEngine.PostEvent("Car_Boost", gameObject);
             AkSoundEngine.SetRTPCValue("Car_Boost", currentGear);
+            
 
             foreach (var w in wheels)
             { 
                 var c = w.contactInfo;
                  //var abs = Mathf.Abs(-1); //valeur absolue
-                AkSoundEngine.SetRTPCValue("Skid",Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude));
+                AkSoundEngine.SetRTPCValue("Skid",Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude)-10);
                 //AkSoundEngine.SetRTPCValue("Skid", Mathf.Acos(c.sidewaysRatio * c.velocity.magnitude));
                 //AkSoundEngine.SetRTPCValue("Skid", c.sidewaysRatio);
                 AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
-               }
+
+                
+
+                if (Mathf.Abs(c.sidewaysRatio )> 0.9)
+                {
+                    Debug.Log("Vickymachin" + c.sidewaysRatio);
+                    AkSoundEngine.PostEvent("Car_Skid_Play", gameObject);
+                }
+            }
             }
         // commenter une ligne
         /* commenter un bout de truc*/
