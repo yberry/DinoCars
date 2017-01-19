@@ -305,6 +305,8 @@ public class MegaLoftLayerClone : MegaLoftLayerBase
 		if ( lofttris == null || lofttris.Length != tcount )
 			lofttris = new int[tcount];
 
+        firstVerts = loftverts.Length;
+
 		return true;
 	}
 

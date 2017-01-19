@@ -63,6 +63,8 @@ public class MegaLoftLayerBase : MonoBehaviour
 	public Color[]		optcols;
 	public int[]		opttris;
 
+    //Custom
+    public int firstVerts;
 
 	public virtual Vector3	GetPos(MegaShapeLoft loft, float ca, float a)	{ return Vector3.zero; }
 	public virtual bool		PrepareLoft(MegaShapeLoft loft, int sc)			{ return false; }
@@ -117,7 +119,13 @@ public class MegaLoftLayerBase : MonoBehaviour
 	{
 #if UNITY_FLASH
 #else
-		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
+        if (Application.isPlaying)
+        {
+            Array.Resize(ref loftverts, firstVerts);
+            Array.Resize(ref loftuvs, firstVerts);
+        }
+
+        Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
 #endif
 		//offset += loftverts.Length;

@@ -5,16 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour {
 
+    public KeyCode restartKeyboard = KeyCode.Escape;
+    public VHSEffect vhs;
+
     public Rewired.Player pInput;
 
     void Start()
     {
         pInput = Rewired.ReInput.players.GetPlayer(0);
+        vhs.RefreshAll();
     }
 	
 	void Update ()
     {
-		if (Input.GetKeyDown(KeyCode.Escape) || pInput.GetAxis(Globals.BtnAction4) > 0f)
+		if (Input.GetKeyDown(restartKeyboard) || pInput.GetAxis(Globals.BtnAction4) > 0f)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

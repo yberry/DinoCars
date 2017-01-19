@@ -188,8 +188,11 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public override void CopyVertData(ref Vector3[] verts, ref Vector2[] uvs, int offset)
 	{
-        Array.Resize(ref loftverts, verts.Length);
-        Array.Resize(ref loftuvs, uvs.Length);
+        if (Application.isPlaying)
+        {
+            Array.Resize(ref loftverts, firstVerts);
+            Array.Resize(ref loftuvs, firstVerts);
+        }
 
 		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
@@ -1459,6 +1462,8 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 		crosssize = MegaUtils.Extents(crossverts, out crossmin, out crossmax);
 
 		Prepare(loft);
+
+        firstVerts = loftverts.Length;
 
 		return true;
 	}
