@@ -60,10 +60,12 @@ public class CarReInput : MonoBehaviour {
 
 		if (pInput.GetButtonDown(Globals.BtnAction5))
 			((ArcadeCarController)car).SwitchSettings();
+        if (pInput.GetButtonUp(Globals.BtnAction5))
+            ((ArcadeCarController)car).SwitchSettings();
 #else
             car.Move(h, v, v, 0f);
 #endif
-	}
+    }
     public void BindPlayerSlot()
     {
         pInput = ReInput.players.GetPlayer(playerSlot-1);
