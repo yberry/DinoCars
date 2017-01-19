@@ -3,14 +3,16 @@ Event	ID	Name			Wwise Object Path	Notes
 	520985213	Play_Motor			\Default Work Unit\Car\Play_Motor	
 	2101189585	Car_Skid			\Default Work Unit\Car\Car_Skid	
 	3174479978	Play_Ambiance			\Default Work Unit\Ambiance\Play_Ambiance	
+	4243643777	Car_Boost			\Default Work Unit\Car\Car_Boost	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
 	822292696	Skid			\Default Work Unit\Car_Various\Skid	
 	1200033591	OnGround			\Default Work Unit\Car_Engine\OnGround	
+	4243643777	Car_Boost			\Default Work Unit\Car_Various\Car_Boost	
 
 Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
-	853976946	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Default Work Unit\Road\Volkswagen Golf VR6 2004\CrankcaseAudio REV	
+	522520238	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Default Work Unit\Road\Alfa Romeo 8C Competizione\CrankcaseAudio REV	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	314381450	CarCrash_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CarCrash_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Crash\Crash\CarCrash_03		585220
@@ -23,9 +25,10 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	723014336	TireSkid_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\TireSkid_04		217838
 	881945883	AmbProto_Loop_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\AmbProto_Loop_01_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\AmbProto_Loop_01		10272064
 	893191346	CarCrash_06	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CarCrash_06_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Crash\Crash\CarCrash_06		254832
+	894615118	Boost_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Boost_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost_01		1090624
 	983630592	CarCrash_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CarCrash_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Crash\Crash\CarCrash_02		269596
 	1028093174	CarCrash_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CarCrash_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Crash\Crash\CarCrash_04		564544
 
 Plug-in Media	ID	Name	Source file	Type	Wwise Object Path	Notes	Data Size
-	430570743	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Volkswagen_Golf_VR6_2004_50BEBA13.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Default Work Unit\Road\Volkswagen Golf VR6 2004\CrankcaseAudio REV		823744
+	965973065	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Default Work Unit\Road\Alfa Romeo 8C Competizione\CrankcaseAudio REV		1118384
 

@@ -16,6 +16,7 @@
 			<ShortName>Car_Motor</ShortName>
 			<Path>Car_Motor.bnk</Path>
 			<IncludedEvents>
+				<Event Id="4243643777" Name="Car_Boost" ObjectPath="\Events\Default Work Unit\Car\Car_Boost"/>
 				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car\Car_Crash"/>
 				<Event Id="2101189585" Name="Car_Skid" ObjectPath="\Events\Default Work Unit\Car\Car_Skid"/>
 				<Event Id="3174479978" Name="Play_Ambiance" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Ambiance"/>
@@ -33,10 +34,6 @@
 				<File Id="369268589" Language="SFX">
 					<ShortName>TireSkid_03.wav</ShortName>
 					<Path>SFX\TireSkid_03_9E69E797.wem</Path>
-				</File>
-				<File Id="430570743" Language="SFX">
-					<ShortName>Volkswagen_Golf_VR6_2004.model</ShortName>
-					<Path>Plugins\CrankcaseAudio REV\Volkswagen_Golf_VR6_2004_50BEBA13.wem</Path>
 				</File>
 				<File Id="439657931" Language="SFX">
 					<ShortName>TireSkid_05.wav</ShortName>
@@ -65,6 +62,14 @@
 				<File Id="893191346" Language="SFX">
 					<ShortName>CarCrash_06.wav</ShortName>
 					<Path>SFX\CarCrash_06_9E69E797.wem</Path>
+				</File>
+				<File Id="894615118" Language="SFX">
+					<ShortName>Boost_01.wav</ShortName>
+					<Path>SFX\Boost_01_9E69E797.wem</Path>
+				</File>
+				<File Id="965973065" Language="SFX">
+					<ShortName>Alfa_Romeo_8C_Competizione.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem</Path>
 				</File>
 				<File Id="983630592" Language="SFX">
 					<ShortName>CarCrash_02.wav</ShortName>
