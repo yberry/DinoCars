@@ -175,7 +175,6 @@ public class MegaShapeLoft : MegaShapeBase
         if (Application.isPlaying)
         {
             RefreshMesh();
-            //BuildMeshFromLayersNew();
         }
         else
         {
