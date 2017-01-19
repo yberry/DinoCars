@@ -34,13 +34,15 @@ namespace CND.Car
             public float maxForwardFriction;
             [Range(0, 1)]
             public float maxSidewaysFriction;
+			//[Range(0, 1)]
+			//public float maxOuterSteeringReduction;
 
-
-            public Settings(float wheelRadius, float mass=20f,
+			public Settings(float wheelRadius, float mass=20f,
                 float baseSpringLength = 1,
                 float maxCompression = 0.5f, float maxExpansion = 1.25f,
                 float springForce = 1000f, float damping = 1f, float stiffness = 1f,
-                float maxForwardFriction = 1f, float maxSidewaysFriction = 1f)
+                float maxForwardFriction = 1f, float maxSidewaysFriction = 1f//,float maxOuterSteeringReduction = 0.25f
+				)
             {
                 this.mass = Mathf.Abs(mass);
                 this.wheelRadius = wheelRadius;
@@ -52,7 +54,9 @@ namespace CND.Car
                 this.stiffness = stiffness;
                 this.maxForwardFriction = maxForwardFriction;
                 this.maxSidewaysFriction = maxSidewaysFriction;
-            }
+				//this.maxOuterSteeringReduction = maxOuterSteeringReduction;
+
+			}
 
             /*public Settings(bool useDefaults) : this(wheelRadius)
             {
@@ -78,7 +82,9 @@ namespace CND.Car
             public Vector3 pushPoint { get; internal set; }
             public float springLength { get; internal set; }
             public float springCompression { get; internal set; }
-            public float forwardRatio { get; internal set; }
+			public float forwardDot { get; internal set; }
+			public float sidewaysDot { get; internal set; }
+			public float forwardRatio { get; internal set; }
             public float sidewaysRatio { get; internal set; }
             public float forwardFriction { get; internal set; }
             public float sideFriction { get; internal set; }
