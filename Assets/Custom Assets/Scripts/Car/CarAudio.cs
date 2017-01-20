@@ -91,25 +91,20 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
             //AkSoundEngine.PostEvent("Car_Boost", gameObject);
-            AkSoundEngine.SetRTPCValue("Car_Boost", currentGear);
+            //AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController) carController).IsBoosting ? 1 :0);
             
 
             foreach (var w in wheels)
             { 
                 var c = w.contactInfo;
-                 //var abs = Mathf.Abs(-1); //valeur absolue
-                AkSoundEngine.SetRTPCValue("Skid",Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude)-10);
-                //AkSoundEngine.SetRTPCValue("Skid", Mathf.Acos(c.sidewaysRatio * c.velocity.magnitude));
-                //AkSoundEngine.SetRTPCValue("Skid", c.sidewaysRatio);
+                //var abs = Mathf.Abs(-1); //valeur absolue
+                float drift = Mathf.Abs(c.sidewaysRatio * c.velocity.magnitude) - 5f;
+                float finalDrift = Mathf.Clamp(drift, 0, 15);
+
+                AkSoundEngine.SetRTPCValue("Skid", finalDrift);
+               
+
                 AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
-
-                
-
-                if (Mathf.Abs(c.sidewaysRatio )> 0.9)
-                {
-                    Debug.Log("Vickymachin" + c.sidewaysRatio);
-                    AkSoundEngine.PostEvent("Car_Skid_Play", gameObject);
-                }
             }
             }
         // commenter une ligne

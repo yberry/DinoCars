@@ -32,14 +32,6 @@
 					<ShortName>TireSkid_05.wav</ShortName>
 					<Path>SFX\TireSkid_05_9E69E797.wem</Path>
 				</File>
-				<File Id="314381450" Language="SFX">
-					<ShortName>CarCrash_03.wav</ShortName>
-					<Path>SFX\CarCrash_03_9E69E797.wem</Path>
-				</File>
-				<File Id="458462549" Language="SFX">
-					<ShortName>CarCrash_01.wav</ShortName>
-					<Path>SFX\CarCrash_01_9E69E797.wem</Path>
-				</File>
 				<File Id="475528038" Language="SFX">
 					<ShortName>TireSkid_01.wav</ShortName>
 					<Path>SFX\TireSkid_01_9E69E797.wem</Path>
@@ -47,10 +39,6 @@
 				<File Id="524977779" Language="SFX">
 					<ShortName>TireSkid_02.wav</ShortName>
 					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
-				</File>
-				<File Id="655331431" Language="SFX">
-					<ShortName>CarCrash_05.wav</ShortName>
-					<Path>SFX\CarCrash_05_9E69E797.wem</Path>
 				</File>
 				<File Id="704711695" Language="SFX">
 					<ShortName>TireSkid_03.wav</ShortName>
@@ -60,10 +48,6 @@
 					<ShortName>AmbProto_Loop_01.wav</ShortName>
 					<Path>SFX\AmbProto_Loop_01_4B8CC0C5.wem</Path>
 				</File>
-				<File Id="893191346" Language="SFX">
-					<ShortName>CarCrash_06.wav</ShortName>
-					<Path>SFX\CarCrash_06_9E69E797.wem</Path>
-				</File>
 				<File Id="894615118" Language="SFX">
 					<ShortName>Boost_01.wav</ShortName>
 					<Path>SFX\Boost_01_9E69E797.wem</Path>
@@ -71,14 +55,6 @@
 				<File Id="965973065" Language="SFX">
 					<ShortName>Alfa_Romeo_8C_Competizione.model</ShortName>
 					<Path>Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem</Path>
-				</File>
-				<File Id="983630592" Language="SFX">
-					<ShortName>CarCrash_02.wav</ShortName>
-					<Path>SFX\CarCrash_02_9E69E797.wem</Path>
-				</File>
-				<File Id="1028093174" Language="SFX">
-					<ShortName>CarCrash_04.wav</ShortName>
-					<Path>SFX\CarCrash_04_9E69E797.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
