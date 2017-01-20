@@ -223,7 +223,7 @@ namespace CND.Car
             if (Application.isPlaying)
             {
                 wheelGraphics.transform.position = wheelCenter;
-                wheelGraphics.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up) * steerRot * (Quaternion.Euler(angularVelAngle, 0, 0));
+                wheelGraphics.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up) * steerRot * (Quaternion.Euler(angularVelAngle*Mathf.Rad2Deg, 0, 0));
             }
 
         }

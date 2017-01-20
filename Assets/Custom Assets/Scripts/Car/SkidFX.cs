@@ -42,7 +42,7 @@ namespace CND.Car
 				ps.transform.position = wheel.contactInfo.hit.point;
 				var em = ps.emission;				
 				var rate = em.rateOverDistanceMultiplier;
-				rate = Mathf.Clamp( wheel.contactInfo.velocity.magnitude * Mathf.Abs(wheel.contactInfo.sidewaysRatio.Cubed()) * 20 -0.25f,0,1000);
+				rate = Mathf.Clamp( Mathf.Clamp( wheel.contactInfo.velocity.magnitude,0,10) * Mathf.Abs(wheel.contactInfo.sidewaysRatio.Cubed()) * 10 -0.25f,0,1000);
 				em.rateOverDistanceMultiplier = rate;
 
 			}
