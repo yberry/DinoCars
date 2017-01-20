@@ -39,7 +39,7 @@ Material:
       second: 3
     - first:
         name: _Parallax
-      second: 0.25
+      second: 0.12
     - first:
         name: _Shininess
       second: 0.33531365

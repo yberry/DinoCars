@@ -137,6 +137,8 @@ namespace CND.Car
         float accelOutput;
         Vector3 curVelocity, prevVelocity;
         bool boost;
+		public bool IsBoosting { get { return boost; } }
+		public float BoostDuration { get; protected set; }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -198,6 +200,11 @@ namespace CND.Car
 			this.handbrake = handbrake;
 			this.boost = boost > 0;
 
+		}
+
+		public void ActionTimers(float boostDuration)
+		{
+			BoostDuration = boostDuration;
 		}
 
 		public void SwitchSettings()

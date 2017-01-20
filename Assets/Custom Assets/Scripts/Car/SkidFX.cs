@@ -10,10 +10,22 @@ namespace CND.Car
 		Wheel wheel;
 		public List<ParticleSystem> psList;
 	// Use this for initialization
-		void Awake()
+		void Start()
 		{
 			wheel = GetComponent<Wheel>();
-			psList = new List<ParticleSystem>( GetComponentsInChildren<ParticleSystem>());
+			//psList = psList.IsNull() ? new List<ParticleSystem>( GetComponentsInChildren<ParticleSystem>()) : psList;
+
+			for (int i=0; i<psList.Count; i++)
+			{
+				//if (!psList[i])
+				{
+					psList[i] = psList[i].CleanInstantiateUnexisting();// UnityHelpers.CleanInstantiate(psList[i]);
+					psList[i].transform.SetParent(wheel.transform, false);
+
+				}
+				
+				
+			}
 		}
 
 		// Update is called once per frame
@@ -26,11 +38,13 @@ namespace CND.Car
 		{
 			foreach (var ps in psList)
 			{
+
+				ps.transform.position = wheel.contactInfo.hit.point;
 				var em = ps.emission;				
 				var rate = em.rateOverDistanceMultiplier;
-				rate = wheel.contactInfo.velocity.magnitude * wheel.contactInfo.sidewaysRatio.Squared() * 5;
+				rate = Mathf.Clamp( wheel.contactInfo.velocity.magnitude * Mathf.Abs(wheel.contactInfo.sidewaysRatio.Cubed()) * 20 -0.25f,0,1000);
 				em.rateOverDistanceMultiplier = rate;
-				
+
 			}
 		}
 	}
