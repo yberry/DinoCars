@@ -66,5 +66,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loft: {fileID: 0}
   layer: 0
-  curve: 0
   refreshCollider: 1
+  curve: 0

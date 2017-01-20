@@ -215,7 +215,14 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public override void CopyVertData(ref Vector3[] verts, ref Vector2[] uvs, ref Color[] cols, int offset)
 	{
-		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
+        if (Application.isPlaying)
+        {
+            Array.Resize(ref loftverts, firstVerts);
+            Array.Resize(ref loftuvs, firstVerts);
+            Array.Resize(ref loftcols, firstVerts);
+        }
+
+        Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
 		Array.Copy(loftcols, 0, cols, offset, loftcols.Length);
 		offset += loftverts.Length;

@@ -252,8 +252,8 @@ namespace CND.Car
 				var col = (MeshCollider)hit.collider;
 
                 mesh = surf.colMesh = col.sharedMesh;
-                meshTris = prevTriangles = mesh.triangles;
-                meshVerts = prevVerts = mesh.vertices;
+                meshTris = mesh.triangles;
+                meshVerts = mesh.vertices;
                 /*if (surf.owner != prevHitTriangle.owner )
 				{					
 					mesh = surf.colMesh=col.sharedMesh;

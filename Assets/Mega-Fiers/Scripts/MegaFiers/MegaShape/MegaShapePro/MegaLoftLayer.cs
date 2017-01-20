@@ -135,7 +135,14 @@ public class MegaLoftLayerBase : MonoBehaviour
 	{
 #if UNITY_FLASH
 #else
-		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
+        if (Application.isPlaying)
+        {
+            Array.Resize(ref loftverts, firstVerts);
+            Array.Resize(ref loftuvs, firstVerts);
+            Array.Resize(ref loftcols, firstVerts);
+        }
+
+        Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
 		if ( loftcols != null )
 			Array.Copy(loftcols, 0, cols, offset, loftcols.Length);
