@@ -10,8 +10,10 @@ public class CarHUD : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         if (!car)
-            enabled = false;
-
+		{
+			car = FindObjectOfType<CND.Car.ArcadeCarController>();
+		}
+       enabled = car;
        
     }
 

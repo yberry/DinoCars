@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-#if NEWCAR
+#if NEWCAR 
 namespace CND.Car
 {
     public enum CarDriveType
@@ -30,17 +30,17 @@ namespace CND.Car
         [Range(0, 1)] [SerializeField] private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
         [Range(0, 1)] [SerializeField] private float m_TractionControl; // 0 is no traction control, 1 is full interference
 
-        [SerializeField] [DisplayModifier(true)] private float m_appliedTorqueOverAllWheels;
+        [SerializeField] [DisplayModifier(hidingMode: DM_HidingMode.GreyedOut)] private float m_appliedTorqueOverAllWheels;
         [SerializeField] private float m_baseTorque;
         [SerializeField] private float m_boostTorque;
         [SerializeField] private float m_ReverseTorque;
         [SerializeField] private float m_MaxHandbrakeTorque;
-        [SerializeField] [DisplayModifier(true)] private float m_appliedTopSpeed = 0;
+        [SerializeField] [DisplayModifier(hidingMode: DM_HidingMode.GreyedOut)] private float m_appliedTopSpeed = 0;
         [SerializeField] private float m_baseTopSpeed = 200;
         [SerializeField] private float m_boostSpeed = 400;
         
         [SerializeField][Range(0.00001f,10)] private float m_boostDuration = 3;
-        [SerializeField] [DisplayModifier(true)] private float m_boostTimer = 0;
+        [SerializeField] [DisplayModifier(hidingMode: DM_HidingMode.GreyedOut)] private float m_boostTimer = 0;
 
 
         [SerializeField] private float m_Downforce = 100f;
@@ -202,8 +202,17 @@ namespace CND.Car
 
         }
 
+		public override void Move(float steering, float accel)
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
+		public override void Action(float footbrake, float handbrake, float boost, float drift)
+		{
+			throw new NotImplementedException();
+		}
+
+		public  void Move(float steering, float accel, float footbrake, float handbrake, bool boost)
         {
 
             if (boost)

@@ -7,9 +7,9 @@ public class CarReInput : MonoBehaviour {
 
     [Range(1,4)]
     public int playerSlot=1;
-    [DisplayModifier(true)]
+    //[DisplayModifier(hideMode: DM_HideMode.Default)]
     public Rewired.Player pInput;
-    [DisplayModifier(true)]
+    [DisplayModifier(DM_HidingMode.GreyedOut)]
     public BaseCarController car;
 
 
@@ -24,6 +24,11 @@ public class CarReInput : MonoBehaviour {
         BindPlayerSlot();
         car = GetComponent<BaseCarController>();
     }
+
+	private void Update()
+	{
+		if (pInput.GetButtonDown(Globals.BtnStart)) Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
+	}
 
     bool stickTestForce;
     private void FixedUpdate()
@@ -46,14 +51,21 @@ public class CarReInput : MonoBehaviour {
 
         //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
 
-        float handbrake = pInput.GetAxis(Globals.BtnAction1);
-        bool boost = pInput.GetButton(Globals.BtnAction3);
+        float handbrake = pInput.GetAxis(Globals.BtnAction3);
+        bool boost = pInput.GetButton(Globals.BtnAction1);
 
-        car.Move(h, fwd,  back, handbrake, boost);
+
+        car.Move(h, fwd);
+		car.Action(back, handbrake, boost ? 1 : 0, 0);
+
+		if (pInput.GetButtonDown(Globals.BtnAction5))
+			((ArcadeCarController)car).SwitchSettings();
+
+		((ArcadeCarController)car).ActionTimers(pInput.GetButtonTimePressed(Globals.BtnAction1));
 #else
             car.Move(h, v, v, 0f);
 #endif
-    }
+	}
     public void BindPlayerSlot()
     {
         pInput = ReInput.players.GetPlayer(playerSlot-1);

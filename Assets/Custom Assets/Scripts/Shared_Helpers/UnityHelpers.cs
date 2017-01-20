@@ -72,11 +72,12 @@ public static class UnityHelpers {
 	{
 		bool isReallyNull = undefObject == null;
 		bool isExisting = undefObject;
+		bool isPrefab= undefObject.hideFlags == HideFlags.HideInHierarchy;
 		//if referenced but not instantiated (aka fake null), instantiate
 		if (!isReallyNull) {
-			if (!isExisting)
+			if (isExisting && isPrefab)
 				return CleanInstantiate(undefObject);
-			else {
+			else if (!isPrefab){
 				Debug.LogWarning(undefObject + " already instantiated");
 				return undefObject;
 			}
