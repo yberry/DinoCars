@@ -60,6 +60,8 @@ public class CarReInput : MonoBehaviour {
 
 		if (pInput.GetButtonDown(Globals.BtnAction5))
 			((ArcadeCarController)car).SwitchSettings();
+
+		((ArcadeCarController)car).ActionTimers(pInput.GetButtonTimePressed(Globals.BtnAction1));
 #else
             car.Move(h, v, v, 0f);
 #endif

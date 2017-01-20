@@ -137,6 +137,8 @@ namespace CND.Car
         float accelOutput;
         Vector3 curVelocity, prevVelocity;
         bool boost;
+		public bool IsBoosting { get { return boost; } }
+		public float BoostDuration { get; protected set; }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -181,9 +183,7 @@ namespace CND.Car
             rBody.centerOfMass += CurStg.centerOfMassOffset;
 
         }
-
-
-
+		
         public override void Move(float steering, float accel)
         {
             this.steering = Mathf.Lerp(this.steering, Mathf.Abs(steering*steering) *Mathf.Sign(steering),0.75f*(1f-Mathf.Abs(steering))+ 0.25f);
@@ -200,6 +200,11 @@ namespace CND.Car
 			this.handbrake = handbrake;
 			this.boost = boost > 0;
 
+		}
+
+		public void ActionTimers(float boostDuration)
+		{
+			BoostDuration = boostDuration;
 		}
 
 		public void SwitchSettings()
@@ -275,6 +280,10 @@ namespace CND.Car
 			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);
 		}
 
+		void ApplyWheelTorque()
+		{
+
+		}
 
         void AddWheelForces(Wheel.ContactInfo contact, int totalContacts, int totalWheels)
         {
@@ -287,14 +296,18 @@ namespace CND.Car
             var gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * CurStg.targetSpeed;
             var powerRatio = (float)(totalContacts * totalWheels);
             var inertiaPower = (contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
-            var accelPower = Mathf.Lerp(inertiaPower, /*inertiaPower*Time.fixedDeltaTime+ */ gearSpeed / powerRatio,Mathf.Abs(accelOutput));
-            var gravForward = MathEx.DotToLerp(Vector3.Dot(Physics.gravity.normalized,Vector3.ClampMagnitude( contact.velocity,1)));
+            var accelPower = Mathf.Lerp(inertiaPower,/* inertiaPower*Time.fixedDeltaTime*50f+*/ gearSpeed / powerRatio, Mathf.Abs(accelOutput));
+			var brakePower = Mathf.Lerp(0,/* inertiaPower*Time.fixedDeltaTime*50f+*/ accelPower, -footbrake);
+			var gravForward = MathEx.DotToLinear(Vector3.Dot(Physics.gravity.normalized,Vector3.ClampMagnitude( contact.velocity,1)));
             float speedDecay = Time.fixedDeltaTime* 85f;
-
+			float angVelDelta = contact.velocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
+			
+			//Debug.Log(angVelDelta);
+			
 			if (boost)
 				accelPower *= CurStg.boostRatio;
 
-			Vector3 nextForwardVel = contact.forwardDirection * accelPower;// * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
+			Vector3 nextForwardVel = contact.forwardDirection * accelPower * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
 			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
