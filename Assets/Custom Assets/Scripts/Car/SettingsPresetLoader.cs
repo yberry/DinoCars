@@ -29,10 +29,10 @@ namespace CND.Car
 
 		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings" }, DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
 		public bool overrideDefaults;
-		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings" }, DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
+		[DisplayModifier(DM_HidingMode.GreyedOut, new[] { "carSettings", "!overrideDefaults" }, DM_HidingCondition.TrueOrInit, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
 		public SyncMode SyncDirection=SyncMode.ActiveToPreset;
 
-		[DisplayModifier(DM_HidingMode.Hidden, new[] { "carSettings","!overrideDefaults" },  DM_HidingCondition.FalseOrNull, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
+		[DisplayModifier(DM_HidingMode.GreyedOut, new[] { "carSettings","!overrideDefaults" },  DM_HidingCondition.TrueOrInit, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]
 		public ArcadeCarController.Settings displayedSettings;
 
 		private CarSettings prevSettings = null;

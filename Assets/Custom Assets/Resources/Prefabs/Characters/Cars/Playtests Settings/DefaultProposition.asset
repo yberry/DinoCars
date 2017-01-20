@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d80c03503b399f448c6540014bca138, type: 3}
+  m_Name: DefaultProposition
+  m_EditorClassIdentifier: Assembly-CSharp:CND.Car:CarSettings
+  preset:
+    targetSpeed: 250
+    boostRatio: 0
+    transmissionCurves:
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: -0.96880686
+        value: -0.3157755
+        inSlope: 0.3259427
+        outSlope: 0.3259427
+        tangentMode: 34
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0.6629714
+        outSlope: 0.6629714
+        tangentMode: 34
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+      m_PreInfinity: 0
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    maxTurnAngle: 42
+    turnSpeed: 42
+    tractionControl: 0.25
+    driftControl: 0.25
+    downForce: 1000
+    centerOfMassOffset: {x: 0, y: 0, z: 0}
+    orientationFix: 0

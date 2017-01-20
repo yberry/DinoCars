@@ -25,6 +25,11 @@ public class CarReInput : MonoBehaviour {
         car = GetComponent<BaseCarController>();
     }
 
+	private void Update()
+	{
+		if (pInput.GetButtonDown(Globals.BtnStart)) Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
+	}
+
     bool stickTestForce;
     private void FixedUpdate()
     {
@@ -47,10 +52,16 @@ public class CarReInput : MonoBehaviour {
         //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
 
         float handbrake = pInput.GetAxis(Globals.BtnAction3);
-        bool boost = pInput.GetButton(Globals.BtnAction1);
+        bool boost = pInput.GetButton(Globals.BtnAction1);// || pInput.
+
 
         car.Move(h, fwd);
 		car.Action(back, handbrake, boost ? 1 : 0, 0);
+
+		if (pInput.GetButtonDown(Globals.BtnAction5))
+			((ArcadeCarController)car).SwitchSettings();
+        if (pInput.GetButtonUp(Globals.BtnAction5))
+            ((ArcadeCarController)car).SwitchSettings();
 #else
             car.Move(h, v, v, 0f);
 #endif

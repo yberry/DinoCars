@@ -13,6 +13,7 @@ namespace CND.Car
 
         [HideInInspector]
         public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
+		//public float maxOuterWheelAngleOffset;
 
         private Vector3 avgForce = Vector3.zero, avgPos = Vector3.zero;
 
@@ -26,15 +27,17 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
-           
-            ManageSuspensions();
-        }
 
-        public void SetSteering(float degAngle)
+			ManageSuspensions();
+			frontWheels.Stabilize(rBody);
+			rearWheels.Stabilize(rBody);
+		}
+
+        public void SetSteering(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
         {
-            steeringAngle = degAngle;
-            frontWheels.SetSteeringRotation(degAngle);
-            //rearWheels.SetSteeringRotation(degAngle);
+
+			frontWheels.SetSteeringRotation(degAngle, maxAngle, maxOuterAngleReduction);
+            
         }
 
         private void ManageSuspensions()

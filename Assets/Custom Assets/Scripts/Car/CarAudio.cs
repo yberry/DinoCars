@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +10,7 @@ namespace CND.Car
     {
 
         public BaseCarController carController;
-
+        public Wheel[] wheels;
         private bool gearUpDown;
         private bool play;
         private bool gearDown;
@@ -17,18 +18,21 @@ namespace CND.Car
 
         public float nbRotationLimit = 12000;
         public float nbRotationClutch = 3000;
-        [DisplayModifier(DM_HidingMode.GreyedOut)]
+        [DisplayModifier(true)]
         public float RPM;
         public float maxValueRotation;
         float addition=50;
         int prevGear;
         int currentGear;
+     
 
         void Awake()
         {
             if (!carController)
                 carController = GetComponent<BaseCarController>();
+                 wheels = GetComponentsInChildren<Wheel>();
         }
+   
         // Use this for initialization
         void Start()
         {
@@ -76,7 +80,7 @@ namespace CND.Car
             {
                 RPM = 0;
             }
-
+            
             RPM = carController.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
@@ -84,15 +88,30 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
+            AkSoundEngine.SetRTPCValue("Car_Boost", currentGear);
 
-#if UNITY_EDITOR
-			if (UnityEditor.EditorUtility.audioMasterMute)
-                AkSoundEngine.StopAll();
-#endif
+            foreach (var w in wheels)
+            { 
+                var c = w.contactInfo;
+                 //var abs = Mathf.Abs(-1); //valeur absolue
+                AkSoundEngine.SetRTPCValue("Skid",Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude));
+                //AkSoundEngine.SetRTPCValue("Skid", Mathf.Acos(c.sidewaysRatio * c.velocity.magnitude));
+                //AkSoundEngine.SetRTPCValue("Skid", c.sidewaysRatio);
+                AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
+               }
+            }
+        // commenter une ligne
+        /* commenter un bout de truc*/
+
+
+//#if UNITY_EDITOR
+			// (UnityEditor.EditorUtility.audioMasterMute)
+             //   AkSoundEngine.StopAll();
+//#endif
 
 
 		}
 
 
     }
-}
+
