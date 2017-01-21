@@ -90,9 +90,15 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
-            //AkSoundEngine.PostEvent("Car_Boost", gameObject);
-            //AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController) carController).IsBoosting ? 1 :0);
             
+            //if (((ArcadeCarController)carController).IsBoosting)
+          
+            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)carController).BoostDuration);
+
+            //if (((ArcadeCarController)carController).BoostDuration > 0)            Debug.Log("BoostTimer: " + ((ArcadeCarController)carController).BoostDuration);
+            
+           
+
 
             foreach (var w in wheels)
             { 
