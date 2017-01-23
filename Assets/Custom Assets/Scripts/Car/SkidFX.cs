@@ -8,44 +8,58 @@ namespace CND.Car
 	{
 
 		Wheel wheel;
-		public List<ParticleSystem> psList;
-	// Use this for initialization
-		void Start()
+		public List<ParticleSystem> skidParticles;
+		[Range(0,1000)]
+		public float rateOverDistThreshold;
+		public float minParticleCount;
+		// Use this for initialization
+		protected virtual void Start()
 		{
 			wheel = GetComponent<Wheel>();
 			//psList = psList.IsNull() ? new List<ParticleSystem>( GetComponentsInChildren<ParticleSystem>()) : psList;
 
-			for (int i=0; i<psList.Count; i++)
+			for (int i=0; i<skidParticles.Count; i++)
 			{
 				//if (!psList[i])
 				{
-					psList[i] = psList[i].CleanInstantiateUnexisting();// UnityHelpers.CleanInstantiate(psList[i]);
-					psList[i].transform.SetParent(wheel.transform, false);
+					skidParticles[i] = skidParticles[i].CleanInstantiateUnexisting();// UnityHelpers.CleanInstantiate(psList[i]);
+					skidParticles[i].transform.SetParent(wheel.transform, false);
 
-				}
-				
+				}				
 				
 			}
 		}
 
 		// Update is called once per frame
-		void FixedUpdate()
+		protected virtual void FixedUpdate()
 		{
-			PlayFX();
+			PlayFX(true);
 		}
 
-		void PlayFX()
+		protected virtual void PlayFX(bool play)
 		{
-			foreach (var ps in psList)
+			foreach (var ps in skidParticles)
 			{
-
-				ps.transform.position = wheel.contactInfo.hit.point;
-				var em = ps.emission;				
-				var rate = em.rateOverDistanceMultiplier;
-				rate = Mathf.Clamp( Mathf.Clamp( wheel.contactInfo.velocity.magnitude,0,10) * Mathf.Abs(wheel.contactInfo.sidewaysRatio.Cubed()) * 10 -0.25f,0,1000);
-				em.rateOverDistanceMultiplier = rate;
-
+				RefreshParticleFX(ps);
+				var main = ps.main;
+				main.loop= play;
+				if (play && !ps.isPlaying && ps.emission.rateOverDistanceMultiplier > rateOverDistThreshold)
+					ps.Play(true);
+				else if (!play && ps.isPlaying || ps.emission.rateOverDistanceMultiplier < rateOverDistThreshold)
+					ps.Stop(true);
 			}
+				
+		}
+
+		protected virtual void RefreshParticleFX(ParticleSystem ps)
+		{
+			ps.transform.position = wheel.contactInfo.hit.point;
+			var em = ps.emission;
+			var rate = em.rateOverDistanceMultiplier;
+			float velMag = Mathf.Clamp(wheel.contactInfo.velocity.magnitude, 0, 10);
+			float sideFriction = Mathf.Abs(wheel.contactInfo.sidewaysRatio.Squared());
+			rate = Mathf.Clamp( (velMag * sideFriction) * 10, minParticleCount, ps.main.maxParticles);
+			em.rateOverDistanceMultiplier = rate;
 		}
 	}
 }

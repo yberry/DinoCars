@@ -136,9 +136,10 @@ namespace CND.Car
         float steering, accelInput, footbrake, handbrake;
         float accelOutput;
         Vector3 curVelocity, prevVelocity;
-        bool boost;
+        bool boost, drift;
 		public bool IsBoosting { get { return boost; } }
 		public float BoostDuration { get; protected set; }
+		public bool IsDrifting { get { return drift; } }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -196,9 +197,14 @@ namespace CND.Car
 
 		public override void Action(float footbrake, float handbrake, float boost, float drift)
 		{
+			bool prevDrift = this.drift;
+
 			this.footbrake = footbrake;
 			this.handbrake = handbrake;
 			this.boost = boost > 0;
+			this.drift = drift > 0;
+			if (this.drift != prevDrift)
+				SwitchSettings();
 
 		}
 
