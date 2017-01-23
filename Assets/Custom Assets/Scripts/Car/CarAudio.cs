@@ -80,6 +80,8 @@ namespace CND.Car
             {
                 RPM = 0;
             }
+
+           
             
             RPM = carController.GetRPMRatio() * nbRotationLimit;
 
@@ -88,17 +90,28 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
-            AkSoundEngine.SetRTPCValue("Car_Boost", currentGear);
+            
+            //if (((ArcadeCarController)carController).IsBoosting)
+          
+            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)carController).BoostDuration);
+
+            //if (((ArcadeCarController)carController).BoostDuration > 0)            Debug.Log("BoostTimer: " + ((ArcadeCarController)carController).BoostDuration);
+            
+           
+
 
             foreach (var w in wheels)
             { 
                 var c = w.contactInfo;
-                 //var abs = Mathf.Abs(-1); //valeur absolue
-                AkSoundEngine.SetRTPCValue("Skid",Mathf.Abs(c.sidewaysRatio*c.velocity.magnitude));
-                //AkSoundEngine.SetRTPCValue("Skid", Mathf.Acos(c.sidewaysRatio * c.velocity.magnitude));
-                //AkSoundEngine.SetRTPCValue("Skid", c.sidewaysRatio);
+                //var abs = Mathf.Abs(-1); //valeur absolue
+                float drift = Mathf.Abs(c.sidewaysRatio * c.velocity.magnitude) - 5f;
+                float finalDrift = Mathf.Clamp(drift, 0, 15);
+
+                AkSoundEngine.SetRTPCValue("Skid", finalDrift);
+               
+
                 AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
-               }
+            }
             }
         // commenter une ligne
         /* commenter un bout de truc*/
