@@ -48,7 +48,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859460646929328}
   serializedVersion: 5
-  lengthInSec: 1
+  lengthInSec: 0.1
   speed: 1
   looping: 1
   prewarm: 0
@@ -96,7 +96,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1902636374
+  randomSeed: -1565502805
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -111,34 +111,22 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - serializedVersion: 2
-          time: 1
-          value: 0
+          value: 0.6
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
-      minMaxState: 0
+        m_RotationOrder: 0
+      minMaxState: 3
     startSpeed:
       scalar: 0
       maxCurve:
@@ -268,8 +256,8 @@ ParticleSystem:
         m_Mode: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
-      minColor: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 1}
-      maxColor: {r: 0.80784315, g: 0.80784315, b: 0.80784315, a: 1}
+      minColor: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 0.5411765}
+      maxColor: {r: 0.80784315, g: 0.80784315, b: 0.80784315, a: 0.52156866}
       minMaxState: 2
     startSize:
       scalar: 1
@@ -434,7 +422,7 @@ ParticleSystem:
         m_RotationOrder: 0
       minMaxState: 3
     randomizeRotationDirection: 1
-    maxNumParticles: 10000
+    maxNumParticles: 2000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -843,10 +831,10 @@ ParticleSystem:
           rgba: 16777215
         key1:
           serializedVersion: 2
-          rgba: 1946157055
+          rgba: 3321888767
         key2:
           serializedVersion: 2
-          rgba: 2969567232
+          rgba: 3573547008
         key3:
           serializedVersion: 2
           rgba: 2617245696
@@ -872,8 +860,8 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 964
-        atime2: 16384
-        atime3: 42791
+        atime2: 5397
+        atime3: 13107
         atime4: 65535
         atime5: 0
         atime6: 0
