@@ -136,9 +136,10 @@ namespace CND.Car
         float steering, accelInput, footbrake, handbrake;
         float accelOutput;
         Vector3 curVelocity, prevVelocity;
-        bool boost;
+        bool boost, drift;
 		public bool IsBoosting { get { return boost; } }
 		public float BoostDuration { get; protected set; }
+		public bool IsDrifting { get { return drift; } }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -196,9 +197,14 @@ namespace CND.Car
 
 		public override void Action(float footbrake, float handbrake, float boost, float drift)
 		{
+			bool prevDrift = this.drift;
+
 			this.footbrake = footbrake;
 			this.handbrake = handbrake;
 			this.boost = boost > 0;
+			this.drift = drift > 0;
+			if (this.drift != prevDrift)
+				SwitchSettings();
 
 		}
 
@@ -267,7 +273,7 @@ namespace CND.Car
 
 			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
-			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 0.75f);
+			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
 
 			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle* (1f- outerWheelSteerRatio));
             prevSteerAngleDeg = finalSteering;
@@ -290,6 +296,7 @@ namespace CND.Car
 
             if (! (contact.isOnFloor && contact.wasAlreadyOnFloor)) return;
 
+			float velDelta = curVelocity.magnitude - prevVelocity.magnitude;
             var absForward = Mathf.Abs(contact.forwardRatio);
             var absSide = Mathf.Abs(contact.sidewaysRatio);
             int gear = GetGear() - 1;
@@ -297,7 +304,7 @@ namespace CND.Car
             var powerRatio = (float)(totalContacts * totalWheels);
             var inertiaPower = (contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
             var accelPower = Mathf.Lerp(inertiaPower,/* inertiaPower*Time.fixedDeltaTime*50f+*/ gearSpeed / powerRatio, Mathf.Abs(accelOutput));
-			var brakePower = Mathf.Lerp(0,/* inertiaPower*Time.fixedDeltaTime*50f+*/ accelPower, -footbrake);
+			var brakePower = Mathf.Lerp(0,/* inertiaPower*Time.fixedDeltaTime*50f+*/ accelPower, -velDelta);
 			var gravForward = MathEx.DotToLinear(Vector3.Dot(Physics.gravity.normalized,Vector3.ClampMagnitude( contact.velocity,1)));
             float speedDecay = Time.fixedDeltaTime* 85f;
 			float angVelDelta = contact.velocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
@@ -307,16 +314,16 @@ namespace CND.Car
 			if (boost)
 				accelPower *= CurStg.boostRatio;
 
-			Vector3 nextForwardVel = contact.forwardDirection * accelPower * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
+			Vector3 nextForwardVel = contact.forwardDirection * (accelPower);// * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
 			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
 			Vector3 driftCancel = Vector3.Lerp(-rBody.velocity * 0.5f *0,
-				-rBody.velocity* 0 - contact.sideDirection * rBody.velocity.magnitude, Mathf.Abs( contact.sidewaysDot));
+				contact.forwardDirection*contact.velocity.magnitude * speedDecay - contact.sideDirection * rBody.velocity.magnitude,absSide/* Mathf.Abs( contact.sidewaysDot)*/);
 
 			Vector3 nextSidewaysVel = Vector3.Lerp(
 				//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
-				rBody.velocity * speedDecay * Mathf.Clamp01(1f - (contact.sideFriction - Time.fixedDeltaTime)) ,
+				rBody.velocity * speedDecay,// * Mathf.Clamp01(1f - (contact.sideFriction - Time.fixedDeltaTime)) ,
 				driftCancel * contact.sideFriction,
                 absForward);
 			//nextSidewaysVel += rBody.angularVelocity;
@@ -337,9 +344,7 @@ namespace CND.Car
                 nextFinalVel,
                 contact.pushPoint,
                 ForceMode.Acceleration);
-
-
-
+			
 		}
 
 

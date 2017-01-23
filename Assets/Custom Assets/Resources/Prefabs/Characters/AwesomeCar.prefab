@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4125922209460424}
   - component: {fileID: 114358493479665454}
+  - component: {fileID: 114868759056002954}
   m_Layer: 0
   m_Name: FrontLeft
   m_TagString: Untagged
@@ -106,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4976145307715420}
   - component: {fileID: 114301671462212306}
+  - component: {fileID: 114279119407651590}
   m_Layer: 0
   m_Name: RearLeft
   m_TagString: Untagged
@@ -140,6 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4235511565123470}
   - component: {fileID: 114053449215138718}
+  - component: {fileID: 114420388749100058}
   m_Layer: 0
   m_Name: FrontRight
   m_TagString: Untagged
@@ -171,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4502885954253896}
   - component: {fileID: 114117943460069762}
+  - component: {fileID: 114355805584805702}
   m_Layer: 0
   m_Name: RearRight
   m_TagString: Untagged
@@ -619,7 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsOverride:
     carSettings: {fileID: 11400000, guid: 4b4e99a4e5d623e4a9fac1456a21b9b0, type: 2}
-    overrideDefaults: 0
+    overrideDefaults: 1
     SyncDirection: 1
     displayedSettings:
       targetSpeed: 250
@@ -718,7 +722,7 @@ MonoBehaviour:
         m_RotationOrder: 0
       maxTurnAngle: 42
       turnSpeed: 42
-      tractionControl: 0
+      tractionControl: 1
       driftControl: 1
       steeringHelper: 0
       downForce: 0
@@ -827,8 +831,21 @@ MonoBehaviour:
     downForce: 0
     centerOfMassOffset: {x: 0, y: -0.075, z: -0.0125}
     orientationFix: 0
-  shakeCompensationDebugVar: {x: 1, y: 0.075, z: 0.025}
+  shakeCompensationDebugVar: {x: 0, y: 0.075, z: 0.025}
   outerWheelSteerRatio: 1
+--- !u!114 &114279119407651590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1736677223220206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  psList:
+  - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
 --- !u!114 &114301671462212306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -854,6 +871,19 @@ MonoBehaviour:
     wheelRadius: 0.35
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+--- !u!114 &114355805584805702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950912478887250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  psList:
+  - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
 --- !u!114 &114358493479665454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -879,6 +909,19 @@ MonoBehaviour:
     wheelRadius: 0.3
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+--- !u!114 &114420388749100058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944743207560022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  psList:
+  - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
 --- !u!114 &114555418574234862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -895,6 +938,19 @@ MonoBehaviour:
   nbRotationClutch: 3000
   RPM: 0
   maxValueRotation: 0
+--- !u!114 &114868759056002954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1364954311925780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  psList:
+  - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
 --- !u!114 &114987307862932422
 MonoBehaviour:
   m_ObjectHideFlags: 1
