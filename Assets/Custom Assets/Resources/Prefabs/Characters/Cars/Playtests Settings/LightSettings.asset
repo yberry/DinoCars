@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:CND.Car:CarSettings
   preset:
     targetSpeed: 250
-    boostRatio: 1
+    boostRatio: 1.5
     transmissionCurves:
     - serializedVersion: 2
       m_Curve:
@@ -108,8 +108,9 @@ MonoBehaviour:
       m_RotationOrder: 0
     maxTurnAngle: 60
     turnSpeed: 70
-    tractionControl: 1
-    driftControl: 1
+    tractionControl: 0.35
+    driftControl: 0.15
+    steeringHelper: 0
     downForce: 75
-    centerOfMassOffset: {x: 0, y: 0, z: 0}
+    centerOfMassOffset: {x: 0, y: -0.075, z: -0.0125}
     orientationFix: 0
