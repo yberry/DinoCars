@@ -13,17 +13,35 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	4243643777	Car_Boost			\Default Work Unit\Car_Various\Car_Boost	
 
 Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
-	522520238	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Default Work Unit\Road\Alfa Romeo 8C Competizione\CrankcaseAudio REV	
+	522520238	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Default Work Unit\Car\Alfa Romeo 8C Competizione\CrankcaseAudio REV	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	12002936	Cris-15	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-15_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-15		678140
 	32068388	TireSkid_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\TireSkid_04		217838
+	38287281	Cris-05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-05_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-05		866432
+	64159668	Cris-14	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-14_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-14		1507472
+	136929741	Cris-10	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-10_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-10		1039512
+	160762649	Cris-16	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-16_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-16		777724
+	173352256	Cris-12	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-12_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-12		922124
+	236068492	Cris-02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-02		654400
 	303478541	TireSkid_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_05_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\TireSkid_05		170554
+	326881663	Cris-18	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-18_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-18		1581332
+	352217460	Cris-13	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-13_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-13		853096
 	475528038	TireSkid_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\TireSkid_01		88264
+	491795483	Cris-04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-04		924568
 	524977779	TireSkid_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\TireSkid_02		182100
+	525362392	Cris-06	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-06_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-06		771956
+	573882583	Cris-11	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-11_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-11		794212
+	639288570	Cris-01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-01		765504
+	659149419	Cris-03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-03		589160
 	704711695	TireSkid_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\TireSkid_03		75788
-	881945883	AmbProto_Loop_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\AmbProto_Loop_01_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\AmbProto_Loop_01		10272064
+	770348932	Cris-17	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-17_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-17		1147112
+	891196897	Cris-07	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-07_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-07		1116632
 	894615118	Boost_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Boost_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost_01		1090624
+	913329079	Cris-19	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-19_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-19		919564
+	1002126405	Cris-09	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-09_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-09		736640
+	1053869606	Amb_Simple_OK	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Amb_Simple_OK_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Amb_Simple_OK		10552128
 
 Plug-in Media	ID	Name	Source file	Type	Wwise Object Path	Notes	Data Size
-	965973065	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Default Work Unit\Road\Alfa Romeo 8C Competizione\CrankcaseAudio REV		1118384
+	965973065	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Default Work Unit\Car\Alfa Romeo 8C Competizione\CrankcaseAudio REV		1118384
 

@@ -24,37 +24,109 @@
 				<Event Id="520985213" Name="Play_Motor" ObjectPath="\Events\Default Work Unit\Car\Play_Motor"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
+				<File Id="12002936" Language="SFX">
+					<ShortName>CRIS\Cris-15.wav</ShortName>
+					<Path>SFX\CRIS\Cris-15_9E69E797.wem</Path>
+				</File>
 				<File Id="32068388" Language="SFX">
 					<ShortName>TireSkid_04.wav</ShortName>
 					<Path>SFX\TireSkid_04_9E69E797.wem</Path>
+				</File>
+				<File Id="38287281" Language="SFX">
+					<ShortName>CRIS\Cris-05.wav</ShortName>
+					<Path>SFX\CRIS\Cris-05_9E69E797.wem</Path>
+				</File>
+				<File Id="64159668" Language="SFX">
+					<ShortName>CRIS\Cris-14.wav</ShortName>
+					<Path>SFX\CRIS\Cris-14_9E69E797.wem</Path>
+				</File>
+				<File Id="136929741" Language="SFX">
+					<ShortName>CRIS\Cris-10.wav</ShortName>
+					<Path>SFX\CRIS\Cris-10_9E69E797.wem</Path>
+				</File>
+				<File Id="160762649" Language="SFX">
+					<ShortName>CRIS\Cris-16.wav</ShortName>
+					<Path>SFX\CRIS\Cris-16_9E69E797.wem</Path>
+				</File>
+				<File Id="173352256" Language="SFX">
+					<ShortName>CRIS\Cris-12.wav</ShortName>
+					<Path>SFX\CRIS\Cris-12_9E69E797.wem</Path>
+				</File>
+				<File Id="236068492" Language="SFX">
+					<ShortName>CRIS\Cris-02.wav</ShortName>
+					<Path>SFX\CRIS\Cris-02_9E69E797.wem</Path>
 				</File>
 				<File Id="303478541" Language="SFX">
 					<ShortName>TireSkid_05.wav</ShortName>
 					<Path>SFX\TireSkid_05_9E69E797.wem</Path>
 				</File>
+				<File Id="326881663" Language="SFX">
+					<ShortName>CRIS\Cris-18.wav</ShortName>
+					<Path>SFX\CRIS\Cris-18_9E69E797.wem</Path>
+				</File>
+				<File Id="352217460" Language="SFX">
+					<ShortName>CRIS\Cris-13.wav</ShortName>
+					<Path>SFX\CRIS\Cris-13_9E69E797.wem</Path>
+				</File>
 				<File Id="475528038" Language="SFX">
 					<ShortName>TireSkid_01.wav</ShortName>
 					<Path>SFX\TireSkid_01_9E69E797.wem</Path>
+				</File>
+				<File Id="491795483" Language="SFX">
+					<ShortName>CRIS\Cris-04.wav</ShortName>
+					<Path>SFX\CRIS\Cris-04_9E69E797.wem</Path>
 				</File>
 				<File Id="524977779" Language="SFX">
 					<ShortName>TireSkid_02.wav</ShortName>
 					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
 				</File>
+				<File Id="525362392" Language="SFX">
+					<ShortName>CRIS\Cris-06.wav</ShortName>
+					<Path>SFX\CRIS\Cris-06_9E69E797.wem</Path>
+				</File>
+				<File Id="573882583" Language="SFX">
+					<ShortName>CRIS\Cris-11.wav</ShortName>
+					<Path>SFX\CRIS\Cris-11_9E69E797.wem</Path>
+				</File>
+				<File Id="639288570" Language="SFX">
+					<ShortName>CRIS\Cris-01.wav</ShortName>
+					<Path>SFX\CRIS\Cris-01_9E69E797.wem</Path>
+				</File>
+				<File Id="659149419" Language="SFX">
+					<ShortName>CRIS\Cris-03.wav</ShortName>
+					<Path>SFX\CRIS\Cris-03_9E69E797.wem</Path>
+				</File>
 				<File Id="704711695" Language="SFX">
 					<ShortName>TireSkid_03.wav</ShortName>
 					<Path>SFX\TireSkid_03_9E69E797.wem</Path>
 				</File>
-				<File Id="881945883" Language="SFX">
-					<ShortName>AmbProto_Loop_01.wav</ShortName>
-					<Path>SFX\AmbProto_Loop_01_4B8CC0C5.wem</Path>
+				<File Id="770348932" Language="SFX">
+					<ShortName>CRIS\Cris-17.wav</ShortName>
+					<Path>SFX\CRIS\Cris-17_9E69E797.wem</Path>
+				</File>
+				<File Id="891196897" Language="SFX">
+					<ShortName>CRIS\Cris-07.wav</ShortName>
+					<Path>SFX\CRIS\Cris-07_9E69E797.wem</Path>
 				</File>
 				<File Id="894615118" Language="SFX">
 					<ShortName>Boost_01.wav</ShortName>
 					<Path>SFX\Boost_01_9E69E797.wem</Path>
 				</File>
+				<File Id="913329079" Language="SFX">
+					<ShortName>CRIS\Cris-19.wav</ShortName>
+					<Path>SFX\CRIS\Cris-19_9E69E797.wem</Path>
+				</File>
 				<File Id="965973065" Language="SFX">
 					<ShortName>Alfa_Romeo_8C_Competizione.model</ShortName>
 					<Path>Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem</Path>
+				</File>
+				<File Id="1002126405" Language="SFX">
+					<ShortName>CRIS\Cris-09.wav</ShortName>
+					<Path>SFX\CRIS\Cris-09_9E69E797.wem</Path>
+				</File>
+				<File Id="1053869606" Language="SFX">
+					<ShortName>Amb_Simple_OK.wav</ShortName>
+					<Path>SFX\Amb_Simple_OK_4B8CC0C5.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
