@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -900460247
-    m_lastTimePart2: -1999355972
+    m_lastTimePsrt1: 54390485
+    m_lastTimePart2: -1999355373
     List:
     - Name: Car_Boost
       Path: Default Work Unit\Car\Car_Boost
@@ -43,17 +43,29 @@ MonoBehaviour:
       ID: 410072009
       Guid: 49885191d5345141821c5dbb7f1e4b22
       maxAttenuation: 0
-    - Name: Car_Skid
-      Path: Default Work Unit\Car\Car_Skid
+    - Name: Car_Skid_Play
+      Path: Default Work Unit\Car\Car_Skid_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Car
         ObjectType: 4
-      - ElementName: Car_Skid
+      - ElementName: Car_Skid_Play
         ObjectType: 3
-      ID: 2101189585
+      ID: 885871882
       Guid: ad5e59ea8b295f4facaf669fe73bbf7d
+      maxAttenuation: 0
+    - Name: Car_Skid_Stop
+      Path: Default Work Unit\Car\Car_Skid_Stop
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Skid_Stop
+        ObjectType: 3
+      ID: -2004893388
+      Guid: cc009cace6bf6d42807c8461c99d5f7c
       maxAttenuation: 0
     - Name: Play_Ambiance
       Path: Default Work Unit\Ambiance\Play_Ambiance
@@ -104,8 +116,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: 2091402289
-    m_lastTimePart2: -1999357204
+    m_lastTimePsrt1: 1565157964
+    m_lastTimePart2: -1999355759
     List:
     - Name: Car_Motor
       Path: Default Work Unit\Car_Motor
@@ -120,7 +132,7 @@ MonoBehaviour:
   - /CarsDino_CAR_Motor
   - /CarsDino_CAR_Motor/Events
   - /CarsDino_CAR_Motor/Events/Default Work Unit
-  - /CarsDino_CAR_Motor/Events/Default Work Unit/Car
+  - /CarsDino_CAR_Motor/Events/Default Work Unit/Ambiance
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

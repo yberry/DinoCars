@@ -73,14 +73,12 @@ namespace CND.Car
 			
 		}
 
-
-
         void CheckForContact() //aka the "I have no idea what I'm doing" section
         {
             RaycastHit hit;
             ContactInfo curContact=new ContactInfo();
             const float halfPI= (float)(System.Math.PI * 0.5);
-            const float fullCircle = 360f;
+            const float fullCircle = Mathf.PI*2f;
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
            
@@ -111,10 +109,12 @@ namespace CND.Car
             //   dotForward = Quaternion.FromToRotation(transform.forward, moveDir).y;
 
 
-            var asinForward = MathEx.DotToLerp(dotForward); //asin(dot)/(pi/2)
+            var asinForward = MathEx.DotToLinear(dotForward); //asin(dot)/(pi/2)
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
-            var asinSide = MathEx.DotToLerp(dotSideways);
+            var asinSide = MathEx.DotToLinear(dotSideways);
             if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
+
+			
 			
 			curContact.angularVelocity = (curContact.angularVelocity + moveDelta.magnitude * wheelCircumference) % wheelCircumference;
             angularVelAngle += curContact.angularVelocity * Mathf.Sign(asinForward);
@@ -145,7 +145,7 @@ namespace CND.Car
 			
             if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
-
+			
 				float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength =  settings.baseSpringLength - springLength;
 
@@ -163,7 +163,7 @@ namespace CND.Car
 				const float shockCancelPct = 100;
 				Vector3 hitToHinge = transform.position - wheelCenter;
 				var shockCancel = Vector3.Slerp(-vel , transform.up * vel.magnitude, dotVelY);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
-                shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLerp(-dotVelGrav)));
+                shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLinear(-dotVelGrav)));
                 var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
                 var stickToFloor =  (-gravity * ((dotDownGrav + 1f) * 0.5f) + shockCancel ); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
 
@@ -187,8 +187,8 @@ namespace CND.Car
                     
                 //curContactInfo.pushForce = Vector3.Lerp(m_contactInfo.pushForce, curContactInfo.pushForce, 0.25f);
             } else  {
-                
-                if (prevContactInfo.isOnFloor)
+				
+				if (prevContactInfo.isOnFloor)
                 {
                     curContact = prevContactInfo;
                     curContact.isOnFloor = false;
@@ -353,7 +353,7 @@ namespace CND.Car
 
 			const float arcAngle= 30f;
 			Handles.DrawSolidArc(wheelCenter, lookRotNormal*Vector3.forward,
-			   rotNorm * (Quaternion.Euler(angularVelAngle- arcAngle * 0.5f, 0, 0))* Vector3.down, arcAngle, settings.wheelRadius*0.9f);
+			   rotNorm * (Quaternion.Euler(angularVelAngle*Mathf.Rad2Deg- arcAngle * 0.5f, 0, 0))* Vector3.down, arcAngle, settings.wheelRadius*0.9f);
 
 			//max compression
 
