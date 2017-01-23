@@ -14,6 +14,7 @@ public class MatchBones : MonoBehaviour {
     public MegaShape shape;
     public int spline;
     public BoneKnot[] boneKnots;
+    public Vector3 generalOffset;
 
     Transform shapeTr;
     MegaSpline megaSpline;
@@ -34,10 +35,16 @@ public class MatchBones : MonoBehaviour {
 
     void UpdateKnot(BoneKnot bk)
     {
-        megaSpline.knots[bk.knot].p = bk.bone.position;
-        if (bk.knot == 0)
+        MegaKnot knot = megaSpline.knots[bk.knot];
+        Vector3 newPos = shapeTr.InverseTransformPoint(bk.bone.position);
+
+        if (newPos != knot.p)
         {
-            Debug.Log(bk.bone.position);
+            Vector3 delta = newPos - knot.p;
+            knot.invec += delta;
+            knot.outvec += delta;
+            knot.p = newPos;
+            shape.CalcLength();
         }
     }
 }

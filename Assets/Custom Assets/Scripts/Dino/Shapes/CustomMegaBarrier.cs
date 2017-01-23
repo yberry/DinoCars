@@ -24,14 +24,8 @@ public class CustomMegaBarrier : MonoBehaviour {
     {
         foreach (Transform tr in transform)
         {
-            Debug.Log("reset");
             DestroyImmediate(tr.gameObject);
         }
-    }
-
-    void Start()
-    {
-        Debug.Log(transform.childCount);
     }
 
     void Update()

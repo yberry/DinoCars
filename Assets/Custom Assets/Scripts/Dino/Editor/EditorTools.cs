@@ -65,4 +65,15 @@ public static class EditorTools {
             field = b;
         }
     }
+
+    public static void UpdateVector3(this Object obj, ref Vector3 field, string label)
+    {
+        EditorGUI.BeginChangeCheck();
+        Vector3 v = EditorGUILayout.Vector3Field(label, field);
+        if (EditorGUI.EndChangeCheck())
+        {
+            obj.Record(label);
+            field = v;
+        }
+    }
 }
