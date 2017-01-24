@@ -133,9 +133,10 @@ namespace CND.Car
         [HideInInspector]
         public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
 
-        float steering, accelInput, footbrake, handbrake;
+        float steering, rawAccel, rawFootbrake, accelInput, handbrake;
         float accelOutput;
-        Vector3 curVelocity, prevVelocity;
+		float moveForwardness;
+        Vector3 curVelocity, prevVelocity, prevPos;
         bool boost, drift;
 		public bool IsBoosting { get { return boost; } }
 		public float BoostDuration { get; protected set; }
@@ -163,8 +164,10 @@ namespace CND.Car
         {
             prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
+			var dotMoveFwd = Vector3.Dot((transform.position- prevPos ).normalized, transform.forward);
+			moveForwardness = Mathf.Approximately(dotMoveFwd, 0f) ? dotMoveFwd: Mathf.Sign(accelOutput);
 
-            ApplyDownForce();
+			ApplyDownForce();
             ApplySteering();
             ApplyMotorForces();
 
@@ -172,6 +175,7 @@ namespace CND.Car
                 CorrectOrientation();
 
 			CamTargetPoint = transform.position +(transform.rotation* rBody.centerOfMass) + rBody.velocity;
+			prevPos = transform.position;
 
 		}
 
@@ -188,7 +192,8 @@ namespace CND.Car
         public override void Move(float steering, float accel)
         {
             this.steering = Mathf.Lerp(this.steering, Mathf.Abs(steering*steering) *Mathf.Sign(steering),0.75f*(1f-Mathf.Abs(steering))+ 0.25f);
-            this.accelInput = Mathf.Clamp(accel+footbrake,-1f,1f);
+			this.rawAccel = accel;
+			this.accelInput = Mathf.Clamp(accel+rawFootbrake,-1f,1f);
 
             var accelSign = Mathf.Sign(accelInput- accelOutput);
             //this.accelInput *= this.accelInput;
@@ -199,7 +204,8 @@ namespace CND.Car
 		{
 			bool prevDrift = this.drift;
 
-			this.footbrake = footbrake;
+			this.rawFootbrake = footbrake;
+			
 			this.handbrake = handbrake;
 			this.boost = boost > 0;
 			this.drift = drift > 0;
@@ -221,8 +227,11 @@ namespace CND.Car
 
 		protected override int GetGear()
         {
-            float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;            
-            return (int)(Mathf.Clamp(Mathf.Sign(accelInput)*(1f + (CurStg.transmissionCurves.Length + offset) * (SpeedRatio)),-1, CurStg.transmissionCurves.Length));
+			
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;
+			int nexGear = (int)(Mathf.Clamp((1f + (CurStg.transmissionCurves.Length + offset) * (SpeedRatio)), -1, CurStg.transmissionCurves.Length));
+
+			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
         }
 
         int GetNextGear()
@@ -296,30 +305,47 @@ namespace CND.Car
 
             if (! (contact.isOnFloor && contact.wasAlreadyOnFloor)) return;
 
+			float absForward = Mathf.Abs(contact.forwardRatio);
+			float absSide = Mathf.Abs(contact.sidewaysRatio);
+			float speedDecay = Time.fixedDeltaTime * 85f;
+			float powerRatio = (float)(totalContacts * totalWheels);
+
+			int gear = GetGear() - 1;
+			float gearSpeed=0, accelPower = 0;
 			float velDelta = curVelocity.magnitude - prevVelocity.magnitude;
-            var absForward = Mathf.Abs(contact.forwardRatio);
-            var absSide = Mathf.Abs(contact.sidewaysRatio);
-            int gear = GetGear() - 1;
-            var gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0,gear)].Evaluate(accelOutput) * CurStg.targetSpeed;
-            var powerRatio = (float)(totalContacts * totalWheels);
-            var inertiaPower = (contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
-            var accelPower = Mathf.Lerp(inertiaPower,/* inertiaPower*Time.fixedDeltaTime*50f+*/ gearSpeed / powerRatio, Mathf.Abs(accelOutput));
-			var brakePower = Mathf.Lerp(0,/* inertiaPower*Time.fixedDeltaTime*50f+*/ accelPower, -velDelta);
+			float inertiaPower = Mathf.Abs(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime *10f) * CurStg.targetSpeed / powerRatio;
+			float brakePower = 0;
+			bool shouldGoBackwards = gear < 0 && (contact.forwardRatio <= 0 || accelOutput < 0);
+
+			if (!shouldGoBackwards)
+			{
+				//forward
+				gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0, gear)].Evaluate(Mathf.Max(0, rawAccel)) * CurStg.targetSpeed;
+				accelPower = Mathf.Lerp(inertiaPower, gearSpeed / powerRatio, rawAccel);
+				brakePower = Mathf.Lerp(0,Mathf.Min(inertiaPower, accelPower) * speedDecay.Squared(), -rawFootbrake);
+			} else
+			{
+				//backward
+				gearSpeed = CurStg.transmissionCurves[0].Evaluate(Mathf.Min(0, rawFootbrake)) * CurStg.targetSpeed;
+				accelPower = Mathf.Lerp(inertiaPower, gearSpeed / powerRatio, -rawFootbrake);
+				brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower, accelPower) * speedDecay, rawAccel);
+
+			}
+
 			var gravForward = MathEx.DotToLinear(Vector3.Dot(Physics.gravity.normalized,Vector3.ClampMagnitude( contact.velocity,1)));
-            float speedDecay = Time.fixedDeltaTime* 85f;
 			float angVelDelta = contact.velocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
-			
-			//Debug.Log(angVelDelta);
-			
+
 			if (boost)
 				accelPower *= CurStg.boostRatio;
 
-			Vector3 nextForwardVel = contact.forwardDirection * (accelPower);// * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
+			Vector3 nextForwardVel = contact.forwardDirection * (accelPower-brakePower);// * contact.forwardFriction;//Vector3.Slerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower,1f-absSide* absSide);// *absForward;
 			//nextForwardVel = Vector3.Lerp(rBody.velocity * speedDecay, contact.forwardDirection * accelPower, 1f - absSide * absSide);
 			nextForwardVel += contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
 
+			var frontCancel = contact.forwardDirection * rBody.velocity.magnitude * speedDecay;
+			var sideCancel = -contact.sideDirection * rBody.velocity.magnitude;
 			Vector3 driftCancel = Vector3.Lerp(-rBody.velocity * 0.5f *0,
-				contact.forwardDirection*contact.velocity.magnitude * speedDecay - contact.sideDirection * rBody.velocity.magnitude,absSide/* Mathf.Abs( contact.sidewaysDot)*/);
+				frontCancel + sideCancel,absSide/* Mathf.Abs( contact.sidewaysDot)*/);
 
 			Vector3 nextSidewaysVel = Vector3.Lerp(
 				//	 curVelocity *  (1f-contact.sideFriction-Time.fixedDeltaTime),
