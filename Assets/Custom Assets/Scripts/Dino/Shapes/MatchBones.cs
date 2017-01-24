@@ -4,47 +4,93 @@ using UnityEngine;
 
 public class MatchBones : MonoBehaviour {
 
-    [System.Serializable]
-    public struct BoneKnot
-    {
-        public Transform bone;
-        public int knot;
-    }
-
     public MegaShape shape;
     public int spline;
-    public BoneKnot[] boneKnots;
-    public Vector3 generalOffset;
+    public Transform[] bones;
 
-    Transform shapeTr;
     MegaSpline megaSpline;
+    Transform shapeTr;
 
     void Awake()
     {
+        UpdateEditor();
+    }
+
+    public void UpdateEditor()
+    {
         megaSpline = shape.splines[spline];
         shapeTr = shape.transform;
+
+        while (bones.Length > megaSpline.knots.Count)
+        {
+            megaSpline.AddKnot(Vector3.zero, Vector3.right, Vector3.left);
+            shape.CalcLength();
+        }
+
+        while (bones.Length < megaSpline.knots.Count)
+        {
+            megaSpline.knots.RemoveAt(megaSpline.knots.Count - 1);
+            shape.CalcLength();
+        }
+
+        Update();
     }
     
     void Update()
     {
-        foreach (BoneKnot bk in boneKnots)
+        for (int i = 0; i < bones.Length; i++)
         {
-            UpdateKnot(bk);
+            UpdateKnot(bones[i], i);
+        }
+
+        for (int i = 0; i < bones.Length; i++)
+        {
+            UpdateTang(i);
         }
     }
 
-    void UpdateKnot(BoneKnot bk)
+    void UpdateKnot(Transform bone, int index)
     {
-        MegaKnot knot = megaSpline.knots[bk.knot];
-        Vector3 newPos = shapeTr.InverseTransformPoint(bk.bone.position);
+        MegaKnot knot = megaSpline.knots[index];
+        Vector3 newPos = shapeTr.InverseTransformPoint(bone.position);
 
         if (newPos != knot.p)
         {
-            Vector3 delta = newPos - knot.p;
-            knot.invec += delta;
-            knot.outvec += delta;
             knot.p = newPos;
             shape.CalcLength();
+        }
+    }
+
+    void UpdateTang(int index)
+    {
+        MegaKnot knot = megaSpline.knots[index];
+        if (index == 0)
+        {
+            Vector3 next = megaSpline.knots[1].p;
+            Vector3 outV = (knot.p + next) * 0.5f;
+            Vector3 inV = 2f * knot.p - outV;
+
+            knot.invec = inV;
+            knot.outvec = outV;
+        }
+        else if (index == bones.Length - 1)
+        {
+            Vector3 previous = megaSpline.knots[index - 1].p;
+            Vector3 inV = (knot.p + previous) * 0.5f;
+            Vector3 outV = 2f * knot.p - inV;
+
+            knot.invec = inV;
+            knot.outvec = outV;
+        }
+        else
+        {
+            Vector3 previous = megaSpline.knots[index - 1].p;
+            Vector3 next = megaSpline.knots[index + 1].p;
+            Vector3 outV = (knot.p + next) * 0.5f;
+            Vector3 inV = (knot.p + previous) * 0.5f;
+
+            knot.invec = inV;
+            knot.outvec = outV;
         }
     }
 }

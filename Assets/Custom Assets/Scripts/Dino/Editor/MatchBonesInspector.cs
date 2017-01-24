@@ -29,12 +29,14 @@ public class MatchBonesInspector : Editor {
             matchBones.spline = 0;
         }
 
-        SerializedProperty boneKnots = serializedObject.FindProperty("boneKnots");
+        SerializedProperty boneKnots = serializedObject.FindProperty("bones");
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(boneKnots, true);
         if (EditorGUI.EndChangeCheck())
         {
             serializedObject.ApplyModifiedProperties();
         }
+
+        matchBones.UpdateEditor();
     }
 }
