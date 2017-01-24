@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: 54390485
-    m_lastTimePart2: -1999355373
+    m_lastTimePsrt1: 513924564
+    m_lastTimePart2: -1999354787
     List:
     - Name: Car_Boost
       Path: Default Work Unit\Car\Car_Boost
@@ -30,6 +30,18 @@ MonoBehaviour:
         ObjectType: 3
       ID: -51323519
       Guid: 4a208208b49a704ead922074610b7f62
+      maxAttenuation: 0
+    - Name: Car_Boost_Stop
+      Path: Default Work Unit\Car\Car_Boost_Stop
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Boost_Stop
+        ObjectType: 3
+      ID: -809537340
+      Guid: 023f1068d1b5d941852662fd2bef78b6
       maxAttenuation: 0
     - Name: Car_Crash
       Path: Default Work Unit\Car\Car_Crash
@@ -102,8 +114,8 @@ MonoBehaviour:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{0891A86F-4F8E-4585-8095-DAEFB505EF7F}'
-    m_lastTimePsrt1: -775374428
-    m_lastTimePart2: -1999358825
+    m_lastTimePsrt1: -549467301
+    m_lastTimePart2: -1999355364
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
@@ -116,9 +128,18 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: 1565157964
-    m_lastTimePart2: -1999355759
+    m_lastTimePsrt1: 1391300855
+    m_lastTimePart2: -1999354778
     List:
+    - Name: Ambiance
+      Path: Default Work Unit\Ambiance
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Ambiance
+        ObjectType: 7
+      ID: -1313589867
+      Guid: cae10ced3d57ad4ebf349f5800474e56
     - Name: Car_Motor
       Path: Default Work Unit\Car_Motor
       PathAndIcons:
@@ -130,9 +151,6 @@ MonoBehaviour:
       Guid: 0ffee3c1d0b6e74fa3b19a665a64f48e
   ExpandedItems:
   - /CarsDino_CAR_Motor
-  - /CarsDino_CAR_Motor/Events
-  - /CarsDino_CAR_Motor/Events/Default Work Unit
-  - /CarsDino_CAR_Motor/Events/Default Work Unit/Ambiance
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

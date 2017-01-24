@@ -9,7 +9,7 @@ namespace CND.Car
     public class CarAudio : MonoBehaviour
     {
 
-        public BaseCarController carController;
+        public BaseCarController car;
         public Wheel[] wheels;
         private bool gearUpDown;
         private bool play;
@@ -28,8 +28,8 @@ namespace CND.Car
 
         void Awake()
         {
-            if (!carController)
-                carController = GetComponent<BaseCarController>();
+            if (!car)
+                car = GetComponent<BaseCarController>();
                  wheels = GetComponentsInChildren<Wheel>();
         }
    
@@ -56,7 +56,7 @@ namespace CND.Car
         void CheckGearSwitch()
         {
             prevGear = currentGear;
-            currentGear = carController.CurrentGear;
+            currentGear = car.CurrentGear;
 
             if (prevGear != currentGear)
             {
@@ -83,19 +83,21 @@ namespace CND.Car
 
            
             
-            RPM = carController.GetRPMRatio() * nbRotationLimit;
+            RPM = car.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
            
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
-            AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
-            AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
-            
-            //if (((ArcadeCarController)carController).IsBoosting)
-          
-            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)carController).BoostDuration);
+            AkSoundEngine.SetRTPCValue("RPM", car.GetRPMRatio());
+            AkSoundEngine.SetRTPCValue("Velocity", car.rBody.velocity.magnitude);
 
-            //if (((ArcadeCarController)carController).BoostDuration > 0)            Debug.Log("BoostTimer: " + ((ArcadeCarController)carController).BoostDuration);
+            //if (((ArcadeCarController)carController).IsBoosting)
+           
+            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)car).BoostDuration);
+
+            //if (((ArcadeCarController)carController).BoostDuration > 0)            
+
+            Debug.Log("BoostTimer: " + ((ArcadeCarController)car).BoostDuration);
             
            
 
