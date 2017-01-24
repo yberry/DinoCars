@@ -12,17 +12,11 @@ public class MatchBonesInspector : Editor {
     {
         matchBones = target as MatchBones;
 
-        EditorGUI.BeginChangeCheck();
-        MegaShape shape = (MegaShape)EditorGUILayout.ObjectField("Shape", matchBones.shape, typeof(MegaShape), true);
-        if (EditorGUI.EndChangeCheck())
-        {
-            matchBones.Record("Shape");
-            matchBones.shape = shape;
-        }
+        matchBones.UpdateObject(ref matchBones.shape, "Shape");
 
-        if (shape.splines.Count > 1)
+        if (matchBones.shape.splines.Count > 1)
         {
-            matchBones.UpdateInt(ref matchBones.spline, "Spline", 0, shape.splines.Count - 1);
+            matchBones.UpdateInt(ref matchBones.spline, "Spline", 0, matchBones.shape.splines.Count - 1);
         }
         else
         {

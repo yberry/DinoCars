@@ -76,4 +76,15 @@ public static class EditorTools {
             field = v;
         }
     }
+
+    public static void UpdateObject<T>(this Object obj, ref T field, string label) where T : Object
+    {
+        EditorGUI.BeginChangeCheck();
+        T t = (T)EditorGUILayout.ObjectField(label, field, typeof(T), true);
+        if (EditorGUI.EndChangeCheck())
+        {
+            obj.Record(label);
+            field = t;
+        }
+    }
 }
