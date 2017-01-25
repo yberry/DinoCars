@@ -5,6 +5,12 @@ using Rewired;
 using CND.Car;
 public class CarReInput : MonoBehaviour {
 
+	public enum Mapping
+	{
+		Classic,
+		AnalogDrift
+	}
+
     [Range(1,4)]
     public int playerSlot=1;
     //[DisplayModifier(hideMode: DM_HideMode.Default)]
@@ -12,12 +18,8 @@ public class CarReInput : MonoBehaviour {
     [DisplayModifier(DM_HidingMode.GreyedOut)]
     public BaseCarController car;
 
+	public Mapping mappingStyle;
 
-    [Header("Debug Options")]
-    public bool testSteering;
-    [Range(-1f,1f)]
-    public float forceDirAt100Kph = 1f;
-  
     // Use this for initialization
     void Start () {
 
@@ -38,25 +40,30 @@ public class CarReInput : MonoBehaviour {
 
         
 #if !MOBILE_INPUT
-        float h = pInput.GetAxis(Globals.Axis_X1);
-        if (stickTestForce || testSteering && car.rBody.velocity.magnitude > 42)
-        {
-            stickTestForce = true;
-            h = forceDirAt100Kph;
-        }
-           
 
-        float fwd = pInput.GetAxis(Globals.Axis_Z2);
-        float back = pInput.GetAxis(Globals.Axis_Z1);
+		float h = pInput.GetAxis(Globals.Axis_X1);
+		float fwd = pInput.GetAxis(Globals.Axis_Z2);
+		float back, boost, drift, handbrake;
 
-        //Debug.Log("H=" + h + " Fwd=" + fwd + " Bck=" + back);
+		switch (mappingStyle)
+		{
+			case Mapping.Classic:
+				back = pInput.GetAxis(Globals.Axis_Z1);
+				drift = pInput.GetButton(Globals.BtnAction5) || pInput.GetButton(Globals.BtnAction3) ? 1 : 0;
+				break;
+			case Mapping.AnalogDrift:
+				back = pInput.GetButton(Globals.BtnAction3) ? 1 : 0;
+				drift = pInput.GetAxis(Globals.Axis_Z1);
+				
+				break;
+			default: goto case Mapping.Classic;
+		}
 
-        float handbrake = pInput.GetAxis(Globals.BtnAction3);
-        bool boost = pInput.GetButton(Globals.BtnAction1);
-
+		handbrake = pInput.GetButton(Globals.BtnAction2) ? 1 : 0;
+        boost = pInput.GetButton(Globals.BtnAction1) ? 1 : 0;
 
         car.Move(h, fwd);
-		car.Action(back, handbrake, boost ? 1 : 0, pInput.GetButton(Globals.BtnAction5) ? 1 : 0);
+		car.Action(back, handbrake, boost,drift );
 
 #else
             car.Move(h, v, v, 0f);

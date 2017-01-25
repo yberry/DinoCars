@@ -46,6 +46,7 @@ namespace CND.Car
 
 		public void Refresh()
 		{
+			//Debug.Log("carSettings: " + carSettings + " - displayed: " + displayedSettings);
 			if (PresetChanged)
 			{
 				prevSettings = carSettings;
@@ -62,12 +63,13 @@ namespace CND.Car
 				case 0: return;
 				case SyncMode.ActiveToPreset: CopyActiveToPreset(); return;
 				case SyncMode.PresetToActive: CopyPresetToActive(); return;
-				case SyncMode.DefaultsToActive: CopyDefaultsToActive(); return;
-				case SyncMode.ActiveToDefaults: CopyActiveToDefaults(); return;
+				//case SyncMode.DefaultsToActive: CopyDefaultsToActive(); return;
+				//case SyncMode.ActiveToDefaults: CopyActiveToDefaults(); return;
 			}
 
 		}
 
+		/*
 		public void CopyActiveToDefaults()
 		{
 			CopySettings(ref displayedSettings, ref car.defaultSettings);
@@ -77,19 +79,24 @@ namespace CND.Car
 		{
 			CopySettings(ref car.defaultSettings,ref displayedSettings);
 		}
+		*/
 
 		public void CopyPresetToActive()
 		{
-			CopySettings(ref carSettings.preset,ref displayedSettings);
+			
+			if (carSettings)
+				CopySettings(ref carSettings.preset,ref displayedSettings);
 		}
 
 		public void CopyActiveToPreset()
 		{
-			CopySettings(ref displayedSettings,ref carSettings.preset);
+			if (carSettings)
+				CopySettings(ref displayedSettings,ref carSettings.preset);
 		}
 
 		public static void CopySettings(ref ArcadeCarController.Settings source,ref  ArcadeCarController.Settings dest)
 		{
+
 			dest = source.Clone();
 		}
 
