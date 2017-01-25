@@ -139,6 +139,7 @@ public class MatchBones : MonoBehaviour {
     public MegaShape shape;
     public int spline;
     public Transform[] bones;
+    public bool smoothTang;
 
     MegaSpline megaSpline;
     Transform shapeTr;
@@ -212,21 +213,30 @@ public class MatchBones : MonoBehaviour {
         {
             outV = 2f * newPos - knot.invec;
         }
-        
-        Vector3 toIn = inV - knot.p;
-        Vector3 toOut = outV - knot.p;
 
-        float angle = Vector3.Angle(toIn, toOut);
-        Vector3 ortho = Vector3.Cross(toIn, toOut).normalized;
+        if (index == 0 || index == megaSpline.knots.Count - 1 || !smoothTang)
+        {
+            knot.invec = inV;
+            knot.outvec = outV;
+        }
+        else
+        {
+            Vector3 toIn = inV - knot.p;
+            Vector3 toOut = outV - knot.p;
 
-        float newAngle = (180f - angle) * 0.5f;
-        Quaternion rot = Quaternion.AngleAxis(newAngle, ortho);
+            float angle = Vector3.Angle(toIn, toOut);
+            Vector3 ortho = Vector3.Cross(toIn, toOut).normalized;
 
-        Vector3 newIn = Quaternion.Inverse(rot) * toIn;
-        Vector3 newOut = rot * toOut;
+            float newAngle = (180f - angle) * 0.5f;
+            Quaternion rot = Quaternion.AngleAxis(newAngle, ortho);
 
-        knot.invec = knot.p + newIn * Mathf.Cos(newAngle * Mathf.Deg2Rad);
-        knot.outvec = knot.p + newOut * Mathf.Cos(newAngle * Mathf.Deg2Rad);
+            Vector3 newIn = Quaternion.Inverse(rot) * toIn;
+            Vector3 newOut = rot * toOut;
+
+            float cos = Mathf.Cos(newAngle * Mathf.Deg2Rad);
+            knot.invec = knot.p + newIn * cos;
+            knot.outvec = knot.p + newOut * cos;
+        }
 
         shape.CalcLength();
     }

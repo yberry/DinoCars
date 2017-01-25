@@ -6,14 +6,12 @@ using UnityEngine.SceneManagement;
 public class Restart : MonoBehaviour {
 
     public KeyCode restartKeyboard = KeyCode.Escape;
-    public VHSEffect vhs;
 
     public Rewired.Player pInput;
 
     void Start()
     {
         pInput = Rewired.ReInput.players.GetPlayer(0);
-        vhs.RefreshAll();
     }
 	
 	void Update ()

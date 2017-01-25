@@ -31,6 +31,8 @@ public class MatchBonesInspector : Editor {
             serializedObject.ApplyModifiedProperties();
         }
 
+        matchBones.UpdateBool(ref matchBones.smoothTang, "Smooth Tang");
+
         matchBones.UpdateEditor();
     }
 }
