@@ -195,22 +195,38 @@ public class MatchBones : MonoBehaviour {
             knot.p = newPos;
         }
 
+        Vector3 inV, outV;
         if (index > 0)
         {
-            knot.invec = shapeTr.InverseTransformPoint(prev.position);
+            inV = shapeTr.InverseTransformPoint(prev.position);
         }
         else
         {
-            knot.invec = 2f * newPos - knot.outvec;
+            inV = 2f * newPos - knot.outvec;
         }
         if (index < megaSpline.knots.Count - 1)
         {
-            knot.outvec = shapeTr.InverseTransformPoint(next.position);
+            outV = shapeTr.InverseTransformPoint(next.position);
         }
         else
         {
-            knot.outvec = 2f * newPos - knot.invec;
+            outV = 2f * newPos - knot.invec;
         }
+        
+        Vector3 toIn = inV - knot.p;
+        Vector3 toOut = outV - knot.p;
+
+        float angle = Vector3.Angle(toIn, toOut);
+        Vector3 ortho = Vector3.Cross(toIn, toOut).normalized;
+
+        float newAngle = (180f - angle) * 0.5f;
+        Quaternion rot = Quaternion.AngleAxis(newAngle, ortho);
+
+        Vector3 newIn = Quaternion.Inverse(rot) * toIn;
+        Vector3 newOut = rot * toOut;
+
+        knot.invec = knot.p + newIn * Mathf.Cos(newAngle * Mathf.Deg2Rad);
+        knot.outvec = knot.p + newOut * Mathf.Cos(newAngle * Mathf.Deg2Rad);
 
         shape.CalcLength();
     }
