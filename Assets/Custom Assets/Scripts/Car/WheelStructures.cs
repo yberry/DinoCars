@@ -84,9 +84,13 @@ namespace CND.Car
             public float springCompression { get; internal set; }
 			public float forwardDot { get; internal set; }
 			public float sidewaysDot { get; internal set; }
+			/// <summary> Forward angle ratio: 1/-1=Fully forward/backward, 0 = 90° on either sides, 45°=0.5 </summary>
 			public float forwardRatio { get; internal set; }
-            public float sidewaysRatio { get; internal set; }
-            public float forwardFriction { get; internal set; }
+			/// <summary> Side angle ratio: -1/1=Full left/right, 0 = fully forward/backward, 45°=0.5 </summary>
+			public float sidewaysRatio { get; internal set; }
+			/// <summary> Forward friction ratio, calculated from current angle and friction </summary>
+			public float forwardFriction { get; internal set; }
+			/// <summary> Lateral friction ratio, calculated from current angle and friction </summary>
             public float sideFriction { get; internal set; }
             
             public RaycastHit hit { get; internal set; }

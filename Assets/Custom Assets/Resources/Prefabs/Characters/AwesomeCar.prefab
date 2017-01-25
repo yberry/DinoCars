@@ -403,7 +403,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1695390756711312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3125, y: 0.049999952, z: -1.8}
+  m_LocalPosition: {x: 0.3125, y: 0.049999952, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
@@ -416,7 +416,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332670401557240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.049999952, z: -1.8}
+  m_LocalPosition: {x: 0.2, y: 0.049999952, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
@@ -442,7 +442,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1134257221044526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 0.049999952, z: -1.8}
+  m_LocalPosition: {x: -0.2, y: 0.049999952, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
@@ -455,7 +455,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1269244447691702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3125, y: 0.05, z: -1.8}
+  m_LocalPosition: {x: -0.3125, y: 0.05, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
@@ -877,6 +877,7 @@ MonoBehaviour:
         m_RotationOrder: 0
       maxTurnAngle: 30
       turnSpeed: 90
+      brakeEffectiveness: 0.5
       tractionControl: 0.5
       driftControl: 1
       steeringHelper: 0.5
@@ -980,9 +981,10 @@ MonoBehaviour:
       m_RotationOrder: 0
     maxTurnAngle: 42
     turnSpeed: 42
+    brakeEffectiveness: 0.5
     tractionControl: 1
-    driftControl: 1
-    steeringHelper: 0.5
+    driftControl: 0.5
+    steeringHelper: 0
     downForce: 0
     centerOfMassOffset: {x: 0, y: -0.075, z: -0.0125}
     orientationFix: 0
@@ -1128,10 +1130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c90a49d721e1074aaa13783dd39646f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoDestroy: 0
-  particleEffects: []
   car: {fileID: 0}
-  anchors: []
+  particleEffects:
+  - {fileID: 198408283541678326, guid: 24d215a2330e5bf4191eb92258373d30, type: 2}
+  anchors:
+  - {fileID: 4967750469892326}
+  - {fileID: 4551560569609904}
+  - {fileID: 4962248363143368}
+  - {fileID: 4876219320153170}
 --- !u!114 &114555418574234862
 MonoBehaviour:
   m_ObjectHideFlags: 1
