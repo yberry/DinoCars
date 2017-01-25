@@ -173,30 +173,19 @@ public class MatchBones : MonoBehaviour {
     
     void Update()
     {
-        int knots = 0;
-        for (int i = 0; i < bones.Length; i++)
-        {
-            if (kttk.seq[i] == 'K')
-            {
-                UpdateKnot(bones[i], knots);
-                knots++;
-            }
-        }
-
-        knots = 0;
-        for (int i = 0; i < bones.Length; i++)
+        for (int i = 0, knots = 0; i < bones.Length; i++)
         {
             if (kttk.seq[i] == 'K')
             {
                 Transform prev = i == 0 ? null : bones[i - 1];
                 Transform next = i == bones.Length - 1 ? null : bones[i + 1];
-                UpdateTang(knots, prev, next);
+                UpdateKnot(knots, bones[i], prev, next);
                 knots++;
             }
         }
     }
 
-    void UpdateKnot(Transform bone, int index)
+    void UpdateKnot(int index, Transform bone, Transform prev, Transform next)
     {
         MegaKnot knot = megaSpline.knots[index];
         Vector3 newPos = shapeTr.InverseTransformPoint(bone.position);
@@ -204,51 +193,41 @@ public class MatchBones : MonoBehaviour {
         if (newPos != knot.p)
         {
             knot.p = newPos;
-            shape.CalcLength();
         }
-    }
 
-    void UpdateTang(int index, Transform prev, Transform next)
-    {
-        MegaKnot knot = megaSpline.knots[index];
         if (index > 0)
         {
             knot.invec = shapeTr.InverseTransformPoint(prev.position);
+        }
+        else
+        {
+            knot.invec = 2f * newPos - knot.outvec;
         }
         if (index < megaSpline.knots.Count - 1)
         {
             knot.outvec = shapeTr.InverseTransformPoint(next.position);
         }
-    }
-
-    /*void UpdateTang(int index)
-    {
-        MegaKnot knot = megaSpline.knots[index];
-        if (index == 0)
-        {
-            Vector3 next = megaSpline.knots[1].p;
-            Vector3 outV = (knot.p + next) * 0.5f;
-            Vector3 inV = 2f * knot.p - outV;
-
-            knot.invec = inV;
-            knot.outvec = outV;
-        }
-        else if (index == bones.Length - 1)
-        {
-            Vector3 previous = megaSpline.knots[index - 1].p;
-            Vector3 inV = (knot.p + previous) * 0.5f;
-            Vector3 outV = 2f * knot.p - inV;
-
-            knot.invec = inV;
-            knot.outvec = outV;
-        }
         else
         {
-            Vector3 previous = megaSpline.knots[index - 1].p;
-            Vector3 next = megaSpline.knots[index + 1].p;
+            knot.outvec = 2f * newPos - knot.invec;
+        }
 
-            knot.invec = (knot.p + previous) * 0.5f;
+        shape.CalcLength();
+    }
+
+    [System.Obsolete("Ancienne technique sacrée")]
+    void UpdateTang(int index)
+    {
+        MegaKnot knot = megaSpline.knots[index];
+        if (index > 0)
+        {
+            Vector3 previous = megaSpline.knots[index - 1].p;
+            knot.invec = (knot.p + previous) * 0.5f; ;
+        }
+        if (index < bones.Length - 1)
+        {
+            Vector3 next = megaSpline.knots[1].p;
             knot.outvec = (knot.p + next) * 0.5f;
         }
-    }*/
+    }
 }
