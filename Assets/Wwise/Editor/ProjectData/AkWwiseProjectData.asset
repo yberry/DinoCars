@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -881775709
-    m_lastTimePart2: -1999354767
+    m_lastTimePsrt1: 896946653
+    m_lastTimePart2: -1999354606
     List:
     - Name: Car_Boost
       Path: Default Work Unit\Car\Car_Boost
@@ -91,6 +91,18 @@ MonoBehaviour:
       ID: -1120487318
       Guid: 0e609aa6c8e27a4f8aa5fd27d4516a51
       maxAttenuation: 0
+    - Name: Play_Footsteps
+      Path: Default Work Unit\Dino\Play_Footsteps
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Dino
+        ObjectType: 4
+      - ElementName: Play_Footsteps
+        ObjectType: 3
+      ID: -440811497
+      Guid: 37d2dd20ba10124c97fc56428c89c5d8
+      maxAttenuation: 0
     - Name: Play_Motor
       Path: Default Work Unit\Car\Play_Motor
       PathAndIcons:
@@ -140,8 +152,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: -1619277076
-    m_lastTimePart2: -1999354776
+    m_lastTimePsrt1: 897056649
+    m_lastTimePart2: -1999354606
     List:
     - Name: Ambiance
       Path: Default Work Unit\Ambiance
@@ -161,6 +173,15 @@ MonoBehaviour:
         ObjectType: 7
       ID: 979736363
       Guid: 0ffee3c1d0b6e74fa3b19a665a64f48e
+    - Name: Dino
+      Path: Default Work Unit\Dino
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Dino
+        ObjectType: 7
+      ID: -1897999123
+      Guid: e4c82c9e11ce784588bf1f95b3eefc73
   ExpandedItems:
   - /CarsDino_CAR_Motor
   - /CarsDino_CAR_Motor/Events

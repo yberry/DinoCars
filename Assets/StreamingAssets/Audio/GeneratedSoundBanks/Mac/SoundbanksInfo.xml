@@ -105,6 +105,11 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
+		<SoundBank Id="2396968173" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Dino</ObjectPath>
+			<ShortName>Dino</ShortName>
+			<Path>Dino.bnk</Path>
+		</SoundBank>
 		<SoundBank Id="2981377429" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Ambiance</ObjectPath>
 			<ShortName>Ambiance</ShortName>
