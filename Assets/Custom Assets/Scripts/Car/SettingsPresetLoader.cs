@@ -86,12 +86,16 @@ namespace CND.Car
 			
 			if (carSettings)
 				CopySettings(ref carSettings.preset,ref displayedSettings);
+			else
+				Debug.LogWarning("Car Settings null: nothing loaded");
 		}
 
 		public void CopyActiveToPreset()
 		{
 			if (carSettings)
-				CopySettings(ref displayedSettings,ref carSettings.preset);
+				CopySettings(ref displayedSettings, ref carSettings.preset);
+			else
+				Debug.LogWarning("Car Settings null: nothing saved");
 		}
 
 		public static void CopySettings(ref ArcadeCarController.Settings source,ref  ArcadeCarController.Settings dest)

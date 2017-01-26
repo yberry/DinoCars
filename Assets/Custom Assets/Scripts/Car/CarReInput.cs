@@ -47,24 +47,26 @@ public class CarReInput : MonoBehaviour {
 
 		switch (mappingStyle)
 		{
-			default: goto case Mapping.Classic;
+			
 			case Mapping.Classic:
 				back = pInput.GetAxis(Globals.Axis_Z1);
 				drift = (pInput.GetButton(Globals.BtnAction5)/* || pInput.GetButton(Globals.BtnAction3)*/) ? 1f : 0f;
+				//Debug.Log("back and deift: " + back + " - " + drift);
 				break;
 			case Mapping.AnalogDrift:
 				back = pInput.GetButton(Globals.BtnAction3) ? 1 : 0;
-				drift = pInput.GetAxis(Globals.Axis_Z1);
-				
+				drift = -pInput.GetAxis(Globals.Axis_Z1);				
 				break;
-			
+			default: goto case Mapping.Classic;
+
 		}
 
 		handbrake = pInput.GetButton(Globals.BtnAction2) ? 1 : 0;
         boost = pInput.GetButton(Globals.BtnAction1) ? 1 : 0;
 
-        car.Move(h, fwd);
-		car.Action(back, handbrake, boost,drift );
+		car.Action(back, handbrake, boost, drift);
+		car.Move(h, fwd);
+
 
 #else
             car.Move(h, v, v, 0f);

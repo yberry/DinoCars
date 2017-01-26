@@ -52,9 +52,11 @@ namespace CND.Car
             public float targetSpeed;
 			[SerializeField, Range(1,2)]
 			public float boostRatio;
-           // [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
-           // public AnimationCurve[] transmissionCurves;
-            [Range(0, 90)]
+			[SerializeField, Range(0, 1)]
+			public float accelCurve;
+			// [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
+			// public AnimationCurve[] transmissionCurves;
+			[Range(0, 90)]
             public float maxTurnAngle;
             [Range(0, 360), Tooltip("Max degrees per second")]
             public float turnSpeed;
@@ -75,7 +77,7 @@ namespace CND.Car
             public bool orientationFix;
 
 			public static Settings Create(
-				float targetSpeed = 100f, AnimationCurve[] transmissionCurves = null, float boostRatio = 1.1f,
+				float targetSpeed = 100f, float accelCurve=0.25f, float boostRatio = 1.1f,
 				float brakeEffectiveness = 1f,
 				float maxTurnAngle = 42, float turnSpeed = 42f,
                 float tractionControl = 0.25f, float driftControl = 0.25f, float steeringHelper = 0,
@@ -85,8 +87,9 @@ namespace CND.Car
             {
 				Settings c;
                 c.targetSpeed = targetSpeed;
-              //  c.transmissionCurves = transmissionCurves;
-                c.maxTurnAngle = maxTurnAngle;
+				c.accelCurve = accelCurve;
+			  //  c.transmissionCurves = transmissionCurves;
+				c.maxTurnAngle = maxTurnAngle;
                 c.turnSpeed = turnSpeed;
                 c.tractionControl = tractionControl;
                 c.driftControl = driftControl;
@@ -241,7 +244,7 @@ namespace CND.Car
 			
 			this.handbrake = handbrake;
 			this.boost = boost;
-			this.drift = drift;
+			this.drift = drift.Cubed();
 
 		}
 
@@ -259,7 +262,7 @@ namespace CND.Car
 		protected override int GetGear()
         {
 			
-			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.1f : 0.1f;
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? 0.15f : -0.15f;
 			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
 
 			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
@@ -269,10 +272,11 @@ namespace CND.Car
         {
 			gear = Mathf.Clamp(gear,-1, GearCount);
 			float sign = gear < 0 ? -1 : 1;
-			float fGear = gear == 0 ? 1 : Mathf.Abs(gear);
+			float fGear = gear == 0 ? 1 : Mathf.Abs(gear);			
 			float ratio = fGear / (float)GearCount;
-			float max = (ratio * 1.125f);
-			return Mathf.Abs(t.Squared() * max);
+			float margin = (GearCount - fGear)/ (float)GearCount;
+			float finalRatio = (ratio + margin*CurStg.accelCurve);
+			return Mathf.Abs(t.Squared() * finalRatio)*sign;
 			/*
 			float targetSpd = Mathf.Abs(CurStg.targetSpeed/ (float)GearCount)* fGear;
 
@@ -531,6 +535,8 @@ namespace CND.Car
 			{
 				normalSettings.BindCar(this);
 				normalSettings.Sync(normalSettings.SyncDirection);
+				driftSettings.BindCar(this);
+				driftSettings.Sync(driftSettings.SyncDirection);
 			}
 			
 			normalSettings.Refresh();

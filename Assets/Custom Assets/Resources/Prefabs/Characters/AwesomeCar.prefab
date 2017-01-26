@@ -707,7 +707,7 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.3
+    baseSpringLength: 0.325
     maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
@@ -755,7 +755,7 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.3
+    baseSpringLength: 0.325
     maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
@@ -784,14 +784,15 @@ MonoBehaviour:
     displayedSettings:
       targetSpeed: 250
       boostRatio: 1.5
+      accelCurve: 0.25
       maxTurnAngle: 30
       turnSpeed: 90
       brakeEffectiveness: 0.5
       tractionControl: 0.5
-      driftControl: 0.75
-      steeringHelper: 0.33
-      downForce: 10
-      centerOfMassOffset: {x: 0, y: 0.075, z: 0.0125}
+      driftControl: 1
+      steeringHelper: 0.5
+      downForce: 0
+      centerOfMassOffset: {x: 0, y: -0.075, z: -0.025}
       orientationFix: 0
   driftSettings:
     carSettings: {fileID: 11400000, guid: 02326ad02349a2645ad56599b0bba6a7, type: 2}
@@ -800,6 +801,7 @@ MonoBehaviour:
     displayedSettings:
       targetSpeed: 250
       boostRatio: 1.25
+      accelCurve: 0.5
       maxTurnAngle: 42
       turnSpeed: 42
       brakeEffectiveness: 0.5
@@ -807,9 +809,9 @@ MonoBehaviour:
       driftControl: 0.25
       steeringHelper: 0.25
       downForce: 0
-      centerOfMassOffset: {x: 0, y: -0.06, z: -0.025}
+      centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
-  shakeCompensationDebugVar: {x: 0, y: 0.075, z: 0.05}
+  shakeCompensationDebugVar: {x: 0.0125, y: 0.075, z: 0.025}
   outerWheelSteerRatio: 1
 --- !u!114 &114242575076372704
 MonoBehaviour:
@@ -858,7 +860,7 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.3
+    baseSpringLength: 0.325
     maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
@@ -898,7 +900,7 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.3
+    baseSpringLength: 0.325
     maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 1500
