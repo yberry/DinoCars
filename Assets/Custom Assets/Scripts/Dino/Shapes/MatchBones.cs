@@ -18,11 +18,19 @@ public struct KTTK
             return seq.Count(c => c == 'K');
         }  
     }
-    public int NumT
+    
+
+    public int[] PointsByCurve
     {
         get
         {
-            return seq.Count(c => c == 'T');
+            int[] indexes = seq.Select((c, i) => c == 'K' ? i : -1).Where(i => i != -1).ToArray();
+            int[] rep = new int[indexes.Length - 1];
+            for (int i = 0; i < rep.Length; i++)
+            {
+                rep[i] = indexes[i + 1] - indexes[i];
+            }
+            return rep;
         }
     }
 
@@ -144,7 +152,7 @@ public class MatchBones : MonoBehaviour {
 
     MegaSpline megaSpline;
     Transform shapeTr;
-    KTTK kttk;
+    public KTTK kttk { get; private set; }
 
     void Awake()
     {
@@ -190,11 +198,11 @@ public class MatchBones : MonoBehaviour {
     void UpdateKnot(int knotIndex, int boneIndex, Transform bone, Transform prev, Transform next)
     {
         MegaKnot knot = megaSpline.knots[knotIndex];
-        Vector3 newPos = shapeTr.InverseTransformPoint(bone.position);
+        Vector3 newPos = shapeTr.InverseTransformPoint(bone.position) + offsets[boneIndex];
 
         if (newPos != knot.p)
         {
-            knot.p = newPos + offsets[boneIndex];
+            knot.p = newPos;
         }
 
         Vector3 inV, outV;
