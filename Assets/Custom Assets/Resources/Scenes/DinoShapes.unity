@@ -3070,7 +3070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9775a7243ce4ce847a2e346f6861476e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartKeyboard: 27
+  restartKeycode: 8
+  menuKeycode: 27
+  bank: {fileID: 1518661663}
 --- !u!1001 &501359301
 Prefab:
   m_ObjectHideFlags: 0
@@ -18421,6 +18423,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1513137096}
   m_Mesh: {fileID: 4300000, guid: 087f6fee1d0ea6541b7914ff2cdc7c50, type: 3}
+--- !u!114 &1518661663 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114336194787919338, guid: 9146ec97f7a0b1b42bf2e6a30abc9ce8,
+    type: 2}
+  m_PrefabInternal: {fileID: 226148598}
+  m_Script: {fileID: 11500000, guid: f940b6dcb36621642884c79b2e59ba76, type: 3}
 --- !u!1 &1529429584
 GameObject:
   m_ObjectHideFlags: 0

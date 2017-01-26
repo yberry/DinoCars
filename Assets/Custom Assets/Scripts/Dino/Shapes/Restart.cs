@@ -7,6 +7,7 @@ public class Restart : MonoBehaviour {
 
     public KeyCode restartKeycode = KeyCode.Backspace;
     public KeyCode menuKeycode = KeyCode.Escape;
+    public AkBank bank;
 
     public Rewired.Player pInput;
 
@@ -20,11 +21,13 @@ public class Restart : MonoBehaviour {
 		if (Input.GetKeyDown(restartKeycode) || pInput.GetAxis(Globals.BtnAction4) > 0f)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            bank.UnloadBank(bank.gameObject);
         }
 
         if (Input.GetKeyDown(menuKeycode))
         {
             SceneManager.LoadScene(0);
+            bank.UnloadBank(bank.gameObject);
         }
 	}
 }
