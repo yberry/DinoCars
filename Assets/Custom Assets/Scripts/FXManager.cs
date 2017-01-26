@@ -12,7 +12,7 @@ public class FXManager : MonoBehaviour {
 	
 	}
 
-	public void Update()
+	protected virtual void Update()
 	{
 		if (autoDestroy && played) {
 			bool allFinished = true;
@@ -55,6 +55,27 @@ public class FXManager : MonoBehaviour {
 		}
 	}
 
+	public void Stop(bool withChildren = true)
+	{
+
+		foreach (var ps in particleEffects)
+		{
+			if (ps.isPlaying)
+				ps.Stop(withChildren);
+
+		}
+	}
+
+	public void Pause(bool withChildren = true)
+	{
+
+		foreach (var ps in particleEffects)
+		{
+			if (ps.isPlaying)
+				ps.Pause(withChildren);
+
+		}
+	}
 }
 
 #if UNITY_EDITOR

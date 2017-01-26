@@ -82,7 +82,10 @@ public class MegaShapeLoft : MegaShapeBase
 	public float				conformAmount = 1.0f;
 	public bool					undo = false;
 
-	[ContextMenu("Help")]
+    //Custom
+    int[] emptytris = new int[3] { 0, 0, 0 };
+
+    [ContextMenu("Help")]
 	public void Help()
 	{
 		Application.OpenURL("http://www.west-racing.com/mf/?page_id=2087");
@@ -144,6 +147,7 @@ public class MegaShapeLoft : MegaShapeBase
 			for ( int i = 0; i < Layers.Length; i++ )
 			{
 				Layers[i].FindShapes();
+                BuildMeshFromLayersNew();
 				//if ( Layers[i].layerPath == null && Layers[i].pathName.Length > 0 )
 				//{
 				//	GameObject obj = GameObject.Find(Layers[i].pathName);
@@ -168,7 +172,15 @@ public class MegaShapeLoft : MegaShapeBase
 
 	void LateUpdate()
 	{
-		BuildMeshFromLayersNew();
+        if (Application.isPlaying)
+        {
+            RefreshMesh();
+        }
+        else
+        {
+            BuildMeshFromLayersNew();
+        }
+        
 	}
 
 	public void BuildMeshFromLayersNew()
@@ -329,14 +341,7 @@ public class MegaShapeLoft : MegaShapeBase
 
 				if ( DoCollider )
 				{
-					//if ( meshCol == null )
-						meshCol = GetComponent<MeshCollider>();
-
-					if ( meshCol != null )
-					{
-						meshCol.sharedMesh = null;
-						meshCol.sharedMesh = mesh;
-					}
+                    RefreshCollider();
 				}
 
 				if ( !updating )
@@ -356,7 +361,83 @@ public class MegaShapeLoft : MegaShapeBase
 		}
 	}
 
-	int[] emptytris = new int[3] {0,0,0};
+    public void RefreshMesh()
+    {
+        if (!rebuild)
+        {
+            return;
+        }
+
+        int offset = 0;
+
+        // Check on vertex count here, if over 65000 then start a new object
+        // TODO: Some layers wont add to mesh, ie colliders and object scatters
+        for (int i = 0; i < Layers.Length; i++)
+        {
+            if (Layers[i].Valid())
+            {
+                // Only call if verts need rebuilding, so per layer rebuild (spline change will do all)
+                Layers[i].BuildMesh(this, offset);
+
+                //Debug.Log("copy " + verts.Length);
+                if (useColors)
+                    Layers[i].CopyVertData(ref verts, ref uvs, ref cols, offset);
+                else
+                    Layers[i].CopyVertData(ref verts, ref uvs, offset);
+
+                offset += Layers[i].NumVerts(); //loftverts.Length;
+            }
+        }
+
+        //Vector2[] lmuvs = mesh.uv2;
+
+        //mesh.Clear();
+
+        mesh.vertices = verts;
+        mesh.uv = uvs;
+
+        //if ( lmuvs.Length == uvs.Length )
+        //{
+        //Debug.Log("Setting uv2");
+        //mesh.uv2 = lmuvs;
+        //}
+
+        if (useColors)
+            mesh.colors = cols;
+
+
+        mesh.RecalculateNormals();
+
+        if (Tangents)
+            MegaUtils.BuildTangents(mesh);
+
+#if UNITY_5_5 || UNITY_5_6 || UNITY_6
+#else
+				if ( Optimize )
+				{
+					mesh.Optimize();
+				}
+#endif
+
+        if (DoBounds)
+            mesh.RecalculateBounds();
+
+        if (DoCollider)
+        {
+            RefreshCollider();
+        }
+    }
+
+    public void RefreshCollider()
+    {
+        meshCol = GetComponent<MeshCollider>();
+
+        if (meshCol != null)
+        {
+            meshCol.sharedMesh = null;
+            meshCol.sharedMesh = mesh;
+        }
+    }
 
 	// Should be a spline method
 	public Matrix4x4 GetDeformMat(MegaSpline spline, float alpha, bool interp)

@@ -97,7 +97,7 @@ namespace CND.Car
 
             //if (((ArcadeCarController)carController).BoostDuration > 0)            
 
-            Debug.Log("BoostTimer: " + ((ArcadeCarController)car).BoostDuration);
+            //Debug.Log("BoostTimer: " + ((ArcadeCarController)car).BoostDuration);
             
            
 

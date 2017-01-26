@@ -59,11 +59,14 @@ public class CarReInput : MonoBehaviour {
 
 
         car.Move(h, fwd);
-		car.Action(back, handbrake, boost ? 1 : 0, 0);
+		car.Action(back, handbrake, boost ? 1 : 0, pInput.GetButton(Globals.BtnAction5) ? 1 : 0);
+        //bool drift = false;
 
-		if (pInput.GetButtonDown(Globals.BtnAction5))
-			((ArcadeCarController)car).SwitchSettings();
-    
+        /*if (pInput.GetButtonDown(Globals.BtnAction5))
+            ((ArcadeCarController)car).SwitchSettings();
+        else if (pInput.GetButtonUp(Globals.BtnAction5))
+            ((ArcadeCarController)car).SwitchSettings();*/
+
         if (boost && !prevBoost)
         {
             AkSoundEngine.PostEvent("Car_Boost", gameObject);
