@@ -13,105 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:CND.Car:CarSettings
   preset:
     targetSpeed: 250
-    boostRatio: 1.5
-    transmissionCurves:
-    - serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: -0.993469
-        value: -0.3096804
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.166518
-        value: 0.3186561
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 0
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    - serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.1445343
-        value: 0.528009
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    - serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.1846994
-        value: 0.7509063
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    - serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.205399
-        value: 0.97372264
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
-    - serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.398583
-        value: 1.26145
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
+    boostRatio: 1.25
     maxTurnAngle: 42
     turnSpeed: 42
-    brakeEffectiveness: 0
-    tractionControl: 0
-    driftControl: 0.85
-    steeringHelper: 0
-    downForce: 25
+    brakeEffectiveness: 0.5
+    tractionControl: 1
+    driftControl: 0.25
+    steeringHelper: 0.25
+    downForce: 0
     centerOfMassOffset: {x: 0, y: -0.06, z: -0.025}
     orientationFix: 0

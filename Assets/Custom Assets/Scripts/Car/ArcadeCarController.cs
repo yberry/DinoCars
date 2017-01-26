@@ -259,7 +259,7 @@ namespace CND.Car
 		protected override int GetGear()
         {
 			
-			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.1f : 0.1f;
 			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
 
 			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
@@ -269,22 +269,29 @@ namespace CND.Car
         {
 			gear = Mathf.Clamp(gear,-1, GearCount);
 			float sign = gear < 0 ? -1 : 1;
-			float fGear = gear == 0 ? 1 : Mathf.Abs(gear)+0.5f;
+			float fGear = gear == 0 ? 1 : Mathf.Abs(gear);
+			float ratio = fGear / (float)GearCount;
+			float max = (ratio * 1.125f);
+			return Mathf.Abs(t.Squared() * max);
+			/*
 			float targetSpd = Mathf.Abs(CurStg.targetSpeed/ (float)GearCount)* fGear;
 
 			float spd = targetSpd * 1.25f;
-			float val = Mathf.Lerp(0, (fGear *1.25f) * spd, t);
+			float val = Mathf.Lerp(fGear, (fGear *1.5f) * spd, t);
 			float clamped = Mathf.Clamp(val* sign, -targetSpd, targetSpd);
+
+
 			return clamped;
-        }
+			*/
+		}
 
         override public float GetRPMRatio()
         {
-            int gear = GetGear()-1;
-            if (gear >= 0)
+            int gear = GetGear();
+            if (gear > 0)
             {
                 float maxCurGearOutput = EvalGearCurve(gear,1);
-                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/ (float)GearCount;
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear)/ (float)GearCount;
                
                 return curGearOutput / maxCurGearOutput;
             }
@@ -372,7 +379,7 @@ namespace CND.Car
 			}
 
 			//target speed for the current gear
-			float gearSpeed = EvalGearCurve(gear, tCurve);
+			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
 			float accelPower = Mathf.Lerp(inertiaPower, gearSpeed / powerRatio, powerInput);
 			//braking power, relative to input
