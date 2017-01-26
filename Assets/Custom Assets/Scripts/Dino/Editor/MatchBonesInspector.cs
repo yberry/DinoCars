@@ -7,6 +7,15 @@ using UnityEditor;
 public class MatchBonesInspector : Editor {
 
     MatchBones matchBones;
+    Transform handleTransform;
+    Quaternion handleRotation;
+
+    void OnSceneGUI()
+    {
+        matchBones = target as MatchBones;
+        handleTransform = matchBones.transform;
+        handleRotation = Tools.pivotRotation == PivotRotation.Local ? handleTransform.rotation : Quaternion.identity;
+    }
 
     public override void OnInspectorGUI()
     {
@@ -23,6 +32,8 @@ public class MatchBonesInspector : Editor {
             matchBones.spline = 0;
         }
 
+        matchBones.UpdateBool(ref matchBones.smoothTang, "Smooth Tang");
+
         SerializedProperty boneKnots = serializedObject.FindProperty("bones");
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(boneKnots, true);
@@ -31,8 +42,21 @@ public class MatchBonesInspector : Editor {
             serializedObject.ApplyModifiedProperties();
         }
 
-        matchBones.UpdateBool(ref matchBones.smoothTang, "Smooth Tang");
+        System.Array.Resize(ref matchBones.offsets, matchBones.bones.Length);
+
+        SerializedProperty offsets = serializedObject.FindProperty("offsets");
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(offsets, true);
+        if (EditorGUI.EndChangeCheck())
+        {
+            serializedObject.ApplyModifiedProperties();
+        }
 
         matchBones.UpdateEditor();
+    }
+
+    void ShowPoint(int index)
+    {
+
     }
 }

@@ -138,8 +138,9 @@ public class MatchBones : MonoBehaviour {
 
     public MegaShape shape;
     public int spline;
-    public Transform[] bones;
     public bool smoothTang;
+    public Transform[] bones;
+    public Vector3[] offsets;
 
     MegaSpline megaSpline;
     Transform shapeTr;
@@ -180,41 +181,41 @@ public class MatchBones : MonoBehaviour {
             {
                 Transform prev = i == 0 ? null : bones[i - 1];
                 Transform next = i == bones.Length - 1 ? null : bones[i + 1];
-                UpdateKnot(knots, bones[i], prev, next);
+                UpdateKnot(knots, i, bones[i], prev, next);
                 knots++;
             }
         }
     }
 
-    void UpdateKnot(int index, Transform bone, Transform prev, Transform next)
+    void UpdateKnot(int knotIndex, int boneIndex, Transform bone, Transform prev, Transform next)
     {
-        MegaKnot knot = megaSpline.knots[index];
+        MegaKnot knot = megaSpline.knots[knotIndex];
         Vector3 newPos = shapeTr.InverseTransformPoint(bone.position);
 
         if (newPos != knot.p)
         {
-            knot.p = newPos;
+            knot.p = newPos + offsets[boneIndex];
         }
 
         Vector3 inV, outV;
-        if (index > 0)
+        if (knotIndex > 0)
         {
-            inV = shapeTr.InverseTransformPoint(prev.position);
+            inV = shapeTr.InverseTransformPoint(prev.position) + offsets[boneIndex - 1];
         }
         else
         {
             inV = 2f * newPos - knot.outvec;
         }
-        if (index < megaSpline.knots.Count - 1)
+        if (knotIndex < megaSpline.knots.Count - 1)
         {
-            outV = shapeTr.InverseTransformPoint(next.position);
+            outV = shapeTr.InverseTransformPoint(next.position) + offsets[boneIndex + 1];
         }
         else
         {
             outV = 2f * newPos - knot.invec;
         }
 
-        if (index == 0 || index == megaSpline.knots.Count - 1 || !smoothTang)
+        if (knotIndex == 0 || knotIndex == megaSpline.knots.Count - 1 || !smoothTang)
         {
             knot.invec = inV;
             knot.outvec = outV;
