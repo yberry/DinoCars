@@ -1,0 +1,23 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1020223172	Play_Wind			\Default Work Unit\Ambiance\Play_Wind	
+	3174479978	Play_Ambiance			\Default Work Unit\Ambiance\Play_Ambiance	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
+
+Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	374469379	SoundSeed Wind	SoundSeed Air/SoundSeed Wind		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Wind\SoundSeed Wind	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	12002936	Cris-15	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-15_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-15		678140
+	64159668	Cris-14	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-14_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-14		1507472
+	160762649	Cris-16	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-16_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-16		777724
+	173352256	Cris-12	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-12_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-12		922124
+	326881663	Cris-18	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-18_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-18		1581332
+	352217460	Cris-13	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-13_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-13		853096
+	573882583	Cris-11	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-11_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-11		794212
+	770348932	Cris-17	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-17_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-17		1147112
+	913329079	Cris-19	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-19_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-19		919564
+	1002126405	Cris-09	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-09_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-09		736640
+	1053869606	Amb_Simple_OK	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Amb_Simple_OK_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Amb_Simple_OK		10552128
+

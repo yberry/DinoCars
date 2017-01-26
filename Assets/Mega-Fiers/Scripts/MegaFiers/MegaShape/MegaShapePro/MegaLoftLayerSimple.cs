@@ -188,6 +188,12 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public override void CopyVertData(ref Vector3[] verts, ref Vector2[] uvs, int offset)
 	{
+        if (Application.isPlaying)
+        {
+            Array.Resize(ref loftverts, firstVerts);
+            Array.Resize(ref loftuvs, firstVerts);
+        }
+
 		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
 		offset += loftverts.Length;
@@ -209,7 +215,14 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public override void CopyVertData(ref Vector3[] verts, ref Vector2[] uvs, ref Color[] cols, int offset)
 	{
-		Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
+        if (Application.isPlaying)
+        {
+            Array.Resize(ref loftverts, firstVerts);
+            Array.Resize(ref loftuvs, firstVerts);
+            Array.Resize(ref loftcols, firstVerts);
+        }
+
+        Array.Copy(loftverts, 0, verts, offset, loftverts.Length);
 		Array.Copy(loftuvs, 0, uvs, offset, loftuvs.Length);
 		Array.Copy(loftcols, 0, cols, offset, loftcols.Length);
 		offset += loftverts.Length;
@@ -374,7 +387,7 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 		Matrix4x4 tm1 = Matrix4x4.identity;
 		MegaMatrix.Translate(ref tm1, pivot);
-		MegaMatrix.Rotate(ref tm1, new Vector3(Mathf.Deg2Rad * crossRot.x, Mathf.Deg2Rad * crossRot.y, Mathf.Deg2Rad * crossRot.z));
+		MegaMatrix.Rotate(ref tm1, Mathf.Deg2Rad * crossRot);
 
 		int lk	= -1;
 
@@ -1319,7 +1332,7 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 		Matrix4x4 tm1 = Matrix4x4.identity;
 		MegaMatrix.Translate(ref tm1, pivot);
-		MegaMatrix.Rotate(ref tm1, new Vector3(Mathf.Deg2Rad * crossRot.x, Mathf.Deg2Rad * crossRot.y, Mathf.Deg2Rad * crossRot.z));
+		MegaMatrix.Rotate(ref tm1, Mathf.Deg2Rad * crossRot);
 
 		if ( enabled )
 		{
@@ -1456,6 +1469,8 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 		crosssize = MegaUtils.Extents(crossverts, out crossmin, out crossmax);
 
 		Prepare(loft);
+
+        firstVerts = loftverts.Length;
 
 		return true;
 	}

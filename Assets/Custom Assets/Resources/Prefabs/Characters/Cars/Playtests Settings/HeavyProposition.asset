@@ -106,7 +106,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
-    maxTurnAngle: 30
+    maxTurnAngle: 35
     turnSpeed: 90
     tractionControl: 0
     driftControl: 1

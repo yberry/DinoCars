@@ -17,6 +17,9 @@ public class CarReInput : MonoBehaviour {
     public bool testSteering;
     [Range(-1f,1f)]
     public float forceDirAt100Kph = 1f;
+
+
+    private bool prevBoost;
   
     // Use this for initialization
     void Start () {
@@ -57,7 +60,28 @@ public class CarReInput : MonoBehaviour {
 
         car.Move(h, fwd);
 		car.Action(back, handbrake, boost ? 1 : 0, pInput.GetButton(Globals.BtnAction5) ? 1 : 0);
+        //bool drift = false;
 
+        /*if (pInput.GetButtonDown(Globals.BtnAction5))
+            ((ArcadeCarController)car).SwitchSettings();
+        else if (pInput.GetButtonUp(Globals.BtnAction5))
+            ((ArcadeCarController)car).SwitchSettings();*/
+
+        if (boost && !prevBoost)
+        {
+            AkSoundEngine.PostEvent("Car_Boost", gameObject);
+            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)car).BoostDuration);
+        }         
+        else if (!boost && prevBoost)
+        {
+            AkSoundEngine.PostEvent("Car_Boost_Stop", gameObject);
+        }
+            //AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)car).BoostDuration);
+
+
+        ((ArcadeCarController)car).ActionTimers(pInput.GetButtonTimePressed(Globals.BtnAction1));
+
+        prevBoost = boost;
 #else
             car.Move(h, v, v, 0f);
 #endif
