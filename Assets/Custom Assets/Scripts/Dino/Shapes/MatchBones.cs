@@ -5,9 +5,27 @@ using System.Linq;
 
 public struct KTTK
 {
-    static readonly KTTK three = new KTTK("KTK");
-    static readonly KTTK four = new KTTK("KTTK");
-    static readonly KTTK nothing = new KTTK("");
+    static KTTK three
+    {
+        get
+        {
+            return new KTTK("KTK");
+        }
+    }
+    static KTTK four
+    {
+        get
+        {
+            return new KTTK("KTTK");
+        }
+    }
+    static KTTK nothing
+    {
+        get
+        {
+            return new KTTK("");
+        }
+    }
 
     public string seq;
 
