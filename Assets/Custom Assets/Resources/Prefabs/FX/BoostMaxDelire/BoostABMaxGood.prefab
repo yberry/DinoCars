@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135029124329480310}
   - component: {fileID: 114380693496807498}
   m_Layer: 0
-  m_Name: BoostABMax 1 1 1 1
+  m_Name: BoostABMaxGood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
