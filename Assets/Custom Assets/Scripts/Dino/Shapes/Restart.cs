@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour {
 
-    public KeyCode restartKeyboard = KeyCode.Escape;
+    public KeyCode restartKeycode = KeyCode.Backspace;
+    public KeyCode menuKeycode = KeyCode.Escape;
 
     public Rewired.Player pInput;
 
@@ -16,9 +17,14 @@ public class Restart : MonoBehaviour {
 	
 	void Update ()
     {
-		if (Input.GetKeyDown(restartKeyboard) || pInput.GetAxis(Globals.BtnAction4) > 0f)
+		if (Input.GetKeyDown(restartKeycode) || pInput.GetAxis(Globals.BtnAction4) > 0f)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(menuKeycode))
+        {
+            SceneManager.LoadScene(0);
         }
 	}
 }
