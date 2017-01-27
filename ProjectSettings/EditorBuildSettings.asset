@@ -6,4 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Custom Assets/Resources/Scenes/SwitchScene.unity
+  - enabled: 1
     path: Assets/Custom Assets/Resources/Scenes/Record Scene.unity
+  - enabled: 1
+    path: Assets/Custom Assets/Resources/Scenes/DinoShapes.unity
+  - enabled: 1
+    path: Assets/Custom Assets/Resources/Scenes/testScene.unity

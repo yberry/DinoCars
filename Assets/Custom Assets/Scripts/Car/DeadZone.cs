@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class DeadZone : MonoBehaviour {
 
-    public Transform ExplosionPrefab;
+    public GameObject ExplosionPrefab;
 
-    public void OnTriggerEnter(Collider col)
+    float duration;
+
+    void Start()
     {
-            GameObject voiture = col.gameObject;
-            GameObject.Instantiate(ExplosionPrefab, voiture.transform.position, Quaternion.identity);
-            voiture.transform.parent.gameObject.SetActive(false);
+        duration = ExplosionPrefab.GetComponent<ParticleSystem>().main.duration;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        Transform voiture = col.transform;
+        GameObject explosion = Instantiate(ExplosionPrefab, voiture.position, Quaternion.identity);
+        Destroy(explosion, duration);
+        voiture.parent.gameObject.SetActive(false);
     }
 }
