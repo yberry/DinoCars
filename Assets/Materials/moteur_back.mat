@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: moteur_back
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _NORMALMAP _PARALLAXMAP
+  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -54,7 +54,7 @@ Material:
     - first:
         name: _MetallicGlossMap
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 89dc0208d700b5b488041405d4d6e890, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -84,25 +84,25 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 0.803
+      second: 0.746
     - first:
         name: _Glossiness
-      second: 0.698
+      second: 0.84
     - first:
         name: _GlossyReflections
       second: 1
     - first:
         name: _Metallic
-      second: 0.764
+      second: 0.769
     - first:
         name: _Mode
       second: 0
     - first:
         name: _OcclusionStrength
-      second: 0.353
+      second: 0
     - first:
         name: _Parallax
-      second: 0.02
+      second: 0.005
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -124,4 +124,4 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.006812283, g: 0.031786166, b: 0.066176474, a: 1}
+      second: {r: 0.07306707, g: 0.06812283, b: 0.1102941, a: 1}

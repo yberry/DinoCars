@@ -20,6 +20,9 @@
 			// No culling or depth
 			Cull Off ZWrite Off ZTest Always
 
+			//----------------------------
+			//Blur pass
+			//----------------------------
 			Pass //1
 		{
 			CGPROGRAM
@@ -53,10 +56,11 @@
 		uniform sampler2D _MainTex;
 		uniform sampler2D _NoiseTex;
 		uniform sampler2D _BlurTex;
-
+		uniform float4 _BlurVars;
 		uniform half _HalfScreen;
 
 		const float PI = 3.141592;
+		const float eighth;
 		uniform half _OverallEffect = 1;
 
 		static half wave = 2.*3.141592;
@@ -69,9 +73,31 @@
 			////vars
 
 			fixed4 col = tex2D(_MainTex,i.uv);
-		//	 col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
+
 			fixed4 original = col;
-	
+			//	 col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
+			float2 radius = float2(_BlurVars.x, _BlurVars.y);// *half2(1.6f, 0.9f);
+			
+			/*
+			fixed4 taps[8];
+			taps[0] = tex2D(_MainTex, i.uv+float2(0,1)*radius);
+			taps[1] = tex2D(_MainTex, i.uv + float2(1,0)*radius);
+			taps[2] = tex2D(_MainTex, i.uv + float2(0, -1)*radius);
+			taps[3] = tex2D(_MainTex, i.uv + float2(-1, 0)*radius);
+			taps[4] = tex2D(_MainTex, i.uv + float2(eighth, eighth)*radius);
+			taps[5] = tex2D(_MainTex, i.uv + float2(-eighth, eighth)*radius);
+			taps[6] = tex2D(_MainTex, i.uv + float2(-eighth, -eighth)*radius);
+			taps[7] = tex2D(_MainTex, i.uv + float2(-eighth, eighth)*radius);
+			 
+			fixed4 sum=0;
+			for (int it = 0; it < 8; ++it) {
+				sum += taps[it];
+			}
+			*/
+			float n = 8;
+			fixed4 sum = blurRadial(_MainTex, i.uv, radius*n,n);
+			col = lerp(original, sum, 1);
+		
 			return lerp(original, col, _OverallEffect*step(i.uv.x, 1 - _HalfScreen*.5));
 		}
 
@@ -80,7 +106,9 @@
 		
 //===========================================================================================
 
-
+		//----------------------------
+		//Noise pass
+		//----------------------------
 			Pass //2
 		{
 			CGPROGRAM
@@ -141,7 +169,7 @@
 		{
 			////vars
 			
-			fixed4 col = tex2D(_MainTex,i.uv);
+			fixed4 col = tex2D(_MainTex,i.uv)+ tex2D(_BlurTex,i.uv);
 			fixed4 original = col;
 			half4 origLum = getLum(original);
 			//col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
