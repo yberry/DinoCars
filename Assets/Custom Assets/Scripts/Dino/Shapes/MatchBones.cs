@@ -196,10 +196,10 @@ public class MatchBones : MonoBehaviour {
             shape.CalcLength();
         }
 
-        Update();
+        FixedUpdate();
     }
     
-    void Update()
+    void FixedUpdate()
     {
         for (int i = 0, knots = 0; i < bones.Length; i++)
         {
