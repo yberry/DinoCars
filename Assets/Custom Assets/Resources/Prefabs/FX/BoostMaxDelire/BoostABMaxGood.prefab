@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135029124329480310}
   - component: {fileID: 114380693496807498}
   m_Layer: 0
-  m_Name: BoostABMax 1 1 1 1
+  m_Name: BoostABMaxGood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,21 +655,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.049765825
+          value: 0.35279614
           inSlope: 5.8586426
           outSlope: 5.8586426
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.041828245
-          value: 0.37895253
-          inSlope: -0.9286973
-          outSlope: -0.9286973
+          time: 0.051954817
+          value: 0.6666666
+          inSlope: -1.2096015
+          outSlope: -1.2096015
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.99746835
-          value: 0
-          inSlope: -0.7978762
-          outSlope: -0.7978762
+          time: 0.99240506
+          value: 0.27272728
+          inSlope: -0.23469996
+          outSlope: -0.23469996
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
