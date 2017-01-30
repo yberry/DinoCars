@@ -18,7 +18,7 @@ public class DeadZone : MonoBehaviour {
     {
         Transform voiture = col.transform;
         GameObject explosion = Instantiate(ExplosionPrefab, voiture.position, Quaternion.identity);
-        Destroy(explosion, duration);
         voiture.parent.gameObject.SetActive(false);
+        Destroy(explosion, duration);
     }
 }
