@@ -51,10 +51,10 @@ namespace CND.Car
 				appliedAntiRoll = (compL - compR) * antiRollForce;// * (-steerAng/maxAng);
 
 				if (left.contactInfo.wasAlreadyOnFloor)
-					rBody.AddForceAtPosition(left.transform.up * -appliedAntiRoll, left.transform.position,ForceMode.Force);
+					rBody.AddForceAtPosition(left.transform.up * appliedAntiRoll, left.transform.position,ForceMode.Force);
 
 				if (right.contactInfo.wasAlreadyOnFloor)
-					rBody.AddForceAtPosition(right.transform.up * appliedAntiRoll, right.transform.position, ForceMode.Force);
+					rBody.AddForceAtPosition(right.transform.up * -appliedAntiRoll, right.transform.position, ForceMode.Force);
 
 			}
 

@@ -19,8 +19,11 @@
 		{
 			// No culling or depth
 			Cull Off ZWrite Off ZTest Always
-
-			Pass //1
+			
+			//----------------------------
+			//Blur pass
+			//----------------------------
+			Pass //horizontal
 		{
 			CGPROGRAM
 #pragma vertex vert
@@ -53,10 +56,11 @@
 		uniform sampler2D _MainTex;
 		uniform sampler2D _NoiseTex;
 		uniform sampler2D _BlurTex;
-
+		uniform float4 _BlurVars;
 		uniform half _HalfScreen;
 
 		const float PI = 3.141592;
+		const float eighth;
 		uniform half _OverallEffect = 1;
 
 		static half wave = 2.*3.141592;
@@ -69,10 +73,91 @@
 			////vars
 
 			fixed4 col = tex2D(_MainTex,i.uv);
-		//	 col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
+
 			fixed4 original = col;
-	
+			//	 col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
+			float2 offsetH = float2(_BlurVars.x, _BlurVars.y);// *half2(1.6f, 0.9f);
+
+			float n = _BlurVars.z;
+			//fixed4 sum = blurRadial(_MainTex, i.uv, radius*n,n);
+			fixed4 sum = smoothBlurLine(_MainTex, i.uv, float2(_BlurVars.x,0), _BlurVars.z);
+			sum += smoothBlurLine(_MainTex, i.uv, float2(-_BlurVars.x, 0), _BlurVars.z);
+			col = lerp(original, sum, 1);
+		
 			return lerp(original, col, _OverallEffect*step(i.uv.x, 1 - _HalfScreen*.5));
+		}
+
+			ENDCG
+		}
+
+
+			//------------------------------------------
+
+
+			Pass //vertical
+		{
+			CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
+
+
+#include "UnityCG.cginc"
+
+
+			struct appdata
+		{
+			float4 vertex : POSITION;
+			float2 uv : TEXCOORD0;
+		};
+
+		struct v2f
+		{
+			float2 uv : TEXCOORD0;
+			float4 vertex : SV_POSITION;
+		};
+
+		v2f vert(appdata v)
+		{
+			v2f o;
+			o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+			o.uv = v.uv;
+			return o;
+		}
+
+		sampler2D _GrabTexture;
+
+		uniform sampler2D _MainTex;
+		uniform sampler2D _NoiseTex;
+		uniform sampler2D _BlurTex;
+		uniform float4 _BlurVars;
+		uniform half _HalfScreen;
+
+		const float PI = 3.141592;
+		const float eighth;
+		uniform half _OverallEffect = 1;
+
+		static half wave = 2.*3.141592;
+		static half2 blurOffset = half2(0.016f, 0.009f)*half2(8, 0);
+
+#include "kjShaderFuncs.cginc"
+
+		fixed4 frag(v2f i) : SV_Target
+		{
+			////vars
+
+			fixed4 col = tex2D(_MainTex,i.uv);
+
+		fixed4 original = col;
+		//	 col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
+		float2 offsetH = float2(_BlurVars.x, _BlurVars.y);// *half2(1.6f, 0.9f);
+
+		float n = _BlurVars.z;
+		//fixed4 sum = blurRadial(_MainTex, i.uv, radius*n,n);
+		fixed4 sum = smoothBlurLine(_MainTex, i.uv, float2(0, _BlurVars.y), _BlurVars.w);
+		sum += smoothBlurLine(_MainTex, i.uv, float2(0,- _BlurVars.y), _BlurVars.w);
+		col = lerp(original, sum, 1);
+
+		return lerp(original, col, _OverallEffect*step(i.uv.x, 1 - _HalfScreen*.5));
 		}
 
 			ENDCG
@@ -80,7 +165,9 @@
 		
 //===========================================================================================
 
-
+		//----------------------------
+		//Noise pass
+		//----------------------------
 			Pass //2
 		{
 			CGPROGRAM
@@ -144,48 +231,20 @@
 			fixed4 col = tex2D(_MainTex,i.uv);
 			fixed4 original = col;
 			half4 origLum = getLum(original);
-			//col = tex2Dproj(_MainTex, float4(i.uv.x, i.uv.y, _CosTime[3], 1));
 
 			////wave offsets vars
 			
 			half xOff = sin(i.uv.y*wave * 200 + 20*_Time[3]);
 			half2 waveOffset = half2(smoothstep(xOff, .25, .5)*_DistortX*sign(xOff), 0);
-			//smoothstep(xOff, .5, 1)
-			//horizontal blur
 
-			fixed4 blurred = col;
-			//fixed4 blurred = blurLine(_MainTex,i.uv, blurOffset + waveOffset*float2(1+xOff,1), _BlurVars);
-			fixed4 blurredL = 0;
-			fixed4 blurredR = 0;
-			uint passes = 3;
-			half itStep = 0.0025;
-			half zeroThr = itStep*passes*.5;
-			half2 blurOffsetAdj = blurOffset + waveOffset*half2(1 + xOff, 1);
-			half2 itOffset;
-			half actualSteps = (_BlurVars.z) / passes;
-
-			for (uint it = 0; it < passes; it++)
-			{
-				itOffset = half2(0, it*itStep - zeroThr);
-
-				blurredL += blurLine(_MainTex, i.uv + itOffset, blurOffsetAdj, actualSteps);
-				blurredR += blurLine(_MainTex, i.uv + itOffset, -1 * blurOffsetAdj, actualSteps);
-
-				//	blurred += blurRadial(_MainTex, i.uv+float2(0,it*0.005), blurOffset + waveOffset*float2(1 + xOff, 1), 32);
-				}
-
-			//return col;
-
-			blurred = max(blurred,lerp(blurredL, blurredR, .5));
-			blurred /= passes;
-			blurred = lerp(blurred, saturate(blurred*blurred), blurred.b*.6+ blurred.g*.4);
+			fixed4 blurred = tex2D(_BlurTex, i.uv);
+			// blurred = blurLine(_BlurTex,i.uv, blurOffset + waveOffset*float2(1+xOff,1), _BlurVars);
+			
+			blurred = lerp(blurred, saturate(col+blurred), blurred.b*.6+ blurred.g*.4);
 
 			//	blurred = smoothstep(-0.2, 1.19, blurred);
-			blurred = max(col, blurred);
+			//blurred = max(col, blurred);
 			//blurred = lerp(col, blurred, .75);
-			
-			//	col = lerp(col, tex2D(_MainTex, i.uv + waveOffset), 0.25);
-			//	col = col*blurred;
 
 			//white noise
 			//fixed4 baseNoise = tex2D(_NoiseTex, i.uv);
@@ -200,18 +259,18 @@
 			half noiseAlpha = lerp(_WhiteNoiseMin, _WhiteNoiseMax, getNaiveLum(noise));
 
 			half2 bOffset = blurOffset + waveOffset*float2(1 + xOff, 1);
-			fixed4 blurredNoise = blurLine(_NoiseTex, coord + waveOffset, bOffset, 4);
+			fixed4 blurredNoise = tex2D(_BlurTex, coord + waveOffset);
 			//blurredNoise += blurLine(_NoiseTex, coord + waveOffset, -1 * bOffset, 4);
 
 			blurredNoise *= 0.5;
 			noise = lerp(noise, blurredNoise, 0.1);
 			noise = smoothstep(-0.125, 1.125, noise*noiseAlpha);
 			//distortion
-			fixed4 waved = tex2D(_MainTex, i.uv + half2(0.001*xOff, 0) + waveOffset);
+			fixed4 waved = tex2D(_MainTex, i.uv + half2(0.1*waveOffset.x, 0) + waveOffset);
 	//		col = lerp(blurred*(1 + xOff*0.125), waved, 0.75);
 
 			col = max(blurred, waved)*(1 + xOff*0.1);
-			col.rgb += (noise.rgb);
+			col.rgb += (noise.rgb)*(clamp(getNaiveLum(blurred), _WhiteNoiseMin, _WhiteNoiseMax));
 		//	col = smoothstep(-0.125, 1.125, col);
 			
 			//test blurmap

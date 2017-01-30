@@ -52,9 +52,11 @@ namespace CND.Car
             public float targetSpeed;
 			[SerializeField, Range(1,2)]
 			public float boostRatio;
-            [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
-            public AnimationCurve[] transmissionCurves;
-            [Range(0, 90)]
+			[SerializeField, Range(0, 1)]
+			public float accelCurve;
+			// [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
+			// public AnimationCurve[] transmissionCurves;
+			[Range(0, 90)]
             public float maxTurnAngle;
             [Range(0, 360), Tooltip("Max degrees per second")]
             public float turnSpeed;
@@ -75,7 +77,7 @@ namespace CND.Car
             public bool orientationFix;
 
 			public static Settings Create(
-				float targetSpeed = 100f, AnimationCurve[] transmissionCurves = null, float boostRatio = 1.1f,
+				float targetSpeed = 100f, float accelCurve=0.25f, float boostRatio = 1.1f,
 				float brakeEffectiveness = 1f,
 				float maxTurnAngle = 42, float turnSpeed = 42f,
                 float tractionControl = 0.25f, float driftControl = 0.25f, float steeringHelper = 0,
@@ -85,8 +87,9 @@ namespace CND.Car
             {
 				Settings c;
                 c.targetSpeed = targetSpeed;
-                c.transmissionCurves = transmissionCurves;
-                c.maxTurnAngle = maxTurnAngle;
+				c.accelCurve = accelCurve;
+			  //  c.transmissionCurves = transmissionCurves;
+				c.maxTurnAngle = maxTurnAngle;
                 c.turnSpeed = turnSpeed;
                 c.tractionControl = tractionControl;
                 c.driftControl = driftControl;
@@ -99,34 +102,62 @@ namespace CND.Car
 				return c;
             }
 
+			public static Settings Lerp(Settings left, Settings right, float interp)
+			{
+				if (interp == 0) return left;
+				else if (interp == 1) return right;
+			
+				var lerp = left;
+				lerp.targetSpeed = Mathf.Lerp(left.targetSpeed, right.targetSpeed , interp);
+				//lerp.transmissionCurves = Mathf.Lerp(left.transmissionCurves, right.transmissionCurves, interp);
+				lerp.maxTurnAngle = Mathf.Lerp(left.maxTurnAngle, right.maxTurnAngle, interp);
+				lerp.turnSpeed = Mathf.Lerp(left.turnSpeed, right.turnSpeed, interp);
+				lerp.tractionControl = Mathf.Lerp(left.tractionControl, right.tractionControl , interp);
+				lerp.driftControl = Mathf.Lerp(left.driftControl, right.driftControl, interp);
+				lerp.downForce = Mathf.Lerp(left.downForce, right.downForce, interp);
+				lerp.centerOfMassOffset = Vector3.Lerp( left.centerOfMassOffset, right.centerOfMassOffset, interp);
+				lerp.orientationFix = interp < 0.5 ? left.orientationFix: right.orientationFix;
+				lerp.boostRatio = Mathf.Lerp(left.boostRatio, right.boostRatio, interp);
+				lerp.steeringHelper = Mathf.Lerp(left.steeringHelper, right.steeringHelper, interp);
+				lerp.brakeEffectiveness = Mathf.Lerp(left.brakeEffectiveness, right.brakeEffectiveness, interp);
+				return lerp;
+			}
+
 			public  Settings Clone() {
 				var l = this;
-				this.transmissionCurves.CopyTo(l.transmissionCurves,0);
+		//		this.transmissionCurves.CopyTo(l.transmissionCurves,0);
 				return l;
 			}
         }
 
-        #endregion Nested structures
+		#endregion Nested structures
 
-        #region Car settings
+		#region Car settings
+		[Range(1,10)]
+		public int GearCount=1;
+		        
+		[Header("Normal Mode")]
+		[Space(5)]
+		[ DisplayModifier("Normal Settings",	foldingMode: DM_FoldingMode.NoFoldout)]
+		public SettingsPresetLoader normalSettings;
 
-        [Space(5)]
-
-		[ DisplayModifier("Override Settings",	foldingMode: DM_FoldingMode.NoFoldout)]
-		public SettingsPresetLoader settingsOverride;
-
+		[Header("Drift Mode")]
+		[Space(5)]
+		[DisplayModifier("Drift Settings", foldingMode: DM_FoldingMode.NoFoldout)]
+		public SettingsPresetLoader driftSettings;
+		/*
 		[SerializeField, Header("Default Settings"),
 			DisplayModifier( "Default Settings",
 			 DM_HidingMode.GreyedOut, new[] { "settingsOverride.carSettings", "settingsOverride.overrideDefaults" }, DM_HidingCondition.TrueOrInit, DM_FoldingMode.NoFoldout, DM_Decorations.BoxChildren)]		
 		public Settings defaultSettings;
 		//[HideInInspector,UnityEngine.Serialization.FormerlySerializedAsAttribute("settings")]
 		//public Settings settings;
-
+		*/
 		#endregion Car settings
 
 		public override float TargetSpeed {get {return CurrentSettings.targetSpeed; }}
         public float SpeedRatio { get { return CurrentSpeed / CurrentSettings.targetSpeed; } }
-		public Settings CurrentSettings { get { return settingsOverride.overrideDefaults ? settingsOverride.displayedSettings : defaultSettings; } }
+		public Settings CurrentSettings { get { return Settings.Lerp(normalSettings.displayedSettings, driftSettings.displayedSettings,drift); } }
 		protected Settings CurStg { get { return CurrentSettings; } }
 		public float TargetSteerAngleDeg { get { return steering * CurStg.maxTurnAngle; } }
 
@@ -141,10 +172,10 @@ namespace CND.Car
         float accelOutput;
 		float moveForwardness;
         Vector3 curVelocity, prevVelocity, prevPos;
-        bool boost, drift;
-		public bool IsBoosting { get { return boost; } }
+        float boost, drift;
+		public bool IsBoosting { get { return boost > 0; } }
 		public float BoostDuration { get; protected set; }
-		public bool IsDrifting { get { return drift; } }
+		public bool IsDrifting { get { return drift > 0; } }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -161,6 +192,8 @@ namespace CND.Car
             wheelMgr = GetComponent<WheelManager>();
             rBody = GetComponent<Rigidbody>();
 
+			if (GearCount <= 0)
+				GearCount = 1;
         }
 
         // Update is called once per frame
@@ -206,15 +239,12 @@ namespace CND.Car
 
 		public override void Action(float footbrake, float handbrake, float boost, float drift)
 		{
-			bool prevDrift = this.drift;
 
 			this.rawFootbrake = footbrake;
 			
 			this.handbrake = handbrake;
-			this.boost = boost > 0;
-			this.drift = drift > 0;
-			if (this.drift != prevDrift)
-				SwitchSettings();
+			this.boost = boost;
+			this.drift = drift.Cubed();
 
 		}
 
@@ -225,37 +255,53 @@ namespace CND.Car
 
 		public void SwitchSettings()
 		{
-			settingsOverride.overrideDefaults = ! settingsOverride.overrideDefaults;
+			normalSettings.overrideDefaults = ! normalSettings.overrideDefaults;
 		}
 
 
 		protected override int GetGear()
         {
 			
-			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? -0.05f : 0.05f;
-			int nexGear = (int)(Mathf.Clamp((1f + (CurStg.transmissionCurves.Length + offset) * (SpeedRatio)), -1, CurStg.transmissionCurves.Length));
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? 0.15f : -0.15f;
+			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
 
 			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
         }
 
-        int GetNextGear()
+        float EvalGearCurve(int gear, float t)
         {
-            return 1;
-        }
+			gear = Mathf.Clamp(gear,-1, GearCount);
+			float sign = gear < 0 ? -1 : 1;
+			float fGear = gear == 0 ? 1 : Mathf.Abs(gear);			
+			float ratio = fGear / (float)GearCount;
+			float margin = (GearCount - fGear)/ (float)GearCount;
+			float finalRatio = (ratio + margin*CurStg.accelCurve);
+			return Mathf.Abs(t.Squared() * finalRatio)*sign;
+			/*
+			float targetSpd = Mathf.Abs(CurStg.targetSpeed/ (float)GearCount)* fGear;
+
+			float spd = targetSpd * 1.25f;
+			float val = Mathf.Lerp(fGear, (fGear *1.5f) * spd, t);
+			float clamped = Mathf.Clamp(val* sign, -targetSpd, targetSpd);
+
+
+			return clamped;
+			*/
+		}
 
         override public float GetRPMRatio()
         {
-            int gear = GetGear()-1;
-            if (gear >= 0)
+            int gear = GetGear();
+            if (gear > 0)
             {
-                float maxCurGearOutput = CurStg.transmissionCurves[gear].Evaluate(1);
-                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear+1f)/ CurStg.transmissionCurves.Length;
+                float maxCurGearOutput = EvalGearCurve(gear,1);
+                float curGearOutput = (CurrentSpeed/(TargetSpeed * maxCurGearOutput)) *(gear)/ (float)GearCount;
                
                 return curGearOutput / maxCurGearOutput;
             }
             else if (gear == -1)
             {
-                float maxCurGearOutput = Mathf.Abs(CurStg.transmissionCurves[0].Evaluate(-1));
+                float maxCurGearOutput = Mathf.Abs(EvalGearCurve(gear, -1));
                 float curGearOutput = (CurrentSpeed / (TargetSpeed *maxCurGearOutput));
 
                 return - curGearOutput / maxCurGearOutput;
@@ -265,7 +311,7 @@ namespace CND.Car
 
         public override string DebugHUDString()
         {
-            return base.DebugHUDString()+" "+GetGear()+"/"+ CurStg.transmissionCurves.Length+" ("+GetRPMRatio().ToString("0.##" )+ ")";
+            return base.DebugHUDString()+" "+GetGear()+"/"+ GearCount + " ("+GetRPMRatio().ToString("0.##" )+ ")";
         }
 
         void ApplyDownForce()
@@ -289,7 +335,8 @@ namespace CND.Car
 
 			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
-			float finalSteering = Mathf.SmoothStep(prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
+			float finalSteering = Mathf.SmoothStep(
+				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
 
 			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle* (1f- outerWheelSteerRatio));
             prevSteerAngleDeg = finalSteering;
@@ -318,7 +365,7 @@ namespace CND.Car
 			float powerRatio = (float)(totalContacts * totalWheels);
 			float inertiaPower = Mathf.Abs(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 10f) * CurStg.targetSpeed / powerRatio;
 
-			int gear = GetGear() - 1;
+			int gear = GetGear();
 
 			bool shouldGoBackwards = gear < 0 && (contact.forwardRatio <= 0 || accelOutput < 0);
 
@@ -333,11 +380,11 @@ namespace CND.Car
 			{
 				powerInput = -rawFootbrake;
 				brakeInput = rawAccel;
-				tCurve = rawFootbrake;
+				tCurve = -rawFootbrake;
 			}
 
 			//target speed for the current gear
-			float gearSpeed = CurStg.transmissionCurves[(int)Math.Max(0, gear)].Evaluate(tCurve) * CurStg.targetSpeed;
+			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
 			float accelPower = Mathf.Lerp(inertiaPower, gearSpeed / powerRatio, powerInput);
 			//braking power, relative to input
@@ -346,8 +393,8 @@ namespace CND.Car
 			float gravForward = MathEx.DotToLinear(Vector3.Dot(Physics.gravity.normalized,Vector3.ClampMagnitude( contact.velocity,1)));
 			float angVelDelta = contact.velocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
 
-			if (boost) //apply boost power
-				accelPower *= CurStg.boostRatio;
+			 //apply boost power
+			accelPower *= Mathf.Lerp(1, CurStg.boostRatio,boost);
 
 			//calculations for forward velocity
 			var motorVel = contact.forwardDirection * accelPower;
@@ -487,11 +534,14 @@ namespace CND.Car
 
 			if (Application.isEditor)
 			{
-				settingsOverride.BindCar(this);
-				settingsOverride.Sync(settingsOverride.SyncDirection);
+				normalSettings.BindCar(this);
+				normalSettings.Sync(normalSettings.SyncDirection);
+				driftSettings.BindCar(this);
+				driftSettings.Sync(driftSettings.SyncDirection);
 			}
 			
-			settingsOverride.Refresh();
+			normalSettings.Refresh();
+			driftSettings.Refresh();
 			//curSettings = settingsOverride.overrideDefaults ? settingsOverride.carSettings.preset.Clone() : settings.Clone(); 
 
 		}
