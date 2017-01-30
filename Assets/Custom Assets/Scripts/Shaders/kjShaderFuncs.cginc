@@ -22,6 +22,22 @@ inline fixed4 blurLine(sampler2D tex, half2 refCoord, half2 targetOffset, int st
 	return o;// = lerp(o1, o2, .5);
 }
 
+inline fixed4 smoothBlurLine(sampler2D tex, half2 refCoord, half2 targetOffset, int steps) {
+	
+	fixed4 o = tex2D(tex, refCoord);
+	
+	float fSteps = (float)steps;
+	float stepDist = targetOffset / fSteps;
+
+	fixed4 sum = 0;// o*0.5;
+
+	for (int i = 0; i < steps.x; i++) {
+		float interp =  (i+1) / fSteps;
+		sum += lerp(0, tex2D(tex, refCoord+ targetOffset*interp), 1-(interp));
+	}
+	return (sum /( steps));
+}
+
 fixed4 blurRadial(sampler2D tex, float2 refCoord, float2 ranges, int steps) {
 
 	fixed4 o = tex2D(tex, refCoord);
@@ -40,4 +56,8 @@ fixed4 blurRadial(sampler2D tex, float2 refCoord, float2 ranges, int steps) {
 	o = lerp(o, (t + b + r + l + tr + tl + br + bl) / 8, 1);
 
 	return o;
+}
+
+float smootherStep(float interp) {
+	return (interp * interp*interp * (interp * (interp * 6 - 15) + 10));
 }

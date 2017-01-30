@@ -102,6 +102,7 @@ public class VHSEffect : ImageEffectBase {
     [Range(1, 32)]
     public int downSamplingX=1, downSamplingY=1;
 
+	public bool onlyBlur;
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
@@ -139,31 +140,41 @@ public class VHSEffect : ImageEffectBase {
 		int closePowY = Mathf.ClosestPowerOfTwo(source.height);
 
 		//pre-blur pass
+		RenderTexture blurH = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
 		RenderTexture blur = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
-		blur.filterMode = FilterMode.Trilinear;
-		Graphics.Blit(source, blur, material,0);
+
+		blurH.filterMode = FilterMode.Trilinear;
+		Graphics.Blit(source, blurH, material,0);
+		Graphics.Blit(blurH, blur, material,1);
+		
+		Graphics.Blit(blur, blurH, material, 0);
+		Graphics.Blit(blurH, blur, material, 1);
 		material.SetTexture("_BlurTex", blur);
 
-		if (false)
+		if (onlyBlur)
 		{
 			Graphics.Blit(blur, destination);
-			RenderTexture.ReleaseTemporary(blur);
+
 
 			return;
 		} else
 		{
+			RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+			temp.filterMode = FilterMode.Trilinear;
 			//Graphics.Blit(blur, source);
+			RenderTexture.ReleaseTemporary(temp);
+			Graphics.Blit(source, destination, material, 2);
 		}
 
 
 		//final pass
-		RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24,source.format,RenderTextureReadWrite.Default, 1 << (AAlevel-1));
-        temp.filterMode = FilterMode.Trilinear;
+
         //Graphics.CopyTexture(source,0,0, temp,0,0);
 
-        Graphics.Blit(source, destination, material,1);
+        
         //Graphics.BlitMultiTap(source, destination, material, new Vector2[] { new Vector2(0.1f, 0.1f),new Vector2(-1, -1)});
-        RenderTexture.ReleaseTemporary(temp);
+        
+		RenderTexture.ReleaseTemporary(blurH);
 		RenderTexture.ReleaseTemporary(blur);
 	}
     
@@ -191,9 +202,7 @@ public class VHSEffect : ImageEffectBase {
 					var nColor = new Color(r, g, b, Mathf.Max(minAlpha, ra, ba, ga));
 					colors[y* parasites.width + x - s] = nColor;// Color.Lerp(old[i-s], nColor, 0.75f);
 				}
-
 			}
-
 		}
        
         parasites.SetPixels(colors);
