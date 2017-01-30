@@ -41,6 +41,8 @@ public class CustomMegaBarrierInspector : Editor {
             barrier.numbers = 0;
         }
 
+        barrier.min = EditorGUILayout.Slider("Min", barrier.min, 0f, barrier.max);
+        barrier.max = EditorGUILayout.Slider("Max", barrier.max, barrier.min, 1f);
         barrier.crossalpha = EditorGUILayout.Slider("Cross Alpha", barrier.crossalpha, 0.0f, 1.0f);
         barrier.surfaceLoft = (MegaShapeLoft)EditorGUILayout.ObjectField("Surface", barrier.surfaceLoft, typeof(MegaShapeLoft), true);
 
