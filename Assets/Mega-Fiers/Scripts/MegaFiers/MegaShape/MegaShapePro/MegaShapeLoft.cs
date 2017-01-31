@@ -165,22 +165,20 @@ public class MegaShapeLoft : MegaShapeBase
 		}
 	}
 
-	//void Update()
-	//{
-		//BuildMeshFromLayersNew();
-	//}
+    void LateUpdate()
+    {
+        if (!Application.isPlaying)
+        {
+            BuildMeshFromLayersNew();
+        }
+    }
 
 	void FixedUpdate()
 	{
         if (Application.isPlaying)
         {
             RefreshMesh();
-        }
-        else
-        {
-            BuildMeshFromLayersNew();
-        }
-        
+        }        
 	}
 
 	public void BuildMeshFromLayersNew()

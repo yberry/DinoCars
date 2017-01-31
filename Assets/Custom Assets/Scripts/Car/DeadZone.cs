@@ -16,9 +16,17 @@ public class DeadZone : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Transform voiture = col.transform;
-        GameObject explosion = Instantiate(ExplosionPrefab, voiture.position, Quaternion.identity);
-        voiture.parent.gameObject.SetActive(false);
-        Destroy(explosion, duration);
+        StartCoroutine(Restart(col.transform.parent));
+    }
+
+    IEnumerator Restart(Transform car)
+    {
+        GameObject explosion = Instantiate(ExplosionPrefab, car.position, Quaternion.identity);
+        car.gameObject.SetActive(false);
+        yield return new WaitForSeconds(duration);
+        Destroy(explosion);
+        car.position = CheckPoint.lastPosition;
+        car.rotation = Quaternion.identity;
+        car.gameObject.SetActive(true);
     }
 }
