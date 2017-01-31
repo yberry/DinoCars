@@ -251,18 +251,12 @@ public class MatchBones : MonoBehaviour {
             Vector3 toIn = inV - knot.p;
             Vector3 toOut = outV - knot.p;
 
-            float angle = Vector3.Angle(toIn, toOut);
-            Vector3 ortho = Vector3.Cross(toIn, toOut).normalized;
+            Vector3 ortho = toIn.normalized + toOut.normalized;
+            Vector3 newIn = Vector3.ProjectOnPlane(toIn, ortho);
+            Vector3 newOut = Vector3.ProjectOnPlane(toOut, ortho);
 
-            float newAngle = (180f - angle) * 0.5f;
-            Quaternion rot = Quaternion.AngleAxis(newAngle, ortho);
-
-            Vector3 newIn = Quaternion.Inverse(rot) * toIn;
-            Vector3 newOut = rot * toOut;
-
-            float cos = Mathf.Cos(newAngle * Mathf.Deg2Rad);
-            knot.invec = knot.p + newIn * cos;
-            knot.outvec = knot.p + newOut * cos;
+            knot.invec = knot.p + newIn;
+            knot.outvec = knot.p + newOut;
         }
 
         shape.CalcLength();
