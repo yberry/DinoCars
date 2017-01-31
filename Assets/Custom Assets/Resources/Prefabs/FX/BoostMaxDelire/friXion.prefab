@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198234406660022994}
   - component: {fileID: 199332816708138184}
   m_Layer: 0
-  m_Name: friXion 1
+  m_Name: friXion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
