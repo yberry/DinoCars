@@ -18055,6 +18055,138 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.SyncDirection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.SyncDirection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.carSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: aaac8c050899d8a4f892ea2d3974f4f3,
+        type: 2}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.targetSpeed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.boostRatio
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.maxTurnAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.turnSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.brakeEffectiveness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.tractionControl
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.driftControl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.steeringHelper
+      value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.downForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.centerOfMassOffset.y
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: normalSettings.displayedSettings.centerOfMassOffset.z
+      value: 0.0125
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.carSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 02326ad02349a2645ad56599b0bba6a7,
+        type: 2}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.targetSpeed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.boostRatio
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.maxTurnAngle
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.turnSpeed
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.brakeEffectiveness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.tractionControl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.driftControl
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.steeringHelper
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.centerOfMassOffset.y
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: driftSettings.displayedSettings.centerOfMassOffset.z
+      value: -0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211794941610936, guid: c8b3d9d752fc7ac4f827e4305fc950cd,
+        type: 2}
+      propertyPath: GearCount
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8b3d9d752fc7ac4f827e4305fc950cd, type: 2}
   m_IsPrefabParent: 0

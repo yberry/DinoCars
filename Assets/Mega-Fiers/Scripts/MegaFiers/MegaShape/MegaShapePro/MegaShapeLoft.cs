@@ -170,7 +170,7 @@ public class MegaShapeLoft : MegaShapeBase
 		//BuildMeshFromLayersNew();
 	//}
 
-	void LateUpdate()
+	void FixedUpdate()
 	{
         if (Application.isPlaying)
         {
