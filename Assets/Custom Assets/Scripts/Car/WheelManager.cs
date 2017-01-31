@@ -58,34 +58,35 @@ namespace CND.Car
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
             int contacts = frontContacts + rearContacts;
 
-            if (contacts > 0)
+			System.Action<Vector3,Vector3> addForce = (up,pt) => rBody.AddForceAtPosition(
+							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime)) / (float)(contacts),
+						   pt,
+							ForceMode.Force);
+
+			if (contacts > 0)
             {
                 if (frontContacts > 0)
                 {
                     if (steeringAngle < 0)
                     {
-                        rBody.AddForceAtPosition(
+						addForce(
                             contactFL.upForce,/// (float)(contacts),
-                        contactFL.pushPoint,
-                            ForceMode.Acceleration);
+                        contactFL.pushPoint);
 
-                        rBody.AddForceAtPosition(
+						addForce(
                              contactFR.upForce,/// (float)(contacts),
-                         contactFR.pushPoint,
-                             ForceMode.Acceleration);
+                         contactFR.pushPoint);
 
                     } else
                     {
 
-                        rBody.AddForceAtPosition(
+						addForce(
                              contactFR.upForce,/// (float)(contacts),
-                         contactFR.pushPoint,
-                             ForceMode.Acceleration);
+                         contactFR.pushPoint);
 
-                        rBody.AddForceAtPosition(
+						addForce(
                             contactFL.upForce,/// (float)(contacts),
-                                                    contactFL.pushPoint,
-                            ForceMode.Acceleration);
+                            contactFL.pushPoint);
 
                     }
 
@@ -95,26 +96,22 @@ namespace CND.Car
                 {
                     if (steeringAngle < 0)
                     {
-                        rBody.AddForceAtPosition(
+						addForce(
                          contactRL.upForce,/// (float)(contacts),
-                         contactRL.pushPoint,
-                         ForceMode.Acceleration);
+                         contactRL.pushPoint);
 
-                        rBody.AddForceAtPosition(
+						addForce(
                              contactRR.upForce,// / (float)(contacts),
-                             contactRR.pushPoint,
-                             ForceMode.Acceleration);
+                             contactRR.pushPoint);
                     } else
                     {
 
-                        rBody.AddForceAtPosition(
+						addForce(
                              contactRR.upForce,// / (float)(contacts),
-                             contactRR.pushPoint,
-                             ForceMode.Acceleration);
-                        rBody.AddForceAtPosition(
+                             contactRR.pushPoint);
+						addForce(
                             contactRL.upForce,/// (float)(contacts),
-                            contactRL.pushPoint,
-                            ForceMode.Acceleration);
+                            contactRL.pushPoint);
 
                     }
                 }
