@@ -269,7 +269,7 @@ public class MatchBones : MonoBehaviour {
         if (index > 0)
         {
             Vector3 previous = megaSpline.knots[index - 1].p;
-            knot.invec = (knot.p + previous) * 0.5f; ;
+            knot.invec = (knot.p + previous) * 0.5f;
         }
         if (index < bones.Length - 1)
         {

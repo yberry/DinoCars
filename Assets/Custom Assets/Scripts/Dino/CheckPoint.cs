@@ -9,13 +9,21 @@ public class CheckPoint : MonoBehaviour {
     public MegaShapeLoft previousLoft;
     public MegaShapeLoft nextLoft;
 
-    public static Vector3 lastPosition { get; private set; }
+    static Transform lastCheckPoint;
+
+    public static Vector3 lastPosition
+    {
+        get
+        {
+            return lastCheckPoint.position;
+        }
+    }
 
     void Start()
     {
         if (num == 0)
         {
-            lastPosition = transform.position;
+            lastCheckPoint = transform;
         }
     }
 
@@ -23,7 +31,6 @@ public class CheckPoint : MonoBehaviour {
     {
         previousLoft.DoCollider = false;
         nextLoft.DoCollider = true;
-        lastPosition = transform.position;
-        Destroy(gameObject);
+        lastCheckPoint = transform;
     }
 }

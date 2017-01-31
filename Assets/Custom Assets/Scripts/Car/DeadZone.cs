@@ -16,7 +16,10 @@ public class DeadZone : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        StartCoroutine(Restart(col.transform.parent));
+        if (col is MeshCollider)
+        {
+            StartCoroutine(Restart(col.transform.parent));
+        }
     }
 
     IEnumerator Restart(Transform car)
@@ -27,6 +30,7 @@ public class DeadZone : MonoBehaviour {
         Destroy(explosion);
         car.position = CheckPoint.lastPosition;
         car.rotation = Quaternion.identity;
+        car.GetComponent<Rigidbody>().velocity = Vector3.zero;
         car.gameObject.SetActive(true);
     }
 }
