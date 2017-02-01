@@ -16,6 +16,6 @@ public class TriggerAnimationInspector : TriggerLoftInspector {
 
         MegaShape shape = triggerAnimation.loft.Layers[triggerAnimation.layer].layerPath;
 
-        triggerAnimation.UpdateInt(ref triggerAnimation.curve, "Curve", 0, shape.splines.Count - 1);
+        triggerAnimation.Update(ref triggerAnimation.curve, "Curve", 0, shape.splines.Count - 1);
     }
 }

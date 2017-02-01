@@ -43,7 +43,7 @@ public class CustomMegaBarrierInspector : Editor {
 
         barrier.min = EditorGUILayout.Slider("Min", barrier.min, 0f, barrier.max);
         barrier.max = EditorGUILayout.Slider("Max", barrier.max, barrier.min, 1f);
-        barrier.crossalpha = EditorGUILayout.Slider("Cross Alpha", barrier.crossalpha, 0.0f, 1.0f);
+        barrier.crossalpha = EditorGUILayout.Slider("Cross Alpha", barrier.crossalpha, 0f, 1f);
         barrier.surfaceLoft = (MegaShapeLoft)EditorGUILayout.ObjectField("Surface", barrier.surfaceLoft, typeof(MegaShapeLoft), true);
 
         int surfaceLayer = MegaShapeUtils.FindLayer(barrier.surfaceLoft, barrier.surfaceLayer);
@@ -69,7 +69,7 @@ public class CustomMegaBarrierInspector : Editor {
         else
             barrier.surfaceLayer = surfaceLayer;
 
-        barrier.upright = EditorGUILayout.Slider("Upright", barrier.upright, 0.0f, 1.0f);
+        barrier.upright = EditorGUILayout.Slider("Upright", barrier.upright, 0f, 1f);
         barrier.uprot = EditorGUILayout.Vector3Field("up Rotate", barrier.uprot);
 
         barrier.delay = EditorGUILayout.FloatField("Delay", barrier.delay);
