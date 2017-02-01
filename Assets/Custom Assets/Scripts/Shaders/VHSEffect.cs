@@ -102,6 +102,7 @@ public class VHSEffect : ImageEffectBase {
     [Range(1, 32)]
     public int downSamplingX=1, downSamplingY=1;
 
+	public bool onlyBlur;
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
@@ -125,7 +126,7 @@ public class VHSEffect : ImageEffectBase {
         material.SetFloat("_WhiteNoiseMax", maxWhiteNoise);
         material.SetFloat("_OverallEffect", effectIntensity);
         material.SetFloat("_HalfScreen", onlyHalfScreen ? 1 : 0);
-        /*
+		/*
        
         material.EnableKeyword("_MainTex");
         material.EnableKeyword("_NoiseTex");
@@ -133,19 +134,48 @@ public class VHSEffect : ImageEffectBase {
         material.SetTextureScale("_MainTex", new Vector2(0.9f, 21.6f));
         */
 
-        //source.useMipMap = true;
-        //source.mipMapBias = -3;
-        material.SetTexture("_BlurTex", source);
-        RenderTexture temp = RenderTexture.GetTemporary(
-           Mathf.ClosestPowerOfTwo( source.width) / downSamplingX, Mathf.ClosestPowerOfTwo(source.height)/  downSamplingY, 24,source.format,RenderTextureReadWrite.Default, 1 << (AAlevel-1));
-        temp.filterMode = FilterMode.Trilinear;
-        //Graphics.CopyTexture(source,0,0, temp,0,0);
-        Graphics.Blit(source, temp);        
-        material.SetTexture("_BlurTex",temp);
-        Graphics.Blit(source, destination, material);
-        //Graphics.BlitMultiTap(source, destination, material, new Vector2[] { new Vector2(0.1f, 0.1f),new Vector2(-1, -1)});
-        RenderTexture.ReleaseTemporary(temp);
+		//source.useMipMap = true;
+		//source.mipMapBias = -3;
+		int closePowX = Mathf.ClosestPowerOfTwo(source.width);
+		int closePowY = Mathf.ClosestPowerOfTwo(source.height);
 
+		//pre-blur pass
+		RenderTexture blurH = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+		RenderTexture blur = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+
+		blurH.filterMode = FilterMode.Trilinear;
+		Graphics.Blit(source, blurH, material,0);
+		Graphics.Blit(blurH, blur, material,1);
+		
+		Graphics.Blit(blur, blurH, material, 0);
+		Graphics.Blit(blurH, blur, material, 1);
+		material.SetTexture("_BlurTex", blur);
+
+		if (onlyBlur)
+		{
+			Graphics.Blit(blur, destination);
+
+
+			return;
+		} else
+		{
+			RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+			temp.filterMode = FilterMode.Trilinear;
+			//Graphics.Blit(blur, source);
+			RenderTexture.ReleaseTemporary(temp);
+			Graphics.Blit(source, destination, material, 2);
+		}
+
+
+		//final pass
+
+        //Graphics.CopyTexture(source,0,0, temp,0,0);
+
+        
+        //Graphics.BlitMultiTap(source, destination, material, new Vector2[] { new Vector2(0.1f, 0.1f),new Vector2(-1, -1)});
+        
+		RenderTexture.ReleaseTemporary(blurH);
+		RenderTexture.ReleaseTemporary(blur);
 	}
     
     void FillParasites()
@@ -172,9 +202,7 @@ public class VHSEffect : ImageEffectBase {
 					var nColor = new Color(r, g, b, Mathf.Max(minAlpha, ra, ba, ga));
 					colors[y* parasites.width + x - s] = nColor;// Color.Lerp(old[i-s], nColor, 0.75f);
 				}
-
 			}
-
 		}
        
         parasites.SetPixels(colors);

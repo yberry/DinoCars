@@ -10,6 +10,8 @@ public class CustomMegaBarrier : MonoBehaviour {
     public MegaShapeLoft surfaceLoft;
     public int surfaceLayer = -1;
     public int numbers = 0;
+    public float min = 0f;
+    public float max = 1f;
     public float crossalpha = 0.0f;
     public float delay = 0.0f;
     public float offset = 0.0f;
@@ -30,6 +32,10 @@ public class CustomMegaBarrier : MonoBehaviour {
 
     void Update()
     {
+        if (Application.isPlaying)
+        {
+            return;
+        }
 
         while (numbers > transform.childCount)
         {
@@ -44,7 +50,7 @@ public class CustomMegaBarrier : MonoBehaviour {
 
         for (int i = 0; i < numbers; i++)
         {
-            float alpha = numbers == 1 ? 0.5f : i / (numbers - 1f);
+            float alpha = numbers == 1 ? 0f : Mathf.Lerp(min, max, i / (numbers - 1f));
             SetProperties(transform.GetChild(i).GetComponent<MegaWalkLoft>(), alpha);
         }
     }
