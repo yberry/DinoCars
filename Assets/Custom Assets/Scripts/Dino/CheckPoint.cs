@@ -29,8 +29,19 @@ public class CheckPoint : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        previousLoft.DoCollider = false;
-        nextLoft.DoCollider = true;
-        lastCheckPoint = transform;
+        if (col is MeshCollider)
+        {
+            nextLoft.DoCollider = true;
+            nextLoft.RefreshCollider();
+            lastCheckPoint = transform;
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col is MeshCollider && previousLoft)
+        {
+            previousLoft.DoCollider = false;
+        }
     }
 }
