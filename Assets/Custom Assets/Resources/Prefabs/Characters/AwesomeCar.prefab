@@ -1707,7 +1707,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.125
+    maxExpansion: 1
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1755,7 +1755,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.125
+    maxExpansion: 1
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1809,8 +1809,9 @@ MonoBehaviour:
       downForce: 0
       centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
-  shakeCompensationDebugVar: {x: 0.0125, y: 0.075, z: 0.025}
+  shakeCompensationDebugVar: {x: 0.0125, y: 0.075, z: 0.0125}
   outerWheelSteerRatio: 1
+  dynamicDrag: 0.35
 --- !u!114 &114242575076372704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1860,7 +1861,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.125
+    maxExpansion: 1
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1900,7 +1901,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.125
+    maxExpansion: 1
     springForce: 1500
     damping: 1500
     stiffness: 0.5

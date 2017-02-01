@@ -160,19 +160,21 @@ namespace CND.Car
 
 				var colVel = curContact.otherColliderVelocity= GetColliderVelocity(hit, curContact.wasAlreadyOnFloor);
 				vel += colVel;
-				Vector3 verticalVel = (vel-Vector3.ProjectOnPlane(vel,transform.up));
+				Vector3 horizontalVel = Vector3.ProjectOnPlane(vel, transform.up);
+				Vector3 verticalVel = (vel- horizontalVel);
 				//var damping = dotVelY * settings.damping;
 				const float shockCancelPct = 100;
 				//Vector3 hitToHinge = transform.position - wheelCenter;
-				Vector3 shockCancel = -verticalVel;// Vector3.Slerp(-verticalVel, transform.up * vel.magnitude,0* dotVelY);// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
-                shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLinear(-dotVelGrav)));
+				Vector3 shockCancel = -verticalVel;// Vector3.Slerp(-(verticalVel + horizontalVel * 0.51f), -verticalVel, ( dotVelY));// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
+				shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLinear(-dotVelGrav))) ;
+
                 var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
 				Vector3 stickToFloor = shockCancel;
 				stickToFloor += -gravity * ((MathEx.DotToLinear(dotDownGrav) + 1f) * 0.5f); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
 
-				float springDamp = Mathf.Clamp( 1f- (verticalVel.magnitude * Time.fixedDeltaTime * settings.damping * dotVelY),
+				float springDamp = Mathf.Clamp( 1f- (verticalVel.magnitude * Time.fixedDeltaTime * settings.damping * MathEx.DotToLinear( dotVelY)),
                     Time.fixedDeltaTime, 1f);
-				float springExpand = Mathf.Clamp(1f+ verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * -dotVelY,
+				float springExpand = Mathf.Clamp(1f+ verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * MathEx.DotToLinear(-dotVelY),
                     Time.fixedDeltaTime,float.PositiveInfinity/* 10f* settings.springForce * settings.baseSpringLength * tolerance * settings.maxExpansion*/);
                 float springResistance = Mathf.Lerp(
 					 curContact.springCompression * curContact.springCompression* curContact.springCompression,
@@ -219,7 +221,7 @@ namespace CND.Car
             wheelCenter = transform.position - transform.up * m_contactInfo.springLength;
             contactPoint = wheelCenter - transform.up * settings.wheelRadius;
 
-            if (Application.isPlaying)
+            if (Application.isPlaying && !wheelGraphics.hideFlags.ContainsFlag(HideFlags.HideInHierarchy))
             {
                 wheelGraphics.transform.position = wheelCenter;
                 wheelGraphics.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up) * steerRot * (Quaternion.Euler(angularVelAngle*Mathf.Rad2Deg, 0, 0));

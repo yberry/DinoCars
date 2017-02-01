@@ -182,6 +182,8 @@ namespace CND.Car
 		private Vector3 shakeCompensationDebugVar = Vector3.one*0.025f;
 		[SerializeField,Range(0.25f,1),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
 		private float outerWheelSteerRatio=1;
+		[SerializeField, Range(0, 1000),]
+		private float dynamicDrag = 0;
 
 		float prevSteerAngleDeg, effectiveSteerAngleDeg;
 
@@ -359,12 +361,20 @@ namespace CND.Car
 
             if (! (contact.isOnFloor && contact.wasAlreadyOnFloor)) return;
 
+			Vector3 hVel = Vector3.ProjectOnPlane(contact.velocity, transform.up);
+			//fake drag
+			rBody.AddForceAtPosition(
+				-(contact.velocity / totalContacts),
+				contact.pushPoint,
+				ForceMode.Acceleration);
+
+
 			float absForward = Mathf.Abs(contact.forwardRatio);
 			float absSide = Mathf.Abs(contact.sidewaysRatio);
 			float speedDecay = Time.fixedDeltaTime * 85f;
 			float powerRatio = (float)(totalContacts * totalWheels);
 			float inertiaPower = Mathf.Abs(contact.forwardRatio) * Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 10f) * CurStg.targetSpeed / powerRatio;
-			inertiaPower *= speedDecay;
+			//inertiaPower *= speedDecay;
 
 			int gear = GetGear();
 
@@ -387,7 +397,7 @@ namespace CND.Car
 			//target speed for the current gear
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
-			float accelPower = Mathf.Lerp(inertiaPower, gearSpeed / powerRatio, powerInput);
+			float accelPower = Mathf.Lerp(inertiaPower * speedDecay, gearSpeed / powerRatio, powerInput);
 			//braking power, relative to input
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
@@ -401,17 +411,17 @@ namespace CND.Car
 			var motorVel = contact.forwardDirection * accelPower;
 			var brakeVel = contact.velocity.normalized * brakePower * Mathf.Lerp(contact.sideFriction,contact.forwardFriction,absForward)*CurStg.brakeEffectiveness;
 			var addedGravVel = contact.forwardDirection * Physics.gravity.magnitude * gravForward;//support for slopes
-			Vector3 nextForwardVel = motorVel - brakeVel +addedGravVel;
+			Vector3 nextForwardVel = motorVel - brakeVel + addedGravVel;// Vector3.ProjectOnPlane( motorVel - brakeVel +addedGravVel,contact.hit.normal);
 	
 			//calculations for drift cancel
-			var frontCancel = contact.forwardDirection * rBody.velocity.magnitude;
-			var sideCancel = -contact.sideDirection * rBody.velocity.magnitude;
-			Vector3 driftCancel = Vector3.Lerp(-rBody.velocity*0,
-				frontCancel * speedDecay + sideCancel,absSide/* Mathf.Abs( contact.sidewaysDot)*/);
+			var frontCancel = -contact.forwardDirection * contact.velocity.magnitude;
+			var sideCancel = -contact.sideDirection * contact.velocity.magnitude;
+			Vector3 driftCancel = Vector3.Slerp(-curVelocity * 0,
+				-frontCancel * speedDecay * absSide + sideCancel,absSide);
 
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				rBody.velocity * speedDecay,
+				curVelocity * speedDecay,
 				driftCancel * contact.sideFriction,
                 absForward);
 
@@ -421,6 +431,7 @@ namespace CND.Car
             Vector3 nextMergedVel = Vector3.Slerp(nextDriftVel, nextForwardVel, absForward);
 			//final velocity = merged velocities with traction control applied
             Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Slerp(nextMergedVel, contact.relativeRotation* nextMergedVel/*.normalized* nextMergedVel.magnitude*/, CurStg.tractionControl);
+			//nextFinalVel = Vector3.ProjectOnPlane(nextFinalVel, transform.up);
 
 			/*if (contact.isOnFloor)
 				nextFinalVel -= nextFinalVel*Mathf.Max(0, 1 - (curVelocity.magnitude  * Time.fixedDeltaTime)*powerRatio);*/
@@ -454,6 +465,10 @@ namespace CND.Car
 
 			if (contacts > 0)
 			{
+				//float velMod = 1f - Mathf.Clamp01( Time.fixedDeltaTime *  (rBody.velocity.magnitude) * (frontContacts + rearContacts) );
+				//rBody.velocity *= velMod;
+				//rBody.angularVelocity *= velMod;
+				//rBody.velocity -= rBody.velocity * dynamicDrag * Time.fixedDeltaTime * (frontContacts + rearContacts);
 
 				if (frontContacts > 0)
 				{
@@ -484,9 +499,7 @@ namespace CND.Car
 					}
 				}
 
-				//float velMod = 1f - Mathf.Clamp01( Time.fixedDeltaTime *  (rBody.velocity.magnitude) * (frontContacts + rearContacts) );
-				//rBody.velocity *= velMod;
-				//rBody.angularVelocity *= velMod;
+
 			}
 
 		}
