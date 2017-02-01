@@ -1785,7 +1785,7 @@ MonoBehaviour:
       accelCurve: 0.25
       maxTurnAngle: 30
       turnSpeed: 90
-      brakeEffectiveness: 0.5
+      brakeEffectiveness: 0.75
       tractionControl: 0.5
       driftControl: 1
       steeringHelper: 0.5

@@ -160,8 +160,8 @@ namespace CND.Car
 
 				var colVel = curContact.otherColliderVelocity= GetColliderVelocity(hit, curContact.wasAlreadyOnFloor);
 				vel += colVel;
-				Vector3 horizontalVel = Vector3.ProjectOnPlane(vel, transform.up);
-				Vector3 verticalVel = (vel- horizontalVel);
+				Vector3 horizontalVel = curContact.horizontalVelocity = Vector3.ProjectOnPlane(vel, transform.up);
+				Vector3 verticalVel = curContact.verticalVelocity=(vel- horizontalVel);
 				//var damping = dotVelY * settings.damping;
 				const float shockCancelPct = 100;
 				//Vector3 hitToHinge = transform.position - wheelCenter;
@@ -172,9 +172,9 @@ namespace CND.Car
 				Vector3 stickToFloor = shockCancel;
 				stickToFloor += -gravity * ((MathEx.DotToLinear(dotDownGrav) + 1f) * 0.5f); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
 
-				float springDamp = Mathf.Clamp( 1f- (verticalVel.magnitude * Time.fixedDeltaTime * settings.damping * MathEx.DotToLinear( dotVelY)),
+				float springDamp = Mathf.Clamp( 1f- (verticalVel.magnitude * Time.fixedDeltaTime * settings.damping * ( dotVelY)),
                     Time.fixedDeltaTime, 1f);
-				float springExpand = Mathf.Clamp(1f+ verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * MathEx.DotToLinear(-dotVelY),
+				float springExpand = Mathf.Clamp(1f+ verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce *(-dotVelY),
                     Time.fixedDeltaTime,float.PositiveInfinity/* 10f* settings.springForce * settings.baseSpringLength * tolerance * settings.maxExpansion*/);
                 float springResistance = Mathf.Lerp(
 					 curContact.springCompression * curContact.springCompression* curContact.springCompression,
