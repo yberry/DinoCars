@@ -65,7 +65,7 @@ namespace CND.Car
 							ForceMode.Force);
 
 			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
-				up ,
+				up / (float)(contacts),
 				pt,
 				ForceMode.Acceleration);
 

@@ -171,24 +171,40 @@ namespace CND.Car
                 var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
 				Vector3 stickToFloor = shockCancel;
 				stickToFloor += -gravity * ((MathEx.DotToLinear(dotDownGrav) + 1f) * 0.5f); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
-				//stickToFloor += -horizontalVel  * contactInfo.springCompression;
+																							//stickToFloor += -horizontalVel  * contactInfo.springCompression;
+				Vector3 pushForce;
+				bool oldSpring=false;
+				if (oldSpring)
+				{
+					float springExpand = 1f + verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * (-dotVelY);
+					springExpand = Mathf.Clamp(springExpand, Time.fixedDeltaTime, float.PositiveInfinity);
 
-				float springExpand = 1f+ verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce *(-dotVelY);
-				springExpand = Mathf.Clamp(springExpand, Time.fixedDeltaTime, float.PositiveInfinity);
+					float springDamp = 1f - (verticalVel.magnitude * Time.fixedDeltaTime * settings.damping * (dotVelY));
+					springDamp = Mathf.Clamp(springDamp, springExpand, springExpand * 10f);
 
-				float springDamp = 1f - (verticalVel.magnitude * Time.fixedDeltaTime * settings.damping * (dotVelY));
-				springDamp = Mathf.Clamp(springDamp, -springExpand * 2f*0f, springExpand * 2f);
+					float springResistance = Mathf.Lerp(
+						 curContact.springCompression * curContact.springCompression * curContact.springCompression,
+						Mathf.Clamp01(Mathf.Sin(halfPI * curContact.springCompression)), settings.stiffness) * 100f * Time.fixedDeltaTime;
 
-				float springResistance = Mathf.Lerp(
-					 curContact.springCompression * curContact.springCompression* curContact.springCompression,
-                    Mathf.Clamp01(Mathf.Sin( halfPI*curContact.springCompression)), settings.stiffness) * 100f*Time.fixedDeltaTime;
-				
-                Vector3 pushForce = Vector3.Lerp(
-                    stickToFloor* springResistance * springDamp,
-                    stickToFloor * springResistance * springExpand,
-                     curContact.springCompression) ;
+					 pushForce = Vector3.Lerp(
+						stickToFloor * springResistance * springDamp,
+						stickToFloor * springResistance * springExpand,
+						 curContact.springCompression);
 
-                curContact.upForce = pushForce;
+				} else
+				{
+					float springResistance = Mathf.Lerp(
+	  curContact.springCompression * curContact.springCompression,
+	Mathf.Clamp01(Mathf.Sin(halfPI * curContact.springCompression)), settings.stiffness) * 100f * Time.fixedDeltaTime;
+
+
+					float springExpand = ( contactInfo.springCompression) * settings.springForce;
+					float springDamp = (contactInfo.springCompression - prevContactInfo.springCompression)  * settings.damping;
+
+					pushForce = stickToFloor * (springExpand + springDamp) * contactInfo.springLength * Time.fixedDeltaTime;
+				}
+
+				curContact.upForce = pushForce;
 
             } else  {
 				
