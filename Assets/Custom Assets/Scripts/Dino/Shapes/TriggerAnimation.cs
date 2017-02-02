@@ -30,12 +30,10 @@ public class TriggerAnimation : TriggerLoft {
 
     void OnTriggerEnter(Collider col)
     {
-        if (active)
+        if (!active)
         {
-            return;
+            Trigger();
         }
-
-        Trigger();
     }
 
     protected override void Trigger()

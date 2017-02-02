@@ -29,6 +29,6 @@ public class TriggerLoftInspector : Editor {
             triggerLoft.layer = layer;
         }
 
-        triggerLoft.UpdateBool(ref triggerLoft.refreshCollider, "Refresh Collider");
+        triggerLoft.Update(ref triggerLoft.refreshCollider, "Refresh Collider");
     }
 }

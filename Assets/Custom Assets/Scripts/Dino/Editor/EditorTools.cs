@@ -7,11 +7,11 @@ public static class EditorTools {
 
     public static void Record(this Object obj, string label)
     {
-        Undo.RecordObject(obj, label);
+        Undo.RecordObject(obj, obj.name + " " + label);
         EditorUtility.SetDirty(obj);
     }
 
-    public static void UpdateInt(this Object obj, ref int field, string label)
+    public static void Update(this Object obj, ref int field, string label)
     {
         EditorGUI.BeginChangeCheck();
         int i = EditorGUILayout.IntField(label, field);
@@ -22,7 +22,7 @@ public static class EditorTools {
         }
     }
 
-    public static void UpdateInt(this Object obj, ref int field, string label, int min, int max)
+    public static void Update(this Object obj, ref int field, string label, int min, int max)
     {
         EditorGUI.BeginChangeCheck();
         int i = EditorGUILayout.IntSlider(label, field, min, max);
@@ -33,7 +33,7 @@ public static class EditorTools {
         }
     }
 
-    public static void UpdateFloat(this Object obj, ref float field, string label)
+    public static void Update(this Object obj, ref float field, string label)
     {
         EditorGUI.BeginChangeCheck();
         float f = EditorGUILayout.FloatField(label, field);
@@ -44,7 +44,7 @@ public static class EditorTools {
         }
     }
 
-    public static void UpdateFloat(this Object obj, ref float field, string label, float min, float max)
+    public static void Update(this Object obj, ref float field, string label, float min, float max)
     {
         EditorGUI.BeginChangeCheck();
         float f = EditorGUILayout.Slider(label, field, min, max);
@@ -55,7 +55,7 @@ public static class EditorTools {
         }
     }
 
-    public static void UpdateBool(this Object obj, ref bool field, string label)
+    public static void Update(this Object obj, ref bool field, string label)
     {
         EditorGUI.BeginChangeCheck();
         bool b = EditorGUILayout.Toggle(label, field);
@@ -66,7 +66,7 @@ public static class EditorTools {
         }
     }
 
-    public static void UpdateVector3(this Object obj, ref Vector3 field, string label)
+    public static void Update(this Object obj, ref Vector3 field, string label)
     {
         EditorGUI.BeginChangeCheck();
         Vector3 v = EditorGUILayout.Vector3Field(label, field);
@@ -77,7 +77,7 @@ public static class EditorTools {
         }
     }
 
-    public static void UpdateObject<T>(this Object obj, ref T field, string label) where T : Object
+    public static void Update<T>(this Object obj, ref T field, string label) where T : Object
     {
         EditorGUI.BeginChangeCheck();
         T t = (T)EditorGUILayout.ObjectField(label, field, typeof(T), true);

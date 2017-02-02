@@ -58,34 +58,43 @@ namespace CND.Car
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
             int contacts = frontContacts + rearContacts;
 
-            if (contacts > 0)
+
+			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
+							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime)) / (float)(contacts),
+						    pt,
+							ForceMode.Force);
+
+			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
+				up ,
+				pt,
+				ForceMode.Acceleration);
+
+			var addVertical = addAccel;
+
+			if (contacts > 0)
             {
                 if (frontContacts > 0)
                 {
                     if (steeringAngle < 0)
                     {
-                        rBody.AddForceAtPosition(
+						addVertical(
                             contactFL.upForce,/// (float)(contacts),
-                        contactFL.pushPoint,
-                            ForceMode.Acceleration);
+						   contactFL.pushPoint);
 
-                        rBody.AddForceAtPosition(
+						addVertical(
                              contactFR.upForce,/// (float)(contacts),
-                         contactFR.pushPoint,
-                             ForceMode.Acceleration);
+						    contactFR.pushPoint);
 
                     } else
                     {
 
-                        rBody.AddForceAtPosition(
+						addVertical(
                              contactFR.upForce,/// (float)(contacts),
-                         contactFR.pushPoint,
-                             ForceMode.Acceleration);
+                         contactFR.pushPoint);
 
-                        rBody.AddForceAtPosition(
+						addVertical(
                             contactFL.upForce,/// (float)(contacts),
-                                                    contactFL.pushPoint,
-                            ForceMode.Acceleration);
+                            contactFL.pushPoint);
 
                     }
 
@@ -95,26 +104,22 @@ namespace CND.Car
                 {
                     if (steeringAngle < 0)
                     {
-                        rBody.AddForceAtPosition(
-                         contactRL.upForce,/// (float)(contacts),
-                         contactRL.pushPoint,
-                         ForceMode.Acceleration);
+						addVertical(
+							contactRL.upForce,/// (float)(contacts),
+							contactRL.pushPoint);
 
-                        rBody.AddForceAtPosition(
+						addVertical(
                              contactRR.upForce,// / (float)(contacts),
-                             contactRR.pushPoint,
-                             ForceMode.Acceleration);
+                             contactRR.pushPoint);
                     } else
                     {
 
-                        rBody.AddForceAtPosition(
+						addVertical(
                              contactRR.upForce,// / (float)(contacts),
-                             contactRR.pushPoint,
-                             ForceMode.Acceleration);
-                        rBody.AddForceAtPosition(
+                             contactRR.pushPoint);
+						addVertical(
                             contactRL.upForce,/// (float)(contacts),
-                            contactRL.pushPoint,
-                            ForceMode.Acceleration);
+                            contactRL.pushPoint);
 
                     }
                 }

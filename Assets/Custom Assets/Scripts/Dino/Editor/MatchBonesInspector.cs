@@ -54,18 +54,18 @@ public class MatchBonesInspector : Editor {
     {
         matchBones = target as MatchBones;
 
-        matchBones.UpdateObject(ref matchBones.shape, "Shape");
+        matchBones.Update(ref matchBones.shape, "Shape");
 
         if (matchBones.shape.splines.Count > 1)
         {
-            matchBones.UpdateInt(ref matchBones.spline, "Spline", 0, matchBones.shape.splines.Count - 1);
+            matchBones.Update(ref matchBones.spline, "Spline", 0, matchBones.shape.splines.Count - 1);
         }
         else
         {
             matchBones.spline = 0;
         }
 
-        matchBones.UpdateBool(ref matchBones.smoothTang, "Smooth Tang");
+        matchBones.Update(ref matchBones.smoothTang, "Smooth Tang");
 
         SerializedProperty boneKnots = serializedObject.FindProperty("bones");
         EditorGUI.BeginChangeCheck();
