@@ -7,7 +7,7 @@ public static class EditorTools {
 
     public static void Record(this Object obj, string label)
     {
-        Undo.RecordObject(obj, label);
+        Undo.RecordObject(obj, obj.name + " " + label);
         EditorUtility.SetDirty(obj);
     }
 
