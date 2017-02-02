@@ -370,8 +370,8 @@ namespace CND.Car
 			//inertiaPower *= speedDecay;
 			//fake drag
 			rBody.AddForceAtPosition(
-				-(contact.horizontalVelocity / totalContacts)
-				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts, transform.forward)*1.5f, //compensate drift
+				-(contact.horizontalVelocity / totalContacts)* 0.9f
+				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts, contact.forwardDirection)*1.25f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
 
@@ -409,14 +409,14 @@ namespace CND.Car
 			//calculations for forward velocity
 			var motorVel = contact.forwardDirection * accelPower;
 			var brakeVel = contact.velocity.normalized * brakePower * Mathf.Lerp(contact.sideFriction,contact.forwardFriction,absForward)*CurStg.brakeEffectiveness;
-			var addedGravVel = Vector3.ProjectOnPlane(contact.forwardDirection,contact.hit.normal).normalized * Physics.gravity.magnitude * gravForward;//support for slopes
+			var addedGravVel = Vector3.ProjectOnPlane(contact.forwardDirection,contact.hit.normal).normalized * Physics.gravity.magnitude * gravForward * speedDecay;//support for slopes
 			Vector3 nextForwardVel = motorVel - brakeVel + addedGravVel;// Vector3.ProjectOnPlane( motorVel - brakeVel +addedGravVel,contact.hit.normal);
 	
 			//calculations for drift cancel
 			var frontCancel = -contact.forwardDirection * curVelocity.magnitude;
 			var sideCancel = -contact.sideDirection * curVelocity.magnitude;
 			Vector3 driftCancel = Vector3.Lerp(-curVelocity * 0,
-				-frontCancel*0.65f + sideCancel , (absSide));
+				-frontCancel*0.707f + sideCancel , (absSide));
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(

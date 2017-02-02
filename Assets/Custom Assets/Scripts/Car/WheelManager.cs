@@ -58,10 +58,18 @@ namespace CND.Car
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
             int contacts = frontContacts + rearContacts;
 
-			System.Action<Vector3,Vector3> addForce = (up,pt) => rBody.AddForceAtPosition(
+
+			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
 							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime)) / (float)(contacts),
-						   pt,
+						    pt,
 							ForceMode.Force);
+
+			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
+				up ,
+				pt,
+				ForceMode.Acceleration);
+
+			var addVertical = addAccel;
 
 			if (contacts > 0)
             {
@@ -69,22 +77,22 @@ namespace CND.Car
                 {
                     if (steeringAngle < 0)
                     {
-						addForce(
+						addVertical(
                             contactFL.upForce,/// (float)(contacts),
 						   contactFL.pushPoint);
 
-						addForce(
+						addVertical(
                              contactFR.upForce,/// (float)(contacts),
 						    contactFR.pushPoint);
 
                     } else
                     {
 
-						addForce(
+						addVertical(
                              contactFR.upForce,/// (float)(contacts),
                          contactFR.pushPoint);
 
-						addForce(
+						addVertical(
                             contactFL.upForce,/// (float)(contacts),
                             contactFL.pushPoint);
 
@@ -96,20 +104,20 @@ namespace CND.Car
                 {
                     if (steeringAngle < 0)
                     {
-						addForce(
+						addVertical(
 							contactRL.upForce,/// (float)(contacts),
 							contactRL.pushPoint);
 
-						addForce(
+						addVertical(
                              contactRR.upForce,// / (float)(contacts),
                              contactRR.pushPoint);
                     } else
                     {
 
-						addForce(
+						addVertical(
                              contactRR.upForce,// / (float)(contacts),
                              contactRR.pushPoint);
-						addForce(
+						addVertical(
                             contactRL.upForce,/// (float)(contacts),
                             contactRL.pushPoint);
 
