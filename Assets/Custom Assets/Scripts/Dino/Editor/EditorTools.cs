@@ -77,6 +77,17 @@ public static class EditorTools {
         }
     }
 
+    public static void Update(this SerializedObject obj, string array)
+    {
+        SerializedProperty prop = obj.FindProperty(array);
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(prop, true);
+        if (EditorGUI.EndChangeCheck())
+        {
+            obj.ApplyModifiedProperties();
+        }
+    }
+
     public static void Update<T>(this Object obj, ref T field, string label) where T : Object
     {
         EditorGUI.BeginChangeCheck();

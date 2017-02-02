@@ -10,18 +10,16 @@ public class SwitchScene : MonoBehaviour {
     public string[] scenes;
 
     List<Button> buttons = new List<Button>();
-    AsyncOperation async;
     Text text;
 
     void Start()
     {
         foreach (string scene in scenes)
         {
-            Button button = Instantiate(quit);
+            Button button = Instantiate(quit, transform);
             button.name = scene;
             button.GetComponentInChildren<Text>().text = scene;
             button.onClick.AddListener(() => Load(scene));
-            button.transform.SetParent(transform);
             button.transform.localScale = Vector3.one;
             buttons.Add(button);
         }
@@ -38,17 +36,31 @@ public class SwitchScene : MonoBehaviour {
         {
             Destroy(button.gameObject);
         }
-        async = SceneManager.LoadSceneAsync(scene);
+        quit.interactable = false;
+        quit.onClick.RemoveAllListeners();
         StartCoroutine(LoadScene(scene));
     }
 
     IEnumerator LoadScene(string scene)
     {
-        text.text = Mathf.Floor(100f * async.progress) + "%";
-        Debug.Log(async.progress);
+        yield return null;
+
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+        async.allowSceneActivation = false;
+
         while (!async.isDone)
         {
-            yield return async;
+            float progress = Mathf.Clamp01(async.progress / 0.9f);
+            text.text = Mathf.Floor(100f * progress) + "%";
+
+            if (async.progress == 0.9f)
+            {
+                text.text = "Start";
+                quit.onClick.AddListener(() => async.allowSceneActivation = true);
+                quit.interactable = true;
+            }
+
+            yield return null;
         }
     }
 
