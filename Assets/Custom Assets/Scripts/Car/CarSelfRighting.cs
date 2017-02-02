@@ -22,7 +22,7 @@ namespace CND.Car
         private void Update()
         {
             // is the car is the right way up
-            if (transform.up.y > 0f || m_Rigidbody.velocity.magnitude > m_VelocityThreshold)
+            if (!m_Rigidbody.IsSleeping() && (  transform.up.y > 0f || m_Rigidbody.velocity.magnitude > m_VelocityThreshold ))
             {
                 m_LastOkTime = Time.time;
             }

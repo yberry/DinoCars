@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 114987307862932422}
   - component: {fileID: 114555418574234862}
   - component: {fileID: 114549246515893482}
+  - component: {fileID: 114181036833823674}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -1707,7 +1708,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1
+    maxExpansion: 1.25
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1755,7 +1756,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1
+    maxExpansion: 1.25
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1763,6 +1764,19 @@ MonoBehaviour:
     wheelRadius: 0.45
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+--- !u!114 &114181036833823674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db865986f75ee44eba89ace4646af65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WaitTime: 1.5
+  m_VelocityThreshold: 1
 --- !u!114 &114217766517351466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1861,7 +1875,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1
+    maxExpansion: 1.25
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1901,7 +1915,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1
+    maxExpansion: 1.25
     springForce: 1500
     damping: 1500
     stiffness: 0.5

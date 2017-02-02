@@ -396,7 +396,7 @@ namespace CND.Car
 			//target speed for the current gear
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
-			float accelPower = Mathf.Lerp(inertiaPower * speedDecay, gearSpeed / powerRatio, powerInput);
+			float accelPower = Mathf.Lerp(inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
 			//braking power, relative to input
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
@@ -409,7 +409,8 @@ namespace CND.Car
 			//calculations for forward velocity
 			var motorVel = contact.forwardDirection * accelPower;
 			var brakeVel = contact.velocity.normalized * brakePower * Mathf.Lerp(contact.sideFriction,contact.forwardFriction,absForward)*CurStg.brakeEffectiveness;
-			var addedGravVel = Vector3.ProjectOnPlane(contact.forwardDirection,contact.hit.normal).normalized * Physics.gravity.magnitude * gravForward * speedDecay;//support for slopes
+			var addedGravVel = Vector3.ProjectOnPlane(contact.forwardDirection,contact.hit.normal)
+				* Physics.gravity.magnitude * gravForward * speedDecay;//support for slopes
 			Vector3 nextForwardVel = motorVel - brakeVel + addedGravVel;// Vector3.ProjectOnPlane( motorVel - brakeVel +addedGravVel,contact.hit.normal);
 	
 			//calculations for drift cancel
