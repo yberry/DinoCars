@@ -10,7 +10,17 @@ public class WaveOffset : TriggerLoft {
     public bool startToEnd = false;
     public float duration = 3f;
     public float amplitude = 5f;
+    public float min = 0f;
+    public float max = 1f;
     public float gap = 0.2f;
+
+    public float length
+    {
+        get
+        {
+            return max - min;
+        }
+    }
 
     AnimationCurve Curve
     {
@@ -54,29 +64,26 @@ public class WaveOffset : TriggerLoft {
         }
     }
     float time;
-    float min, max;
 
     void Awake()
     {
-        min = layer.pathStart;
-        max = min + layer.pathLength;
 
         Curve = new AnimationCurve();
 
         if (startToEnd)
         {
-            Curve.AddKey(0f, 0f);
-            Curve.AddKey(gap * 0.5f, 0f);
-            Curve.AddKey(gap, 0f);
+            Curve.AddKey(min, 0f);
+            Curve.AddKey(min + gap * 0.5f, 0f);
+            Curve.AddKey(min + gap, 0f);
         }
         else
         {
-            Curve.AddKey(1f - gap, 0f);
-            Curve.AddKey(1f - gap * 0.5f, 0f);
-            Curve.AddKey(1f, 0f);
+            Curve.AddKey(max - gap, 0f);
+            Curve.AddKey(max - gap * 0.5f, 0f);
+            Curve.AddKey(max, 0f);
         }
 
-        time = startToEnd ? 0f : 1f;
+        time = startToEnd ? min : max;
     }
 
     void OnTriggerEnter(Collider col)
@@ -96,7 +103,7 @@ public class WaveOffset : TriggerLoft {
     {
         time += (startToEnd ? 1f : -1f) * Time.fixedDeltaTime / duration;
 
-        float delta = time * (1f - gap);
+        float delta = Mathf.Lerp(min, max - gap, time);
 
         Curve.MoveKey(0, new Keyframe(delta, 0f));
         Curve.MoveKey(1, new Keyframe(gap * 0.5f + delta, amplitude * Mathf.Sin(time * Mathf.PI)));
