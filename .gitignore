@@ -30,3 +30,6 @@ sysinfo.txt
 *.unitypackage
 .vs/CND/v15/Browse.VC.db
 .vs/CND/v15/Browse.VC.opendb
+
+# Debug build info
+Assets/StreamingAssets/build_info.txt*

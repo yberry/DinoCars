@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class WaveOffset : TriggerLoft {
 
-    public MegaAxis axis;
+    public MegaAxis axis = MegaAxis.Y;
 
-    public bool startToEnd;
-    public float duration;
-    public float amplitude;
-    public float gap;
+    public bool startToEnd = false;
+    public float duration = 3f;
+    public float amplitude = 5f;
+    public float gap = 0.2f;
 
     MegaLoftLayerSimple megaLayer;
     AnimationCurve Curve
