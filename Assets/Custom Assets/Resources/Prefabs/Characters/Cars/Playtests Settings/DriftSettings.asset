@@ -15,12 +15,12 @@ MonoBehaviour:
     targetSpeed: 250
     boostRatio: 1.25
     accelCurve: 0.5
-    maxTurnAngle: 45
-    turnSpeed: 80
+    maxTurnAngle: 70
+    turnSpeed: 111
     brakeEffectiveness: 0.5
-    tractionControl: 1
-    driftControl: 0.25
-    steeringHelper: 0.15
-    downForce: 0
+    tractionControl: 0.25
+    driftControl: 0.15
+    steeringHelper: 0
+    downForce: 50
     centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
     orientationFix: 0
