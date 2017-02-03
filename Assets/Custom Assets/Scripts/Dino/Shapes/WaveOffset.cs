@@ -12,7 +12,6 @@ public class WaveOffset : TriggerLoft {
     public float amplitude = 5f;
     public float gap = 0.2f;
 
-    MegaLoftLayerSimple megaLayer;
     AnimationCurve Curve
     {
         get
@@ -20,13 +19,13 @@ public class WaveOffset : TriggerLoft {
             switch (axis)
             {
                 case MegaAxis.X:
-                    return megaLayer.offsetCrvX;
+                    return layer.offsetCrvX;
 
                 case MegaAxis.Y:
-                    return megaLayer.offsetCrvY;
+                    return layer.offsetCrvY;
 
                 case MegaAxis.Z:
-                    return megaLayer.offsetCrvZ;
+                    return layer.offsetCrvZ;
 
                 default:
                     return null;
@@ -38,27 +37,29 @@ public class WaveOffset : TriggerLoft {
             switch (axis)
             {
                 case MegaAxis.X:
-                    megaLayer.offsetCrvX = value;
-                    megaLayer.useOffsetX = true;
+                    layer.offsetCrvX = value;
+                    layer.useOffsetX = true;
                     break;
 
                 case MegaAxis.Y:
-                    megaLayer.offsetCrvY = value;
-                    megaLayer.useOffsetY = true;
+                    layer.offsetCrvY = value;
+                    layer.useOffsetY = true;
                     break;
 
                 case MegaAxis.Z:
-                    megaLayer.offsetCrvZ = value;
-                    megaLayer.useOffsetZ = true;
+                    layer.offsetCrvZ = value;
+                    layer.useOffsetZ = true;
                     break;
             }
         }
     }
     float time;
+    float min, max;
 
     void Awake()
     {
-        megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
+        min = layer.pathStart;
+        max = min + layer.pathLength;
 
         Curve = new AnimationCurve();
 

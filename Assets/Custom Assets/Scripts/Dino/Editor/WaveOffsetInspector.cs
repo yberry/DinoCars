@@ -25,6 +25,6 @@ public class WaveOffsetInspector : TriggerLoftInspector
         waveOffset.Update(ref waveOffset.startToEnd, "Start To End");
         waveOffset.Update(ref waveOffset.duration, "Duration");
         waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
-        waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, 1f);
+        waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, waveOffset.layer.pathLength);
     }
 }
