@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preset:
     targetSpeed: 250
-    boostRatio: 1.5
+    boostRatio: 1.25
     accelCurve: 0.25
     maxTurnAngle: 35
-    turnSpeed: 61
+    turnSpeed: 60
     brakeEffectiveness: 0.75
     tractionControl: 0.5
     driftControl: 1
