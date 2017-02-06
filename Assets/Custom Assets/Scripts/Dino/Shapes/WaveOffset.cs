@@ -67,7 +67,6 @@ public class WaveOffset : TriggerLoft {
 
     void Awake()
     {
-
         Curve = new AnimationCurve();
 
         if (startToEnd)
@@ -84,6 +83,12 @@ public class WaveOffset : TriggerLoft {
         }
 
         time = startToEnd ? min : max;
+    }
+
+    public void MatchDistances()
+    {
+        min = layer.pathStart;
+        max = min + layer.pathLength;
     }
 
     void OnTriggerEnter(Collider col)
@@ -106,8 +111,8 @@ public class WaveOffset : TriggerLoft {
         float delta = Mathf.Lerp(min, max - gap, time);
 
         Curve.MoveKey(0, new Keyframe(delta, 0f));
-        Curve.MoveKey(1, new Keyframe(gap * 0.5f + delta, amplitude * Mathf.Sin(time * Mathf.PI)));
-        Curve.MoveKey(2, new Keyframe(gap + delta, 0f));
+        Curve.MoveKey(1, new Keyframe(delta + gap * 0.5f, amplitude * Mathf.Sin(time * Mathf.PI)));
+        Curve.MoveKey(2, new Keyframe(delta + gap, 0f));
 
         if (time <= 0f || time >= 1f)
         {

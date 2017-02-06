@@ -5,10 +5,18 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CustomMegaBarrier : MonoBehaviour {
 
+    [System.Serializable]
+    public struct SurfaceLayer
+    {
+        public MegaShapeLoft surfaceLoft;
+        public int surfaceLayer;
+    }
+
     public MegaWalkLoft prefabWalk;
 
     public MegaShapeLoft surfaceLoft;
     public int surfaceLayer = -1;
+    public SurfaceLayer surfaceLayers;
     public int numbers = 0;
     public float min = 0f;
     public float max = 1f;

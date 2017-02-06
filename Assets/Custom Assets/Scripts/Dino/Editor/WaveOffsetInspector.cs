@@ -27,6 +27,10 @@ public class WaveOffsetInspector : TriggerLoftInspector
         waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
         waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
         waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);
+        if (GUILayout.Button("Match distances"))
+        {
+            waveOffset.MatchDistances();
+        }
         waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, waveOffset.length);
     }
 }

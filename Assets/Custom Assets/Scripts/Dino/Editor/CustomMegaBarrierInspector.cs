@@ -9,6 +9,8 @@ public class CustomMegaBarrierInspector : Editor {
     CustomMegaBarrier src;
     MegaUndo undoManager;
 
+    bool showTab = false;
+
     void OnEnable()
     {
         src = target as CustomMegaBarrier;
@@ -78,5 +80,21 @@ public class CustomMegaBarrierInspector : Editor {
         barrier.rotate = EditorGUILayout.Vector3Field("Rotate", barrier.rotate);
         barrier.lateupdate = EditorGUILayout.Toggle("Late Update", barrier.lateupdate);
 
+        /*showTab = EditorGUILayout.Foldout(showTab, "Dummys");
+
+        if (showTab)
+        {
+            int size = EditorGUILayout.IntField("  Size", barrier.dummys.Length);
+            if (size < 0)
+            {
+                size = 0;
+            }
+            System.Array.Resize(ref barrier.dummys, size);
+
+            for (int i = 0; i < barrier.dummys.Length; i++)
+            {
+                barrier.dummys[i] = EditorGUILayout.FloatField("  Element " + i, barrier.dummys[i]);
+            }
+        }*/
     }
 }
