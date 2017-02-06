@@ -24,7 +24,8 @@ namespace CND.Car
         float addition=50;
         int prevGear;
         int currentGear;
-     
+
+        bool prevBoost;
 
         void Awake()
         {
@@ -50,7 +51,7 @@ namespace CND.Car
 
             CheckGearSwitch();
             ManageSound();
-                        
+            prevBoost = (car as ArcadeCarController).IsBoosting;
         }
 
         void CheckGearSwitch()
@@ -85,21 +86,31 @@ namespace CND.Car
             
             RPM = car.GetRPMRatio() * nbRotationLimit;
 
+            var aCar = car as ArcadeCarController;
             //Wwise
            
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
-            AkSoundEngine.SetRTPCValue("RPM", car.GetRPMRatio());
-            AkSoundEngine.SetRTPCValue("Velocity", car.rBody.velocity.magnitude);
+            AkSoundEngine.SetRTPCValue("RPM", aCar.GetRPMRatio());
+            AkSoundEngine.SetRTPCValue("Velocity", aCar.rBody.velocity.magnitude);
 
-            //if (((ArcadeCarController)carController).IsBoosting)
-           
-            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)car).BoostDuration);
+            if (aCar.IsBoosting && !prevBoost)
+            {
+                AkSoundEngine.PostEvent("Car_Boost", gameObject);
+                AkSoundEngine.SetRTPCValue("Car_Boost", aCar.BoostDuration);
+            }
+            else if (!aCar.IsBoosting && prevBoost)
+            {
+                AkSoundEngine.PostEvent("Car_Boost_Stop", gameObject);
+                
+            }
 
+          
+            //AkSoundEngine.PostEvent("Car_Event", )
             //if (((ArcadeCarController)carController).BoostDuration > 0)            
 
             //Debug.Log("BoostTimer: " + ((ArcadeCarController)car).BoostDuration);
-            
-           
+
+
 
 
             foreach (var w in wheels)

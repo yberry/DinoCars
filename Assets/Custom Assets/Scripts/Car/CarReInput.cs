@@ -64,6 +64,8 @@ public class CarReInput : MonoBehaviour {
 		handbrake = pInput.GetButton(Globals.BtnAction2) ? 1 : 0;
         boost = pInput.GetButton(Globals.BtnAction1) ? 1 : 0;
 
+        ((ArcadeCarController)car).ActionTimers(pInput.GetButtonTimePressed(Globals.BtnAction1));
+
 		car.Action(back, handbrake, boost, drift);
 		car.Move(h, fwd);
 
