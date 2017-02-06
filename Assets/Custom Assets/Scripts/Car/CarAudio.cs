@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,8 +9,8 @@ namespace CND.Car
     public class CarAudio : MonoBehaviour
     {
 
-        public BaseCarController carController;
-
+        public BaseCarController car;
+        public Wheel[] wheels;
         private bool gearUpDown;
         private bool play;
         private bool gearDown;
@@ -17,18 +18,21 @@ namespace CND.Car
 
         public float nbRotationLimit = 12000;
         public float nbRotationClutch = 3000;
-        [DisplayModifier(DM_HidingMode.GreyedOut)]
+        [DisplayModifier(true)]
         public float RPM;
         public float maxValueRotation;
         float addition=50;
         int prevGear;
         int currentGear;
+     
 
         void Awake()
         {
-            if (!carController)
-                carController = GetComponent<BaseCarController>();
+            if (!car)
+                car = GetComponent<BaseCarController>();
+                 wheels = GetComponentsInChildren<Wheel>();
         }
+   
         // Use this for initialization
         void Start()
         {
@@ -52,7 +56,7 @@ namespace CND.Car
         void CheckGearSwitch()
         {
             prevGear = currentGear;
-            currentGear = carController.CurrentGear;
+            currentGear = car.CurrentGear;
 
             if (prevGear != currentGear)
             {
@@ -77,22 +81,52 @@ namespace CND.Car
                 RPM = 0;
             }
 
-            RPM = carController.GetRPMRatio() * nbRotationLimit;
+           
+            
+            RPM = car.GetRPMRatio() * nbRotationLimit;
 
             //Wwise
            
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
-            AkSoundEngine.SetRTPCValue("RPM", carController.GetRPMRatio());
-            AkSoundEngine.SetRTPCValue("Velocity", carController.rBody.velocity.magnitude);
+            AkSoundEngine.SetRTPCValue("RPM", car.GetRPMRatio());
+            AkSoundEngine.SetRTPCValue("Velocity", car.rBody.velocity.magnitude);
 
-#if UNITY_EDITOR
-			if (UnityEditor.EditorUtility.audioMasterMute)
-                AkSoundEngine.StopAll();
-#endif
+            //if (((ArcadeCarController)carController).IsBoosting)
+           
+            AkSoundEngine.SetRTPCValue("Car_Boost", ((ArcadeCarController)car).BoostDuration);
+
+            //if (((ArcadeCarController)carController).BoostDuration > 0)            
+
+            //Debug.Log("BoostTimer: " + ((ArcadeCarController)car).BoostDuration);
+            
+           
+
+
+            foreach (var w in wheels)
+            { 
+                var c = w.contactInfo;
+                //var abs = Mathf.Abs(-1); //valeur absolue
+                float drift = Mathf.Abs(c.sidewaysRatio * c.velocity.magnitude) - 5f;
+                float finalDrift = Mathf.Clamp(drift, 0, 15);
+
+                AkSoundEngine.SetRTPCValue("Skid", finalDrift);
+               
+
+                AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
+            }
+            }
+        // commenter une ligne
+        /* commenter un bout de truc*/
+
+
+//#if UNITY_EDITOR
+			// (UnityEditor.EditorUtility.audioMasterMute)
+             //   AkSoundEngine.StopAll();
+//#endif
 
 
 		}
 
 
     }
-}
+

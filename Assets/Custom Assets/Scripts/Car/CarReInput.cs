@@ -71,7 +71,7 @@ public class CarReInput : MonoBehaviour {
 #else
             car.Move(h, v, v, 0f);
 #endif
-	}
+    }
     public void BindPlayerSlot()
     {
         pInput = ReInput.players.GetPlayer(playerSlot-1);

@@ -1,22 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class TriggerAnimation : MonoBehaviour {
+public class TriggerAnimation : TriggerLoft {
 
-    public MegaShapeLoft loft;
-    public int layer = 0;
     public int curve = 0;
-    public bool refreshCollider;
 
     MegaShape shape;
     MegaRepeatMode loop;
-    bool activated = false;
 
     void Awake()
     {
-        shape = loft.Layers[layer].layerPath;
+        shape = layer.layerPath;
         loop = shape.LoopMode;
     }
 
@@ -25,24 +21,22 @@ public class TriggerAnimation : MonoBehaviour {
         shape.time = 0f;
         shape.DoAnim();
 
-        loft.DoCollider = true;
-        loft.BuildMeshFromLayersNew();
-        loft.DoCollider = false;
-
         shape.animate = false;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (activated)
+        if (!active)
         {
-            return;
+            Trigger();
         }
+    }
 
-        activated = true;
+    protected override void Trigger()
+    {
+        active = true;
 
-        MegaLoftLayerSimple megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
-        megaLayer.curve = curve;
+        layer.curve = curve;
 
         switch (loop)
         {
@@ -52,13 +46,11 @@ public class TriggerAnimation : MonoBehaviour {
 
             case MegaRepeatMode.Loop:
             case MegaRepeatMode.PingPong:
-                loft.DoCollider = true;
                 shape.animate = true;
                 Destroy(gameObject);
                 break;
 
             case MegaRepeatMode.Clamp:
-                loft.DoCollider = refreshCollider;
                 shape.animate = true;
                 StartCoroutine(ClampCollider());
                 break;
@@ -68,12 +60,6 @@ public class TriggerAnimation : MonoBehaviour {
     IEnumerator ClampCollider()
     {
         yield return new WaitForSeconds(shape.MaxTime / shape.speed);
-        if (!refreshCollider)
-        {
-            loft.DoCollider = true;
-            loft.BuildMeshFromLayersNew();
-        }
-        loft.DoCollider = false;
         shape.animate = false;
         Destroy(gameObject);
     }

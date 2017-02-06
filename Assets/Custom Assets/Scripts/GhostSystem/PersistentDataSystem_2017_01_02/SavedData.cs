@@ -59,10 +59,6 @@ namespace EquilibreGames
             get { return dataVersion; }
         }
 
-        public SavedData()
-        {
-
-        }
 
         public virtual void OnInit(string dataVersion) { this.dataVersion = dataVersion; }        //Function called when init is call by persistentData. Use this to reset data.
 
