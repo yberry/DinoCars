@@ -18,7 +18,7 @@ namespace CND.Car
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
         public int CurrentGear { get { return GetGear(); } }
-
+		public float Brake { get; protected set; }
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel);
 		abstract public void Action(float footbrake, float handbrake, float boost, float drift);
@@ -242,8 +242,8 @@ namespace CND.Car
 		public override void Action(float footbrake, float handbrake, float boost, float drift)
 		{
 
-			this.rawFootbrake = footbrake;
-			
+			Brake = Mathf.Max(Mathf.Abs(footbrake),Mathf.Abs(handbrake));
+			this.rawFootbrake = footbrake;			
 			this.handbrake = handbrake;
 			this.boost = boost;
 			this.drift = drift.Cubed();
@@ -267,7 +267,7 @@ namespace CND.Car
 			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? 0.15f : -0.15f;
 			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
 
-			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
+			return accelOutput < 0 && ( nexGear <= 1 || moveForwardness < 0) ? -1 : nexGear;
         }
 
         float EvalGearCurve(int gear, float t)

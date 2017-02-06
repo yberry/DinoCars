@@ -275,6 +275,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1631427178447966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4024842386602436}
+  m_Layer: 0
+  m_Name: BrakeLightR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1653494722449946
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +305,8 @@ GameObject:
   - component: {fileID: 114555418574234862}
   - component: {fileID: 114549246515893482}
   - component: {fileID: 114181036833823674}
+  - component: {fileID: 114187729547844014}
+  - component: {fileID: 114351558062328478}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -325,6 +342,21 @@ GameObject:
   - component: {fileID: 114242575076372704}
   m_Layer: 0
   m_Name: RearLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1792902539561722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4832864156323832}
+  m_Layer: 0
+  m_Name: BrakeLightL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,7 +564,7 @@ Transform:
   - {fileID: 4887335813847590}
   - {fileID: 4037492006860098}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4023975699718600
 Transform:
@@ -545,7 +577,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 4
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4024842386602436
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1631427178447966}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.55, y: 0.2, z: -2.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4534674890397648}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4037492006860098
 Transform:
@@ -640,7 +685,7 @@ Transform:
   - {fileID: 4502885954253896}
   - {fileID: 4976145307715420}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4340962910311422
 Transform:
@@ -679,7 +724,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4477835451044386
 Transform:
@@ -721,6 +766,8 @@ Transform:
   - {fileID: 4551560569609904}
   - {fileID: 4962248363143368}
   - {fileID: 4876219320153170}
+  - {fileID: 4832864156323832}
+  - {fileID: 4024842386602436}
   - {fileID: 4023975699718600}
   - {fileID: 4649980147522982}
   - {fileID: 4020384772554604}
@@ -780,7 +827,7 @@ Transform:
   - {fileID: 4932556458464926}
   - {fileID: 4957630630092214}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4678577076426926
 Transform:
@@ -807,6 +854,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4649980147522982}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4832864156323832
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792902539561722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.55, y: 0.2, z: -2.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4534674890397648}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4847411130769132
 Transform:
@@ -1708,14 +1768,16 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.0125
-    springForce: 1500
-    damping: 1500
+    maxExpansion: 1.125
+    springForce: 3000
+    damping: 300
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.4
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+  alternateSpring: 0
+  shockAbsorb: 1
 --- !u!114 &114080216642132724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1732,13 +1794,13 @@ MonoBehaviour:
     right: {fileID: 114053449215138718}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: 1.25}
-    antiRollForce: 500
+    antiRollForce: 1000
   rearWheels:
     left: {fileID: 114301671462212306}
     right: {fileID: 114117943460069762}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: -1.25}
-    antiRollForce: 500
+    antiRollForce: 1000
 --- !u!114 &114117943460069762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1756,14 +1818,16 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.0125
-    springForce: 1500
-    damping: 1500
+    maxExpansion: 1.125
+    springForce: 3000
+    damping: 300
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.45
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+  alternateSpring: 0
+  shockAbsorb: 1
 --- !u!114 &114181036833823674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1777,6 +1841,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WaitTime: 1.5
   m_VelocityThreshold: 1
+--- !u!114 &114187729547844014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de2f761462eacd40909d6203935c4c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRotDelta: 0.00707
+  maxMagDelta: 0.01
 --- !u!114 &114217766517351466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1875,14 +1952,33 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.0125
-    springForce: 1500
-    damping: 1500
+    maxExpansion: 1.125
+    springForce: 3000
+    damping: 300
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.45
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+  alternateSpring: 0
+  shockAbsorb: 1
+--- !u!114 &114351558062328478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f0b2b1ab1b09b40b6b55090eb60175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brakeLightAnchors:
+  - {fileID: 4832864156323832}
+  - {fileID: 4024842386602436}
+  brakeLightPrefab: {fileID: 1639681602178944, guid: 4dc2443965a460b468a5f49c77df43d3,
+    type: 2}
+  brakeThreshold: 0.1
 --- !u!114 &114355805584805702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1915,14 +2011,16 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.0125
-    springForce: 1500
-    damping: 1500
+    maxExpansion: 1.125
+    springForce: 3000
+    damping: 300
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.4
     maxForwardFriction: 1
     maxSidewaysFriction: 1
+  alternateSpring: 0
+  shockAbsorb: 1
 --- !u!114 &114420388749100058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1968,7 +2066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 0}
   particleEffects:
-  - {fileID: 198408283541678326, guid: 24d215a2330e5bf4191eb92258373d30, type: 2}
+  - {fileID: 198251250844806826, guid: 09e366ff09ca4384187d4e6b2dcc57da, type: 2}
   anchors:
   - {fileID: 4967750469892326}
   - {fileID: 4551560569609904}
@@ -1985,7 +2083,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa55eb64c5cea4aa3c71ae19c434bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
+  car: {fileID: 0}
+  wheels: []
   nbRotationLimit: 12000
   nbRotationClutch: 3000
   RPM: 0
