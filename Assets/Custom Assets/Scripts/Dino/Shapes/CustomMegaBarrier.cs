@@ -5,10 +5,16 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CustomMegaBarrier : MonoBehaviour {
 
+    [System.Serializable]
+    public struct SurfaceLayer
+    {
+        public MegaShapeLoft loft;
+        public int layer;
+    }
+
     public MegaWalkLoft prefabWalk;
 
-    public MegaShapeLoft surfaceLoft;
-    public int surfaceLayer = -1;
+    public SurfaceLayer[] surfaceLayers = new SurfaceLayer[0];
     public int numbers = 0;
     public float min = 0f;
     public float max = 1f;
@@ -37,28 +43,31 @@ public class CustomMegaBarrier : MonoBehaviour {
             return;
         }
 
-        while (numbers > transform.childCount)
+        while (numbers * surfaceLayers.Length > transform.childCount)
         {
             MegaWalkLoft walk = Instantiate(prefabWalk);
             walk.transform.SetParent(transform);
         }
 
-        while (numbers < transform.childCount)
+        while (numbers * surfaceLayers.Length < transform.childCount)
         {
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
 
-        for (int i = 0; i < numbers; i++)
+        for (int i = 0, k = 0; i < surfaceLayers.Length; i++)
         {
-            float alpha = numbers == 1 ? 0.5f : Mathf.Lerp(min, max, i / (numbers - 1f));
-            SetProperties(transform.GetChild(i).GetComponent<MegaWalkLoft>(), alpha);
+            for (int j = 0; j < numbers; j++, k++)
+            {
+                float alpha = numbers == 1 ? 0.5f : Mathf.Lerp(min, max, j / (numbers - 1f));
+                SetProperties(transform.GetChild(k).GetComponent<MegaWalkLoft>(), surfaceLayers[i], alpha);
+            }
         }
     }
 
-    void SetProperties(MegaWalkLoft walk, float alpha)
+    void SetProperties(MegaWalkLoft walk, SurfaceLayer surfaceLayer, float alpha)
     {
-        walk.surfaceLoft = surfaceLoft;
-        walk.surfaceLayer = surfaceLayer;
+        walk.surfaceLoft = surfaceLayer.loft;
+        walk.surfaceLayer = surfaceLayer.layer;
         walk.alpha = alpha;
         walk.crossalpha = crossalpha;
         walk.delay = delay;

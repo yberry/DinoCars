@@ -5,9 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public abstract class TriggerLoft : MonoBehaviour {
 
-    public MegaShapeLoft loft;
-    public int layer = 0;
-    public bool refreshCollider;
+    public MegaLoftLayerSimple layer;
 
     protected bool active = false;
 

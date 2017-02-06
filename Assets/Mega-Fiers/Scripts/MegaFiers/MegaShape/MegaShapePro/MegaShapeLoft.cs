@@ -337,6 +337,8 @@ public class MegaShapeLoft : MegaShapeBase
 				if ( mr1 != null )
 					mr1.sharedMaterials = mats;
 
+                meshCol = GetComponent<MeshCollider>();
+
 				if ( DoCollider )
 				{
                     RefreshCollider();
@@ -428,11 +430,8 @@ public class MegaShapeLoft : MegaShapeBase
 
     public void RefreshCollider()
     {
-        meshCol = GetComponent<MeshCollider>();
-
         if (meshCol != null)
         {
-            meshCol.sharedMesh = null;
             meshCol.sharedMesh = mesh;
         }
     }

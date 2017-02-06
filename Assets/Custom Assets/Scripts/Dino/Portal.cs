@@ -14,11 +14,11 @@ public class Portal : MonoBehaviour {
 
     float time = 0f;
     bool active = false;
-    Color col;
+    Color color;
 
     void Start()
     {
-        col = fade.color;
+        color = fade.color;
     }
 
     void OnTriggerEnter(Collider col)
@@ -35,8 +35,8 @@ public class Portal : MonoBehaviour {
 
         time += Time.deltaTime;
 
-        col.a = time / fadeDuration;
-        fade.color = col;
+        color.a = time / fadeDuration;
+        fade.color = color;
         
         if (time >= fadeDuration)
         {

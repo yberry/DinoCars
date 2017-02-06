@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preset:
     targetSpeed: 250
-    boostRatio: 1.5
+    boostRatio: 1.25
     accelCurve: 0.25
     maxTurnAngle: 35
-    turnSpeed: 70
+    turnSpeed: 60
     brakeEffectiveness: 0.75
     tractionControl: 0.5
     driftControl: 1
-    steeringHelper: 0.35
-    downForce: 0
+    steeringHelper: 0.75
+    downForce: 13
     centerOfMassOffset: {x: 0, y: -0.075, z: -0.025}
     orientationFix: 0

@@ -65,11 +65,11 @@ namespace CND.Car
 							ForceMode.Force);
 
 			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
-				up ,
+				up,
 				pt,
 				ForceMode.Acceleration);
 
-			var addVertical = addAccel;
+			var addVertical = addForce;
 
 			if (contacts > 0)
             {

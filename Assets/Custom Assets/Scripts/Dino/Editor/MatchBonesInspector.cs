@@ -67,23 +67,11 @@ public class MatchBonesInspector : Editor {
 
         matchBones.Update(ref matchBones.smoothTang, "Smooth Tang");
 
-        SerializedProperty boneKnots = serializedObject.FindProperty("bones");
-        EditorGUI.BeginChangeCheck();
-        EditorGUILayout.PropertyField(boneKnots, true);
-        if (EditorGUI.EndChangeCheck())
-        {
-            serializedObject.ApplyModifiedProperties();
-        }
+        serializedObject.Update("bones");
 
         System.Array.Resize(ref matchBones.offsets, matchBones.bones.Length);
 
-        SerializedProperty offsets = serializedObject.FindProperty("offsets");
-        EditorGUI.BeginChangeCheck();
-        EditorGUILayout.PropertyField(offsets, true);
-        if (EditorGUI.EndChangeCheck())
-        {
-            serializedObject.ApplyModifiedProperties();
-        }
+        serializedObject.Update("offsets");
 
         matchBones.UpdateEditor();
     }

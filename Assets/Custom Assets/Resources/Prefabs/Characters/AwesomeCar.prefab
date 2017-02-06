@@ -1708,7 +1708,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.25
+    maxExpansion: 1.0125
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1732,13 +1732,13 @@ MonoBehaviour:
     right: {fileID: 114053449215138718}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: 1.25}
-    antiRollForce: 1500
+    antiRollForce: 500
   rearWheels:
     left: {fileID: 114301671462212306}
     right: {fileID: 114117943460069762}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: -1.25}
-    antiRollForce: 1500
+    antiRollForce: 500
 --- !u!114 &114117943460069762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1756,7 +1756,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.25
+    maxExpansion: 1.0125
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1797,12 +1797,12 @@ MonoBehaviour:
       targetSpeed: 250
       boostRatio: 1.5
       accelCurve: 0.25
-      maxTurnAngle: 30
-      turnSpeed: 90
+      maxTurnAngle: 35
+      turnSpeed: 70
       brakeEffectiveness: 0.75
       tractionControl: 0.5
       driftControl: 1
-      steeringHelper: 0.5
+      steeringHelper: 0.35
       downForce: 0
       centerOfMassOffset: {x: 0, y: -0.075, z: -0.025}
       orientationFix: 0
@@ -1814,12 +1814,12 @@ MonoBehaviour:
       targetSpeed: 250
       boostRatio: 1.25
       accelCurve: 0.5
-      maxTurnAngle: 42
-      turnSpeed: 42
+      maxTurnAngle: 45
+      turnSpeed: 80
       brakeEffectiveness: 0.5
       tractionControl: 1
       driftControl: 0.25
-      steeringHelper: 0.25
+      steeringHelper: 0.15
       downForce: 0
       centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.25
+    maxExpansion: 1.0125
     springForce: 1500
     damping: 1500
     stiffness: 0.5
@@ -1915,7 +1915,7 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.325
     maxCompression: 0.5
-    maxExpansion: 1.25
+    maxExpansion: 1.0125
     springForce: 1500
     damping: 1500
     stiffness: 0.5
