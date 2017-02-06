@@ -67,6 +67,11 @@ public class WaveOffset : TriggerLoft {
 
     void Awake()
     {
+        Restart();
+    }
+
+    void Restart()
+    {
         Curve = new AnimationCurve();
 
         if (startToEnd)
@@ -82,7 +87,7 @@ public class WaveOffset : TriggerLoft {
             Curve.AddKey(max, 0f);
         }
 
-        time = startToEnd ? min : max;
+        time = startToEnd ? 0f : 1f;
     }
 
     public void MatchDistances()
@@ -116,8 +121,17 @@ public class WaveOffset : TriggerLoft {
 
         if (time <= 0f || time >= 1f)
         {
-            Curve = AnimationCurve.Linear(0f, 0f, 1f, 0f);
-            enabled = false;
+            active = false;
+            Restart();
+        }
+    }
+
+    public void SwitchDirection()
+    {
+        startToEnd = !startToEnd;
+        if (!active)
+        {
+            Restart();
         }
     }
 }
