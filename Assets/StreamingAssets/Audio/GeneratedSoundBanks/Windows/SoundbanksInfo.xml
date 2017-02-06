@@ -197,10 +197,6 @@
 					<ShortName>Original-GuitSat.wav</ShortName>
 					<Path>SFX\Original-GuitSat_4D7BABE6.wem</Path>
 				</File>
-				<File Id="532073091" Language="SFX">
-					<ShortName>chorus\Chorus-Synthe2.wav</ShortName>
-					<Path>SFX\chorus\Chorus-Synthe2_4D7BABE6.wem</Path>
-				</File>
 				<File Id="669969615" Language="SFX">
 					<ShortName>Original-Tom.wav</ShortName>
 					<Path>SFX\Original-Tom_4D7BABE6.wem</Path>
@@ -224,10 +220,6 @@
 				<File Id="966593190" Language="SFX">
 					<ShortName>Original-Nappe2.wav</ShortName>
 					<Path>SFX\Original-Nappe2_4D7BABE6.wem</Path>
-				</File>
-				<File Id="1011692392" Language="SFX">
-					<ShortName>chorus\Chorus-SyntheEerie.wav</ShortName>
-					<Path>SFX\chorus\Chorus-SyntheEerie_4D7BABE6.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
