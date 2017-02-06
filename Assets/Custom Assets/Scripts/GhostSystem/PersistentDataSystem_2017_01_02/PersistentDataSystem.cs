@@ -10,14 +10,6 @@ using System.Runtime.Serialization;
 using System;
 
 
-
-/* 
-   Functionnement :
-   1-Create new OverridedData on differents files. (We separate this to not touch SavedData file)
-   2-Call the PersistentData.Instance.LoadData(List<your overridedData>); 
-   3-If you saved data change, change on the inspector the version of persistentData 
- */
-
 namespace EquilibreGames
 {
     public class PersistentDataSystem : Singleton<PersistentDataSystem>
@@ -62,7 +54,14 @@ namespace EquilibreGames
         public const string ControlledSerializationFileExtension = ".cpds";
 
 
+        /// <summary>
+        /// Called when a data is saved to file.
+        /// </summary>
         public static Action<SavedData> OnDataSaved;
+
+        /// <summary>
+        /// Called when the data is loaded from file/
+        /// </summary>
         public static Action<SavedData> OnDataLoaded;
 
 
@@ -83,8 +82,8 @@ namespace EquilibreGames
         public SaveMode saveMode = SaveMode.MULTIPLE_FILE;
 
         [Space(5)]
+        [Tooltip("Class to load at the start of the game")]
         public string[] classToLoad;
-
 
         [Space(20)]
         public Dictionary<System.Type, List<SavedData>> savedDataDictionnary = new Dictionary<System.Type, List<SavedData>>();
@@ -120,7 +119,8 @@ namespace EquilibreGames
 
         public void Awake()
         {
-            Init();
+            if(!isInit)
+                Init();
 
             switch (loadAwakeMode)
             {
@@ -128,7 +128,6 @@ namespace EquilibreGames
                 case LoadMode.ALL_SAVED_DATA: LoadAllSavedData(); break;
                 default: break;
             }
-
         }
 
         /// <summary>
@@ -141,6 +140,14 @@ namespace EquilibreGames
             multipleFilesDirectoryPath = automaticSavedDataDirectoryPath + MultipleFilesDirectoryName + "/";
 
             isInit = true;
+        }
+
+        public override void OnCreation()
+        {
+            base.OnCreation();
+
+            if(!isInit)
+                Init();
         }
 
         /// <summary>
@@ -289,6 +296,9 @@ namespace EquilibreGames
                     dataPath += AutomaticDirectoryName;
 
                 savedData = (T)LoadSavedData(dataPath, 0);
+
+                if (savedData == null)
+                    throw new System.ArgumentException("No data of this type");
             }
             catch
             {
@@ -378,6 +388,9 @@ namespace EquilibreGames
                     dataPath += AutomaticSerializationFileExtension;
 
                 savedData = LoadSavedData(dataPath,0);
+
+                if (savedData == null)
+                    throw new System.ArgumentException("No data of this type");
             }
             catch
             {
@@ -876,13 +889,13 @@ namespace EquilibreGames
 		    {
 			    SaveAllData();
 
-#if EQUILIBRE_GAMES_DEBUG
+#if UNITY_EDITOR || EQUILIBRE_GAMES_DEBUG
                      Debug.LogWarning("Data Save On Pause By AUTO_SAVE_MANAGEMENT");
 #endif
 		    }
-#if EQUILIBRE_GAMES_DEBUG
+#if UNITY_EDITOR || EQUILIBRE_GAMES_DEBUG
             else
-                    Debug.LogWarning("Data Not Save On Pause By AUTO_SAVE_MANAGEMENT");
+                Debug.LogWarning("Data Not Save On Pause By AUTO_SAVE_MANAGEMENT");
 #endif
         }
 
@@ -895,14 +908,14 @@ namespace EquilibreGames
 		      {
                 SaveAllData();
 
-    #if EQUILIBRE_GAMES_DEBUG
-                          Debug.LogWarning("Data Saved On Application Quit By AUTO_SAVE_MANAGEMENT");
+#if UNITY_EDITOR || EQUILIBRE_GAMES_DEBUG
+                Debug.LogWarning("Data Saved On Application Quit By AUTO_SAVE_MANAGEMENT");
     #endif
              }
             else
             {
-    #if EQUILIBRE_GAMES_DEBUG
-                          Debug.LogWarning("Data Not Saved On Application Quit due to null data By AUTO_SAVE_MANAGEMENT");
+#if UNITY_EDITOR || EQUILIBRE_GAMES_DEBUG
+                Debug.LogWarning("Data Not Saved On Application Quit due to null data By AUTO_SAVE_MANAGEMENT");
     #endif
             }
 	  }
