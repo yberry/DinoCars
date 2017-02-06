@@ -5,9 +5,27 @@ using System.Linq;
 
 public struct KTTK
 {
-    static readonly KTTK three = new KTTK("KTK");
-    static readonly KTTK four = new KTTK("KTTK");
-    static readonly KTTK nothing = new KTTK("");
+    static KTTK three
+    {
+        get
+        {
+            return new KTTK("KTK");
+        }
+    }
+    static KTTK four
+    {
+        get
+        {
+            return new KTTK("KTTK");
+        }
+    }
+    static KTTK nothing
+    {
+        get
+        {
+            return new KTTK("");
+        }
+    }
 
     public string seq;
 
@@ -18,11 +36,19 @@ public struct KTTK
             return seq.Count(c => c == 'K');
         }  
     }
-    public int NumT
+    
+
+    public int[] PointsByCurve
     {
         get
         {
-            return seq.Count(c => c == 'T');
+            int[] indexes = seq.Select((c, i) => c == 'K' ? i : -1).Where(i => i != -1).ToArray();
+            int[] rep = new int[indexes.Length - 1];
+            for (int i = 0; i < rep.Length; i++)
+            {
+                rep[i] = indexes[i + 1] - indexes[i];
+            }
+            return rep;
         }
     }
 
@@ -144,7 +170,7 @@ public class MatchBones : MonoBehaviour {
 
     MegaSpline megaSpline;
     Transform shapeTr;
-    KTTK kttk;
+    public KTTK kttk { get; private set; }
 
     void Awake()
     {
@@ -170,10 +196,10 @@ public class MatchBones : MonoBehaviour {
             shape.CalcLength();
         }
 
-        Update();
+        FixedUpdate();
     }
     
-    void Update()
+    void FixedUpdate()
     {
         for (int i = 0, knots = 0; i < bones.Length; i++)
         {
@@ -190,11 +216,11 @@ public class MatchBones : MonoBehaviour {
     void UpdateKnot(int knotIndex, int boneIndex, Transform bone, Transform prev, Transform next)
     {
         MegaKnot knot = megaSpline.knots[knotIndex];
-        Vector3 newPos = shapeTr.InverseTransformPoint(bone.position);
+        Vector3 newPos = shapeTr.InverseTransformPoint(bone.position) + offsets[boneIndex];
 
         if (newPos != knot.p)
         {
-            knot.p = newPos + offsets[boneIndex];
+            knot.p = newPos;
         }
 
         Vector3 inV, outV;
@@ -225,18 +251,12 @@ public class MatchBones : MonoBehaviour {
             Vector3 toIn = inV - knot.p;
             Vector3 toOut = outV - knot.p;
 
-            float angle = Vector3.Angle(toIn, toOut);
-            Vector3 ortho = Vector3.Cross(toIn, toOut).normalized;
+            Vector3 ortho = toIn.normalized + toOut.normalized;
+            Vector3 newIn = Vector3.ProjectOnPlane(toIn, ortho);
+            Vector3 newOut = Vector3.ProjectOnPlane(toOut, ortho);
 
-            float newAngle = (180f - angle) * 0.5f;
-            Quaternion rot = Quaternion.AngleAxis(newAngle, ortho);
-
-            Vector3 newIn = Quaternion.Inverse(rot) * toIn;
-            Vector3 newOut = rot * toOut;
-
-            float cos = Mathf.Cos(newAngle * Mathf.Deg2Rad);
-            knot.invec = knot.p + newIn * cos;
-            knot.outvec = knot.p + newOut * cos;
+            knot.invec = knot.p + newIn;
+            knot.outvec = knot.p + newOut;
         }
 
         shape.CalcLength();
@@ -249,7 +269,7 @@ public class MatchBones : MonoBehaviour {
         if (index > 0)
         {
             Vector3 previous = megaSpline.knots[index - 1].p;
-            knot.invec = (knot.p + previous) * 0.5f; ;
+            knot.invec = (knot.p + previous) * 0.5f;
         }
         if (index < bones.Length - 1)
         {

@@ -66,6 +66,27 @@ namespace CND.Car
             {
                 return new Settings(wheelRadius: 0.5f);
             }
+
+			public static Settings Lerp(Settings left, Settings right, float interp)
+			{
+				
+				if (interp == 0) return left;
+				else if (interp == 1) return right;
+
+				var lerp = left;
+				lerp.mass = Mathf.Abs(Mathf.Lerp(left.mass,right.mass,interp));
+				lerp.wheelRadius = Mathf.Lerp(left.wheelRadius, right.wheelRadius, interp);
+				lerp.baseSpringLength = Mathf.Lerp(left.baseSpringLength, right.baseSpringLength, interp);
+				lerp.maxCompression = Mathf.Lerp(left.maxCompression, right.maxCompression, interp);
+				lerp.maxExpansion = Mathf.Lerp(left.maxExpansion, right.maxExpansion, interp);
+				lerp.springForce = Mathf.Lerp(left.springForce, right.springForce, interp);
+				lerp.damping = Mathf.Lerp(left.damping, right.damping, interp);
+				lerp.stiffness = Mathf.Lerp(left.stiffness, right.stiffness, interp);
+				lerp.maxForwardFriction = Mathf.Lerp(left.maxForwardFriction, right.maxForwardFriction, interp);
+				lerp.maxSidewaysFriction = Mathf.Lerp(left.maxSidewaysFriction, right.maxSidewaysFriction, interp);
+
+				return lerp;
+			}
         }
 
         public struct ContactInfo
@@ -77,6 +98,8 @@ namespace CND.Car
             public Vector3 sideDirection { get; internal set; }
             public Quaternion relativeRotation { get; internal set; }
             public Vector3 velocity { get; internal set; }
+			public Vector3 horizontalVelocity { get; internal set; }
+			public Vector3 verticalVelocity { get; internal set; }
 			public Vector3 otherColliderVelocity { get; internal set; }
 			public float angularVelocity { get; internal set; }
             public Vector3 pushPoint { get; internal set; }

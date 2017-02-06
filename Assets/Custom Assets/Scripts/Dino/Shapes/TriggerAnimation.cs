@@ -12,7 +12,7 @@ public class TriggerAnimation : TriggerLoft {
 
     void Awake()
     {
-        shape = loft.Layers[layer].layerPath;
+        shape = layer.layerPath;
         loop = shape.LoopMode;
     }
 
@@ -21,29 +21,22 @@ public class TriggerAnimation : TriggerLoft {
         shape.time = 0f;
         shape.DoAnim();
 
-        /*loft.DoCollider = true;
-        loft.RefreshMesh();
-        loft.DoCollider = false;*/
-
         shape.animate = false;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (active)
+        if (!active)
         {
-            return;
+            Trigger();
         }
-
-        Trigger();
     }
 
     protected override void Trigger()
     {
         active = true;
 
-        MegaLoftLayerSimple megaLayer = loft.Layers[layer] as MegaLoftLayerSimple;
-        megaLayer.curve = curve;
+        layer.curve = curve;
 
         switch (loop)
         {
@@ -53,13 +46,11 @@ public class TriggerAnimation : TriggerLoft {
 
             case MegaRepeatMode.Loop:
             case MegaRepeatMode.PingPong:
-                loft.DoCollider = refreshCollider;
                 shape.animate = true;
                 Destroy(gameObject);
                 break;
 
             case MegaRepeatMode.Clamp:
-                loft.DoCollider = refreshCollider;
                 shape.animate = true;
                 StartCoroutine(ClampCollider());
                 break;
@@ -69,12 +60,6 @@ public class TriggerAnimation : TriggerLoft {
     IEnumerator ClampCollider()
     {
         yield return new WaitForSeconds(shape.MaxTime / shape.speed);
-        if (!refreshCollider)
-        {
-            loft.DoCollider = true;
-            loft.RefreshCollider();
-        }
-        loft.DoCollider = false;
         shape.animate = false;
         Destroy(gameObject);
     }

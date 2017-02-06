@@ -320,11 +320,11 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: fa46ba0cfabbd2d4fbda8b1e2baac383, type: 3}
   baseNoise: {fileID: 0}
   parasites: {fileID: 0}
-  effectIntensity: 0.75
-  onlyHalfScreen: 0
+  effectIntensity: 1
+  onlyHalfScreen: 1
   skipEffect: 0
-  minWhiteNoise: 0.05
-  maxWhiteNoise: 0.2
+  minWhiteNoise: 0
+  maxWhiteNoise: 0.5
   red: 1
   green: 0.7
   blue: 0.3
@@ -332,10 +332,10 @@ MonoBehaviour:
   greenAlpha: 0.7
   blueAlpha: 0.3
   minAlpha: 0.5
-  blurDistance: {x: 50.32, y: 0.01}
-  blurXsteps: 96
-  blurYsteps: 16
-  distortionX: 0.00075
+  blurDistance: {x: 0.025, y: 0.00725}
+  blurXsteps: 6
+  blurYsteps: 6
+  distortionX: 0.000515
   exponentialNess: 0.7
   minXSpacing: 80
   maxXSpacing: 200
@@ -343,8 +343,9 @@ MonoBehaviour:
   maxYSpacing: 5
   parasiteLength: 5
   AAlevel: 1
-  downSamplingX: 1
-  downSamplingY: 1
+  downSamplingX: 8
+  downSamplingY: 8
+  onlyBlur: 0
 --- !u!114 &114984189514970362
 MonoBehaviour:
   m_ObjectHideFlags: 1

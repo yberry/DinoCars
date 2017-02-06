@@ -22,9 +22,15 @@ public class WaveOffsetInspector : TriggerLoftInspector
             waveOffset.axis = axis;
         }
 
-        waveOffset.UpdateBool(ref waveOffset.startToEnd, "Start To End");
-        waveOffset.UpdateFloat(ref waveOffset.duration, "Duration");
-        waveOffset.UpdateFloat(ref waveOffset.amplitude, "Amplitude");
-        waveOffset.UpdateFloat(ref waveOffset.gap, "Gap", 0.001f, 1f);
+        waveOffset.Update(ref waveOffset.startToEnd, "Start To End");
+        waveOffset.Update(ref waveOffset.duration, "Duration");
+        waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
+        waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
+        waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);
+        if (GUILayout.Button("Match distances"))
+        {
+            waveOffset.MatchDistances();
+        }
+        waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, waveOffset.length);
     }
 }
