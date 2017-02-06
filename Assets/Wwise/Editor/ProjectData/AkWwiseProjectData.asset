@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: 896946653
-    m_lastTimePart2: -1999354606
+    m_lastTimePsrt1: 952858587
+    m_lastTimePart2: -1999352192
     List:
     - Name: Car_Boost
       Path: Default Work Unit\Car\Car_Boost
@@ -115,6 +115,18 @@ MonoBehaviour:
       ID: 520985213
       Guid: 7aa47b59cc36ff48ade5a6fbb5febaa9
       maxAttenuation: 0
+    - Name: Play_Music_Circuit
+      Path: Default Work Unit\Music\Play_Music_Circuit
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: Play_Music_Circuit
+        ObjectType: 3
+      ID: -104423069
+      Guid: 3c307cc0cf34964098592e314e30f506
+      maxAttenuation: 0
     - Name: Play_Wind
       Path: Default Work Unit\Ambiance\Play_Wind
       PathAndIcons:
@@ -131,29 +143,97 @@ MonoBehaviour:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8AF1870F-F097-4779-BE1C-A5E68D0C94B1}'
-    m_lastTimePsrt1: -775374428
-    m_lastTimePart2: -1999358825
+    m_lastTimePsrt1: 952308858
+    m_lastTimePart2: -1999352192
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{0891A86F-4F8E-4585-8095-DAEFB505EF7F}'
-    m_lastTimePsrt1: -549467301
-    m_lastTimePart2: -1999355364
-    List: []
+    m_lastTimePsrt1: -282151476
+    m_lastTimePart2: -1999352752
+    List:
+    - Name: InGame
+      Path: Default Work Unit\InGame
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: InGame
+        ObjectType: 9
+      ID: 984691642
+      Guid: 069c1ba44d166f4393293c2046bcba41
+      values:
+      - Body
+      - Neck
+      - None
+      - Start
+      ValueIcons:
+      - ElementName: Body
+        ObjectType: 8
+      - ElementName: Neck
+        ObjectType: 8
+      - ElementName: None
+        ObjectType: 8
+      - ElementName: Start
+        ObjectType: 8
+      valueIDs: 6d67fe6d28529441db3ba32cf7e1664c
+      ValueGuids:
+      - bytes: b0d9d6ed420b974cba3890b8628d1c5e
+      - bytes: bfff29032cc68444a40949c3eaefee5e
+      - bytes: b79985b1194b574f847ac0cf0a2bd009
+      - bytes: 736542b1f7391b4293686601198930d3
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{50A5922F-946B-429A-93FF-F44A60F66DB5}'
-    m_lastTimePsrt1: -1066260720
-    m_lastTimePart2: -1999357193
-    List: []
+    m_lastTimePsrt1: -281961781
+    m_lastTimePart2: -1999352752
+    List:
+    - Name: New_Switch_Group
+      Path: Default Work Unit\New_Switch_Group
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: New_Switch_Group
+        ObjectType: 11
+      ID: -2044801504
+      Guid: ecf2d34244640146948ac6cd63331cb7
+      values: []
+      ValueIcons: []
+      valueIDs: 
+      ValueGuids: []
+    - Name: New_Switch_Group_01
+      Path: Default Work Unit\New_Switch_Group_01
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: New_Switch_Group_01
+        ObjectType: 11
+      ID: -812326250
+      Guid: a5b2a23e633df44a84872038fe98dc9a
+      values: []
+      ValueIcons: []
+      valueIDs: 
+      ValueGuids: []
+    - Name: New_Switch_Group_02
+      Path: Default Work Unit\New_Switch_Group_02
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: New_Switch_Group_02
+        ObjectType: 11
+      ID: -812326251
+      Guid: 786254c84de11448a88cf0e291049654
+      values: []
+      ValueIcons: []
+      valueIDs: 
+      ValueGuids: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: 897056649
-    m_lastTimePart2: -1999354606
+    m_lastTimePsrt1: 952748802
+    m_lastTimePart2: -1999352192
     List:
     - Name: Ambiance
       Path: Default Work Unit\Ambiance
@@ -182,11 +262,20 @@ MonoBehaviour:
         ObjectType: 7
       ID: -1897999123
       Guid: e4c82c9e11ce784588bf1f95b3eefc73
+    - Name: Music
+      Path: Default Work Unit\Music
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 7
+      ID: -303024426
+      Guid: 17fb93eee3eb144a9c34bdc1ba0bfb9b
   ExpandedItems:
   - /CarsDino_CAR_Motor
   - /CarsDino_CAR_Motor/Events
   - /CarsDino_CAR_Motor/Events/Default Work Unit
-  - /CarsDino_CAR_Motor/Events/Default Work Unit/Ambiance
+  - /CarsDino_CAR_Motor/Events/Default Work Unit/Music
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

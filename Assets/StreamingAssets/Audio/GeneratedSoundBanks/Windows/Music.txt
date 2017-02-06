@@ -1,0 +1,24 @@
+Event	ID	Name			Wwise Object Path	Notes
+	4190544227	Play_Music_Circuit			\Default Work Unit\Music\Play_Music_Circuit	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
+	4243643777	Car_Boost			\Default Work Unit\Car_Various\Car_Boost	
+
+Effect plug-ins	ID	Name	Type				Notes
+	2080872166	Brick_Wall_Minus_6dB_Peak_Fast_Release	Wwise Peak Limiter			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	52507000	Original-SyntheEerie2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-SyntheEerie2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-SyntheEerie2		361187
+	204806054	Original-HH	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-HH_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-HH		3358715
+	256552076	Original-Beat	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Beat_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Beat		2111662
+	352268829	Original-Kick	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Kick_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Kick		1099391
+	422978390	Original-SyntheEerie	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-SyntheEerie_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-SyntheEerie		1039609
+	483280379	Original-GuitSat	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-GuitSat_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-GuitSat		453298
+	669969615	Original-Tom	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Tom_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Tom		1456629
+	744461911	Original-Bass	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Bass_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Bass		819354
+	788186834	Original-Guit1	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Guit1_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Guit1		1626585
+	879311514	Original-Synthe2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Synthe2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Synthe2		4858523
+	932823784	Original-Nappeprincipale	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Nappeprincipale_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Nappeprincipale		2843887
+	966593190	Original-Nappe2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Nappe2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Nappe2		887117
+
