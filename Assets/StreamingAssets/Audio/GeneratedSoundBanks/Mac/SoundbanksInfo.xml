@@ -165,5 +165,71 @@
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
+		<SoundBank Id="3991942870" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Music</ObjectPath>
+			<ShortName>Music</ShortName>
+			<Path>Music.bnk</Path>
+			<IncludedEvents>
+				<Event Id="4190544227" Name="Play_Music_Circuit" ObjectPath="\Events\Default Work Unit\Music\Play_Music_Circuit"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="52507000" Language="SFX">
+					<ShortName>Original-SyntheEerie2.wav</ShortName>
+					<Path>SFX\Original-SyntheEerie2_4D7BABE6.wem</Path>
+				</File>
+				<File Id="204806054" Language="SFX">
+					<ShortName>Original-HH.wav</ShortName>
+					<Path>SFX\Original-HH_4D7BABE6.wem</Path>
+				</File>
+				<File Id="256552076" Language="SFX">
+					<ShortName>Original-Beat.wav</ShortName>
+					<Path>SFX\Original-Beat_4D7BABE6.wem</Path>
+				</File>
+				<File Id="352268829" Language="SFX">
+					<ShortName>Original-Kick.wav</ShortName>
+					<Path>SFX\Original-Kick_4D7BABE6.wem</Path>
+				</File>
+				<File Id="422978390" Language="SFX">
+					<ShortName>Original-SyntheEerie.wav</ShortName>
+					<Path>SFX\Original-SyntheEerie_4D7BABE6.wem</Path>
+				</File>
+				<File Id="483280379" Language="SFX">
+					<ShortName>Original-GuitSat.wav</ShortName>
+					<Path>SFX\Original-GuitSat_4D7BABE6.wem</Path>
+				</File>
+				<File Id="532073091" Language="SFX">
+					<ShortName>chorus\Chorus-Synthe2.wav</ShortName>
+					<Path>SFX\chorus\Chorus-Synthe2_4D7BABE6.wem</Path>
+				</File>
+				<File Id="669969615" Language="SFX">
+					<ShortName>Original-Tom.wav</ShortName>
+					<Path>SFX\Original-Tom_4D7BABE6.wem</Path>
+				</File>
+				<File Id="744461911" Language="SFX">
+					<ShortName>Original-Bass.wav</ShortName>
+					<Path>SFX\Original-Bass_4D7BABE6.wem</Path>
+				</File>
+				<File Id="788186834" Language="SFX">
+					<ShortName>Original-Guit1.wav</ShortName>
+					<Path>SFX\Original-Guit1_4D7BABE6.wem</Path>
+				</File>
+				<File Id="879311514" Language="SFX">
+					<ShortName>Original-Synthe2.wav</ShortName>
+					<Path>SFX\Original-Synthe2_4D7BABE6.wem</Path>
+				</File>
+				<File Id="932823784" Language="SFX">
+					<ShortName>Original-Nappeprincipale.wav</ShortName>
+					<Path>SFX\Original-Nappeprincipale_4D7BABE6.wem</Path>
+				</File>
+				<File Id="966593190" Language="SFX">
+					<ShortName>Original-Nappe2.wav</ShortName>
+					<Path>SFX\Original-Nappe2_4D7BABE6.wem</Path>
+				</File>
+				<File Id="1011692392" Language="SFX">
+					<ShortName>chorus\Chorus-SyntheEerie.wav</ShortName>
+					<Path>SFX\chorus\Chorus-SyntheEerie_4D7BABE6.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
 	</SoundBanks>
 </SoundBanksInfo>

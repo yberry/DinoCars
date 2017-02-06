@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PluginInfo Project="CarsDino_CAR_Motor" Platform="Windows" BasePlatform="Windows">
 	<Plugins>
+		<Plugin Name="Wwise Peak Limiter" ID="7208963" DLL="AkPeakLimiter"/>
 		<Plugin Name="SoundSeed Air/SoundSeed Wind" ID="7798786" DLL="AkSoundSeedAir"/>
 		<Plugin Name="Wwise Tremolo" ID="8585219" DLL="AkTremolo"/>
 		<Plugin Name="CrankcaseAudio REV" ID="27267154" DLL="CrankcaseAudioREVModelPlayer"/>
