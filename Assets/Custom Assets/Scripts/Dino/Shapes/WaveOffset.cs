@@ -117,7 +117,7 @@ public class WaveOffset : TriggerLoft {
         if (time <= 0f || time >= 1f)
         {
             Curve = AnimationCurve.Linear(0f, 0f, 1f, 0f);
-            Destroy(gameObject);
+            enabled = false;
         }
     }
 }
