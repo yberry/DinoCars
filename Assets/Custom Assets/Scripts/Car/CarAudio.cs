@@ -92,11 +92,13 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("Gear", currentGear);
             AkSoundEngine.SetRTPCValue("RPM", aCar.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", aCar.rBody.velocity.magnitude);
+            AkSoundEngine.SetRTPCValue("Car_Boost", aCar.BoostDuration);
 
             if (aCar.IsBoosting && !prevBoost)
             {
+               
                 AkSoundEngine.PostEvent("Car_Boost", gameObject);
-                AkSoundEngine.SetRTPCValue("Car_Boost", aCar.BoostDuration);
+                
             }
             else if (!aCar.IsBoosting && prevBoost)
             {
