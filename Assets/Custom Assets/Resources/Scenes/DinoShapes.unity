@@ -6962,13 +6962,13 @@ MonoBehaviour:
   startToEnd: 0
   gap: 0.1
   duration: 2
-  loop: 1
   turns: 3
   freq: 2
   speed: 1
   min: 0.3333333
   max: 0.6666666
-  amplitude: 10
+  amplitude: 5
+  loop: 0
 --- !u!1 &568473328
 GameObject:
   m_ObjectHideFlags: 0
@@ -11553,13 +11553,13 @@ MonoBehaviour:
   startToEnd: 0
   gap: 0.1
   duration: 2
-  loop: 0
   turns: 1
   freq: 1
   speed: 1
   min: 0.6666667
   max: 1
-  amplitude: 10
+  amplitude: 5
+  loop: 0
 --- !u!1 &891575726
 GameObject:
   m_ObjectHideFlags: 0
@@ -26179,13 +26179,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0.5666666
+      time: 0.3333333
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.6166666
+      time: 0.44444442
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5555555
       value: 0
       inSlope: 0
       outSlope: 0

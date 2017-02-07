@@ -44,7 +44,6 @@ public class WaveOffsetInspector : TriggerLoftInspector
                 break;
 
             case WaveType.Sinus:
-                waveOffset.Update(ref waveOffset.loop, "Loop");
                 if (!waveOffset.loop)
                 {
                     waveOffset.Update(ref waveOffset.turns, "Turns");
@@ -65,6 +64,7 @@ public class WaveOffsetInspector : TriggerLoftInspector
         waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
         waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);
         waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
+        waveOffset.Update(ref waveOffset.loop, "Loop");
 
 
     }

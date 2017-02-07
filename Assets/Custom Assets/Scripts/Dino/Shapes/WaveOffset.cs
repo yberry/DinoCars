@@ -19,7 +19,6 @@ public class WaveOffset : TriggerLoft {
     public float gap = 0.2f;
     public float duration = 3f;
 
-    public bool loop = false;
     public int turns = 1;
     public int freq = 1;
     public float speed = 1f;
@@ -27,6 +26,7 @@ public class WaveOffset : TriggerLoft {
     public float min = 0f;
     public float max = 1f;
     public float amplitude = 5f;
+    public bool loop = false;
 
     public float length
     {
@@ -166,8 +166,8 @@ public class WaveOffset : TriggerLoft {
 
         if (time <= 0f || time >= 1f)
         {
-            active = false;
             Restart();
+            active = loop;
         }
     }
 
@@ -192,7 +192,7 @@ public class WaveOffset : TriggerLoft {
     public void SwitchDirection()
     {
         startToEnd = !startToEnd;
-        if (!active)
+        if (type == WaveType.Wave && !active)
         {
             Restart();
         }
