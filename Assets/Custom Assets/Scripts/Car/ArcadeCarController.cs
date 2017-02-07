@@ -263,11 +263,11 @@ namespace CND.Car
 
 		protected override int GetGear()
         {
-			
-			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? 0.15f : -0.15f;
-			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
+			const float offsetVal = 0.15f;
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? offsetVal : -offsetVal;
+			int nexGear = (int)(Mathf.Clamp((Mathf.Sign(moveForwardness) + (GearCount + offset) * SpeedRatio ), -1, GearCount));
 
-			return accelOutput < 0 && ( nexGear <= 1 || moveForwardness < 0) ? -1 : nexGear;
+			return accelOutput < 0 && ( nexGear <= (1f - offsetVal) && moveForwardness < 0) ? -1 : nexGear;
         }
 
         float EvalGearCurve(int gear, float t)
