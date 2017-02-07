@@ -22,15 +22,50 @@ public class WaveOffsetInspector : TriggerLoftInspector
             waveOffset.axis = axis;
         }
 
-        waveOffset.Update(ref waveOffset.startToEnd, "Start To End");
-        waveOffset.Update(ref waveOffset.duration, "Duration");
-        waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
+        EditorGUI.BeginChangeCheck();
+        WaveType type = (WaveType)EditorGUILayout.EnumPopup("Type", waveOffset.type);
+        if (EditorGUI.EndChangeCheck())
+        {
+            waveOffset.Record("Type");
+            waveOffset.type = type;
+            waveOffset.Restart();
+        }
+
+        switch (type)
+        {
+            case WaveType.Wave:
+                waveOffset.Update(ref waveOffset.startToEnd, "Start To End");
+                waveOffset.Update(ref waveOffset.duration, "Duration");
+                if (GUILayout.Button("Match distances"))
+                {
+                    waveOffset.MatchDistances();
+                }
+                waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, waveOffset.length);
+                break;
+
+            case WaveType.Sinus:
+                waveOffset.Update(ref waveOffset.loop, "Loop");
+                if (!waveOffset.loop)
+                {
+                    waveOffset.Update(ref waveOffset.turns, "Turns");
+                    if (waveOffset.turns < 1)
+                    {
+                        waveOffset.turns = 1;
+                    }
+                }
+                waveOffset.Update(ref waveOffset.freq, "Frequence");
+                if (waveOffset.freq < 1)
+                {
+                    waveOffset.freq = 1;
+                }
+                waveOffset.Update(ref waveOffset.speed, "Speed");
+                break;
+        }
+
         waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
         waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);
-        if (GUILayout.Button("Match distances"))
-        {
-            waveOffset.MatchDistances();
-        }
-        waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, waveOffset.length);
+        waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
+
+
     }
 }

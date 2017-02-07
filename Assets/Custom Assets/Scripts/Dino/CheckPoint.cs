@@ -31,8 +31,11 @@ public class CheckPoint : MonoBehaviour {
     {
         if (col is MeshCollider)
         {
-            nextLoft.DoCollider = true;
-            nextLoft.RefreshCollider();
+            if (nextLoft)
+            {
+                nextLoft.DoCollider = true;
+                nextLoft.RefreshCollider();
+            }
             if (num > lastCheckPoint.num)
             {
                 lastCheckPoint = this;
