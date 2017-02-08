@@ -123,6 +123,7 @@ namespace CND.Car
 				lerp.boostRatio = Mathf.Lerp(left.boostRatio, right.boostRatio, interp);
 				lerp.steeringHelper = Mathf.Lerp(left.steeringHelper, right.steeringHelper, interp);
 				lerp.brakeEffectiveness = Mathf.Lerp(left.brakeEffectiveness, right.brakeEffectiveness, interp);
+				lerp.ackermanSteering = Mathf.Lerp(left.ackermanSteering, right.ackermanSteering, interp);
 				return lerp;
 			}
 
@@ -178,7 +179,7 @@ namespace CND.Car
         float boost, drift;
 		public bool IsBoosting { get { return boost > 0; } }
 		public float BoostDuration { get; protected set; }
-		public bool IsDrifting { get { return drift > 0; } }
+		public bool IsDrifting { get { return drift > 0.1f; } }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -249,7 +250,7 @@ namespace CND.Car
 			this.rawFootbrake = footbrake;			
 			this.handbrake = handbrake;
 			this.boost = boost;
-			this.drift = drift.Cubed();
+			this.drift = Mathf.Lerp(this.drift, drift.Cubed(), Time.fixedDeltaTime * 5f);
 
 		}
 
