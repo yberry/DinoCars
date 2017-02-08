@@ -69,11 +69,10 @@ namespace CND.Car
             public float driftControl;
 			[Range(0, 1)]
 			public float steeringHelper;
-			[Range(-1, 1),DisplayModifier("Ackerman Steering: Anti <=> Pro",decorations: DM_Decorations.MoveLabel)]
-			public float ackermanSteering;
-
-            
-            public Vector3 centerOfMassOffset;
+			[Range(-1, 1),DisplayModifier("Ackermann Steering: Anti <=> Pro",decorations: DM_Decorations.MoveLabel)]
+			public float ackermannSteering;
+			[DisplayModifier(decorations: DM_Decorations.MoveLabel)]
+			public Vector3 centerOfMassOffset;
 
             [Space(5), Header("Debug/Experimental")]
             public bool orientationFix;
@@ -101,7 +100,7 @@ namespace CND.Car
 				c.boostRatio = boostRatio;
 				c.steeringHelper = steeringHelper;
 				c.brakeEffectiveness = brakeEffectiveness;
-				c.ackermanSteering = ackermanSteering;
+				c.ackermannSteering = ackermanSteering;
 				return c;
             }
 
@@ -123,7 +122,7 @@ namespace CND.Car
 				lerp.boostRatio = Mathf.Lerp(left.boostRatio, right.boostRatio, interp);
 				lerp.steeringHelper = Mathf.Lerp(left.steeringHelper, right.steeringHelper, interp);
 				lerp.brakeEffectiveness = Mathf.Lerp(left.brakeEffectiveness, right.brakeEffectiveness, interp);
-				lerp.ackermanSteering = Mathf.Lerp(left.ackermanSteering, right.ackermanSteering, interp);
+				lerp.ackermannSteering = Mathf.Lerp(left.ackermannSteering, right.ackermannSteering, interp);
 				return lerp;
 			}
 
@@ -344,7 +343,7 @@ namespace CND.Car
 			float finalSteering = Mathf.SmoothStep(
 				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
 			//finalSteering *= Mathf.Sign(Vector3.Dot(transform.up,-Physics.gravity.normalized) + float.Epsilon);
-			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.ackermanSteering);
+			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.ackermannSteering);
             prevSteerAngleDeg = finalSteering;
 						
 			var angVel = rBody.angularVelocity;
