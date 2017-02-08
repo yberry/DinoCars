@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - first:
         name: _AtmosphereThickness
-      second: 0.28
+      second: 0.31
     - first:
         name: _BumpScale
       second: 1
@@ -123,7 +123,7 @@ Material:
       second: 2
     - first:
         name: _SunSize
-      second: 0.061
+      second: 0.102
     - first:
         name: _UVSec
       second: 0
@@ -142,4 +142,4 @@ Material:
       second: {r: 0.058823533, g: 0.07058824, b: 0.09411766, a: 1}
     - first:
         name: _SkyTint
-      second: {r: 0.077097744, g: 0.100578666, b: 0.16911763, a: 1}
+      second: {r: 0.40679067, g: 0.44558522, b: 0.5588235, a: 1}

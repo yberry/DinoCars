@@ -18,7 +18,7 @@ namespace CND.Car
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
         public int CurrentGear { get { return GetGear(); } }
-
+		public float Brake { get; protected set; }
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel);
 		abstract public void Action(float footbrake, float handbrake, float boost, float drift);
@@ -242,8 +242,8 @@ namespace CND.Car
 		public override void Action(float footbrake, float handbrake, float boost, float drift)
 		{
 
-			this.rawFootbrake = footbrake;
-			
+			Brake = Mathf.Max(Mathf.Abs(footbrake),Mathf.Abs(handbrake));
+			this.rawFootbrake = footbrake;			
 			this.handbrake = handbrake;
 			this.boost = boost;
 			this.drift = drift.Cubed();
@@ -263,11 +263,11 @@ namespace CND.Car
 
 		protected override int GetGear()
         {
-			
-			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? 0.15f : -0.15f;
-			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
+			const float offsetVal = 0.15f;
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? offsetVal : -offsetVal;
+			int nexGear = (int)(Mathf.Clamp((Mathf.Sign(moveForwardness) + (GearCount + offset) * SpeedRatio ), -1, GearCount));
 
-			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
+			return accelOutput < 0 && ( nexGear <= (1f - offsetVal) && moveForwardness < 0) ? -1 : nexGear;
         }
 
         float EvalGearCurve(int gear, float t)
@@ -339,7 +339,7 @@ namespace CND.Car
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
 			float finalSteering = Mathf.SmoothStep(
 				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
-
+			//finalSteering *= Mathf.Sign(Vector3.Dot(transform.up,-Physics.gravity.normalized) + float.Epsilon);
 			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle* (1f- outerWheelSteerRatio));
             prevSteerAngleDeg = finalSteering;
 						
@@ -421,7 +421,7 @@ namespace CND.Car
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				curVelocity * speedDecay,
+				curVelocity * Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed()),
 				driftCancel * contact.sideFriction,
                 absForward);
 
