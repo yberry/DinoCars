@@ -579,12 +579,12 @@ GameObject:
   - component: {fileID: 23410882276317304}
   - component: {fileID: 64734815667569790}
   m_Layer: 0
-  m_Name: LamboMesh
+  m_Name: Lambo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4020384772554604
 Transform:
   m_ObjectHideFlags: 1
@@ -621,7 +621,7 @@ Transform:
   m_GameObject: {fileID: 1995346558686016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0575, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1, z: 1.15}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
   m_RootOrder: 6
@@ -1105,7 +1105,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 37b6019ea6489784c8f58a820aba48b2, type: 2}
-  - {fileID: 2100000, guid: 898c741df55586f40a76d20faa4fb276, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1346,7 +1346,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1995346558686016}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -1593,8 +1593,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: cd581e30eb154c74281ca82c5b07e474, type: 2}
-  - {fileID: 2100000, guid: 2e9d61daed90705458ecda92033dd4c3, type: 2}
-  - {fileID: 2100000, guid: 898c741df55586f40a76d20faa4fb276, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

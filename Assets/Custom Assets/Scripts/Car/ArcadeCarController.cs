@@ -339,7 +339,7 @@ namespace CND.Car
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
 			float finalSteering = Mathf.SmoothStep(
 				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
-
+			//finalSteering *= Mathf.Sign(Vector3.Dot(transform.up,-Physics.gravity.normalized) + float.Epsilon);
 			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle* (1f- outerWheelSteerRatio));
             prevSteerAngleDeg = finalSteering;
 						
