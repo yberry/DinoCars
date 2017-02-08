@@ -34,10 +34,10 @@ namespace CND.Car
 			rearWheels.Stabilize(rBody);
 		}
 
-        public void SetSteering(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
+        public void SetSteering(float degAngle, float maxAngle, float ackermanSteeringRatio=0)
         {
 
-			frontWheels.SetSteeringRotation(degAngle, maxAngle, maxOuterAngleReduction);
+			frontWheels.SetSteeringRotation(degAngle, maxAngle, ackermanSteeringRatio);
             
         }
 
