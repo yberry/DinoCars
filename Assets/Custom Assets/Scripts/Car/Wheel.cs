@@ -38,7 +38,10 @@ namespace CND.Car
 			public Vector3 a, b, c;
 		}
 
-        protected float angularVelAngle = 0f;
+		const float halfPI = (float)(System.Math.PI * 0.5);
+		const float fullCircle = Mathf.PI * 2f;
+
+		protected float angularVelAngle = 0f;
 
 		[Header("Debug/Experimental")]
 		public bool alternateSpring = false;
@@ -82,8 +85,7 @@ namespace CND.Car
         {
             RaycastHit hit;
             ContactInfo contact=new ContactInfo();
-            const float halfPI= (float)(System.Math.PI * 0.5);
-            const float fullCircle = Mathf.PI*2f;
+
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
 			Vector3 gravNorm = gravity.normalized;
@@ -332,6 +334,8 @@ namespace CND.Car
 		void OnDrawGizmos()
         {
 			Quaternion curRot = steerRot;
+			var src = transform.position;
+			Vector3 center;
 
 			if (!Application.isPlaying)
             {
@@ -340,9 +344,15 @@ namespace CND.Car
 				RecalculatePositions();
 				m_contactInfo.angularVelocity = prevContactInfo.angularVelocity = angularVelAngle=0;
 				curRot = transform.rotation* Quaternion.LookRotation(transform.forward, transform.up);
+				center = wheelCenter;
+			} else
+			{
+				center = wheelGraphics.transform.position;
 			}
 
-            Color defHandleColor = Color.white;
+			Vector3 lagOffset = wheelCenter - center;
+
+			Color defHandleColor = Color.white;
             Color defGizmoColor = Color.white;
             if (!enabled)
             {
@@ -351,39 +361,39 @@ namespace CND.Car
             }
               
 
-            var src = transform.position;
+
             //var end = (transform.position- transform.up* contactInfo.springLength);
-            // var wheelCenter = end - (end - src).normalized * settings.wheelRadius * 0.5f;
+            // var center = end - (end - src).normalized * settings.wheelRadius * 0.5f;
            
-            Gizmos.DrawWireSphere(wheelCenter, 0.05f);
+            Gizmos.DrawWireSphere(center, 0.05f);
             var absSide = Mathf.Abs(m_contactInfo.sidewaysRatio);
             if (absSide > 0)
-                Gizmos.DrawLine(wheelCenter, wheelCenter+m_contactInfo.sideDirection* absSide);
+                Gizmos.DrawLine(center, center+m_contactInfo.sideDirection* absSide);
 
-            Gizmos.DrawLine(wheelCenter, contactPoint); //wheel radius
+            Gizmos.DrawLine(center, contactPoint- lagOffset); //wheel radius
             Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
             Gizmos.DrawWireSphere(src, 0.075f);
-            Gizmos.DrawLine(src, wheelCenter); //spring
+            Gizmos.DrawLine(src, center); //spring
 
             Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
 			if (m_contactInfo.isOnFloor &&  m_contactInfo.hit.distance < settings.baseSpringLength - (settings.baseSpringLength * settings.maxCompression))
 			{
 				Gizmos.color = defGizmoColor = Color.yellow;
 			}
-            Gizmos.DrawWireSphere(contactPoint, 0.0375f);
+            Gizmos.DrawWireSphere(contactPoint- lagOffset, 0.0375f);
 
             var absSteerRot = (transform.rotation * curRot) * Vector3.right;
             var lookRotNormal = Quaternion.LookRotation(absSteerRot, transform.up);
             Handles.color = Gizmos.color*0.25f;
-            Handles.DrawSolidDisc(wheelCenter, lookRotNormal * Vector3.forward, settings.wheelRadius);
+            Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
 
             Handles.color = Gizmos.color;
-            Handles.CircleCap(0, wheelCenter, lookRotNormal, settings.wheelRadius);
+            Handles.CircleCap(0, center, lookRotNormal, settings.wheelRadius);
             Handles.color = Gizmos.color * 0.75f;
 			var rotNorm = (transform.rotation * curRot);
 
 			const float arcAngle= 30f;
-			Handles.DrawSolidArc(wheelCenter, lookRotNormal*Vector3.forward,
+			Handles.DrawSolidArc(center, lookRotNormal*Vector3.forward,
 			   rotNorm * (Quaternion.Euler(angularVelAngle*Mathf.Rad2Deg- arcAngle * 0.5f, 0, 0))* Vector3.down, arcAngle, settings.wheelRadius*0.9f);
 
 			//max compression
