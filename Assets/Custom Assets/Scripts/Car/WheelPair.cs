@@ -30,15 +30,22 @@ namespace CND.Car
 
             }
 
-            public void SetSteeringRotation(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
+            public void SetSteeringRotation(float degAngle, float maxAngle, float ackermanSteeringRatio = 0)
             {
 				maxAng = maxAngle;
 				float steerAngleDeg = steerAng = degAngle;
 				float degAngRatio = degAngle / maxAngle;
 
-				left.steerAngleDeg = degAngle - maxOuterAngleReduction * Mathf.Clamp01(degAngRatio);
-				right.steerAngleDeg = degAngle + maxOuterAngleReduction * Mathf.Clamp01(-degAngRatio);
-	
+				left.steerAngleDeg = degAngle;
+				right.steerAngleDeg = degAngle;
+
+				if (!Mathf.Approximately( ackermanSteeringRatio, 0))
+				{
+					float steerSign = Mathf.Sign(degAngle);
+					left.steerAngleDeg *= 1f-  Mathf.Clamp01(ackermanSteeringRatio* steerSign);
+					right.steerAngleDeg *= 1f - Mathf.Clamp01(-ackermanSteeringRatio* steerSign);
+				} 
+
 			}
             
 			public void Stabilize(Rigidbody rBody)
