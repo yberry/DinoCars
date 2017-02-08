@@ -363,6 +363,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1779411648928864
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4811637385904306}
+  - component: {fileID: 64238964222844176}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1792902539561722
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +625,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.275, z: -0.14}
   m_LocalScale: {x: 1, y: 1.05, z: 1.05}
-  m_Children: []
+  m_Children:
+  - {fileID: 4811637385904306}
   m_Father: {fileID: 4534674890397648}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -621,7 +638,7 @@ Transform:
   m_GameObject: {fileID: 1995346558686016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0575, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.1, z: 1.15}
+  m_LocalScale: {x: 1, y: 1.1, z: 1.125}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
   m_RootOrder: 6
@@ -659,7 +676,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364954311925780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.875, y: 0.125, z: 1.25}
+  m_LocalPosition: {x: -0.875, y: 0.225, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -698,7 +715,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1944743207560022}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.875, y: 0.125, z: 1.25}
+  m_LocalPosition: {x: 0.875, y: 0.225, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -724,7 +741,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1949430900456746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4235511565123470}
@@ -793,7 +810,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1950912478887250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.875, y: 0.125, z: -1.25}
+  m_LocalPosition: {x: 0.875, y: 0.225, z: -1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -915,6 +932,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4649980147522982}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4811637385904306
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1779411648928864}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4023740724528982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4832864156323832
@@ -1041,7 +1071,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736677223220206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.875, y: 0.125, z: -1.25}
+  m_LocalPosition: {x: -0.875, y: 0.225, z: -1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -1784,6 +1814,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64238964222844176
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1779411648928864}
+  m_Material: {fileID: 13400000, guid: 77b2008fc6197f44a82570617d274355, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 1
+  m_SkinWidth: 0.0002
+  m_Mesh: {fileID: 4300000, guid: f1974fb9a846fc54a87b1bcb59e76091, type: 3}
 --- !u!64 &64734815667569790
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1861,11 +1905,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2345328f40ca141b85f53979c0915d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: 004f68c375d82dd4eacc537dd55933f6, type: 2}
   - {fileID: 198010752665141260, guid: 7b0cb4a5da72fd246b929a23181a6df2, type: 2}
-  rateOverDistThreshold: 0
-  minParticleCount: 25
+  rateOverDistThreshold: 10
+  minParticleCount: 1000
   car: {fileID: 0}
 --- !u!114 &114022083003832314
 MonoBehaviour:
@@ -1878,11 +1923,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2345328f40ca141b85f53979c0915d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: 004f68c375d82dd4eacc537dd55933f6, type: 2}
   - {fileID: 198010752665141260, guid: 7b0cb4a5da72fd246b929a23181a6df2, type: 2}
-  rateOverDistThreshold: 0
-  minParticleCount: 25
+  rateOverDistThreshold: 10
+  minParticleCount: 1000
   car: {fileID: 0}
 --- !u!114 &114053449215138718
 MonoBehaviour:
@@ -1900,7 +1946,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.5
+    maxCompression: 0.66
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -1927,13 +1973,13 @@ MonoBehaviour:
     right: {fileID: 114053449215138718}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: 1.25}
-    antiRollForce: 1000
+    antiRollForce: 1500
   rearWheels:
     left: {fileID: 114301671462212306}
     right: {fileID: 114117943460069762}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.125, z: -1.25}
-    antiRollForce: 1000
+    antiRollForce: 1500
 --- !u!114 &114117943460069762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1950,7 +1996,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.5
+    maxCompression: 0.66
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -2008,13 +2054,13 @@ MonoBehaviour:
       boostRatio: 1.5
       accelCurve: 0.25
       maxTurnAngle: 35
-      turnSpeed: 70
+      turnSpeed: 90
       brakeEffectiveness: 0.75
       tractionControl: 0.5
       driftControl: 1
       steeringHelper: 0.35
-      downForce: 0
-      centerOfMassOffset: {x: 0, y: -0.075, z: -0.025}
+      downForce: 50
+      centerOfMassOffset: {x: 0, y: -0.075, z: 0.025}
       orientationFix: 0
   driftSettings:
     carSettings: {fileID: 11400000, guid: 02326ad02349a2645ad56599b0bba6a7, type: 2}
@@ -2025,12 +2071,12 @@ MonoBehaviour:
       boostRatio: 1.25
       accelCurve: 0.5
       maxTurnAngle: 45
-      turnSpeed: 80
+      turnSpeed: 110
       brakeEffectiveness: 0.5
       tractionControl: 1
       driftControl: 0.25
       steeringHelper: 0.15
-      downForce: 0
+      downForce: 100
       centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
   shakeCompensationDebugVar: {x: 0.0125, y: 0.075, z: 0.0125}
@@ -2047,11 +2093,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2345328f40ca141b85f53979c0915d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: 004f68c375d82dd4eacc537dd55933f6, type: 2}
   - {fileID: 198010752665141260, guid: 7b0cb4a5da72fd246b929a23181a6df2, type: 2}
-  rateOverDistThreshold: 0
-  minParticleCount: 25
+  rateOverDistThreshold: 10
+  minParticleCount: 1000
   car: {fileID: 0}
 --- !u!114 &114279119407651590
 MonoBehaviour:
@@ -2064,6 +2111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
@@ -2084,7 +2132,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.5
+    maxCompression: 0.66
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -2123,6 +2171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
@@ -2143,7 +2192,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.5
+    maxCompression: 0.66
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -2165,6 +2214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
@@ -2180,11 +2230,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2345328f40ca141b85f53979c0915d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: 004f68c375d82dd4eacc537dd55933f6, type: 2}
   - {fileID: 198010752665141260, guid: 7b0cb4a5da72fd246b929a23181a6df2, type: 2}
-  rateOverDistThreshold: 0
-  minParticleCount: 25
+  rateOverDistThreshold: 10
+  minParticleCount: 1000
   car: {fileID: 0}
 --- !u!114 &114549246515893482
 MonoBehaviour:
@@ -2233,6 +2284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f7d70bd9d90d440ae8955df075a5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10

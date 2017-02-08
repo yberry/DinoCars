@@ -421,7 +421,7 @@ namespace CND.Car
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				curVelocity * speedDecay,
+				curVelocity * Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed()),
 				driftCancel * contact.sideFriction,
                 absForward);
 
