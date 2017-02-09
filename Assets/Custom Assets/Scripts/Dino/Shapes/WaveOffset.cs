@@ -15,14 +15,17 @@ public class WaveOffset : TriggerLoft {
 
     public WaveType type;
 
+    //Wave
     public bool startToEnd = false;
-    public float gap = 0.2f;
     public float duration = 3f;
+    public float gap = 0.2f;
 
+    //Sinus
     public int turns = 1;
     public int freq = 1;
     public float speed = 1f;
 
+    //Common
     public float min = 0f;
     public float max = 1f;
     public float amplitude = 5f;

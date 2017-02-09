@@ -38,7 +38,7 @@ public class CustomMegaBarrierInspector : Editor {
 
         barrier.prefabWalk = (MegaWalkLoft)EditorGUILayout.ObjectField("Prefab Walk", barrier.prefabWalk, typeof(MegaWalkLoft), true);
 
-        barrier.numbers = EditorGUILayout.IntField("Numbers", barrier.numbers);
+        barrier.numbers = EditorGUILayout.IntField("Numbers by Loft", barrier.numbers);
         if (barrier.numbers < 0)
         {
             barrier.numbers = 0;
@@ -75,7 +75,6 @@ public class CustomMegaBarrierInspector : Editor {
                     {
                         for (int j = 0; j < barrier.surfaceLayers[i].loft.Layers.Length; j++)
                         {
-                            //if ( barrier.surfaceLayers[i].surfaceLoft.Layers[i].GetType() == typeof(MegaLoftLayerSimple) )
                             if (barrier.surfaceLayers[i].loft.Layers[j] is MegaLoftLayerSimple)
                             {
                                 if (surfaceLayer == 0)
