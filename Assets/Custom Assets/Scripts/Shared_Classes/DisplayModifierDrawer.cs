@@ -15,6 +15,7 @@ using UnityEditor;
 
 public enum DM_HidingMode {
     Default,
+	Normal,
     GreyedOut,
     Hidden }
 
@@ -299,9 +300,9 @@ public class DisplayModifierDrawer : PropertyDrawer
 	{
 		EditorGUI.BeginChangeCheck();
 		//base.OnGUI(position, property, label);
-		
-     //   GUI.enabled = true;
-        var origIndent = EditorGUI.indentLevel;
+		bool guiEnabled = GUI.enabled;
+	 //   GUI.enabled = true;
+		var origIndent = EditorGUI.indentLevel;
        
 		label = EditorGUI.BeginProperty(position, label, property);
 
@@ -321,8 +322,9 @@ public class DisplayModifierDrawer : PropertyDrawer
             {
                 case DM_HidingMode.Hidden: GUI.enabled = false; break;// 
                 case DM_HidingMode.GreyedOut: GUI.enabled = false; break;
-               // default: GUI.enabled = true; break;
-            }
+				case DM_HidingMode.Normal: GUI.enabled = true; break;
+					// default: GUI.enabled = true; break;
+			}
         }
 
 		if (!hideModeEnabled || dispModAttr.hidingMode != DM_HidingMode.Hidden)
@@ -347,7 +349,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 		}
 
 
-	//	GUI.enabled = true;
+		GUI.enabled = guiEnabled;
 		EditorGUI.EndProperty();
         EditorGUI.indentLevel = origIndent;
 		EditorGUI.EndChangeCheck();

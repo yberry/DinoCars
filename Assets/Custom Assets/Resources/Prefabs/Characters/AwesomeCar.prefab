@@ -385,7 +385,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1779411648928864
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -634,7 +634,7 @@ Transform:
   - {fileID: 4887335813847590}
   - {fileID: 4037492006860098}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4023740724528982
 Transform:
@@ -643,12 +643,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843569842756200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.275, z: -0.14}
+  m_LocalPosition: {x: 0, y: 0.4, z: -0.2}
   m_LocalScale: {x: 1, y: 1.05, z: 1.05}
-  m_Children:
-  - {fileID: 4811637385904306}
+  m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4023975699718600
 Transform:
@@ -696,7 +695,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364954311925780}
   m_LocalRotation: {x: 0, y: -0.0218148, z: 0, w: 0.99976206}
-  m_LocalPosition: {x: -0.875, y: 0.225, z: 1.25}
+  m_LocalPosition: {x: -0.875, y: 0.25, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -735,7 +734,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1944743207560022}
   m_LocalRotation: {x: 0, y: 0.021814894, z: 0, w: 0.99976206}
-  m_LocalPosition: {x: 0.875, y: 0.225, z: 1.25}
+  m_LocalPosition: {x: 0.875, y: 0.25, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -761,7 +760,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1949430900456746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4235511565123470}
@@ -769,7 +768,7 @@ Transform:
   - {fileID: 4502885954253896}
   - {fileID: 4976145307715420}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4340962910311422
 Transform:
@@ -795,7 +794,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4406621470281782
 Transform:
@@ -821,7 +820,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4477835451044386
 Transform:
@@ -843,7 +842,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1950912478887250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.875, y: 0.225, z: -1.25}
+  m_LocalPosition: {x: 0.875, y: 0.25, z: -1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -866,6 +865,7 @@ Transform:
   - {fileID: 4832864156323832}
   - {fileID: 4024842386602436}
   - {fileID: 4023975699718600}
+  - {fileID: 4811637385904306}
   - {fileID: 4023740724528982}
   - {fileID: 4649980147522982}
   - {fileID: 4020384772554604}
@@ -900,7 +900,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4614823617703686
 Transform:
@@ -940,7 +940,7 @@ Transform:
   - {fileID: 4932556458464926}
   - {fileID: 4957630630092214}
   m_Father: {fileID: 4534674890397648}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4678577076426926
 Transform:
@@ -975,11 +975,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1779411648928864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4000001, z: -0.20000005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4023740724528982}
-  m_RootOrder: 0
+  m_Father: {fileID: 4534674890397648}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4832864156323832
 Transform:
@@ -1105,7 +1105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736677223220206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.875, y: 0.225, z: -1.25}
+  m_LocalPosition: {x: -0.875, y: 0.25, z: -1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4284934059096966}
@@ -1860,8 +1860,8 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_InflateMesh: 1
-  m_SkinWidth: 0.0002
-  m_Mesh: {fileID: 4300000, guid: f1974fb9a846fc54a87b1bcb59e76091, type: 3}
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 009dd8e072eb13744ae064e5d10bd49d, type: 3}
 --- !u!64 &64734815667569790
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1980,7 +1980,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -2006,13 +2006,13 @@ MonoBehaviour:
     left: {fileID: 114358493479665454}
     right: {fileID: 114053449215138718}
     lockPositions: 0
-    positionOffset: {x: 0.875, y: 0.125, z: 1.25}
+    positionOffset: {x: 0.875, y: 0.25, z: 1.25}
     antiRollForce: 1500
   rearWheels:
     left: {fileID: 114301671462212306}
     right: {fileID: 114117943460069762}
     lockPositions: 0
-    positionOffset: {x: 0.875, y: 0.125, z: -1.25}
+    positionOffset: {x: 0.875, y: 0.25, z: -1.25}
     antiRollForce: 1500
 --- !u!114 &114117943460069762
 MonoBehaviour:
@@ -2030,7 +2030,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -2191,7 +2191,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 3000
     damping: 300
@@ -2275,7 +2275,7 @@ MonoBehaviour:
     type: 2}
   settings:
     baseSpringLength: 0.325
-    maxCompression: 0.66
+    maxCompression: 0.5
     maxExpansion: 1.125
     springForce: 3000
     damping: 300

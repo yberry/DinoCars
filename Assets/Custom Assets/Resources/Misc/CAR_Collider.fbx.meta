@@ -11,6 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: pCube1
     4300002: carCol
+    4300004: CAR_Collider
     6400000: //RootNode
     9500000: //RootNode
   materials:
@@ -37,14 +38,14 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 25
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8

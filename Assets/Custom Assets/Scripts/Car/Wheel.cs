@@ -17,7 +17,7 @@ namespace CND.Car
         public GameObject wheelGraphics;
 
 
-        [DisplayModifier(foldingMode: DM_FoldingMode.NoFoldout)]        
+        [DisplayModifier( foldingMode: DM_FoldingMode.NoFoldout, decorations: DM_Decorations.BoxChildren)]        
         public Settings settings=Settings.CreateDefault();
 
         protected ContactInfo m_contactInfo;
@@ -208,10 +208,10 @@ namespace CND.Car
 				} else
 				{
 
-					float springExpand =( contactInfo.springCompression) * settings.springForce;
+					float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * settings.springForce;
 					float springDamp = (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
 
-					pushForce = transform.up *(springExpand+springDamp)*contactInfo.springCompression * Time.fixedDeltaTime;// +  transform.up * (springExpand) * Time.fixedDeltaTime * Time.fixedDeltaTime;
+					pushForce = transform.up *(springExpand+springDamp) * Time.fixedDeltaTime;// +  transform.up * (springExpand) * Time.fixedDeltaTime * Time.fixedDeltaTime;
 				}
 
 				contact.upForce = pushForce;

@@ -69,12 +69,12 @@ namespace CND.Car
             public float driftControl;
 			[Range(0, 1)]
 			public float steeringHelper;
-			[Range(-1, 1),DisplayModifier("Ackermann Steering: Anti <=> Pro",decorations: DM_Decorations.MoveLabel)]
+			[Range(-1, 1),DisplayModifier("Ackermann Steering: Anti <=> Pro", decorations: DM_Decorations.MoveLabel)]
 			public float ackermannSteering;
 			[DisplayModifier(decorations: DM_Decorations.MoveLabel)]
 			public Vector3 centerOfMassOffset;
 
-            [Space(0), Header("Debug/Experimental")]
+            [Header("Debug/Experimental")]
             public bool orientationFix;
 
 			public static Settings Create(
