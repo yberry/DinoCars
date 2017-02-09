@@ -31,6 +31,7 @@ public class WaveOffsetInspector : TriggerLoftInspector
             waveOffset.Restart();
         }
 
+        EditorGUILayout.BeginVertical("Box");
         switch (type)
         {
             case WaveType.Wave:
@@ -60,6 +61,7 @@ public class WaveOffsetInspector : TriggerLoftInspector
                 waveOffset.Update(ref waveOffset.speed, "Speed");
                 break;
         }
+        EditorGUILayout.EndVertical();
 
         waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
         waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);

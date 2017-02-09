@@ -18,7 +18,7 @@ public class DeadZone : MonoBehaviour {
     {
         if (col is MeshCollider)
         {
-            StartCoroutine(Restart(col.transform.parent));
+            StartCoroutine(Restart(col.transform.parent.parent));
         }
     }
 

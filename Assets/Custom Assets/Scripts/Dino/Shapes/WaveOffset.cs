@@ -81,6 +81,7 @@ public class WaveOffset : TriggerLoft {
 
     void Awake()
     {
+        active = false;
         Restart();
     }
 
@@ -129,29 +130,29 @@ public class WaveOffset : TriggerLoft {
 
     void OnTriggerEnter(Collider col)
     {
-        active = true;
+        Trigger();
     }
 
     void FixedUpdate()
     {
         if (active)
         {
-            Trigger();
+            switch (type)
+            {
+                case WaveType.Wave:
+                    Wave();
+                    break;
+
+                case WaveType.Sinus:
+                    Sinus();
+                    break;
+            }
         }
     }
 
-    protected override void Trigger()
+    public override void Trigger()
     {
-        switch (type)
-        {
-            case WaveType.Wave:
-                Wave();
-                break;
-
-            case WaveType.Sinus:
-                Sinus();
-                break;
-        }
+        active = true;
     }
 
     void Wave()

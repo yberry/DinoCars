@@ -51,7 +51,8 @@ public class CustomMegaBarrierInspector : Editor {
         showSurfaceLayers = EditorGUILayout.Foldout(showSurfaceLayers, "Surface Layers");
         if (showSurfaceLayers)
         {
-            int size = EditorGUILayout.IntField("  Size", barrier.surfaceLayers.Length);
+            EditorGUI.indentLevel++;
+            int size = EditorGUILayout.IntField("Size", barrier.surfaceLayers.Length);
             if (size < 0)
             {
                 size = 0;
@@ -61,14 +62,15 @@ public class CustomMegaBarrierInspector : Editor {
 
             for (int i = 0; i < size; i++)
             {
-                showElement[i] = EditorGUILayout.Foldout(showElement[i], "  Element " + i);
+                showElement[i] = EditorGUILayout.Foldout(showElement[i], "Element " + i);
                 if (showElement[i])
                 {
-                    barrier.surfaceLayers[i].loft = (MegaShapeLoft)EditorGUILayout.ObjectField("    Surface", barrier.surfaceLayers[i].loft, typeof(MegaShapeLoft), true);
+                    EditorGUI.indentLevel++;
+                    barrier.surfaceLayers[i].loft = (MegaShapeLoft)EditorGUILayout.ObjectField("Surface", barrier.surfaceLayers[i].loft, typeof(MegaShapeLoft), true);
 
                     int surfaceLayer = MegaShapeUtils.FindLayer(barrier.surfaceLayers[i].loft, barrier.surfaceLayers[i].layer);
 
-                    surfaceLayer = EditorGUILayout.Popup("    Layer", surfaceLayer + 1, MegaShapeUtils.GetLayers(barrier.surfaceLayers[i].loft)) - 1;
+                    surfaceLayer = EditorGUILayout.Popup("Layer", surfaceLayer + 1, MegaShapeUtils.GetLayers(barrier.surfaceLayers[i].loft)) - 1;
                     if (barrier.surfaceLayers[i].loft)
                     {
                         for (int j = 0; j < barrier.surfaceLayers[i].loft.Layers.Length; j++)
@@ -90,8 +92,10 @@ public class CustomMegaBarrierInspector : Editor {
                     {
                         barrier.surfaceLayers[i].layer = surfaceLayer;
                     }
+                    EditorGUI.indentLevel--;
                 }
             }
+            EditorGUI.indentLevel--;
         }
 
         barrier.upright = EditorGUILayout.Slider("Upright", barrier.upright, 0f, 1f);
