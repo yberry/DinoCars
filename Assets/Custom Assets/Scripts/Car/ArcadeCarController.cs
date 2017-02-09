@@ -18,7 +18,7 @@ namespace CND.Car
 
         public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
         public int CurrentGear { get { return GetGear(); } }
-
+		public float Brake { get; protected set; }
         public Rigidbody rBody {get; protected set;}
         abstract public void Move(float steering, float accel);
 		abstract public void Action(float footbrake, float handbrake, float boost, float drift);
@@ -54,8 +54,9 @@ namespace CND.Car
 			public float boostRatio;
 			[SerializeField, Range(0, 1)]
 			public float accelCurve;
-			// [UnityEngine.Serialization.FormerlySerializedAs("speedCurves")]
-			// public AnimationCurve[] transmissionCurves;
+			[Range(0, 1000)]
+			public float downForce;
+
 			[Range(0, 90)]
             public float maxTurnAngle;
             [Range(0, 360), Tooltip("Max degrees per second")]
@@ -68,19 +69,20 @@ namespace CND.Car
             public float driftControl;
 			[Range(0, 1)]
 			public float steeringHelper;
-			[Range(0, 1000)]
-            public float downForce;
+			[Range(-1, 1),DisplayModifier("Ackerman Steering: Anti <=> Pro",decorations: DM_Decorations.MoveLabel)]
+			public float ackermanSteering;
+
             
             public Vector3 centerOfMassOffset;
 
-            [Header("Debug/Experimental")]
+            [Space(5), Header("Debug/Experimental")]
             public bool orientationFix;
 
 			public static Settings Create(
 				float targetSpeed = 100f, float accelCurve=0.25f, float boostRatio = 1.1f,
 				float brakeEffectiveness = 1f,
 				float maxTurnAngle = 42, float turnSpeed = 42f,
-                float tractionControl = 0.25f, float driftControl = 0.25f, float steeringHelper = 0,
+                float tractionControl = 0.25f, float driftControl = 0.25f, float steeringHelper = 0, float ackermanSteering =0,
 				float downForce = 1f, Vector3? centerOfMassOffset=null,
 				 bool orientationFix=false
 				)
@@ -99,6 +101,7 @@ namespace CND.Car
 				c.boostRatio = boostRatio;
 				c.steeringHelper = steeringHelper;
 				c.brakeEffectiveness = brakeEffectiveness;
+				c.ackermanSteering = ackermanSteering;
 				return c;
             }
 
@@ -180,8 +183,8 @@ namespace CND.Car
 		[Header("Debug/Experimental")]
 		[SerializeField]
 		private Vector3 shakeCompensationDebugVar = Vector3.one*0.025f;
-		[SerializeField,Range(0.25f,1),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
-		private float outerWheelSteerRatio=1;
+		[SerializeField,Range(-1,1),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
+		private float ackermanSteerRatio=0;
 		[SerializeField, Range(0, 1000),]
 		private float dynamicDrag = 0;
 
@@ -242,8 +245,8 @@ namespace CND.Car
 		public override void Action(float footbrake, float handbrake, float boost, float drift)
 		{
 
-			this.rawFootbrake = footbrake;
-			
+			Brake = Mathf.Max(Mathf.Abs(footbrake),Mathf.Abs(handbrake));
+			this.rawFootbrake = footbrake;			
 			this.handbrake = handbrake;
 			this.boost = boost;
 			this.drift = drift.Cubed();
@@ -263,11 +266,11 @@ namespace CND.Car
 
 		protected override int GetGear()
         {
-			
-			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? 0.15f : -0.15f;
-			int nexGear = (int)(Mathf.Clamp((1f + (GearCount + offset) * (SpeedRatio)), -1, GearCount));
+			const float offsetVal = 0.15f;
+			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? offsetVal : -offsetVal;
+			int nexGear = (int)(Mathf.Clamp((Mathf.Sign(moveForwardness) + (GearCount + offset) * SpeedRatio ), -1, GearCount));
 
-			return accelOutput < 0 && ( nexGear <= 1 && moveForwardness < 0) ? -1 : nexGear;
+			return accelOutput < 0 && ( nexGear <= (1f - offsetVal) && moveForwardness < 0) ? -1 : nexGear;
         }
 
         float EvalGearCurve(int gear, float t)
@@ -339,8 +342,8 @@ namespace CND.Car
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
 			float finalSteering = Mathf.SmoothStep(
 				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
-
-			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.maxTurnAngle* (1f- outerWheelSteerRatio));
+			//finalSteering *= Mathf.Sign(Vector3.Dot(transform.up,-Physics.gravity.normalized) + float.Epsilon);
+			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.ackermanSteering);
             prevSteerAngleDeg = finalSteering;
 						
 			var angVel = rBody.angularVelocity;
@@ -421,7 +424,7 @@ namespace CND.Car
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				curVelocity * speedDecay,
+				curVelocity * Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed()),
 				driftCancel * contact.sideFriction,
                 absForward);
 
