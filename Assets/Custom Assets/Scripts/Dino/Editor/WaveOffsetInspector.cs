@@ -39,6 +39,7 @@ public class WaveOffsetInspector : TriggerLoftInspector
                 waveOffset.Update(ref waveOffset.duration, "Duration");
                 if (GUILayout.Button("Match distances"))
                 {
+                    waveOffset.Record("Match distances");
                     waveOffset.MatchDistances();
                 }
                 waveOffset.Update(ref waveOffset.gap, "Gap", 0.001f, waveOffset.length);
