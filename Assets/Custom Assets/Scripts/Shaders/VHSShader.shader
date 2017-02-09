@@ -240,7 +240,7 @@
 			fixed4 blurred = tex2D(_BlurTex, i.uv);
 			// blurred = blurLine(_BlurTex,i.uv, blurOffset + waveOffset*float2(1+xOff,1), _BlurVars);
 			
-			blurred = lerp(blurred, saturate(col+blurred), blurred.b*.6+ blurred.g*.4);
+			blurred = lerp(blurred, saturate(col+blurred), blurred.r*.6+ blurred.g*.4- blurred.b*0.5)*0.66;
 
 			//	blurred = smoothstep(-0.2, 1.19, blurred);
 			//blurred = max(col, blurred);

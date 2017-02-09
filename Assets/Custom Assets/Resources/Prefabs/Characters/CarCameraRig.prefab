@@ -128,7 +128,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.2
-  far clip plane: 5000
+  far clip plane: 50000
   field of view: 45
   orthographic: 0
   orthographic size: 4.5
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseFOV: 45
   topSpeedFOV: 60
-  maxFOV: 90
+  maxFOV: 75
   dolly: 0.75
   shakeAmount: 0
 --- !u!114 &114248744616777712
@@ -321,7 +321,7 @@ MonoBehaviour:
   baseNoise: {fileID: 0}
   parasites: {fileID: 0}
   effectIntensity: 1
-  onlyHalfScreen: 1
+  onlyHalfScreen: 0
   skipEffect: 0
   minWhiteNoise: 0
   maxWhiteNoise: 0.5
@@ -332,19 +332,19 @@ MonoBehaviour:
   greenAlpha: 0.7
   blueAlpha: 0.3
   minAlpha: 0.5
-  blurDistance: {x: 0.025, y: 0.00725}
-  blurXsteps: 6
-  blurYsteps: 6
-  distortionX: 0.000515
-  exponentialNess: 0.7
+  blurDistance: {x: 0.0325, y: 0.00725}
+  blurXsteps: 16
+  blurYsteps: 4
+  distortionX: 0.0002515
+  exponentialNess: 1
   minXSpacing: 80
   maxXSpacing: 200
   minYSpacing: 3
   maxYSpacing: 5
   parasiteLength: 5
   AAlevel: 1
-  downSamplingX: 8
-  downSamplingY: 8
+  downSamplingX: 16
+  downSamplingY: 2
   onlyBlur: 0
 --- !u!114 &114984189514970362
 MonoBehaviour:
