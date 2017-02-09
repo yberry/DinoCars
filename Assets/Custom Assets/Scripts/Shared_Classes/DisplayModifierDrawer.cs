@@ -300,7 +300,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 		EditorGUI.BeginChangeCheck();
 		//base.OnGUI(position, property, label);
 		
-        GUI.enabled = true;
+     //   GUI.enabled = true;
         var origIndent = EditorGUI.indentLevel;
        
 		label = EditorGUI.BeginProperty(position, label, property);
@@ -321,7 +321,7 @@ public class DisplayModifierDrawer : PropertyDrawer
             {
                 case DM_HidingMode.Hidden: GUI.enabled = false; break;// 
                 case DM_HidingMode.GreyedOut: GUI.enabled = false; break;
-                default: GUI.enabled = true; break;
+               // default: GUI.enabled = true; break;
             }
         }
 
@@ -347,7 +347,7 @@ public class DisplayModifierDrawer : PropertyDrawer
 		}
 
 
-		GUI.enabled = true;
+	//	GUI.enabled = true;
 		EditorGUI.EndProperty();
         EditorGUI.indentLevel = origIndent;
 		EditorGUI.EndChangeCheck();

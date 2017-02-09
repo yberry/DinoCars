@@ -169,16 +169,18 @@ namespace CND.Car
                 contact.springLength = springLength;
 
 				var colVel = contact.otherColliderVelocity= GetColliderVelocity(hit, contact.wasAlreadyOnFloor);
-				vel += colVel;
-				Vector3 horizontalVel = contact.horizontalVelocity = Vector3.ProjectOnPlane(vel, transform.up);
-				Vector3 verticalVel = contact.verticalVelocity=(vel- horizontalVel);
+				Vector3 totalVel = vel+colVel;
+
+				Vector3 horizontalVel = contact.horizontalVelocity = Vector3.ProjectOnPlane(totalVel, transform.up);
+				Vector3 verticalVel = contact.verticalVelocity = (vel- horizontalVel);
+
 				//var damping = dotVelY * settings.damping;
 				const float shockCancelPct = 100;
 				//Vector3 hitToHinge = transform.position - wheelCenter;
 				Vector3 shockCancel = Vector3.Lerp(-(verticalVel  + horizontalVel * 0.25f), -verticalVel, Mathf.Sign(dotVelY)-MathEx.DotToLinear( dotVelY));// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
 				//shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLinear(-dotVelGrav))) ;
 
-                var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
+               // var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
 				Vector3 stickToFloor = shockCancel;
 				stickToFloor += -gravity * ((MathEx.DotToLinear(dotDownGrav) + 1f) * 0.5f); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
 																							//stickToFloor += -horizontalVel  * contactInfo.springCompression;
@@ -262,6 +264,7 @@ namespace CND.Car
 		Vector3[] prevVerts;
 		int[] meshTris;
 		Vector3[] meshVerts;
+		Vector3 prevColVel;
 
 		Vector3 GetColliderVelocity(RaycastHit hit, bool wasAlreadyOnlFloor)
 		{
@@ -319,12 +322,22 @@ namespace CND.Car
 				Vector3 velBH = Vector3.LerpUnclamped(velB, centerVel, distBH / Vector3.Distance(surf.b, center));
 				Vector3 velCH = Vector3.LerpUnclamped(velC, centerVel, distCH / Vector3.Distance(surf.c, center));
 
-				nextVel=wasAlreadyOnlFloor && prevHitTriangle.index == surf.index ? (velAH + velBH + velCH)/3f : Vector3.zero;
+				Vector3 vel = (velAH + velBH + velCH) / 3f;
+				if (surf.owner != prevHitTriangle.owner)
+				{
+					vel = Vector3.Lerp(prevColVel, vel,0.5f);
+				}
+					//vel = Vector3.ProjectOnPlane(vel, transform.up);
+				nextVel =wasAlreadyOnlFloor && prevHitTriangle.index == surf.index ? vel : Vector3.zero;
 				
 				//Debug.Log("ColliderVel: " + nextVel);
 				prevHitTriangle = surf;
 			}
-			
+			else
+			{
+				nextVel = Vector3.Lerp(prevColVel, nextVel, Time.fixedDeltaTime);
+			}
+			prevColVel = nextVel;
 			return nextVel;
 		}
 

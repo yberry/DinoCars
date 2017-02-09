@@ -74,7 +74,7 @@ namespace CND.Car
 			[DisplayModifier(decorations: DM_Decorations.MoveLabel)]
 			public Vector3 centerOfMassOffset;
 
-            [Space(5), Header("Debug/Experimental")]
+            [Space(0), Header("Debug/Experimental")]
             public bool orientationFix;
 
 			public static Settings Create(
@@ -183,8 +183,6 @@ namespace CND.Car
 		[Header("Debug/Experimental")]
 		[SerializeField]
 		private Vector3 shakeCompensationDebugVar = Vector3.one*0.025f;
-		[SerializeField,Range(-1,1),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
-		private float ackermanSteerRatio=0;
 		[SerializeField, Range(0, 1000),]
 		private float dynamicDrag = 0;
 
@@ -249,7 +247,7 @@ namespace CND.Car
 			this.rawFootbrake = footbrake;			
 			this.handbrake = handbrake;
 			this.boost = boost;
-			this.drift = Mathf.Lerp(this.drift, drift.Cubed(), Time.fixedDeltaTime * 5f);
+			this.drift = Mathf.Lerp(this.drift, drift.Cubed(), Time.fixedDeltaTime * 50f);
 
 		}
 

@@ -2079,11 +2079,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653494722449946}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1de2f761462eacd40909d6203935c4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airControl: 1
+  pitchSpeed: 3
+  rollSpeed: 1.5
+  maxRotSpeed: 100
+  autoAlign: 0
   maxRotDelta: 0.00707
   maxMagDelta: 0.01
 --- !u!114 &114217766517351466
@@ -2110,10 +2115,10 @@ MonoBehaviour:
       maxTurnAngle: 35
       turnSpeed: 90
       brakeEffectiveness: 0.75
-      tractionControl: 0.7
+      tractionControl: 0.5
       driftControl: 1
-      steeringHelper: 0.35
-      ackermanSteering: -0.25
+      steeringHelper: 0.25
+      ackermannSteering: -0.125
       centerOfMassOffset: {x: 0, y: -0.075, z: 0.025}
       orientationFix: 0
   driftSettings:
@@ -2131,11 +2136,10 @@ MonoBehaviour:
       tractionControl: 1
       driftControl: 0.25
       steeringHelper: 0.15
-      ackermanSteering: 0.25
+      ackermannSteering: 0.25
       centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
   shakeCompensationDebugVar: {x: 0.006125, y: 0.075, z: 0.0125}
-  ackermanSteerRatio: 0
   dynamicDrag: 0.35
 --- !u!114 &114242575076372704
 MonoBehaviour:
