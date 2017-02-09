@@ -24,6 +24,9 @@ public class WwiseManager : MonoBehaviour {
     {
         Instance = this;
         loadWwiseBanks("Music");
+        loadWwiseBanks("Ambiance");
+        loadWwiseBanks("Car_Motor");
+        
 
         // set the volume of Busses
         if (modifyBussesVolume)
