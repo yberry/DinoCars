@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: 1477523026
-    m_lastTimePart2: -1999352001
+    m_lastTimePsrt1: -1769563526
+    m_lastTimePart2: -1999351554
     List:
     - Name: Car_Boost
       Path: Default Work Unit\Car\Car_Boost
@@ -42,6 +42,18 @@ MonoBehaviour:
         ObjectType: 3
       ID: -809537340
       Guid: 023f1068d1b5d941852662fd2bef78b6
+      maxAttenuation: 0
+    - Name: Car_Brake
+      Path: Default Work Unit\Car\Car_Brake
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Brake
+        ObjectType: 3
+      ID: -205733671
+      Guid: 60b8e6c3bdf1c24da447e704d87884bf
       maxAttenuation: 0
     - Name: Car_Crash
       Path: Default Work Unit\Car\Car_Crash
@@ -143,8 +155,8 @@ MonoBehaviour:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8AF1870F-F097-4779-BE1C-A5E68D0C94B1}'
-    m_lastTimePsrt1: 592979941
-    m_lastTimePart2: -1999351803
+    m_lastTimePsrt1: -716989030
+    m_lastTimePart2: -1999351793
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
