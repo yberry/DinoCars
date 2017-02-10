@@ -2119,7 +2119,7 @@ MonoBehaviour:
       driftControl: 1
       steeringHelper: 0.25
       ackermannSteering: -0.125
-      centerOfMassOffset: {x: 0, y: -0.075, z: 0.025}
+      centerOfMassOffset: {x: 0, y: -0.08, z: 0.025}
       orientationFix: 0
   driftSettings:
     carSettings: {fileID: 11400000, guid: 02326ad02349a2645ad56599b0bba6a7, type: 2}

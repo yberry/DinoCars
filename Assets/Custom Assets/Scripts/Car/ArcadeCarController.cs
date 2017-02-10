@@ -371,7 +371,7 @@ namespace CND.Car
 			//inertiaPower *= speedDecay;
 			//fake drag
 			rBody.AddForceAtPosition(
-				-(contact.horizontalVelocity / totalContacts)* 0.9f
+				-(contact.velocity / totalContacts)* 0.9f
 				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts,transform.forward)*1.25f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
@@ -397,7 +397,7 @@ namespace CND.Car
 			//target speed for the current gear
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
-			float accelPower = Mathf.Lerp(inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
+			float accelPower = Mathf.Lerp( inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
 			//braking power, relative to input
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
