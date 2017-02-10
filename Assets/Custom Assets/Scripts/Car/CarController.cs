@@ -138,7 +138,7 @@ namespace CND.Car
                 m_Rigidbody = GetComponent<Rigidbody>();
 
             m_Rigidbody.ResetCenterOfMass();
-            m_Rigidbody.centerOfMass += m_CentreOfMassOffset;
+            //m_Rigidbody.centerOfMass += m_CentreOfMassOffset;
 #endif
             m_MaxHandbrakeTorque = float.MaxValue;
             
