@@ -50,9 +50,19 @@ public class CheckPoint : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if (col is MeshCollider && previousLoft)
+        if (col is MeshCollider)
         {
-            previousLoft.DoCollider = false;
+            if (Vector3.Dot(transform.forward, col.transform.position - transform.position) >= 0f)
+            {
+                if (previousLoft)
+                {
+                    previousLoft.DoCollider = false;
+                }
+            }
+            else if (nextLoft)
+            {
+                nextLoft.DoCollider = false;
+            }
         }
     }
 }
