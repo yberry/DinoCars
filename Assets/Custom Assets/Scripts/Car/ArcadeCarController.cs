@@ -375,7 +375,7 @@ namespace CND.Car
 			//fake drag
 			rBody.AddForceAtPosition(
 				-(contact.velocity / totalContacts)* 0.9f
-				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts,transform.forward)*1.25f, //compensate drift
+				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts,contact.forwardDirection)*1.25f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
 
@@ -425,7 +425,7 @@ namespace CND.Car
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				curVelocity * Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed()),
+				curVelocity * (Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed())+0.707f*drift),
 				driftCancel * contact.sideFriction,
                 absForward);
 
