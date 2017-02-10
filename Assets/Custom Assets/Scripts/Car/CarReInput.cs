@@ -76,9 +76,7 @@ public class CarReInput : MonoBehaviour {
     }
     public void BindPlayerSlot()
     {
-        pInput = ReInput.players.GetPlayer(playerSlot-1);
-
-        
+        pInput = ReInput.players.GetPlayer(playerSlot-1);        
     }
 
 

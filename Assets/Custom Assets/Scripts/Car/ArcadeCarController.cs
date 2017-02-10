@@ -69,13 +69,12 @@ namespace CND.Car
             public float driftControl;
 			[Range(0, 1)]
 			public float steeringHelper;
-			[Range(-1, 1),DisplayModifier("Ackerman Steering: Anti <=> Pro",decorations: DM_Decorations.MoveLabel)]
-			public float ackermanSteering;
+			[Range(-1, 1),DisplayModifier("Ackermann Steering: Anti <=> Pro", decorations: DM_Decorations.MoveLabel)]
+			public float ackermannSteering;
+			[DisplayModifier(decorations: DM_Decorations.MoveLabel)]
+			public Vector3 centerOfMassOffset;
 
-            
-            public Vector3 centerOfMassOffset;
-
-            [Space(5), Header("Debug/Experimental")]
+            [Header("Debug/Experimental")]
             public bool orientationFix;
 
 			public static Settings Create(
@@ -101,7 +100,7 @@ namespace CND.Car
 				c.boostRatio = boostRatio;
 				c.steeringHelper = steeringHelper;
 				c.brakeEffectiveness = brakeEffectiveness;
-				c.ackermanSteering = ackermanSteering;
+				c.ackermannSteering = ackermanSteering;
 				return c;
             }
 
@@ -123,6 +122,7 @@ namespace CND.Car
 				lerp.boostRatio = Mathf.Lerp(left.boostRatio, right.boostRatio, interp);
 				lerp.steeringHelper = Mathf.Lerp(left.steeringHelper, right.steeringHelper, interp);
 				lerp.brakeEffectiveness = Mathf.Lerp(left.brakeEffectiveness, right.brakeEffectiveness, interp);
+				lerp.ackermannSteering = Mathf.Lerp(left.ackermannSteering, right.ackermannSteering, interp);
 				return lerp;
 			}
 
@@ -178,13 +178,11 @@ namespace CND.Car
         float boost, drift;
 		public bool IsBoosting { get { return boost > 0; } }
 		public float BoostDuration { get; protected set; }
-		public bool IsDrifting { get { return drift > 0; } }
+		public bool IsDrifting { get { return drift > 0.1f; } }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
 		private Vector3 shakeCompensationDebugVar = Vector3.one*0.025f;
-		[SerializeField,Range(-1,1),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
-		private float ackermanSteerRatio=0;
 		[SerializeField, Range(0, 1000),]
 		private float dynamicDrag = 0;
 
@@ -249,7 +247,7 @@ namespace CND.Car
 			this.rawFootbrake = footbrake;			
 			this.handbrake = handbrake;
 			this.boost = boost;
-			this.drift = drift.Cubed();
+			this.drift = Mathf.Lerp(this.drift, drift.Cubed(), Time.fixedDeltaTime * 50f);
 
 		}
 
@@ -343,7 +341,7 @@ namespace CND.Car
 			float finalSteering = Mathf.SmoothStep(
 				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
 			//finalSteering *= Mathf.Sign(Vector3.Dot(transform.up,-Physics.gravity.normalized) + float.Epsilon);
-			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.ackermanSteering);
+			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.ackermannSteering);
             prevSteerAngleDeg = finalSteering;
 						
 			var angVel = rBody.angularVelocity;
@@ -373,7 +371,7 @@ namespace CND.Car
 			//inertiaPower *= speedDecay;
 			//fake drag
 			rBody.AddForceAtPosition(
-				-(contact.horizontalVelocity / totalContacts)* 0.9f
+				-(contact.velocity / totalContacts)* 0.9f
 				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts,transform.forward)*1.25f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
@@ -399,7 +397,7 @@ namespace CND.Car
 			//target speed for the current gear
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
-			float accelPower = Mathf.Lerp(inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
+			float accelPower = Mathf.Lerp( inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
 			//braking power, relative to input
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
