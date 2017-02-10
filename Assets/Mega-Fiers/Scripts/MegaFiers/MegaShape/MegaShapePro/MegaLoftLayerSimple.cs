@@ -1700,9 +1700,15 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 				}
 				else
 				{
-					loftverts[vi].x = p.x + totaloff.x;
-					loftverts[vi].y = p.y + totaloff.y;
-					loftverts[vi].z = p.z + totaloff.z;
+                    /*float alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x)-3.0f) / 6.0f;
+                    alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x) - 3.0f) / 6.0f;
+                    alphaGuigui = alphaGuigui * (3 * alphaGuigui - 2 * alphaGuigui * alphaGuigui);
+                    alphaGuigui *= 3.0f;
+                    float dz = Mathf.Sin(p.z / 10.0f);
+                    float off = ((dz > 0) ? alphaGuigui : 5- alphaGuigui);*/
+                    loftverts[vi].x = p.x + totaloff.x;
+                    loftverts[vi].y = p.y + totaloff.y;// - off;
+                    loftverts[vi].z = p.z + totaloff.z;
 				}
 
 				if ( planarMode == MegaPlanarMode.World )
