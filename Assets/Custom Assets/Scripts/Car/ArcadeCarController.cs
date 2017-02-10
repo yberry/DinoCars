@@ -197,7 +197,10 @@ namespace CND.Car
 
 			if (GearCount <= 0)
 				GearCount = 1;
-        }
+
+			rBody.ResetCenterOfMass();
+			rBody.centerOfMass += CurStg.centerOfMassOffset;
+		}
 
         // Update is called once per frame
         void FixedUpdate()

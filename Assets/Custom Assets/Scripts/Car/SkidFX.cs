@@ -23,7 +23,7 @@ namespace CND.Car
 			{
 				//if (!psList[i])
 				{
-					skidParticles[i] = skidParticles[i].CleanInstantiateUnexisting();// UnityHelpers.CleanInstantiate(psList[i]);
+					skidParticles[i] = skidParticles[i].CleanInstantiateClone();// UnityHelpers.CleanInstantiate(psList[i]);
 					skidParticles[i].transform.SetParent(wheel.transform, false);
 
 				}				

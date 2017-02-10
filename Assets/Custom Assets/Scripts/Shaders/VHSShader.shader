@@ -269,7 +269,7 @@
 			fixed4 waved = tex2D(_MainTex, i.uv + half2(0.1*waveOffset.x, 0) + waveOffset);
 	//		col = lerp(blurred*(1 + xOff*0.125), waved, 0.75);
 
-			col = max(blurred, waved)*(1 + xOff*0.1);
+			col = max(blurred, waved)*(1 + xOff*0.051);
 			col.rgb += (noise.rgb)*(clamp(getNaiveLum(blurred), _WhiteNoiseMin, _WhiteNoiseMax));
 		//	col = smoothstep(-0.125, 1.125, col);
 			
