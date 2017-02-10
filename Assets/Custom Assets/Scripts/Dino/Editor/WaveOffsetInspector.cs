@@ -22,6 +22,13 @@ public class WaveOffsetInspector : TriggerLoftInspector
             waveOffset.axis = axis;
         }
 
+        waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
+        waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);
+        waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
+        waveOffset.Update(ref waveOffset.loop, "Loop");
+
+        EditorGUILayout.BeginVertical("Box");
+
         EditorGUI.BeginChangeCheck();
         WaveType type = (WaveType)EditorGUILayout.EnumPopup("Type", waveOffset.type);
         if (EditorGUI.EndChangeCheck())
@@ -31,7 +38,6 @@ public class WaveOffsetInspector : TriggerLoftInspector
             waveOffset.Restart();
         }
 
-        EditorGUILayout.BeginVertical("Box");
         switch (type)
         {
             case WaveType.Wave:
@@ -63,12 +69,5 @@ public class WaveOffsetInspector : TriggerLoftInspector
                 break;
         }
         EditorGUILayout.EndVertical();
-
-        waveOffset.Update(ref waveOffset.min, "Min", 0f, waveOffset.max);
-        waveOffset.Update(ref waveOffset.max, "Max", waveOffset.min, 1f);
-        waveOffset.Update(ref waveOffset.amplitude, "Amplitude");
-        waveOffset.Update(ref waveOffset.loop, "Loop");
-
-
     }
 }

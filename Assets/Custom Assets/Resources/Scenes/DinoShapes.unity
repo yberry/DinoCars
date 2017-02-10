@@ -1847,7 +1847,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1259770628450768, guid: 9146ec97f7a0b1b42bf2e6a30abc9ce8, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1259770628450768, guid: 9146ec97f7a0b1b42bf2e6a30abc9ce8, type: 2}
       propertyPath: m_Name
@@ -6300,6 +6300,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer: {fileID: 1908947901}
   axis: 1
+  min: 0.33333334
+  max: 0.6666667
+  amplitude: 7
+  loop: 0
   type: 0
   startToEnd: 0
   duration: 2
@@ -6307,10 +6311,6 @@ MonoBehaviour:
   turns: 3
   freq: 2
   speed: 1
-  min: 0.33333334
-  max: 0.6666667
-  amplitude: 5
-  loop: 0
 --- !u!1 &575666019
 GameObject:
   m_ObjectHideFlags: 0
@@ -11351,6 +11351,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer: {fileID: 2016036831}
   axis: 1
+  min: 0.6666667
+  max: 1
+  amplitude: 7
+  loop: 0
   type: 0
   startToEnd: 0
   duration: 2
@@ -11358,10 +11362,6 @@ MonoBehaviour:
   turns: 1
   freq: 1
   speed: 1
-  min: 0.6666667
-  max: 1
-  amplitude: 5
-  loop: 0
 --- !u!1 &885476316
 GameObject:
   m_ObjectHideFlags: 0
@@ -21761,6 +21761,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1670045436}
   m_Mesh: {fileID: 4300000, guid: 087f6fee1d0ea6541b7914ff2cdc7c50, type: 3}
+--- !u!1 &1673563484 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1259770628450768, guid: 9146ec97f7a0b1b42bf2e6a30abc9ce8,
+    type: 2}
+  m_PrefabInternal: {fileID: 226148598}
+--- !u!114 &1673563488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1673563484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: 00000000000000000000000000000000
+  eventID: 0
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!1 &1679938605
 GameObject:
   m_ObjectHideFlags: 0

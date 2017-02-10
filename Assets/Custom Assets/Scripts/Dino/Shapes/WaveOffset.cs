@@ -13,6 +13,12 @@ public class WaveOffset : TriggerLoft {
 
     public MegaAxis axis = MegaAxis.Y;
 
+    //Common
+    public float min = 0f;
+    public float max = 1f;
+    public float amplitude = 5f;
+    public bool loop = false;
+
     public WaveType type;
 
     //Wave
@@ -24,12 +30,6 @@ public class WaveOffset : TriggerLoft {
     public int turns = 1;
     public int freq = 1;
     public float speed = 1f;
-
-    //Common
-    public float min = 0f;
-    public float max = 1f;
-    public float amplitude = 5f;
-    public bool loop = false;
 
     public float length
     {
