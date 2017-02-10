@@ -54,12 +54,12 @@ public class CustomMegaBarrier : MonoBehaviour {
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
 
-        for (int i = 0; i < surfaceLayers.Length; i++)
+        for (int i = 0, k = 0; i < surfaceLayers.Length; i++)
         {
-            for (int j = 0; j < numbers; j++)
+            for (int j = 0; j < numbers; j++, k++)
             {
                 float alpha = numbers == 1 ? 0.5f : Mathf.Lerp(min, max, j / (numbers - 1f));
-                SetProperties(transform.GetChild(i * numbers + j).GetComponent<MegaWalkLoft>(), surfaceLayers[i], alpha);
+                SetProperties(transform.GetChild(k).GetComponent<MegaWalkLoft>(), surfaceLayers[i], alpha);
             }
         }
     }
