@@ -31,7 +31,7 @@ public class GhostSystem : MonoBehaviour {
     public CarGhost TARGET;
 #endif
 
-    void Update()
+    void FixedUpdate()
     {
         foreach(Ghost g in ghosts)
         {
@@ -100,6 +100,13 @@ public class GhostSystem : MonoBehaviour {
         return g;
     }
 
+    /// <summary>
+    /// Wrapper for recording target status on a ghost.
+    /// </summary>
+    public void StartRecording(Ghost g, CarGhost target)
+    {
+        g.StartRecording(target, maxStatesStored);
+    }
 
 
 #if UNITY_EDITOR
@@ -144,9 +151,9 @@ public class GhostSystem : MonoBehaviour {
         foreach (Ghost g in ghosts)
         {
             if (g.isPlaying)
-                Handles.Label(g.targetCarGhost.car.position + Vector3.up, "Is Playing");
+                Handles.Label(g.ownCarGhost.car.position + Vector3.up, "Is Playing");
             else if (g.isRecording)
-                Handles.Label(g.targetCarGhost.car.position + Vector3.up, "Is Recording");
+                Handles.Label(g.ownCarGhost.car.position + Vector3.up, "Is Recording");
         }
 
     }

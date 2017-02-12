@@ -54,7 +54,7 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
 
 
             //Number of wheels
-            writer.Write((byte)targetCarGhost.wheels.Count);
+            writer.Write((byte)s.wheelsPosition.Count);
 
             foreach (Vector3 v in s.wheelsPosition)
             {
@@ -93,6 +93,9 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
             for (int j = 0; j < wheelsCount; j++)
             {
                 s.wheelsPosition.Add(new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle()));
+            }
+            for (int j = 0; j < wheelsCount; j++)
+            {
                 s.wheelsRotation.Add(new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle()));
             }
         }
