@@ -18,9 +18,13 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
     [System.Serializable]
     public class State
     {
-       public Vector3 position;
-       public Vector3 rotation;
-       public float timeSinceGhostStart;
+        public float timeSinceGhostStart;
+
+        public Vector3 carPosition;
+        public Vector3 carRotation;
+
+        public List<Vector3> wheelsPosition;
+        public List<Vector3> wheelsRotation;
     }
 
     [HideInInspector]
@@ -38,15 +42,33 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         {
             State s = states[i];
 
-            writer.Write(s.position.x);
-            writer.Write(s.position.y);
-            writer.Write(s.position.z);
-
-            writer.Write(s.rotation.x);
-            writer.Write(s.rotation.y);
-            writer.Write(s.rotation.z);
-
             writer.Write(s.timeSinceGhostStart);
+
+            writer.Write(s.carPosition.x);
+            writer.Write(s.carPosition.y);
+            writer.Write(s.carPosition.z);
+
+            writer.Write(s.carRotation.x);
+            writer.Write(s.carRotation.y);
+            writer.Write(s.carRotation.z);
+
+
+            //Number of wheels
+            writer.Write((byte)targetCarGhost.wheels.Count);
+
+            foreach (Vector3 v in s.wheelsPosition)
+            {
+                writer.Write(v.x);
+                writer.Write(v.y);
+                writer.Write(v.z);
+            }
+
+            foreach (Vector3 v in s.wheelsRotation)
+            {
+                writer.Write(v.x);
+                writer.Write(v.y);
+                writer.Write(v.z);
+            }
         }
     }
 
@@ -59,9 +81,20 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         {
             State s = states[i] = new State();
 
-            s.position = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
-            s.rotation = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             s.timeSinceGhostStart = reader.ReadSingle();
+
+            s.carPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+            s.carRotation = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+
+            byte wheelsCount = reader.ReadByte();
+            s.wheelsPosition = new List<Vector3>();
+            s.wheelsRotation = new List<Vector3>();
+
+            for (int j = 0; j < wheelsCount; j++)
+            {
+                s.wheelsPosition.Add(new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle()));
+                s.wheelsRotation.Add(new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle()));
+            }
         }
     }
 
@@ -96,12 +129,11 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
     [System.NonSerialized]
     public float recordTime = 0;
 
+    [System.NonSerialized]
+    public CarGhost ownCarGhost;
 
     [System.NonSerialized]
-    public Transform transform;
-
-    [System.NonSerialized]
-    public Transform targetTransform;
+    public CarGhost targetCarGhost;
 
 
     public void PlayStates()
@@ -114,13 +146,28 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
             nextState = states[currentIndexPlayed + 1];
             float t = Mathf.InverseLerp(currentState.timeSinceGhostStart, nextState.timeSinceGhostStart, Time.realtimeSinceStartup - playTime);
 
-            transform.position = Vector3.Lerp(currentState.position, nextState.position, t);
-            transform.rotation = Quaternion.Slerp(Quaternion.Euler(currentState.rotation), Quaternion.Euler(nextState.rotation), t);
+            ownCarGhost.car.position = Vector3.Lerp(currentState.carPosition, nextState.carPosition, t);
+            ownCarGhost.car.rotation = Quaternion.Slerp(Quaternion.Euler(currentState.carRotation), Quaternion.Euler(nextState.carRotation), t);
+
+            for(int i =0; i < ownCarGhost.wheels.Count; i++)
+            {
+                ownCarGhost.wheels[i].localPosition = Vector3.Lerp(currentState.wheelsPosition[i], nextState.wheelsPosition[i], t);
+                ownCarGhost.wheels[i].localRotation = Quaternion.Slerp(Quaternion.Euler(currentState.wheelsRotation[i]), Quaternion.Euler(nextState.wheelsRotation[i]), t);
+            }
+
         }
         else
         {
-            transform.position = currentState.position;
-            transform.rotation = Quaternion.Euler(currentState.rotation);
+            ownCarGhost.car.position = currentState.carPosition;
+            ownCarGhost.car.rotation = Quaternion.Euler(currentState.carRotation);
+
+            for (int i = 0; i < targetCarGhost.wheels.Count; i++)
+            {
+                ownCarGhost.wheels[i].localPosition = currentState.wheelsPosition[i];
+                ownCarGhost.wheels[i].localRotation = Quaternion.Euler(currentState.wheelsRotation[i]);
+            }
+
+
             isPlaying = false;
         }
     }
@@ -163,8 +210,8 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
                 State currentState = states[currentIndexRecorded];
 
                 currentState.timeSinceGhostStart = Time.realtimeSinceStartup - recordTime;
-                currentState.position = targetTransform.position;
-                currentState.rotation = targetTransform.rotation.eulerAngles;
+
+                FillState(currentState, targetCarGhost);
 
                 currentIndexRecorded++;
             }
@@ -172,17 +219,18 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         else
         {
             isRecording = false;
-            lastRecordedStateIndex = currentIndexRecorded;
+            lastRecordedStateIndex = currentIndexRecorded-1;
         }
     }
 
-    public void StartRecording(Transform target, int maxStatesStored)
+    public void StartRecording(CarGhost target, int maxStatesStored)
     {
         isPlaying = false;
-
         isRecording = true;
         recordTime = Time.realtimeSinceStartup;
-        targetTransform = target;
+
+
+        targetCarGhost = target;
         lastRecordedStateIndex = 0;
 
         states = new Ghost.State[maxStatesStored];
@@ -192,11 +240,32 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         }
 
         State firstState = states[0];
-        firstState.position = target.position;
-        firstState.rotation = target.rotation.eulerAngles;
         firstState.timeSinceGhostStart = 0;
-
+        FillState(firstState, targetCarGhost);
         currentIndexRecorded = 1;
+    }
+
+
+    /// <summary>
+    /// Fill the state with the current info of a CarGhost
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="c"></param>
+    void FillState(State s, CarGhost c)
+    {
+        s.carPosition = c.car.position;
+        s.carRotation = c.car.rotation.eulerAngles;
+
+        s.wheelsPosition = new List<Vector3>();
+        s.wheelsRotation = new List<Vector3>();
+
+        //Save relative position of wheels
+        foreach (Transform t in targetCarGhost.wheels)
+        {
+            s.wheelsPosition.Add(t.localPosition);
+            s.wheelsRotation.Add(t.localRotation.eulerAngles);
+        }
+
     }
 
 
@@ -212,7 +281,7 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
     public void StopRecording()
     {
         isRecording = false;
-        lastRecordedStateIndex = currentIndexRecorded;
+        lastRecordedStateIndex = currentIndexRecorded-1;
     }
 
 }
