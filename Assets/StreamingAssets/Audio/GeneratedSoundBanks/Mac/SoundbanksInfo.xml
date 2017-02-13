@@ -18,6 +18,7 @@
 			<IncludedEvents>
 				<Event Id="4243643777" Name="Car_Boost" ObjectPath="\Events\Default Work Unit\Car\Car_Boost"/>
 				<Event Id="3485429956" Name="Car_Boost_Stop" ObjectPath="\Events\Default Work Unit\Car\Car_Boost_Stop"/>
+				<Event Id="4089233625" Name="Car_Brake" ObjectPath="\Events\Default Work Unit\Car\Car_Brake"/>
 				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car\Car_Crash"/>
 				<Event Id="885871882" Name="Car_Skid_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Play"/>
 				<Event Id="2290073908" Name="Car_Skid_Stop" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Stop"/>
@@ -38,9 +39,17 @@
 					<ShortName>CRIS\Cris-14.wav</ShortName>
 					<Path>SFX\CRIS\Cris-14_9E69E797.wem</Path>
 				</File>
+				<File Id="155421546" Language="SFX">
+					<ShortName>Ford_Mustang.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Ford_Mustang_3732F468.wem</Path>
+				</File>
 				<File Id="160762649" Language="SFX">
 					<ShortName>CRIS\Cris-16.wav</ShortName>
 					<Path>SFX\CRIS\Cris-16_9E69E797.wem</Path>
+				</File>
+				<File Id="164804083" Language="SFX">
+					<ShortName>Boost LOOP_ok.wav</ShortName>
+					<Path>SFX\Boost LOOP_ok_4B8CC0C5.wem</Path>
 				</File>
 				<File Id="173352256" Language="SFX">
 					<ShortName>CRIS\Cris-12.wav</ShortName>
@@ -78,21 +87,21 @@
 					<ShortName>CRIS\Cris-17.wav</ShortName>
 					<Path>SFX\CRIS\Cris-17_9E69E797.wem</Path>
 				</File>
-				<File Id="894615118" Language="SFX">
-					<ShortName>Boost_01.wav</ShortName>
-					<Path>SFX\Boost_01_9E69E797.wem</Path>
-				</File>
 				<File Id="913329079" Language="SFX">
 					<ShortName>CRIS\Cris-19.wav</ShortName>
 					<Path>SFX\CRIS\Cris-19_9E69E797.wem</Path>
 				</File>
-				<File Id="965973065" Language="SFX">
-					<ShortName>Alfa_Romeo_8C_Competizione.model</ShortName>
-					<Path>Plugins\CrankcaseAudio REV\Alfa_Romeo_8C_Competizione_492D19BC.wem</Path>
+				<File Id="943764081" Language="SFX">
+					<ShortName>Boost_Start_02.wav</ShortName>
+					<Path>SFX\Boost_Start_02_9E69E797.wem</Path>
 				</File>
 				<File Id="1002126405" Language="SFX">
 					<ShortName>CRIS\Cris-09.wav</ShortName>
 					<Path>SFX\CRIS\Cris-09_9E69E797.wem</Path>
+				</File>
+				<File Id="1007456096" Language="SFX">
+					<ShortName>Brake\CarBrake.wav</ShortName>
+					<Path>SFX\Brake\CarBrake_9E69E797.wem</Path>
 				</File>
 				<File Id="1053869606" Language="SFX">
 					<ShortName>Amb_Simple_OK.wav</ShortName>
