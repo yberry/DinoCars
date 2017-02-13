@@ -69,5 +69,11 @@ public class WaveOffsetInspector : TriggerLoftInspector
                 break;
         }
         EditorGUILayout.EndVertical();
+
+        waveOffset.Update(ref waveOffset.customizeOffset, "Customize offset");
+        waveOffset.Update(ref waveOffset.param1, "Param1");
+        waveOffset.Update(ref waveOffset.param2, "Param2");
+        waveOffset.Update(ref waveOffset.param3, "Param3");
+        waveOffset.Update(ref waveOffset.param4, "Param4");
     }
 }

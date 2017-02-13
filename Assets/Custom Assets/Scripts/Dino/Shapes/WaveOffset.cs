@@ -31,6 +31,13 @@ public class WaveOffset : TriggerLoft {
     public int freq = 1;
     public float speed = 1f;
 
+    //Custom offset
+    public bool customizeOffset = false;
+    public float param1 = 3f;
+    public float param2 = 6f;
+    public float param3 = 10f;
+    public float param4 = 5f;
+
     public float length
     {
         get
@@ -150,6 +157,12 @@ public class WaveOffset : TriggerLoft {
                     Sinus();
                     break;
             }
+
+            layer.customizeOffset = customizeOffset;
+            layer.param1 = param1;
+            layer.param2 = param2;
+            layer.param3 = param3;
+            layer.param4 = param4;
         }
     }
 
