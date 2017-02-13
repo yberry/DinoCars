@@ -39,7 +39,7 @@ namespace CND.Car
 
             // initialise some vars, we'll be modifying these in a moment
             var targetForward = m_Target.forward;
-            var targetUp = m_Target.up;
+            var targetUp = Vector3.Lerp(this.targetUp, m_Target.up,0.5f);
 
             if (m_FollowTarget && Application.isPlaying)
             {
@@ -50,11 +50,11 @@ namespace CND.Car
                 {
                     // velocity is high enough, so we'll use the target's velocty
                     targetForward = Vector3.Slerp(targetRigidbody.transform.forward, targetRigidbody.velocity.normalized,followTargetRatio);
-                    targetUp = Vector3.up;
+                   // targetUp = Vector3.up;
                 }
                 else
                 {
-                    targetUp = Vector3.up;
+                  //  targetUp = Vector3.up;
                 }
                 m_CurrentTurnAmount = Mathf.SmoothDamp(m_CurrentTurnAmount, 1, ref m_TurnSpeedVelocityChange, m_SmoothTurnTime);
             }

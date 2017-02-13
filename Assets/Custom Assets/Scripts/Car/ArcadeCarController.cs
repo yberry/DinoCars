@@ -20,7 +20,8 @@ namespace CND.Car
         public int CurrentGear { get { return GetGear(); } }
 		public float Brake { get; protected set; }
         public Rigidbody rBody {get; protected set;}
-        abstract public void Move(float steering, float accel);
+
+		abstract public void Move(float steering, float accel);
 		abstract public void Action(float footbrake, float handbrake, float boost, float drift);
 
         public virtual string DebugHUDString()
@@ -41,8 +42,8 @@ namespace CND.Car
 
 
 
-	public class ArcadeCarController : BaseCarController
-    {
+	public class ArcadeCarController : BaseCarController, IOverridableGravity
+	{
 
 		#region Nested structures
 		[Serializable]
@@ -179,6 +180,9 @@ namespace CND.Car
 		public bool IsBoosting { get { return boost > 0; } }
 		public float BoostDuration { get; protected set; }
 		public bool IsDrifting { get { return drift > 0.1f; } }
+
+		protected Vector3 m_LocalGravity=Physics.gravity;
+		public Vector3 LocalGravity { get { return m_LocalGravity; } set { m_LocalGravity = value; } }
 
 		[Header("Debug/Experimental")]
 		[SerializeField]
@@ -372,12 +376,6 @@ namespace CND.Car
 			float powerRatio = (float)(totalContacts * totalWheels);
 			float inertiaPower =  Mathf.Clamp01(SpeedRatio - Time.fixedDeltaTime * 10f) * CurStg.targetSpeed / powerRatio;
 			//inertiaPower *= speedDecay;
-			//fake drag
-			rBody.AddForceAtPosition(
-				-(contact.velocity / totalContacts)* 0.9f
-				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts,contact.forwardDirection)*1.25f, //compensate drift
-				contact.pushPoint,
-				ForceMode.Acceleration);
 
 			int gear = GetGear();
 
@@ -404,7 +402,7 @@ namespace CND.Car
 			//braking power, relative to input
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
-			float gravForward = MathEx.DotToLinear(Vector3.Dot(Physics.gravity.normalized, contact.forwardDirection));
+			float gravForward = MathEx.DotToLinear(Vector3.Dot(LocalGravity.normalized, contact.forwardDirection));
 			float angVelDelta = contact.velocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
 
 			 //apply boost power
@@ -414,8 +412,8 @@ namespace CND.Car
 			var motorVel = contact.forwardDirection * accelPower;
 			var brakeVel = contact.velocity.normalized * brakePower * Mathf.Lerp(contact.sideFriction,contact.forwardFriction,absForward)*CurStg.brakeEffectiveness;
 			var addedGravVel = Vector3.ProjectOnPlane(contact.forwardDirection,contact.hit.normal)
-				* Physics.gravity.magnitude * gravForward * speedDecay;//support for slopes
-			Vector3 nextForwardVel = motorVel - brakeVel + addedGravVel;// Vector3.ProjectOnPlane( motorVel - brakeVel +addedGravVel,contact.hit.normal);
+				* LocalGravity.magnitude * gravForward * speedDecay;//support for slopes
+			Vector3 nextForwardVel = motorVel - brakeVel + addedGravVel;//Vector3.ProjectOnPlane( motorVel - brakeVel +addedGravVel,contact.hit.normal);
 	
 			//calculations for drift cancel
 			var frontCancel = -contact.forwardDirection * curVelocity.magnitude;
@@ -425,7 +423,7 @@ namespace CND.Car
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				curVelocity * (Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed())+0.707f*drift),
+				curVelocity * (Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Squared())+0.707f*drift),
 				driftCancel * contact.sideFriction,
                 absForward);
 
@@ -447,7 +445,13 @@ namespace CND.Car
 			// Debug.Log(nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
 
 #endif
-			
+
+			//fake drag
+			rBody.AddForceAtPosition(
+				-(contact.velocity / totalContacts) * 0.9f
+				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts, contact.forwardDirection) * totalWheels * 0.5f, //compensate drift
+				contact.pushPoint,
+				ForceMode.Acceleration);
 
 			rBody.AddForceAtPosition(
                 nextFinalVel,

@@ -9,13 +9,14 @@ using UnityEditor;
 namespace CND.Car
 {
     [System.Serializable]
-    public partial class Wheel : MonoBehaviour
+    public partial class Wheel : MonoBehaviour, IOverridableGravity
     {
 
-        public Vector3 gravity = Physics.gravity;
+        protected Vector3 gravity = Physics.gravity;
+		public Vector3 LocalGravity { get { return gravity; } set { gravity = value; } }
+
         public float steerAngleDeg { get; set; }
         public GameObject wheelGraphics;
-
 
         [DisplayModifier( foldingMode: DM_FoldingMode.NoFoldout, decorations: DM_Decorations.BoxChildren)]        
         public Settings settings=Settings.CreateDefault();
@@ -94,6 +95,7 @@ namespace CND.Car
 			var nextLength = m_contactInfo.springLength;
             float minCompressedLength = CompressedLength(settings.baseSpringLength,settings.maxCompression);
             float compressionMargin = settings.baseSpringLength - minCompressedLength;
+			float upSign = (Mathf.Sign(transform.up.y) + float.Epsilon);
 
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
@@ -103,8 +105,6 @@ namespace CND.Car
             Quaternion lookRot = moveDir != Vector3.zero && moveDir != transform.forward ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
             contact.relativeRotation = steerRot;
-            contact.forwardDirection = Mathf.Sign(Vector3.Dot(-gravNorm, transform.up) + float.Epsilon) >= 0 ?
-				steerRot* transform.forward : Quaternion.Inverse(steerRot) * transform.forward;
 
 
 			var projMoveDir= Vector3.ProjectOnPlane(moveDir, transform.up).normalized;
@@ -128,12 +128,17 @@ namespace CND.Car
 			
 			contact.angularVelocity = (contact.angularVelocity + moveDelta.magnitude * wheelCircumference) % wheelCircumference;
             angularVelAngle += contact.angularVelocity * Mathf.Sign(asinForward);
-			
+
+			/*contact.forwardDirection = Mathf.Sign(Vector3.Dot(-gravNorm, transform.up) + float.Epsilon) >= 0 ?
+				steerRot * transform.forward : Quaternion.Inverse(steerRot) * transform.forward;*/
+			contact.forwardDirection = (transform.rotation * steerRot) * Vector3.forward;
+
 			contact.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? asinForward : 1;
             contact.sidewaysRatio = moveDir != Vector3.zero ? dotSideways : 1f- contact.forwardRatio; //leftOrRightness 
-            contact.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(contact.sidewaysRatio)).normalized;
-            
-            contact.forwardFriction = settings.maxForwardFriction * Mathf.Abs(contact.forwardRatio);
+            //contact.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(contact.sidewaysRatio)).normalized;
+			contact.sideDirection = (transform.rotation * steerRot) * (Vector3.left * Mathf.Sign(contact.sidewaysRatio));
+
+			contact.forwardFriction = settings.maxForwardFriction * Mathf.Abs(contact.forwardRatio);
             contact.sideFriction = settings.maxSidewaysFriction * Mathf.Abs(contact.sidewaysRatio);
             
             contact.pushPoint = Vector3.Lerp(transform.position, wheelCenter, 0);
