@@ -28,6 +28,14 @@ namespace CND.Car
 		public float boostFOV = 100;
 		[Range(0,1f), DisplayModifier("Follow target: Direction <> Velocity",decorations: DM_Decorations.MoveLabel)]
 		public float followTargetRatio;
+		ArcadeCarController car;
+
+		protected override void Start()
+		{
+			base.Start();
+			car = m_Target.GetComponentInChildren<ArcadeCarController>();
+			
+		}
 
 		protected override void FollowTarget(float deltaTime)
         {
@@ -38,18 +46,21 @@ namespace CND.Car
             }
 
             // initialise some vars, we'll be modifying these in a moment
-            var targetForward = m_Target.forward;
-            var targetUp = Vector3.Lerp(this.targetUp, m_Target.up,0.5f);
+            var targetForward =  m_Target.forward;
+			
 
-            if (m_FollowTarget && Application.isPlaying)
+			var targetUp = Vector3.Lerp(this.targetUp, m_Target.up,0.5f);
+			//if (car.IsBacking) targetForward = -targetForward;
+			if (m_FollowTarget && Application.isPlaying)
             {
-                // in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
-                // but only if the object is traveling faster than a given threshold.
-
-                if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
+				// in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
+				// but only if the object is traveling faster than a given threshold.
+				if (car.IsBacking) targetForward = Vector3.Lerp(targetForward, -targetForward, 0.5f);
+				if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
                 {
-                    // velocity is high enough, so we'll use the target's velocty
-                    targetForward = Vector3.Slerp(targetRigidbody.transform.forward, targetRigidbody.velocity.normalized,followTargetRatio);
+					// velocity is high enough, so we'll use the target's velocty
+					
+					targetForward = Vector3.Slerp(targetForward, targetRigidbody.velocity.normalized,followTargetRatio);
                    // targetUp = Vector3.up;
                 }
                 else

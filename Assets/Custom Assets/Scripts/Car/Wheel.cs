@@ -136,7 +136,7 @@ namespace CND.Car
 			contact.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? asinForward : 1;
             contact.sidewaysRatio = moveDir != Vector3.zero ? dotSideways : 1f- contact.forwardRatio; //leftOrRightness 
             //contact.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(contact.sidewaysRatio)).normalized;
-			contact.sideDirection = (transform.rotation * steerRot) * (Vector3.left * Mathf.Sign(contact.sidewaysRatio));
+			contact.sideDirection = (transform.rotation * steerRot) * (Vector3.left * Mathf.Sign(contact.sidewaysRatio) );
 
 			contact.forwardFriction = settings.maxForwardFriction * Mathf.Abs(contact.forwardRatio);
             contact.sideFriction = settings.maxSidewaysFriction * Mathf.Abs(contact.sidewaysRatio);
@@ -349,11 +349,18 @@ namespace CND.Car
 
 
 #if UNITY_EDITOR
+		[Header("Debug Gizmos")]
+		public bool showDrift = true;
+		public bool showForward = true;
+
 		void OnDrawGizmos()
         {
 			Quaternion curRot = steerRot;
 			var src = transform.position;
 			Vector3 center;
+			var rotNorm = (transform.rotation * curRot);
+			var absSteerRot = rotNorm * Vector3.right;
+			var lookRotNormal = Quaternion.LookRotation(absSteerRot, transform.up);
 
 			if (!Application.isPlaying)
             {
@@ -369,6 +376,8 @@ namespace CND.Car
 			}
 
 			Vector3 lagOffset = wheelCenter - center;
+			float absSide = Mathf.Abs(m_contactInfo.sidewaysRatio);
+			float absForward = Mathf.Abs(m_contactInfo.forwardRatio);
 
 			Color defHandleColor = Color.white;
             Color defGizmoColor = Color.white;
@@ -377,18 +386,42 @@ namespace CND.Car
                 Gizmos.color= defGizmoColor *= 0.5f;
                 Handles.color = defHandleColor *= 0.5f;
             }
-              
 
 
-            //var end = (transform.position- transform.up* contactInfo.springLength);
-            // var center = end - (end - src).normalized * settings.wheelRadius * 0.5f;
-           
-            Gizmos.DrawWireSphere(center, 0.05f);
-            var absSide = Mathf.Abs(m_contactInfo.sidewaysRatio);
-            if (absSide > 0)
-                Gizmos.DrawLine(center, center+m_contactInfo.sideDirection* absSide);
 
-            Gizmos.DrawLine(center, contactPoint- lagOffset); //wheel radius
+			//var end = (transform.position- transform.up* contactInfo.springLength);
+			// var center = end - (end - src).normalized * settings.wheelRadius * 0.5f;
+			Color dirMultipliers =new Color(1.2f, 0.8f, 1.2f, 0.85f);
+			Gizmos.DrawWireSphere(center, 0.05f);
+			if (showDrift)
+			{
+				Gizmos.color = Handles.color = defGizmoColor * Handles.xAxisColor * dirMultipliers;
+
+				Vector3 sidewaysEnd = m_contactInfo.sideDirection * -absSide;
+				if (absSide > 0)
+					Gizmos.DrawLine(center, center + sidewaysEnd);
+
+				Quaternion arrowRot = m_contactInfo.sidewaysRatio > 0 ?
+					lookRotNormal : lookRotNormal * Quaternion.FromToRotation(Vector3.right, Vector3.left);
+
+				Handles.ArrowCap(0, center, arrowRot, absSide*1.33f);
+			}
+			if (showForward)
+			{
+				Gizmos.color = Handles.color = defGizmoColor * Handles.zAxisColor * dirMultipliers;
+				Vector3 forwardEnd = m_contactInfo.forwardDirection * m_contactInfo.forwardRatio;
+				if ( absForward < 0.01f || !Application.isPlaying) forwardEnd = m_contactInfo.forwardDirection;
+				forwardEnd *= settings.wheelRadius;
+				Quaternion arrowRot = m_contactInfo.forwardDot >= 0 ?
+					transform.rotation * steerRot : (transform.rotation * steerRot)* Quaternion.FromToRotation(Vector3.forward, Vector3.back);
+				Gizmos.DrawLine(center, center + forwardEnd);
+				Handles.ArrowCap(0, center+forwardEnd, arrowRot, absForward*0.85f);
+			}
+
+			Gizmos.color = defGizmoColor;
+			Handles.color = defHandleColor;
+
+			Gizmos.DrawLine(center, contactPoint- lagOffset); //wheel radius
             Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
             Gizmos.DrawWireSphere(src, 0.075f);
             Gizmos.DrawLine(src, center); //spring
@@ -400,15 +433,14 @@ namespace CND.Car
 			}
             Gizmos.DrawWireSphere(contactPoint- lagOffset, 0.0375f);
 
-            var absSteerRot = (transform.rotation * curRot) * Vector3.right;
-            var lookRotNormal = Quaternion.LookRotation(absSteerRot, transform.up);
+
             Handles.color = Gizmos.color*0.25f;
             Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
 
             Handles.color = Gizmos.color;
             Handles.CircleCap(0, center, lookRotNormal, settings.wheelRadius);
             Handles.color = Gizmos.color * 0.75f;
-			var rotNorm = (transform.rotation * curRot);
+			
 
 			const float arcAngle= 30f;
 			Handles.DrawSolidArc(center, lookRotNormal*Vector3.forward,
