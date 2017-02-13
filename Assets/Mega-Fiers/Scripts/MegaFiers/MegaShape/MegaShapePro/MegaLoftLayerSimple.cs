@@ -156,8 +156,9 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
     //Custom
     public bool customizeOffset = false;
+    MegaShapeRectangle rect;
     public float param1 = 3f;
-    public float param2 = 6f;
+    public float param2 = 1f / 3f;
     public float param3 = 10f;
     public float param4 = 5f;
 
@@ -1707,14 +1708,17 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 				}
 				else
 				{
-                    //MegaShapeRectangle rect = layerSection as MegaShapeRectangle;
-                    float alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x) - param1) / param2;
+                    if (rect == null)
+                    {
+                        rect = layerSection as MegaShapeRectangle;
+                    }
+                    float alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x) - param1) / (param2 * rect.width);
                     alphaGuigui *= alphaGuigui * (3f - 2f * alphaGuigui);
                     alphaGuigui *= 3f;
                     float dz = Mathf.Sin(p.z / param3);
-                    float off = ((dz > 0f) ? alphaGuigui : param4 - alphaGuigui);
+                    float off = dz > 0f ? alphaGuigui : param4 - alphaGuigui;
                     loftverts[vi].x = p.x + totaloff.x;
-                    loftverts[vi].y = p.y + totaloff.y - (customizeOffset ? off : 0f);
+                    loftverts[vi].y = p.y + totaloff.y - (customizeOffset && offsetCrvY.Evaluate(alpha) > 0f ? off : 0f);
                     loftverts[vi].z = p.z + totaloff.z;
 				}
 

@@ -34,7 +34,7 @@ public class WaveOffset : TriggerLoft {
     //Custom offset
     public bool customizeOffset = false;
     public float param1 = 3f;
-    public float param2 = 6f;
+    public float param2 = 1f / 3f;
     public float param3 = 10f;
     public float param4 = 5f;
 
