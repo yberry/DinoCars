@@ -1708,19 +1708,26 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 				}
 				else
 				{
-                    if (rect == null)
+                    if (customizeOffset && offsetCrvY.Evaluate(alpha) > 0f)
                     {
-                        rect = layerSection as MegaShapeRectangle;
+                        if (rect == null)
+                        {
+                            rect = layerSection as MegaShapeRectangle;
+                        }
+                        float alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x) - param1) / (param2 * rect.width);
+                        alphaGuigui *= alphaGuigui * (3f - 2f * alphaGuigui);
+                        //alphaGuigui *= 3f;
+                        float dz = Mathf.Sin(p.z / param3);
+                        float off = dz > 0f ? alphaGuigui : param4 - alphaGuigui;
+                        loftverts[vi].y = p.y + totaloff.y - off;
                     }
-                    float alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x) - param1) / (param2 * rect.width);
-                    alphaGuigui *= alphaGuigui * (3f - 2f * alphaGuigui);
-                    alphaGuigui *= 3f;
-                    float dz = Mathf.Sin(p.z / param3);
-                    float off = dz > 0f ? alphaGuigui : param4 - alphaGuigui;
+                    else
+                    {                     
+                        loftverts[vi].y = p.y + totaloff.y;
+                    }
                     loftverts[vi].x = p.x + totaloff.x;
-                    loftverts[vi].y = p.y + totaloff.y - (customizeOffset && offsetCrvY.Evaluate(alpha) > 0f ? off : 0f);
                     loftverts[vi].z = p.z + totaloff.z;
-				}
+                }
 
 				if ( planarMode == MegaPlanarMode.World )
 				{
