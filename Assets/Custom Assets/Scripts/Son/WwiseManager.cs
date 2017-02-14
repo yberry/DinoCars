@@ -38,7 +38,7 @@ public class WwiseManager : MonoBehaviour {
         }
         else
         {
-            volumeGlobal = 100f;
+           // volumeGlobal = 100f;
             volumeMusic = 100f;
             volumeVoice = 100f;
             volumeSFX = 100f;
@@ -61,7 +61,7 @@ public class WwiseManager : MonoBehaviour {
         else
         {
 
-            AkSoundEngine.SetRTPCValue("RTPC_BUS_MASTER_GLOBAL_VOL", 100f);
+          //  AkSoundEngine.SetRTPCValue("RTPC_BUS_MASTER_GLOBAL_VOL", 100f);
             AkSoundEngine.SetRTPCValue("RTPC_BUS_MASTER_MUSIC_VOL", 100f);
             AkSoundEngine.SetRTPCValue("RTPC_BUS_MASTER_VOICES_VOL", 100f);
             AkSoundEngine.SetRTPCValue("RTPC_BUS_MASTER_SFX_VOL", 100f);
