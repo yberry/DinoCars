@@ -210,7 +210,10 @@ namespace CND.Car
         // Update is called once per frame
         void FixedUpdate()
         {
-            prevVelocity = curVelocity;
+			rBody.ResetCenterOfMass();
+			rBody.centerOfMass += CurStg.centerOfMassOffset;
+
+			prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
 			var dotMoveFwd = Vector3.Dot((transform.position- prevPos ).normalized, transform.forward);
 			moveForwardness = Mathf.Approximately(dotMoveFwd, 0f) ? dotMoveFwd: Mathf.Sign(accelOutput);
@@ -447,13 +450,13 @@ namespace CND.Car
 
 #endif
 
-			//fake drag
+			//*fake drag
 			rBody.AddForceAtPosition(
 				-(contact.velocity / totalContacts) * 0.9f
 				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts, contact.forwardDirection) * totalWheels * 0.5f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
-
+			//motor
 			rBody.AddForceAtPosition(
                 nextFinalVel,
                 contact.pushPoint,

@@ -89,7 +89,7 @@ namespace CND.Car
 
             float wheelCircumference = settings.wheelRadius * fullCircle;
 
-			Vector3 gravNorm = gravity.normalized;
+			Vector3 gravNorm = LocalGravity.normalized;
 
 			// var src = transform.rotation * transform.position;
 			var nextLength = m_contactInfo.springLength;
@@ -422,8 +422,17 @@ namespace CND.Car
 			Handles.color = defHandleColor;
 
 			Gizmos.DrawLine(center, contactPoint- lagOffset); //wheel radius
-            Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
-            Gizmos.DrawWireSphere(src, 0.075f);
+           
+			if (m_contactInfo.isOnFloor)
+			{
+				Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
+			} else
+			{
+				Gizmos.color = Color.yellow;
+			}
+		
+
+			Gizmos.DrawWireSphere(src, 0.075f);
             Gizmos.DrawLine(src, center); //spring
 
             Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
@@ -446,8 +455,7 @@ namespace CND.Car
 			Handles.DrawSolidArc(center, lookRotNormal*Vector3.forward,
 			   rotNorm * (Quaternion.Euler(angularVelAngle*Mathf.Rad2Deg- arcAngle * 0.5f, 0, 0))* Vector3.down, arcAngle, settings.wheelRadius*0.9f);
 
-			//max compression
-
+			//max compression circle
 			if (!Application.isPlaying)
 			{
 				var compressedCenter = transform.position - transform.up * CompressedLength(settings.baseSpringLength, settings.maxCompression);
