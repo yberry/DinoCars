@@ -158,8 +158,8 @@ namespace CND.Car
             {
 				if (Mathf.Abs(contact.sidewaysRatio) > 0.1f)
 				{
-					Debug.ClearDeveloperConsole();
-					Debug.Log("Sideways: " + contact.sidewaysRatio + " - " + contact.sideDirection+" - grav: "+LocalGravity);
+					/*Debug.ClearDeveloperConsole();
+					Debug.Log("Sideways: " + contact.sidewaysRatio + " - " + contact.sideDirection+" - grav: "+LocalGravity);*/
 				}
 
 				var dotHitGrav = Vector3.Dot(-hit.normal, gravNorm);
