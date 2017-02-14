@@ -2154,7 +2154,7 @@ MonoBehaviour:
       brakeEffectiveness: 0.75
       tractionControl: 0.5
       driftControl: 1
-      steeringHelper: 0.25
+      steeringHelper: 0.5
       ackermannSteering: -0.125
       centerOfMassOffset: {x: 0, y: -0.08, z: 0.025}
       orientationFix: 0

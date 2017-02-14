@@ -429,7 +429,7 @@ namespace CND.Car
 			
 			//calculations for sideways velocity
 			Vector3 nextSidewaysVel = Vector3.Lerp(
-				curVelocity * (Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Squared())+0.707f*drift),
+				curVelocity * (Mathf.Clamp01(1f-Time.fixedDeltaTime *10f*absSide.Cubed())+0.707f*drift),
 				driftCancel * contact.sideFriction,
                 absForward);
 
@@ -438,7 +438,7 @@ namespace CND.Car
 			//lerp between steering velocity and pure forward 
             Vector3 nextMergedVel = Vector3.Slerp(nextDriftVel, nextForwardVel, absForward);
 			//final velocity = merged velocities with traction control applied
-            Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Lerp(nextMergedVel, (contact.worldRotation* Vector3.forward)* nextMergedVel.magnitude, CurStg.tractionControl);
+            Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Lerp(nextMergedVel, Quaternion.FromToRotation(transform.forward, contact.forwardDirection) * nextMergedVel, CurStg.tractionControl);
 		//	nextFinalVel -= contact.horizontalVelocity/powerRatio * MathEx.DotToLinear(absSide);
 
 			/*if (contact.isOnFloor)
