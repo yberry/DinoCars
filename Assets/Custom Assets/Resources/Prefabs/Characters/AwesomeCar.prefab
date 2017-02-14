@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 114181036833823674}
   - component: {fileID: 114187729547844014}
   - component: {fileID: 114351558062328478}
+  - component: {fileID: 114730760443928384}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -2028,7 +2029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e504df5bd7776247b218733dec5708a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: {x: 0, y: -9.81, z: 0}
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
@@ -2044,6 +2044,8 @@ MonoBehaviour:
     maxSidewaysFriction: 1
   alternateSpring: 0
   shockAbsorb: 1
+  showDrift: 1
+  showForward: 1
 --- !u!114 &114080216642132724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2078,7 +2080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e504df5bd7776247b218733dec5708a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: {x: 0, y: -9.81, z: 0}
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
@@ -2094,6 +2095,8 @@ MonoBehaviour:
     maxSidewaysFriction: 1
   alternateSpring: 0
   shockAbsorb: 1
+  showDrift: 1
+  showForward: 1
 --- !u!114 &114181036833823674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2220,7 +2223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e504df5bd7776247b218733dec5708a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: {x: 0, y: -9.81, z: 0}
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
@@ -2236,6 +2238,8 @@ MonoBehaviour:
     maxSidewaysFriction: 1
   alternateSpring: 0
   shockAbsorb: 1
+  showDrift: 1
+  showForward: 1
 --- !u!114 &114351558062328478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2280,7 +2284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e504df5bd7776247b218733dec5708a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: {x: 0, y: -9.81, z: 0}
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
@@ -2296,6 +2299,8 @@ MonoBehaviour:
     maxSidewaysFriction: 1
   alternateSpring: 0
   shockAbsorb: 1
+  showDrift: 1
+  showForward: 1
 --- !u!114 &114420388749100058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2425,6 +2430,19 @@ MonoBehaviour:
   decodeBank: 0
   saveDecodedBank: 0
   unloadTriggerList: 958ca0ea
+--- !u!114 &114730760443928384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cc257fedb03cd498e7313688b4e695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applyOnCenterOfMass: 0
+  gravity: {x: 0, y: -9.81, z: 0}
 --- !u!114 &114819409408058442
 MonoBehaviour:
   m_ObjectHideFlags: 1
