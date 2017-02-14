@@ -95,17 +95,17 @@ namespace CND.Car
 			var nextLength = m_contactInfo.springLength;
             float minCompressedLength = CompressedLength(settings.baseSpringLength,settings.maxCompression);
             float compressionMargin = settings.baseSpringLength - minCompressedLength;
-			float upSign = (Mathf.Sign(transform.up.y) + float.Epsilon);
+			float upSign = (Mathf.Sign(transform.up.y) + float.Epsilon*0);
 
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             contact.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
 			contact.velocity = Vector3.Lerp(m_contactInfo.velocity, contact.velocity, 0.925f);
 
-            Quaternion lookRot = moveDir != Vector3.zero && moveDir != transform.forward ? Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
+            Quaternion lookRot = (moveDir != Vector3.zero) && (moveDir != transform.forward) ?
+				Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
             contact.relativeRotation = steerRot;
-
 
 			var projMoveDir= Vector3.ProjectOnPlane(moveDir, transform.up).normalized;
             var dotForward = contact.forwardDot = Vector3.Dot(
@@ -114,18 +114,14 @@ namespace CND.Car
             var dotSideways = contact.sidewaysDot = Vector3.Dot(
                 Vector3.ProjectOnPlane(-transform.right, transform.up).normalized,
                 projMoveDir);
-
-
+			
             //   dotForward = Quaternion.FromToRotation(transform.forward, moveDir).y;
-
 
             var asinForward = MathEx.DotToLinear(dotForward); //asin(dot)/(pi/2)
             if (Mathf.Abs(asinForward) < 0.0001) asinForward = 0;            
             var asinSide = MathEx.DotToLinear(dotSideways);
             if (Mathf.Abs(asinSide) < 0.0001) asinSide = 0;
 
-			
-			
 			contact.angularVelocity = (contact.angularVelocity + moveDelta.magnitude * wheelCircumference) % wheelCircumference;
             angularVelAngle += contact.angularVelocity * Mathf.Sign(asinForward);
 
@@ -134,7 +130,7 @@ namespace CND.Car
 			contact.forwardDirection = (transform.rotation * steerRot) * Vector3.forward;
 
 			contact.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation  ? asinForward : 1;
-            contact.sidewaysRatio = moveDir != Vector3.zero ? dotSideways : 1f- contact.forwardRatio; //leftOrRightness 
+            contact.sidewaysRatio = moveDir != Vector3.zero ? asinSide : 1f- contact.forwardRatio; //leftOrRightness 
             //contact.sideDirection = ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot*Vector3.left*Mathf.Sign(contact.sidewaysRatio)).normalized;
 			contact.sideDirection = (transform.rotation * steerRot) * (Vector3.left * Mathf.Sign(contact.sidewaysRatio) );
 
@@ -152,7 +148,6 @@ namespace CND.Car
             //var sqrGrav = gravity * gravity.magnitude;
             var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
             var dotVelY = Vector3.Dot(transform.up, moveDir);
-            //dotVelY=(Mathf.Asin(dotVelY) / halfPI);
             var dotDownGrav = Vector3.Dot(-transform.up, gravNorm);
 			
             //dotGrav = (Mathf.Asin(dotGrav) / halfPI);
@@ -161,6 +156,12 @@ namespace CND.Car
 			
             if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
+				if (Mathf.Abs(contact.sidewaysRatio) > 0.1f)
+				{
+					Debug.ClearDeveloperConsole();
+					Debug.Log("Sideways: " + contact.sidewaysRatio + " - " + contact.sideDirection+" - grav: "+LocalGravity);
+				}
+
 				var dotHitGrav = Vector3.Dot(-hit.normal, gravNorm);
 				float springLength = Mathf.Max(minCompressedLength,Mathf.Min(settings.baseSpringLength,hit.distance - settings.wheelRadius));
                 float currentCompressionLength =  settings.baseSpringLength - springLength;
@@ -393,24 +394,28 @@ namespace CND.Car
 			// var center = end - (end - src).normalized * settings.wheelRadius * 0.5f;
 			Color dirMultipliers =new Color(1.2f, 0.8f, 1.2f, 0.85f);
 			Gizmos.DrawWireSphere(center, 0.05f);
-			if (showDrift)
+			if (showDrift && absSide > 0.01)
 			{
 				Gizmos.color = Handles.color = defGizmoColor * Handles.xAxisColor * dirMultipliers;
 
 				Vector3 sidewaysEnd = m_contactInfo.sideDirection * -absSide;
 				if (absSide > 0)
+				{
 					Gizmos.DrawLine(center, center + sidewaysEnd);
 
-				Quaternion arrowRot = m_contactInfo.sidewaysRatio > 0 ?
-					lookRotNormal : lookRotNormal * Quaternion.FromToRotation(Vector3.right, Vector3.left);
+					Quaternion arrowRot = m_contactInfo.sidewaysRatio > 0 ?
+						lookRotNormal : lookRotNormal * Quaternion.FromToRotation(Vector3.right, Vector3.left);
 
-				Handles.ArrowCap(0, center, arrowRot, absSide*1.33f);
+					Handles.ArrowCap(0, center, arrowRot, absSide * 1.33f);
+				}
+
 			}
-			if (showForward)
+			if (showForward && absForward > 0.01)
 			{
 				Gizmos.color = Handles.color = defGizmoColor * Handles.zAxisColor * dirMultipliers;
 				Vector3 forwardEnd = m_contactInfo.forwardDirection * m_contactInfo.forwardRatio;
-				if ( absForward < 0.01f || !Application.isPlaying) forwardEnd = m_contactInfo.forwardDirection;
+				if ( absForward < 0.01f || !Application.isPlaying)
+					forwardEnd = m_contactInfo.forwardDirection;
 				forwardEnd *= settings.wheelRadius;
 				Quaternion arrowRot = m_contactInfo.forwardDot >= 0 ?
 					transform.rotation * steerRot : (transform.rotation * steerRot)* Quaternion.FromToRotation(Vector3.forward, Vector3.back);

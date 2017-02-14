@@ -55,7 +55,7 @@ namespace CND.Car
             {
 				// in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
 				// but only if the object is traveling faster than a given threshold.
-				if (car.IsBacking) targetForward = Vector3.Lerp(targetForward, -targetForward, 0.5f);
+				if (car.IsBacking) targetForward = Vector3.Lerp(targetForward, -targetForward.normalized, 0.5f);
 				if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
                 {
 					// velocity is high enough, so we'll use the target's velocty
@@ -113,7 +113,8 @@ namespace CND.Car
                     targetForward = transform.forward;
                 }
             }
-            var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+			if (targetForward.sqrMagnitude <= 0.001f) targetForward = Target.forward* 0.001f;
+			var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
 
             // and aligning with the target object's up direction (i.e. its 'roll')
             m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : Vector3.up;
