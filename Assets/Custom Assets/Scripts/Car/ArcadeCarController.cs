@@ -356,11 +356,13 @@ namespace CND.Car
             prevSteerAngleDeg = finalSteering;
 						
 			var angVel = rBody.angularVelocity;
+			
+			angVel = transform.InverseTransformDirection(rBody.angularVelocity);
 			angVel.z /= 1 + steerCompensation * shakeCompensationDebugVar.z;
 			angVel.y /= 1 + steerCompensation * shakeCompensationDebugVar.y;
 			angVel.x /= 1 + steerCompensation * shakeCompensationDebugVar.x;
-			rBody.angularVelocity = angVel;
-			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);
+			rBody.angularVelocity = transform.TransformDirection(angVel);
+			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);//*/
 		}
 
 		void ApplyWheelTorque()
@@ -436,7 +438,7 @@ namespace CND.Car
 			//lerp between steering velocity and pure forward 
             Vector3 nextMergedVel = Vector3.Slerp(nextDriftVel, nextForwardVel, absForward);
 			//final velocity = merged velocities with traction control applied
-            Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Slerp(nextMergedVel, contact.relativeRotation* nextMergedVel/*.normalized* nextMergedVel.magnitude*/, CurStg.tractionControl);
+            Vector3 nextFinalVel= contact.otherColliderVelocity + Vector3.Lerp(nextMergedVel, (contact.worldRotation* Vector3.forward)* nextMergedVel.magnitude, CurStg.tractionControl);
 		//	nextFinalVel -= contact.horizontalVelocity/powerRatio * MathEx.DotToLinear(absSide);
 
 			/*if (contact.isOnFloor)
@@ -446,7 +448,6 @@ namespace CND.Car
 #if DEBUG
 			if (nextMergedVel.VectorIsNaN())
                 Debug.Assert(nextFinalVel.VectorIsNaN(), nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
-			// Debug.Log(nextForwardVel + " " + nextSidewaysVel + " " + nextDriftVel + " " + absForward + " " + absSide);
 
 #endif
 
