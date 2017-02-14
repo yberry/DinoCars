@@ -140,8 +140,8 @@ public class VHSEffect : ImageEffectBase {
 		int closePowY = Mathf.ClosestPowerOfTwo(source.height);
 
 		//pre-blur pass
-		RenderTexture blurH = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
-		RenderTexture blur = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+		RenderTexture blurH = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 0, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+		RenderTexture blur = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY),0, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
 
 		blurH.filterMode = FilterMode.Trilinear;
 		Graphics.Blit(source, blurH, material,0);
