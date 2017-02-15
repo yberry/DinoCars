@@ -147,6 +147,7 @@ namespace CND.Car
 			var sqrtMoveMag = Mathf.Sqrt(moveDelta.magnitude);
             var velAtPoint = contact.velocity;
 			var velAtRoot = (transform.position-lastPos)/Time.fixedDeltaTime;
+
 			//var sqrVel = vel * vel.magnitude;  
 
 			//var sqrGrav = gravity * gravity.magnitude;
@@ -188,7 +189,7 @@ namespace CND.Car
 				const float shockCancelPct = 100;
 				//Vector3 hitToHinge = transform.position - wheelCenter;
 				Vector3 shockCancel = Vector3.Lerp(-(verticalVel  + horizontalVel * 0.25f), -verticalVel, Mathf.Sign(dotVelY)-MathEx.DotToLinear( dotVelY));// - vel * (1f-(settings.damping * Time.fixedDeltaTime)));
-				//shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLinear(-dotVelGrav))) ;
+				shockCancel *= (1f - Mathf.Clamp01(MathEx.DotToLinear(-dotVelGrav))) ;
 
                // var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
 				Vector3 stickToFloor = shockCancel;
@@ -203,9 +204,9 @@ namespace CND.Car
 				if (!alternateSpring)
 				{
 					float springExpand = 1f + verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
-					springExpand = Mathf.Clamp(springExpand, 0f, 100f*settings.springForce + 0*float.PositiveInfinity);
+					springExpand = Mathf.Clamp(springExpand, contact.springCompression, 100f*settings.springForce + 0*float.PositiveInfinity);
 
-					float springDamp = 1f - ( ( verticalVel.magnitude )  * settings.damping * Mathf.Sign(dotVelY));
+					float springDamp =  1f-( ( verticalVel.magnitude) * Time.fixedDeltaTime * settings.damping * Mathf.Sign(dotVelY));
 					springDamp = Mathf.Clamp(springDamp, -1f*0, 1f);
 					
 					pushForce = Vector3.Lerp(
@@ -213,6 +214,7 @@ namespace CND.Car
 						stickToFloor * springResistance * springExpand,
 						 contact.springCompression);
 
+					//pushForce = Vector3.Lerp(m_contactInfo.upForce, pushForce, Time.fixedDeltaTime*50f);
 					//pushForce= Vector3.ClampMagnitude(pushForce, (vel.magnitude/Time.fixedDeltaTime)/shockAbsorb);
 
 				} else
@@ -220,11 +222,12 @@ namespace CND.Car
 					float springExpand = (contactInfo.springCompression) * settings.springForce*0.95f;
 					float springDamp = verticalVel.magnitude* (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
 					pushForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime * Time.fixedDeltaTime;
+					pushForce -= m_contactInfo.upForce * 0.95f;
 				//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
-					/*
-					float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce ;
-					float springDamp = (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
-					pushForce = Vector3.Lerp(m_contactInfo.upForce, transform.up * (springExpand+ springDamp),1f);*/
+				/*
+				float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce ;
+				float springDamp = (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
+				pushForce = Vector3.Lerp(m_contactInfo.upForce, transform.up * (springExpand+ springDamp),1f);*/
 				}
 
 				contact.upForce = pushForce;
