@@ -96,7 +96,8 @@ namespace CND.Car
             public Vector3 upForce { get; internal set; }
             public Vector3 forwardDirection { get; internal set; }
             public Vector3 sideDirection { get; internal set; }
-            public Quaternion relativeRotation { get; internal set; }
+			public Quaternion worldRotation { get; internal set; }
+			public Quaternion relativeRotation { get; internal set; }
             public Vector3 velocity { get; internal set; }
 			public Vector3 horizontalVelocity { get; internal set; }
 			public Vector3 verticalVelocity { get; internal set; }

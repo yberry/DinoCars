@@ -100,19 +100,21 @@ namespace CND.Car
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
             contact.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
-			contact.velocity = Vector3.Lerp(m_contactInfo.velocity, contact.velocity, 0.925f);
+			contact.velocity = Vector3.Lerp(m_contactInfo.velocity, contact.velocity, 0.9f);
 
             Quaternion lookRot = (moveDir != Vector3.zero) && (moveDir != transform.forward) ?
 				Quaternion.LookRotation(moveDir, transform.up) : transform.rotation;
 
-            contact.relativeRotation = steerRot;
+			contact.relativeRotation = steerRot;
+			contact.worldRotation = transform.rotation * Quaternion.Euler(0, steerAngleDeg, 0);
+		//	contact.relativeRotation = Quaternion.Euler(0, steerAngleDeg, 0);
 
-			var projMoveDir= Vector3.ProjectOnPlane(moveDir, transform.up).normalized;
+			var projMoveDir= Vector3.ProjectOnPlane(moveDir, transform.up);
             var dotForward = contact.forwardDot = Vector3.Dot(
-                Vector3.ProjectOnPlane(transform.forward, transform.up).normalized,
+                Vector3.ProjectOnPlane(transform.forward, transform.up),
                 projMoveDir);
             var dotSideways = contact.sidewaysDot = Vector3.Dot(
-                Vector3.ProjectOnPlane(-transform.right, transform.up).normalized,
+                Vector3.ProjectOnPlane(-transform.right, transform.up),
                 projMoveDir);
 			
             //   dotForward = Quaternion.FromToRotation(transform.forward, moveDir).y;
@@ -156,7 +158,7 @@ namespace CND.Car
 			
             if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
-				if (Mathf.Abs(contact.sidewaysRatio) > 0.1f)
+				if (false && Mathf.Abs(contact.sidewaysRatio) > 0.1f)
 				{
 					/*Debug.ClearDeveloperConsole();
 					Debug.Log("Sideways: " + contact.sidewaysRatio + " - " + contact.sideDirection+" - grav: "+LocalGravity);*/
@@ -188,7 +190,7 @@ namespace CND.Car
 
                // var reflect =  Vector3.Reflect(vel , hit.normal) * shockCancelPct * Time.fixedDeltaTime * Time.fixedDeltaTime;
 				Vector3 stickToFloor = shockCancel;
-				stickToFloor += -gravity * ((MathEx.DotToLinear(dotDownGrav) + 1f) * 0.5f); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
+				stickToFloor += -LocalGravity * ((MathEx.DotToLinear(dotDownGrav) + 1f) * 0.5f); /*  * (1f-Mathf.Abs(dotVelGrav) * (1f-Time.fixedDeltaTime*20f)*/
 																							//stickToFloor += -horizontalVel  * contactInfo.springCompression;
 				Vector3 pushForce;
 				float springResistance = Mathf.Lerp(
@@ -403,7 +405,7 @@ namespace CND.Car
 				{
 					Gizmos.DrawLine(center, center + sidewaysEnd);
 
-					Quaternion arrowRot = m_contactInfo.sidewaysRatio > 0 ?
+					Quaternion arrowRot = m_contactInfo.sidewaysRatio >= 0 ?
 						lookRotNormal : lookRotNormal * Quaternion.FromToRotation(Vector3.right, Vector3.left);
 
 					Handles.ArrowCap(0, center, arrowRot, absSide * 1.33f);
