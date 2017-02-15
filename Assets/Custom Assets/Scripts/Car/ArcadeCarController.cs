@@ -180,8 +180,9 @@ namespace CND.Car
 		public bool IsBoosting { get { return boost > 0; } }
 		public float BoostDuration { get; protected set; }
 		public bool IsDrifting { get { return drift > 0.1f; } }
-		public bool IsBacking { get { return moveForwardness < 0f; } }
-
+		public bool IsReversing { get { return moveForwardness < 0f; } }
+		public int GroundedWheels { get { return wheelMgr.totalContacts; } }
+		
 		protected Vector3 m_LocalGravity=Physics.gravity;
 		public Vector3 LocalGravity { get { return m_LocalGravity; } set { m_LocalGravity = value; } }
 

@@ -7,15 +7,19 @@ public class CarGravityOverride : MonoBehaviour {
 	public bool applyOnCenterOfMass;
 	[SerializeField]
 	protected Vector3 gravity = Physics.gravity;
-	
+
+	Vector3 origGravity;
+	bool origGravityState;
 	BaseCarController car;
 	List<IOverridableGravity> overridableComponents;
 
 	// Use this for initialization
 	void Start () {
 		car = GetComponent<BaseCarController>();
+		origGravityState = car.rBody.useGravity;
 		car.rBody.useGravity = false;
 		overridableComponents = new List<IOverridableGravity>( GetComponentsInChildren<IOverridableGravity>());
+		origGravity = Physics.gravity;
 	//	Debug.Log("Overridable Gravity compatible components found: " + overridableComponents.Count);
 	}
 	
@@ -39,5 +43,13 @@ public class CarGravityOverride : MonoBehaviour {
 			return Vector3.Slerp(gravity, -car.transform.up * Mathf.Max(Physics.gravity.magnitude,Physics.gravity.magnitude*0.5f+ hit.distance*0.25f),1f);
 		}
 		return Physics.gravity;
+	}
+
+	void OnDisable()
+	{
+		car.rBody.useGravity = origGravityState;
+		int count = overridableComponents.Count;
+		for (int i = 0; i < count; i++)
+			overridableComponents[i].LocalGravity = origGravity;
 	}
 }

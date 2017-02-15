@@ -2148,7 +2148,7 @@ MonoBehaviour:
       targetSpeed: 250
       boostRatio: 1.5
       accelCurve: 0.25
-      downForce: 50
+      downForce: 100
       maxTurnAngle: 35
       turnSpeed: 60
       brakeEffectiveness: 0.75
@@ -2176,7 +2176,7 @@ MonoBehaviour:
       ackermannSteering: 0.25
       centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
-  shakeCompensationDebugVar: {x: 0.006125, y: 0.075, z: 0.0125}
+  shakeCompensationDebugVar: {x: 0.006125, y: 0.10075, z: 0.00125}
   dynamicDrag: 0.35
 --- !u!114 &114242575076372704
 MonoBehaviour:

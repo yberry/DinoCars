@@ -99,6 +99,7 @@ namespace CND.Car
 
             Vector3 moveDelta = (transform.position - lastPos);
             Vector3 moveDir = moveDelta.normalized;
+			
             contact.velocity = moveDelta.magnitude > 0 ? moveDelta / Time.fixedDeltaTime : Vector3.zero;
 			contact.velocity = Vector3.Lerp(m_contactInfo.velocity, contact.velocity, 0.9f);
 
@@ -144,17 +145,18 @@ namespace CND.Car
 			contact.springLength = settings.baseSpringLength;
 
 			var sqrtMoveMag = Mathf.Sqrt(moveDelta.magnitude);
-            var vel = contact.velocity;
-            //var sqrVel = vel * vel.magnitude;  
+            var velAtPoint = contact.velocity;
+			var velAtRoot = (transform.position-lastPos)/Time.fixedDeltaTime;
+			//var sqrVel = vel * vel.magnitude;  
 
-            //var sqrGrav = gravity * gravity.magnitude;
-            var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
+			//var sqrGrav = gravity * gravity.magnitude;
+			var dotVelGrav = Vector3.Dot(moveDir, gravNorm);
             var dotVelY = Vector3.Dot(transform.up, moveDir);
             var dotDownGrav = Vector3.Dot(-transform.up, gravNorm);
 			
             //dotGrav = (Mathf.Asin(dotGrav) / halfPI);
 
-            const float tolerance = 1.025f;
+            const float tolerance = 1.0125f;
 			
             if (Physics.Raycast(transform.position, -transform.up, out hit, m_contactInfo.springLength * tolerance/* * settings.maxExpansion */+ settings.wheelRadius))
             {
@@ -177,10 +179,10 @@ namespace CND.Car
                 contact.springLength = springLength;
 
 				var colVel = contact.otherColliderVelocity= GetColliderVelocity(hit, contact.wasAlreadyOnFloor);
-				Vector3 totalVel = vel+colVel;
+				Vector3 totalVel = velAtPoint + colVel;
 
 				Vector3 horizontalVel = contact.horizontalVelocity = Vector3.ProjectOnPlane(totalVel, transform.up);
-				Vector3 verticalVel = contact.verticalVelocity = (vel- horizontalVel);
+				Vector3 verticalVel = contact.verticalVelocity = (velAtPoint- horizontalVel);
 
 				//var damping = dotVelY * settings.damping;
 				const float shockCancelPct = 100;
@@ -201,9 +203,9 @@ namespace CND.Car
 				if (!alternateSpring)
 				{
 					float springExpand = 1f + verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
-					springExpand = Mathf.Clamp(springExpand, 0f, float.PositiveInfinity);
+					springExpand = Mathf.Clamp(springExpand, 0f, 100f*settings.springForce + 0*float.PositiveInfinity);
 
-					float springDamp = 1f - ( ( verticalVel.magnitude ) * Time.fixedDeltaTime * settings.damping * Mathf.Sign(dotVelY));
+					float springDamp = 1f - ( ( verticalVel.magnitude )  * settings.damping * Mathf.Sign(dotVelY));
 					springDamp = Mathf.Clamp(springDamp, -1f*0, 1f);
 					
 					pushForce = Vector3.Lerp(
@@ -215,11 +217,14 @@ namespace CND.Car
 
 				} else
 				{
-
-					float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * settings.springForce;
+					float springExpand = (contactInfo.springCompression) * settings.springForce*0.95f;
+					float springDamp = verticalVel.magnitude* (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
+					pushForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime * Time.fixedDeltaTime;
+				//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
+					/*
+					float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce ;
 					float springDamp = (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
-
-					pushForce = transform.up *(springExpand+springDamp) * Time.fixedDeltaTime;// +  transform.up * (springExpand) * Time.fixedDeltaTime * Time.fixedDeltaTime;
+					pushForce = Vector3.Lerp(m_contactInfo.upForce, transform.up * (springExpand+ springDamp),1f);*/
 				}
 
 				contact.upForce = pushForce;
@@ -237,7 +242,7 @@ namespace CND.Car
 					if (Application.isPlaying)
 					{
 						contact.hit = default(RaycastHit);
-						contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 10f * Time.fixedDeltaTime);
+						contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 50f * Time.fixedDeltaTime);
 						contact.springCompression = (settings.baseSpringLength - contact.springLength) / compressionMargin;
 					}
 
