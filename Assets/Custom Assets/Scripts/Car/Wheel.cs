@@ -260,7 +260,7 @@ namespace CND.Car
 			if (!alternateSpring)
 			{
 				float springExpand = 1f + contact.verticalPointVelocity.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
-				springExpand = Mathf.Clamp(springExpand, 0f, 100f * settings.springForce + 0 * float.PositiveInfinity);
+				springExpand = Mathf.Clamp(springExpand, contact.springCompression,1f+ contact.springCompression+0* 100f * settings.springForce + 0 * float.PositiveInfinity);
 
 				float springDamp = 1f - ((contact.verticalPointVelocity.magnitude) * settings.damping * Mathf.Sign(dotVelY));
 				springDamp = Mathf.Clamp(springDamp, -1f * 0, 1f);
@@ -290,9 +290,9 @@ namespace CND.Car
 
 		protected virtual void FillContactInfo_NotOnFloor(ref ContactInfo contact)
 		{
-			//contact.springCompression = prevContactInfo.springCompression;
-			//contact.springLength = settings.baseSpringLength;
-
+			contact.springCompression = prevContactInfo.springCompression;
+			contact.springLength = settings.baseSpringLength;
+			contact.isOnFloor=false;
 			if (prevContactInfo.isOnFloor)
 			{
 				contact = prevContactInfo;
@@ -303,7 +303,7 @@ namespace CND.Car
 				if (Application.isPlaying)
 				{
 					contact.hit = default(RaycastHit);
-					contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 50f * Time.fixedDeltaTime);
+					contact.springLength = Mathf.Lerp(prevContactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 50f * Time.fixedDeltaTime);
 					contact.springCompression = (settings.baseSpringLength - contact.springLength) / compressionMargin;
 				}
 
