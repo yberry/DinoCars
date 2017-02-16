@@ -95,22 +95,31 @@ namespace CND.Car
             public bool wasAlreadyOnFloor { get; internal set; }
             public Vector3 upForce { get; internal set; }
             public Vector3 forwardDirection { get; internal set; }
-            public Vector3 sideDirection { get; internal set; }
+            public Vector3 sideSlipDirection { get; internal set; }
 			public Quaternion worldRotation { get; internal set; }
 			public Quaternion relativeRotation { get; internal set; }
-            public Vector3 velocity { get; internal set; }
-			public Vector3 horizontalVelocity { get; internal set; }
-			public Vector3 verticalVelocity { get; internal set; }
+            public Vector3 rootVelocity { get; internal set; }
+			public Vector3 pointVelocity { get; internal set; }
+			public Vector3 horizontalRootVelocity { get; internal set; }
+			public Vector3 verticalRootVelocity { get; internal set; }
+			public Vector3 horizontalPointVelocity { get; internal set; }
+			public Vector3 verticalPointVelocity { get; internal set; }
+			public float compressionVelocity { get; internal set; }
 			public Vector3 otherColliderVelocity { get; internal set; }
 			public float angularVelocity { get; internal set; }
             public Vector3 pushPoint { get; internal set; }
-            public float springLength { get; internal set; }
+			public Vector3 rootPoint { get; internal set; }
+			public Vector3 targetContactPoint { get; internal set; }
+			public Vector3 finalContactPoint { get; internal set; }
+			public float springLength { get; internal set; }
             public float springCompression { get; internal set; }
+			/// <summary> Angle between wheel orientation and velocity direction: 1/-1=Fully forward/backward, 0 = 90° on either sides</summary>
 			public float forwardDot { get; internal set; }
+			/// <summary> Angle between wheel left-side normal and velocity direction: -1/1=Full left/right, 0 = fully forward/backward</summary>
 			public float sidewaysDot { get; internal set; }
-			/// <summary> Forward angle ratio: 1/-1=Fully forward/backward, 0 = 90° on either sides, 45°=0.5 </summary>
+			/// <summary> Forward angle ratio, relative to velocity direction: 1/-1=Fully forward/backward, 0 = 90° on either sides, 45°=0.5 </summary>
 			public float forwardRatio { get; internal set; }
-			/// <summary> Side angle ratio: -1/1=Full left/right, 0 = fully forward/backward, 45°=0.5 </summary>
+			/// <summary> Side angle ratio, relative to velocity direction: -1/1=Full left/right, 0 = fully forward/backward, 45°=0.5 </summary>
 			public float sidewaysRatio { get; internal set; }
 			/// <summary> Forward friction ratio, calculated from current angle and friction </summary>
 			public float forwardFriction { get; internal set; }
@@ -120,5 +129,6 @@ namespace CND.Car
             public RaycastHit hit { get; internal set; }
         }
 
-    }
+
+	}
 }

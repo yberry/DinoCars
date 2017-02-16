@@ -119,7 +119,7 @@ namespace CND.Car
             { 
                 var c = w.contactInfo;
                 //var abs = Mathf.Abs(-1); //valeur absolue
-                float drift = Mathf.Abs(c.sidewaysRatio * c.velocity.magnitude) - 5f;
+                float drift = Mathf.Abs(c.sidewaysRatio * c.rootVelocity.magnitude) - 5f;
                 float finalDrift = Mathf.Clamp(drift, 0, 15);
 
                 AkSoundEngine.SetRTPCValue("Skid", finalDrift);

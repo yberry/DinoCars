@@ -410,21 +410,21 @@ namespace CND.Car
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
 			float gravForward = MathEx.DotToLinear(Vector3.Dot(LocalGravity.normalized, contact.forwardDirection));
-			float angVelDelta = contact.velocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
+			float angVelDelta = contact.rootVelocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
 
 			 //apply boost power
 			accelPower *= Mathf.Lerp(1, CurStg.boostRatio,boost);
 
 			//calculations for forward velocity
 			var motorVel = contact.forwardDirection * accelPower;
-			var brakeVel = contact.velocity.normalized * brakePower * Mathf.Lerp(contact.sideFriction,contact.forwardFriction,absForward)*CurStg.brakeEffectiveness;
+			var brakeVel = contact.rootVelocity.normalized * brakePower * Mathf.Lerp(contact.sideFriction,contact.forwardFriction,absForward)*CurStg.brakeEffectiveness;
 			var addedGravVel = Vector3.ProjectOnPlane(contact.forwardDirection,contact.hit.normal)
 				* LocalGravity.magnitude * gravForward * speedDecay;//support for slopes
 			Vector3 nextForwardVel = motorVel - brakeVel + addedGravVel;//Vector3.ProjectOnPlane( motorVel - brakeVel +addedGravVel,contact.hit.normal);
 	
 			//calculations for drift cancel
 			var frontCancel = -contact.forwardDirection * curVelocity.magnitude;
-			var sideCancel = -contact.sideDirection * curVelocity.magnitude;
+			var sideCancel = -contact.sideSlipDirection * curVelocity.magnitude;
 			Vector3 driftCancel = Vector3.Lerp(-curVelocity * 0,
 				-frontCancel*0.707f + sideCancel , (absSide));
 			
@@ -454,8 +454,8 @@ namespace CND.Car
 
 			//*fake drag
 			rBody.AddForceAtPosition(
-				-(contact.velocity / totalContacts) * 0.9f
-				- Vector3.ProjectOnPlane(contact.horizontalVelocity / totalContacts, contact.forwardDirection) * totalWheels * 0.5f, //compensate drift
+				-(contact.rootVelocity / totalContacts) * 0.9f
+				- Vector3.ProjectOnPlane(contact.horizontalRootVelocity / totalContacts, contact.forwardDirection) * totalWheels * 0.5f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
 			//motor
