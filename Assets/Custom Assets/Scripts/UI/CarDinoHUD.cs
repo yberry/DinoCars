@@ -20,6 +20,8 @@ public class CarDinoHUD : MonoBehaviour {
     public float speedBoost = 1f;
     public AnimationCurve speedCurve;
 
+    public Rewired.Player pInput;
+
     const float minRot = 141f;
     const float maxSpeed = 340f;
 
@@ -54,6 +56,7 @@ public class CarDinoHUD : MonoBehaviour {
 
         UpdateChrono();
         UpdateCompteur();
+        UpdatePause();
 
         particlesCamera.fieldOfView = Camera.main.fieldOfView;
     }
@@ -92,6 +95,14 @@ public class CarDinoHUD : MonoBehaviour {
                 eye.Stop();
             }
         }
+    }
+
+    void UpdatePause()
+    {
+        /*if (pInput.GetButtonDown(Globals.BtnStart))
+        {
+            Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
+        }*/
     }
 
     string GetTimes()
