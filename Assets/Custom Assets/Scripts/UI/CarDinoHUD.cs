@@ -12,10 +12,12 @@ public class CarDinoHUD : MonoBehaviour {
 
     [Header("Compteur")]
     public Image[] boost;
+    public ParticleSystem[] eyes;
     public Transform aiguilles;
 
     [Header("Variables")]
     public float speedBoost = 1f;
+    public AnimationCurve speedCurve;
 
     const float minRot = 141f;
     const float maxSpeed = 340f;
@@ -33,6 +35,10 @@ public class CarDinoHUD : MonoBehaviour {
             car = FindObjectOfType<CND.Car.ArcadeCarController>();
         }
         enabled = car;
+
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = Camera.main;
 
         colorBoost = boost[0].color;
     }
@@ -66,10 +72,22 @@ public class CarDinoHUD : MonoBehaviour {
 
         boostDuration += speedBoost * Time.deltaTime * (car.IsBoosting ? 1f : -1f);
         boostDuration = Mathf.Clamp01(boostDuration);
-        colorBoost.a = boostDuration;
+        colorBoost.a = speedCurve.Evaluate(boostDuration);
         foreach (Image image in boost)
         {
             image.color = colorBoost;
+        }
+
+        foreach (ParticleSystem eye in eyes)
+        {
+            if (car.IsBoosting && !eye.isPlaying)
+            {
+                eye.Play();
+            }
+            else if (!car.IsBoosting && eye.isPlaying)
+            {
+                eye.Stop();
+            }
         }
     }
 
