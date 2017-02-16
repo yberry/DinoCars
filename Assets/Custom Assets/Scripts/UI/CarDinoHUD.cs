@@ -5,23 +5,26 @@ using UnityEngine.UI;
 
 public class CarDinoHUD : MonoBehaviour {
 
-    public CND.Car.BaseCarController car;
+    public CND.Car.ArcadeCarController car;
 
     [Header("Chrono")]
     public Text[] chrono;
 
     [Header("Compteur")]
-    public Image neutral;
-    public Image boost;
-    public Image smoke;
-    public Image eyes;
+    public Image[] boost;
     public Transform aiguilles;
+
+    [Header("Variables")]
+    public float speedBoost = 1f;
 
     const float minRot = 141f;
     const float maxSpeed = 340f;
 
     float time = 0f;
     const float maxTime = 5999.99f;
+
+    float boostDuration = 0f;
+    Color colorBoost;
 
     void Start()
     {
@@ -30,6 +33,8 @@ public class CarDinoHUD : MonoBehaviour {
             car = FindObjectOfType<CND.Car.ArcadeCarController>();
         }
         enabled = car;
+
+        colorBoost = boost[0].color;
     }
 
     void Update()
@@ -46,11 +51,11 @@ public class CarDinoHUD : MonoBehaviour {
 
     void UpdateChrono()
     {
-        string[] times = GetTimes();
+        string times = GetTimes();
 
         for (int i = 0; i < 6; i++)
         {
-            chrono[i].text = times[i];
+            chrono[i].text = times[i].ToString();
         }
     }
 
@@ -58,28 +63,28 @@ public class CarDinoHUD : MonoBehaviour {
     {
         float angle = Mathf.Lerp(minRot, -minRot, car.CurrentSpeed / maxSpeed);
         aiguilles.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        boostDuration += speedBoost * Time.deltaTime * (car.IsBoosting ? 1f : -1f);
+        boostDuration = Mathf.Clamp01(boostDuration);
+        colorBoost.a = boostDuration;
+        foreach (Image image in boost)
+        {
+            image.color = colorBoost;
+        }
     }
 
-    string[] GetTimes()
+    string GetTimes()
     {
-        string[] times = new string[6];
-
         int floor = Mathf.FloorToInt(time);
         int reste = floor % 60;
         string min = GetTime((floor - reste) / 60);
-        times[0] = min[0].ToString();
-        times[1] = min[1].ToString();
 
         string sec = GetTime(reste);
-        times[2] = sec[0].ToString();
-        times[3] = sec[1].ToString();
 
         int cent = Mathf.FloorToInt(100f * (time - floor));
         string cen = GetTime(cent);
-        times[4] = cen[0].ToString();
-        times[5] = cen[1].ToString();
 
-        return times;
+        return min + sec + cen;
     }
 
     string GetTime(int t)
