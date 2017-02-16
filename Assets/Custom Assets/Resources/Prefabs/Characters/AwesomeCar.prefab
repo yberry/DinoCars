@@ -2032,17 +2032,20 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.325
+    baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.125
-    springForce: 3000
-    damping: 300
+    maxExpansion: 1.25
+    springForce: 1400
+    damping: 350
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.4
     maxForwardFriction: 1
     maxSidewaysFriction: 1
-  alternateSpring: 0
+  supportDynamicMeshColliders: 1
+  legacyContacts: 0
+  legacySuspensions: 0
+  hitDetectionTolerance: 1.125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -2083,17 +2086,20 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.325
+    baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.125
-    springForce: 3000
-    damping: 300
+    maxExpansion: 1.25
+    springForce: 1400
+    damping: 350
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.45
     maxForwardFriction: 1
     maxSidewaysFriction: 1
-  alternateSpring: 0
+  supportDynamicMeshColliders: 1
+  legacyContacts: 0
+  legacySuspensions: 0
+  hitDetectionTolerance: 1.125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -2152,8 +2158,8 @@ MonoBehaviour:
       maxTurnAngle: 35
       turnSpeed: 60
       brakeEffectiveness: 0.75
-      tractionControl: 0.5
-      driftControl: 1
+      tractionControl: 0
+      driftControl: 0.825
       steeringHelper: 0.5
       ackermannSteering: -0.125
       centerOfMassOffset: {x: 0, y: -0.08, z: 0.025}
@@ -2176,7 +2182,7 @@ MonoBehaviour:
       ackermannSteering: 0.25
       centerOfMassOffset: {x: 0, y: -0.09, z: -0.025}
       orientationFix: 0
-  shakeCompensationDebugVar: {x: 0.006125, y: 0.10075, z: 0.00125}
+  angularDrag: {x: 0.0125, y: 0.125, z: 0.0125}
   dynamicDrag: 0.35
 --- !u!114 &114242575076372704
 MonoBehaviour:
@@ -2226,17 +2232,20 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.325
+    baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.125
-    springForce: 3000
-    damping: 300
+    maxExpansion: 1.25
+    springForce: 1400
+    damping: 350
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.45
     maxForwardFriction: 1
     maxSidewaysFriction: 1
-  alternateSpring: 0
+  supportDynamicMeshColliders: 1
+  legacyContacts: 0
+  legacySuspensions: 0
+  hitDetectionTolerance: 1.125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -2287,17 +2296,20 @@ MonoBehaviour:
   wheelGraphics: {fileID: 1033736173520056, guid: 5a73ac2e961f8374cbbc7525c6100c37,
     type: 2}
   settings:
-    baseSpringLength: 0.325
+    baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.125
-    springForce: 3000
-    damping: 300
+    maxExpansion: 1.25
+    springForce: 1400
+    damping: 350
     stiffness: 0.5
     mass: 20
     wheelRadius: 0.4
     maxForwardFriction: 1
     maxSidewaysFriction: 1
-  alternateSpring: 0
+  supportDynamicMeshColliders: 1
+  legacyContacts: 0
+  legacySuspensions: 0
+  hitDetectionTolerance: 1.125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -2442,7 +2454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   applyOnCenterOfMass: 0
-  gravity: {x: 0, y: -9.81, z: 0}
+  currentGravity: {x: 0, y: -9.81, z: 0}
 --- !u!114 &114819409408058442
 MonoBehaviour:
   m_ObjectHideFlags: 1

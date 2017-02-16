@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 
 #endif
 namespace CND.Car
 {
-    public abstract class BaseCarController : MonoBehaviour
+	public abstract class BaseCarController : MonoBehaviour
     {
 
         public virtual float TargetSpeed { get { return rBody.velocity.magnitude+10f; } }
@@ -187,8 +184,8 @@ namespace CND.Car
 		public Vector3 LocalGravity { get { return m_LocalGravity; } set { m_LocalGravity = value; } }
 
 		[Header("Debug/Experimental")]
-		[SerializeField]
-		private Vector3 shakeCompensationDebugVar = Vector3.one*0.025f;
+		[SerializeField, UnityEngine.Serialization.FormerlySerializedAs("shakeCompensationDebugVar")]
+		private Vector3 angularDrag = Vector3.one*0.025f;
 		[SerializeField, Range(0, 1000),]
 		private float dynamicDrag = 0;
 
@@ -359,9 +356,9 @@ namespace CND.Car
 			var angVel = rBody.angularVelocity;
 			
 			angVel = transform.InverseTransformDirection(rBody.angularVelocity);
-			angVel.z /= 1 + steerCompensation * shakeCompensationDebugVar.z;
-			angVel.y /= 1 + steerCompensation * shakeCompensationDebugVar.y;
-			angVel.x /= 1 + steerCompensation * shakeCompensationDebugVar.x;
+			angVel.z /= 1 + steerCompensation * angularDrag.z;
+			angVel.y /= 1 + steerCompensation * angularDrag.y;
+			angVel.x /= 1 + steerCompensation * angularDrag.x;
 			rBody.angularVelocity = transform.TransformDirection(angVel);
 			//if (finalSteering > CurStg.maxTurnAngle*0.9f)	Debug.Log("Steering: " + finalSteering);//*/
 		}

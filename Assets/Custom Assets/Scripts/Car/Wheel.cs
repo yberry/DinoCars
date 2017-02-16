@@ -64,10 +64,12 @@ namespace CND.Car
 		protected float angularVelAngle = 0f;
 
 		[Header("Debug/Experimental")]
-		[Tooltip("Support for moving/morphing meshcolliders")]
+		[Tooltip("Support for moving/morphing meshcolliders"),DisplayModifier(decorations: DM_Decorations.MoveLabel)]
 		public bool supportDynamicMeshColliders;
-		public bool useLegacyContacts = false;
-		public bool alternateSpring = false;
+		[DisplayModifier(decorations: DM_Decorations.MoveLabel)]
+		public bool legacyContacts = false;
+		[DisplayModifier(decorations: DM_Decorations.MoveLabel)]
+		public bool legacySuspensions = false;
 		[Range(1, 2f)]
 		public float hitDetectionTolerance=1;
 		[Range(1,1000f)]
@@ -77,21 +79,23 @@ namespace CND.Car
         {
             steerRot = transform.localRotation;
             m_contactInfo.springLength = settings.baseSpringLength;
-            RecalculatePositions();
 
             var wheelGfx = wheelGraphics.CleanInstantiateClone();
-            wheelGfx.transform.localScale *= settings.wheelRadius*2f;
+			wheelGraphics = wheelGfx;
+			RecalculatePositions();
+
+			wheelGfx.transform.localScale *= settings.wheelRadius*2f;
             wheelGfx.transform.SetParent(transform);
             wheelGfx.transform.position = wheelCenter;
             wheelGfx.SetActive(true);
-            wheelGraphics = wheelGfx;
+           
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {                        
             prevContactInfo = m_contactInfo;
-			if (!useLegacyContacts)
+			if (!legacyContacts)
 			{
 				RefreshFixedData();
 				ApplySteerRotation();
@@ -126,12 +130,12 @@ namespace CND.Car
 		public void RefreshPhysicsData(ref ContactInfo contact)
 		{
 
-			nextLength = m_contactInfo.springLength;
-			rootMoveDelta = (transform.position - lastPos);
+			contact.springLength = prevContactInfo.springLength;
+			rootMoveDelta = (transform.position - prevContactInfo.rootPoint);
 			rootMoveDir = rootMoveDelta.normalized;
 
 			contact.rootPoint = transform.position;
-			contact.targetContactPoint = transform.position - transform.up * (m_contactInfo.springLength + settings.wheelRadius);
+			contact.targetContactPoint = transform.position - transform.up * (contact.springLength + settings.wheelRadius);
 			upSign = (Mathf.Sign(transform.up.y) + float.Epsilon);
 			//default contact point data: kept if in air, overwritten later on wheel contact
 			dotVelGrav = Vector3.Dot(rootMoveDir, gravNorm);
@@ -160,6 +164,36 @@ namespace CND.Car
 			FillContactInfo_Frictions(ref contact);
 			m_contactInfo = contact;
 		}
+
+
+		protected virtual void FillContactInfo_Orientations(ref ContactInfo contact)
+		{
+			contact.relativeRotation = steerRot;
+			contact.worldRotation = transform.rotation * Quaternion.Euler(0, steerAngleDeg, 0);
+			contact.forwardDirection = (transform.rotation * steerRot) * Vector3.forward;
+
+			var projMoveDir = Vector3.ProjectOnPlane(pointMoveDir, transform.up);
+			contact.forwardDot = Vector3.Dot(
+				Vector3.ProjectOnPlane(contact.forwardDirection, transform.up),
+				projMoveDir);
+			contact.sidewaysDot = Vector3.Dot(
+				Vector3.ProjectOnPlane(steerRot * -transform.right, transform.up),
+				projMoveDir);
+
+			var linearForward = MathEx.DotToLinear(contact.forwardDot); //asin(dot)/(pi/2)
+			if (Mathf.Abs(linearForward) < 0.0001) linearForward = 0;
+			var linearSideways = MathEx.DotToLinear(contact.sidewaysDot);
+			if (Mathf.Abs(linearSideways) < 0.0001) linearSideways = 0;
+
+			Quaternion lookRot = (rootMoveDir != Vector3.zero) && (rootMoveDir != transform.forward) ?
+				Quaternion.LookRotation(rootMoveDir, transform.up) : transform.rotation;
+			contact.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation ? linearForward : 1;
+			contact.sidewaysRatio = rootMoveDir != Vector3.zero ? linearSideways : 1f - contact.forwardRatio; //leftOrRightness 
+
+			contact.sideSlipDirection = (transform.rotation * steerRot) * (Vector3.left * Mathf.Sign(contact.sidewaysRatio));
+
+		}
+
 
 		protected virtual bool FillContactInfo_Raycast(ref ContactInfo contact, out RaycastHit hit)
 		{
@@ -194,49 +228,36 @@ namespace CND.Car
 		protected virtual void FillContactInfo_WheelVelocities_PostHitCheck(ref ContactInfo contact, RaycastHit? optionalHit)
 		{
 			RaycastHit hit= contact.hit;
-
+			contact.springLength = prevContactInfo.springLength;
 			contact.pointVelocity = pointMoveDelta.magnitude > 0 ? pointMoveDelta / Time.fixedDeltaTime : Vector3.zero;
 			Vector3 pointPlusOtherVel = contact.pointVelocity;
 			contact.otherColliderVelocity = GetColliderVelocity(hit, contact.wasAlreadyOnFloor);
 
 			if (optionalHit.HasValue)
+			{
+
+				float springLength = Mathf.Clamp(hit.distance - settings.wheelRadius, minCompressedLength, settings.baseSpringLength);
+				contact.springLength = Mathf.Lerp(contact.springLength,springLength,1f-prevContactInfo.springCompression*0.5f);
+
 				pointPlusOtherVel += contact.otherColliderVelocity;
+				contact.targetContactPoint = transform.position - transform.up * (contact.springLength + settings.wheelRadius);
+
+			} else
+			{
+				//contact.springLength = prevContactInfo.springLength;
+			}
 			contact.horizontalPointVelocity = Vector3.ProjectOnPlane(pointPlusOtherVel, transform.up);
 			contact.verticalPointVelocity = (contact.pointVelocity - contact.horizontalPointVelocity);
 
-			contact.compressionVelocity = Vector3.Distance(contact.finalContactPoint, contact.rootPoint)- Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.rootPoint);
+			var newLength = Vector3.Distance(contact.finalContactPoint, contact.rootPoint);
+			var oldLength = Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.rootPoint);
+			contact.compressionVelocity = (newLength - oldLength)/Time.fixedDeltaTime;
+
+		
 			/*/interpolations?
 			contact.rootVelocity = Vector3.Lerp(m_contactInfo.rootVelocity, contact.rootVelocity, 0.9f);
 			contact.pointVelocity = Vector3.Lerp(m_contactInfo.pointVelocity, contact.pointVelocity, 0.9f);
 			//*/
-		}
-
-		protected virtual void FillContactInfo_Orientations(ref ContactInfo contact)
-		{
-			contact.relativeRotation = steerRot;
-			contact.worldRotation = transform.rotation * Quaternion.Euler(0, steerAngleDeg, 0);
-			contact.forwardDirection = (transform.rotation * steerRot) * Vector3.forward;
-
-			var projMoveDir = Vector3.ProjectOnPlane(pointMoveDir, transform.up);
-			contact.forwardDot = Vector3.Dot(
-				Vector3.ProjectOnPlane(contact.forwardDirection, transform.up),
-				projMoveDir);
-			contact.sidewaysDot = Vector3.Dot(
-				Vector3.ProjectOnPlane(steerRot *-transform.right, transform.up),
-				projMoveDir);
-
-			var linearForward = MathEx.DotToLinear(contact.forwardDot); //asin(dot)/(pi/2)
-			if (Mathf.Abs(linearForward) < 0.0001) linearForward = 0;
-			var linearSideways = MathEx.DotToLinear(contact.sidewaysDot);
-			if (Mathf.Abs(linearSideways) < 0.0001) linearSideways = 0;
-
-			Quaternion lookRot = (rootMoveDir != Vector3.zero) && (rootMoveDir != transform.forward) ?
-				Quaternion.LookRotation(rootMoveDir, transform.up) : transform.rotation;
-			contact.forwardRatio = lookRot.w != 0 && lookRot != transform.rotation ? linearForward : 1;
-			contact.sidewaysRatio = rootMoveDir != Vector3.zero ? linearSideways : 1f - contact.forwardRatio; //leftOrRightness 
-
-			contact.sideSlipDirection = (transform.rotation * steerRot) * (Vector3.left * Mathf.Sign(contact.sidewaysRatio));
-
 		}
 
 		protected virtual void FillContactInfo_OnFloor(ref ContactInfo contact, ref RaycastHit hit)
@@ -245,24 +266,21 @@ namespace CND.Car
 			contact.wasAlreadyOnFloor = prevContactInfo.isOnFloor;
 			contact.isOnFloor = true;
 
-			float springLength = contact.springLength= Mathf.Max(minCompressedLength, Mathf.Min(settings.baseSpringLength, hit.distance - settings.wheelRadius));
-			float currentCompressionLength = settings.baseSpringLength - springLength;
+			float currentCompressionLength = settings.baseSpringLength - contact.springLength;
 			contact.springCompression = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1f;
 
 			Vector3 shockCancel = GetShockCancelForce(contact);
 			Vector3 stickToFloor = shockCancel + GetGravityCancelForce(contact);
 			//if hit, overwrite hypothetical (air) movement data
 
-			
-
 			Vector3 upForce;
 			float springResistance = GetSpringResistanceRatio(contact);
-			if (!alternateSpring)
+			if (legacySuspensions)
 			{
-				float springExpand = 1f + contact.verticalPointVelocity.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
+				float springExpand = 1f + contact.verticalRootVelocity.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
 				springExpand = Mathf.Clamp(springExpand, contact.springCompression,1f+ contact.springCompression+0* 100f * settings.springForce + 0 * float.PositiveInfinity);
 
-				float springDamp = 1f - ((contact.verticalPointVelocity.magnitude) * settings.damping * Mathf.Sign(dotVelY));
+				float springDamp = 1f - ((contact.verticalRootVelocity.magnitude) * settings.damping * Mathf.Sign(dotVelY));
 				springDamp = Mathf.Clamp(springDamp, -1f * 0, 1f);
 
 				upForce = Vector3.Lerp(
@@ -275,9 +293,9 @@ namespace CND.Car
 			}
 			else
 			{
-				float springExpand = (contactInfo.springCompression) * settings.springForce * 0.95f;
-				float springDamp = contact.verticalPointVelocity.magnitude * (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
-				upForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime * Time.fixedDeltaTime;
+				float springExpand = (springResistance) * settings.springForce;// * 0.95f;
+				float springDamp = (-contactInfo.compressionVelocity)  * settings.damping;
+				upForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime;
 				//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
 				/*
 				float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce ;
@@ -291,8 +309,8 @@ namespace CND.Car
 		protected virtual void FillContactInfo_NotOnFloor(ref ContactInfo contact)
 		{
 			contact.springCompression = prevContactInfo.springCompression;
-			contact.springLength = settings.baseSpringLength;
-			contact.isOnFloor=false;
+			contact.springLength = prevContactInfo.springLength;
+		//	contact.isOnFloor=false;
 			if (prevContactInfo.isOnFloor)
 			{
 				contact = prevContactInfo;
@@ -303,7 +321,9 @@ namespace CND.Car
 				if (Application.isPlaying)
 				{
 					contact.hit = default(RaycastHit);
-					contact.springLength = Mathf.Lerp(prevContactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 50f * Time.fixedDeltaTime);
+
+					float targetLength = settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav);
+					contact.springLength = Mathf.Lerp(prevContactInfo.springLength, targetLength, 5f * Time.fixedDeltaTime);
 					contact.springCompression = (settings.baseSpringLength - contact.springLength) / compressionMargin;
 				}
 
@@ -318,7 +338,7 @@ namespace CND.Car
 			contact.forwardFriction = settings.maxForwardFriction * Mathf.Abs(contact.forwardRatio);
 			contact.sideFriction = settings.maxSidewaysFriction * Mathf.Abs(contact.sidewaysRatio);
 
-			contact.angularVelocity = (contact.angularVelocity + contact.horizontalPointVelocity.magnitude * Mathf.Abs(contact.forwardRatio) * WheelCircumference) % WheelCircumference;
+			contact.angularVelocity = (contact.angularVelocity +  Time.fixedDeltaTime* contact.horizontalPointVelocity.magnitude * Mathf.Abs(contact.forwardRatio) * WheelCircumference) % WheelCircumference;
 			angularVelAngle += contact.angularVelocity * Mathf.Sign(contact.forwardRatio);
 		}
 
@@ -344,8 +364,9 @@ namespace CND.Car
 		protected virtual float GetSpringResistanceRatio(ContactInfo contact)
 		{
 			float springResistance = Mathf.Lerp(
-				 contact.springCompression * contact.springCompression * contact.springCompression,
+				 contact.springCompression.Squared(),
 				Mathf.Clamp01(Mathf.Sin(halfPI * contact.springCompression)), settings.stiffness) * 100f * Time.fixedDeltaTime;
+			//Debug.Log(contact.springCompression + " -> " + springResistance);
 			return springResistance;
 		}
 

@@ -61,7 +61,7 @@ namespace CND.Car
 
 
 			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
-							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime)) / (float)(totalContacts),
+							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime *10f)),// / (float)(totalContacts),
 						    pt,
 							ForceMode.Force);
 

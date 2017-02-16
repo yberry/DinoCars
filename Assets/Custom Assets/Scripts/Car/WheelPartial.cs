@@ -124,10 +124,10 @@ namespace CND.Car
 					Mathf.Clamp01(Mathf.Sin(halfPI * contact.springCompression)), settings.stiffness) * 100f * Time.fixedDeltaTime;
 
 
-				if (!alternateSpring)
+				if (legacySuspensions)
 				{
 					float springExpand = 1f + verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
-					springExpand = Mathf.Clamp(springExpand, 0f, 100f * settings.springForce + 0 * float.PositiveInfinity);
+					springExpand = Mathf.Clamp(springExpand, contact.springCompression, (1f+ contact.springCompression)+0* 100f * settings.springForce + 0 * float.PositiveInfinity);
 
 					float springDamp = 1f - ((verticalVel.magnitude) * settings.damping * Mathf.Sign(dotVelY));
 					springDamp = Mathf.Clamp(springDamp, -1f * 0, 1f);
