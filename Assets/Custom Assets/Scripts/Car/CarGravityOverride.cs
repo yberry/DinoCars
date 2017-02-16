@@ -5,8 +5,8 @@ using CND.Car;
 public class CarGravityOverride : MonoBehaviour {
 
 	public bool applyOnCenterOfMass;
-	[SerializeField]
-	protected Vector3 gravity = Physics.gravity;
+	[SerializeField,DisplayModifier(DM_HidingMode.GreyedOut)]
+	protected Vector3 currentGravity = Physics.gravity;
 
 	Vector3 origGravity;
 	bool origGravityState;
@@ -26,21 +26,22 @@ public class CarGravityOverride : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		gravity = GetNextGravity();
+		currentGravity = GetNextGravity();
 
-		LocalGravityOverride.ApplyGravityForce(car.rBody, gravity, applyOnCenterOfMass);
+		LocalGravityOverride.ApplyGravityForce(car.rBody, currentGravity, applyOnCenterOfMass);
 
 		int count = overridableComponents.Count;
 		for (int i = 0; i < count; i++)
-			overridableComponents[i].LocalGravity = gravity;
+			overridableComponents[i].LocalGravity = currentGravity;
 	}
 
 	Vector3 GetNextGravity()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(car.transform.position, -car.transform.up, out hit, 100f))
+		if (Physics.Raycast(car.transform.position+transform.forward, -car.transform.up, out hit, 100f))
 		{
-			return Vector3.Slerp(gravity, -car.transform.up * Mathf.Max(Physics.gravity.magnitude,Physics.gravity.magnitude*0.5f+ hit.distance*0.25f),1f);
+			return Vector3.Slerp(currentGravity, -car.transform.up * 
+				Mathf.Max(Physics.gravity.magnitude,Physics.gravity.magnitude*0.5f+ hit.distance*0.25f),0.5f);
 		}
 		return Physics.gravity;
 	}
