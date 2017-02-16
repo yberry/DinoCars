@@ -16,6 +16,7 @@ public class CarDinoHUD : MonoBehaviour {
     public Transform aiguilles;
 
     [Header("Variables")]
+    public Camera particlesCamera;
     public float speedBoost = 1f;
     public AnimationCurve speedCurve;
 
@@ -53,6 +54,8 @@ public class CarDinoHUD : MonoBehaviour {
 
         UpdateChrono();
         UpdateCompteur();
+
+        particlesCamera.fieldOfView = Camera.main.fieldOfView;
     }
 
     void UpdateChrono()
