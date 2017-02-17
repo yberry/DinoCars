@@ -17,7 +17,7 @@ public class CarGravityOverride : MonoBehaviour {
 	void Start () {
 		car = GetComponent<BaseCarController>();
 		origGravityState = car.rBody.useGravity;
-		car.rBody.useGravity = this.enabled;
+		car.rBody.useGravity = !this.enabled;
 		overridableComponents = new List<IOverridableGravity>( GetComponentsInChildren<IOverridableGravity>());
 		origGravity = Physics.gravity;
 	//	Debug.Log("Overridable Gravity compatible components found: " + overridableComponents.Count);
