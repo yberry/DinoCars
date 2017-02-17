@@ -83,8 +83,8 @@ namespace CND.Car
 						   contactFL.pushPoint);
 
 						addVertical(
-                             contactFR.upForce,/// (float)(contacts),
-						    contactFR.pushPoint);
+                           contactFR.upForce,/// (float)(contacts),
+						   contactFR.pushPoint);
 
                     } else
                     {

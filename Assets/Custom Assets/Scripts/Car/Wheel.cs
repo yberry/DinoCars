@@ -212,7 +212,8 @@ namespace CND.Car
 			}
 			pointMoveDelta = (contact.finalContactPoint - prevContactInfo.finalContactPoint);
 			pointMoveDir = pointMoveDelta.normalized;
-			contact.pushPoint = Vector3.Lerp(transform.position, wheelCenter, 0);
+			contact.pushPoint = Vector3.LerpUnclamped(transform.position, wheelCenter, 1.000125f);
+			//contact.pushPoint = Vector3.LerpUnclamped(transform.position, contact.finalContactPoint, 0.8f);
 			return success;
 		}
 
