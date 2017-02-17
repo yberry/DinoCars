@@ -12,7 +12,7 @@ public class CarDinoHUD : MonoBehaviour {
 
     [Header("Compteur")]
     public Image[] boost;
-    public ParticleSystem[] eyes;
+    public ParticleSystem[] particles;
     public Transform aiguilles;
 
     [Header("Variables")]
@@ -38,6 +38,11 @@ public class CarDinoHUD : MonoBehaviour {
             car = FindObjectOfType<CND.Car.ArcadeCarController>();
         }
         enabled = car;
+
+        if (!particlesCamera)
+        {
+            particlesCamera = Camera.main.GetComponentInChildren<Camera>();
+        }
 
         Canvas canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -73,8 +78,8 @@ public class CarDinoHUD : MonoBehaviour {
 
     void UpdateCompteur()
     {
-        float angle = Mathf.Lerp(minRot, -minRot, car.CurrentSpeed / maxSpeed);
-        aiguilles.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        float angle = Mathf.Deg2Rad * Mathf.Lerp(minRot, -minRot, car.CurrentSpeed / maxSpeed) * 0.5f;
+        aiguilles.localRotation = new Quaternion(0f, 0f, Mathf.Sin(angle), Mathf.Cos(angle));
 
         boostDuration += speedBoost * Time.deltaTime * (car.IsBoosting ? 1f : -1f);
         boostDuration = Mathf.Clamp01(boostDuration);
@@ -84,15 +89,15 @@ public class CarDinoHUD : MonoBehaviour {
             image.color = colorBoost;
         }
 
-        foreach (ParticleSystem eye in eyes)
+        foreach (ParticleSystem particle in particles)
         {
-            if (car.IsBoosting && !eye.isPlaying)
+            if (car.IsBoosting && !particle.isPlaying)
             {
-                eye.Play();
+                particle.Play();
             }
-            else if (!car.IsBoosting && eye.isPlaying)
+            else if (!car.IsBoosting && particle.isPlaying)
             {
-                eye.Stop();
+                particle.Stop();
             }
         }
     }

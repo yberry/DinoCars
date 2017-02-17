@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 198675524070754218}
   - component: {fileID: 199662928538402306}
   m_Layer: 9
-  m_Name: DinoEye
+  m_Name: DinoEye droite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 198839423928007990}
   - component: {fileID: 199958068399842324}
   m_Layer: 9
-  m_Name: DinoEye
+  m_Name: DinoEye gauche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   - {fileID: 114439331039972898}
   - {fileID: 114482181332803106}
   - {fileID: 114569639793202022}
-  eyes:
+  particles:
   - {fileID: 198839423928007990}
   - {fileID: 198675524070754218}
   - {fileID: 198955552787446700}
@@ -12322,7 +12322,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 53.99823, y: -42}
+  m_AnchoredPosition: {x: 53.998108, y: -42}
   m_SizeDelta: {x: 2000, y: 2500}
   m_Pivot: {x: 1, y: 0}
 --- !u!224 &224982082282691262
