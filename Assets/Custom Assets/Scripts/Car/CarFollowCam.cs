@@ -47,15 +47,19 @@ namespace CND.Car
 
             // initialise some vars, we'll be modifying these in a moment
             var targetForward =  m_Target.forward;
-			
-
-			var targetUp = Vector3.Lerp(this.targetUp, m_Target.up,0.5f);
-			//if (car.IsBacking) targetForward = -targetForward;
+			var targetUp = m_Target.up;
+			targetUp=Vector3.Slerp(this.targetUp, car.GroundedWheels > 0 ? m_Target.up : -car.LocalGravity.normalized , 0.951f );
+		//	Debug.Log("contacts: "+car.GroundedWheels);
 			if (m_FollowTarget && Application.isPlaying)
             {
 				// in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
 				// but only if the object is traveling faster than a given threshold.
-				if (car.IsBacking) targetForward = Vector3.Lerp(targetForward, -targetForward.normalized, 0.5f);
+				if (car.IsReversing) targetForward = Vector3.Lerp(targetForward.normalized, -targetForward.normalized, 0.5f);
+				if (car.GroundedWheels == 0)
+				{
+			//		targetForward = Vector3.Lerp(targetForward, targetRigidbody.velocity.normalized, (car.rBody.velocity.magnitude+ car.rBody.angularVelocity.sqrMagnitude*50f)*Time.fixedDeltaTime);
+				}
+
 				if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
                 {
 					// velocity is high enough, so we'll use the target's velocty
@@ -65,9 +69,11 @@ namespace CND.Car
                 }
                 else
                 {
-                  //  targetUp = Vector3.up;
-                }
-                m_CurrentTurnAmount = Mathf.SmoothDamp(m_CurrentTurnAmount, 1, ref m_TurnSpeedVelocityChange, m_SmoothTurnTime);
+					//  targetUp = Vector3.up;
+				}
+
+
+				m_CurrentTurnAmount = Mathf.SmoothDamp(m_CurrentTurnAmount, 1, ref m_TurnSpeedVelocityChange, m_SmoothTurnTime);
             }
             else
             {
@@ -114,10 +120,10 @@ namespace CND.Car
                 }
             }
 			if (targetForward.sqrMagnitude <= 0.001f) targetForward = Target.forward* 0.001f;
-			var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+			var rollRotation = Quaternion.LookRotation(targetForward.normalized, m_RollUp);
 
             // and aligning with the target object's up direction (i.e. its 'roll')
-            m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : Vector3.up;
+            m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : -car.LocalGravity.normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
         }
 

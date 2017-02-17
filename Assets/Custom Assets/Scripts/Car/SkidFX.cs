@@ -64,7 +64,7 @@ namespace CND.Car
 			*/
 
 			ps.transform.position = wheel.contactInfo.hit.point+transform.rotation* offset;
-			float velMag = Mathf.Clamp(wheel.contactInfo.velocity.magnitude, 0, 10);
+			float velMag = Mathf.Clamp(wheel.contactInfo.rootVelocity.magnitude, 0, 10);
 			float sideFriction = Mathf.Abs(wheel.contactInfo.sidewaysRatio.Cubed());
 
 			var main = ps.main;
