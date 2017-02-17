@@ -32,9 +32,7 @@ public class BlinkColor : MonoBehaviour {
         {
             fact = Mathf.Asin(fact);
         }
-        fact = (fact * (alphaMax - alphaMin) + (alphaMax + alphaMin)) * 0.5f;
-
-        color.a = fact;
+        color.a = (fact * (alphaMax - alphaMin) + (alphaMax + alphaMin)) * 0.5f;
         image.color = color;
     }
 }
