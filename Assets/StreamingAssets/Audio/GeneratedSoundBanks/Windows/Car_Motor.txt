@@ -1,6 +1,7 @@
 Event	ID	Name			Wwise Object Path	Notes
 	410072009	Car_Crash			\Default Work Unit\Car\Car_Crash	
 	520985213	Play_Motor			\Default Work Unit\Car\Play_Motor	
+	672575431	Play_Music_Boost			\Default Work Unit\Music\Play_Music_Boost	
 	885871882	Car_Skid_Play			\Default Work Unit\Car\Car_Skid_Play	
 	1020223172	Play_Wind			\Default Work Unit\Ambiance\Play_Wind	
 	2290073908	Car_Skid_Stop			\Default Work Unit\Car\Car_Skid_Stop	
@@ -13,13 +14,15 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
 	822292696	Skid			\Default Work Unit\Car_Various\Skid	
 	1200033591	OnGround			\Default Work Unit\Car_Engine\OnGround	
+	4243643777	Car_Boost			\Default Work Unit\Car_Various\Car_Boost	
 
 Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	49751626	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Default Work Unit\Car\Ferrari 430\CrankcaseAudio REV	
 	374469379	SoundSeed Wind	SoundSeed Air/SoundSeed Wind		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Wind\SoundSeed Wind	
-	580661889	CrankcaseAudio REV	CrankcaseAudio REV		\Actor-Mixer Hierarchy\Default Work Unit\Car\Ford Mustang\CrankcaseAudio REV	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	12002936	Cris-15	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-15_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-15		678140
+	18950946	Music_Boost_Loop_2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Music_Boost_Loop_2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Boost\Music_Boost_Loop\Music_Boost_Loop_2		391085
 	32068388	Car_Skid_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\Car_Skid_04		217838
 	64159668	Cris-14	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-14_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-14		1507472
 	160762649	Cris-16	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-16_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-16		777724
@@ -34,11 +37,11 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	704711695	Car_Skid_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\TireSkid_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\Car_Skid_03		75788
 	770348932	Cris-17	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-17_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-17		1147112
 	913329079	Cris-19	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-19_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-19		919564
-	943764081	Boost_Start_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Boost_Start_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost\Boost_Start_02		476224
+	943764081	Boost_Start_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Boost_Start_02_40481A85.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost\Boost_Start_02		429324
 	1002126405	Cris-09	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\CRIS\Cris-09_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dino\Cris-09		736640
 	1007456096	CarBrake	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Brake\CarBrake_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Brake\CarBrake		275656
 	1053869606	Amb_Simple_OK	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Amb_Simple_OK_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Amb_Simple_OK		10552128
 
 Plug-in Media	ID	Name	Source file	Type	Wwise Object Path	Notes	Data Size
-	155421546	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Ford_Mustang_3732F468.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Default Work Unit\Car\Ford Mustang\CrankcaseAudio REV		1282688
+	673251954	CrankcaseAudio REV	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\Plugins\CrankcaseAudio REV\Ferrari_430_6937BA7F.wem	CrankcaseAudio REV (Custom)	\Actor-Mixer Hierarchy\Default Work Unit\Car\Ferrari 430\CrankcaseAudio REV		455424
 

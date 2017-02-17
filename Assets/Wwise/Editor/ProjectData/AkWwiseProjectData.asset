@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -1769563526
-    m_lastTimePart2: -1999351554
+    m_lastTimePsrt1: -1847943617
+    m_lastTimePart2: -1999349941
     List:
     - Name: Car_Boost
       Path: Default Work Unit\Car\Car_Boost
@@ -126,6 +126,18 @@ MonoBehaviour:
         ObjectType: 3
       ID: 520985213
       Guid: 7aa47b59cc36ff48ade5a6fbb5febaa9
+      maxAttenuation: 0
+    - Name: Play_Music_Boost
+      Path: Default Work Unit\Music\Play_Music_Boost
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: Play_Music_Boost
+        ObjectType: 3
+      ID: 672575431
+      Guid: 8c363215e136b945818214dd190e5e98
       maxAttenuation: 0
     - Name: Play_Music_Circuit
       Path: Default Work Unit\Music\Play_Music_Circuit
@@ -244,8 +256,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: 952748802
-    m_lastTimePart2: -1999352192
+    m_lastTimePsrt1: -1847973714
+    m_lastTimePart2: -1999349941
     List:
     - Name: Ambiance
       Path: Default Work Unit\Ambiance

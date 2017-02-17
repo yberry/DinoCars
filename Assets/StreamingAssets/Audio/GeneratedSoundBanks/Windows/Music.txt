@@ -1,4 +1,5 @@
 Event	ID	Name			Wwise Object Path	Notes
+	672575431	Play_Music_Boost			\Default Work Unit\Music\Play_Music_Boost	
 	4190544227	Play_Music_Circuit			\Default Work Unit\Music\Play_Music_Circuit	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
@@ -9,6 +10,7 @@ Effect plug-ins	ID	Name	Type				Notes
 	2080872166	Brick_Wall_Minus_6dB_Peak_Fast_Release	Wwise Peak Limiter			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	18950946	Music_Boost_Loop_2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Music_Boost_Loop_2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Boost\Music_Boost_Loop\Music_Boost_Loop_2		391085
 	52507000	Original-SyntheEerie2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-SyntheEerie2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-SyntheEerie2		361187
 	204806054	Original-HH	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-HH_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-HH		3358715
 	256552076	Original-Beat	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Original-Beat_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Beat		2111662
