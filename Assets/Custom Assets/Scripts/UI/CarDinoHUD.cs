@@ -62,7 +62,7 @@ public class CarDinoHUD : MonoBehaviour {
 
         if (!particlesCamera)
         {
-            particlesCamera = Camera.main.GetComponentInChildren<Camera>();
+            particlesCamera = Camera.main.transform.GetChild(0).GetComponent<Camera>();
         }
 
         Canvas canvas = GetComponent<Canvas>();
