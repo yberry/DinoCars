@@ -162,6 +162,7 @@ namespace CND.Car
 				FillContactInfo_NotOnFloor(ref contact);
 			}
 			FillContactInfo_Frictions(ref contact);
+
 			m_contactInfo = contact;
 		}
 
@@ -254,7 +255,6 @@ namespace CND.Car
 			var oldLength = Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.rootPoint);
 			contact.compressionVelocity = (newLength - oldLength)/Time.fixedDeltaTime;
 
-		
 			/*/interpolations?
 			contact.rootVelocity = Vector3.Lerp(m_contactInfo.rootVelocity, contact.rootVelocity, 0.9f);
 			contact.pointVelocity = Vector3.Lerp(m_contactInfo.pointVelocity, contact.pointVelocity, 0.9f);
@@ -291,9 +291,7 @@ namespace CND.Car
 
 				//pushForce= Vector3.ClampMagnitude(pushForce, (vel.magnitude/Time.fixedDeltaTime)/shockAbsorb);
 
-			}
-			else
-			{
+			} else	{
 				float springExpand = (springResistance) * settings.springForce;// * 0.95f;
 				float springDamp = (-contactInfo.compressionVelocity)  * settings.damping;
 				upForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime;
@@ -341,6 +339,7 @@ namespace CND.Car
 
 			contact.angularVelocity = (contact.angularVelocity +  Time.fixedDeltaTime* contact.horizontalPointVelocity.magnitude * Mathf.Abs(contact.forwardRatio) * WheelCircumference) % WheelCircumference;
 			angularVelAngle += contact.angularVelocity * Mathf.Sign(contact.forwardRatio);
+			//Debug.Log(contact.angularVelocity);
 		}
 
 
@@ -386,7 +385,9 @@ namespace CND.Car
             if (Application.isPlaying && !wheelGraphics.hideFlags.ContainsFlag(HideFlags.HideInHierarchy))
             {
                 wheelGraphics.transform.position = wheelCenter;
-                wheelGraphics.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up) * steerRot * (Quaternion.Euler(angularVelAngle*Mathf.Rad2Deg, 0, 0));
+                wheelGraphics.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up)
+					* steerRot * (Quaternion.Euler(angularVelAngle *Mathf.Rad2Deg, 0, 0));
+				//Debug.Log(wheelGraphics.transform.rotation);
             }
 
         }
