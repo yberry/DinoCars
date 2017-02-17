@@ -59,14 +59,15 @@ namespace CND.Car
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
             totalContacts = frontContacts + rearContacts;
 
+			float contactForceMod = 1;// ( 1f/totalContacts );
 
 			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
-							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime)) / (float)(totalContacts),
-						    pt,
-							ForceMode.Force);
+				(up * 10f * contactForceMod),
+				pt,
+				ForceMode.Force);
 
 			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
-				up,
+				up* contactForceMod *Time.fixedDeltaTime,
 				pt,
 				ForceMode.Acceleration);
 
@@ -83,8 +84,8 @@ namespace CND.Car
 						   contactFL.pushPoint);
 
 						addVertical(
-                             contactFR.upForce,/// (float)(contacts),
-						    contactFR.pushPoint);
+                           contactFR.upForce,/// (float)(contacts),
+						   contactFR.pushPoint);
 
                     } else
                     {

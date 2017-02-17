@@ -16,7 +16,7 @@ namespace CND.Car
 
             public bool lockPositions;
             public Vector3 positionOffset;
-			[Range(0,10000)]
+			[Range(0,100000)]
 			public float antiRollForce;
 
 			private float steerAng, maxAng;
@@ -52,10 +52,10 @@ namespace CND.Car
 			{
 				float appliedAntiRoll;
 
-				float compL = Mathf.Min(1, left.contactInfo.springCompression / left.settings.maxCompression);
-				float compR = Mathf.Min(1, right.contactInfo.springCompression / right.settings.maxCompression);
+				float compL = Mathf.Min(1, left.contactInfo.springCompression.Squared() / left.settings.maxCompression);
+				float compR = Mathf.Min(1, right.contactInfo.springCompression.Squared() / right.settings.maxCompression);
 
-				appliedAntiRoll = (compL - compR) * antiRollForce;// * (-steerAng/maxAng);
+				appliedAntiRoll = (compL - compR) * antiRollForce *10;// * (-steerAng/maxAng);
 
 				if (left.contactInfo.wasAlreadyOnFloor)
 					rBody.AddForceAtPosition(left.transform.up * appliedAntiRoll, left.transform.position,ForceMode.Force);
