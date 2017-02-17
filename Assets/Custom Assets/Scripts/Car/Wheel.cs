@@ -213,7 +213,7 @@ namespace CND.Car
 			}
 			pointMoveDelta = (contact.finalContactPoint - prevContactInfo.finalContactPoint);
 			pointMoveDir = pointMoveDelta.normalized;
-			contact.pushPoint = Vector3.LerpUnclamped(transform.position, wheelCenter, 1.000125f);
+			contact.pushPoint = Vector3.LerpUnclamped(transform.position, wheelCenter, 0.5f);
 			//contact.pushPoint = Vector3.LerpUnclamped(transform.position, contact.finalContactPoint, 0.8f);
 			return success;
 		}
@@ -287,14 +287,14 @@ namespace CND.Car
 				upForce = Vector3.Lerp(
 					stickToFloor * springResistance * springDamp,
 					stickToFloor * springResistance * springExpand,
-					 contact.springCompression);
+					 contact.springCompression) / Time.fixedDeltaTime;
 
 				//pushForce= Vector3.ClampMagnitude(pushForce, (vel.magnitude/Time.fixedDeltaTime)/shockAbsorb);
 
 			} else	{
 				float springExpand = (springResistance) * settings.springForce;// * 0.95f;
 				float springDamp = (-contactInfo.compressionVelocity)  * settings.damping;
-				upForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime;
+				upForce = (transform.up * springExpand + transform.up * springDamp);
 				//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
 				/*
 				float springExpand =( contactInfo.springCompression) *Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce ;

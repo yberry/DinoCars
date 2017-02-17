@@ -199,7 +199,7 @@ namespace CND.Car
 			Vector3 center;
 			var rotNorm = (transform.rotation * curRot);
 			var absSteerRot = rotNorm * Vector3.right;
-			var lookRotNormal = Quaternion.LookRotation(absSteerRot, transform.up);
+			var lookRotNormal = transform.localRotation* Quaternion.LookRotation(absSteerRot, transform.up);
 
 			if (!Application.isPlaying)
 			{

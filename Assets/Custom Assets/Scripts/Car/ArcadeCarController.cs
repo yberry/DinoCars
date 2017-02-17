@@ -451,8 +451,8 @@ namespace CND.Car
 
 			//*fake drag
 			rBody.AddForceAtPosition(
-				-(contact.rootVelocity / totalContacts) * 0.9f
-				- Vector3.ProjectOnPlane(contact.horizontalRootVelocity / totalContacts, contact.forwardDirection) * totalWheels * 0.5f, //compensate drift
+				-(contact.pointVelocity / totalContacts) * 0.9f
+				- Vector3.ProjectOnPlane(contact.horizontalPointVelocity / totalContacts, contact.forwardDirection) * totalWheels * 0.5f, //compensate drift
 				contact.pushPoint,
 				ForceMode.Acceleration);
 			//motor
