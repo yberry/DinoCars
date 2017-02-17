@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CarDinoHUD : MonoBehaviour {
 
@@ -14,6 +15,10 @@ public class CarDinoHUD : MonoBehaviour {
     public Image[] boost;
     public ParticleSystem[] particles;
     public Transform aiguilles;
+
+    [Header("Pause")]
+    public GameObject menuPause;
+    public Button[] buttons;
 
     [Header("Variables")]
     public Camera particlesCamera;
@@ -30,6 +35,22 @@ public class CarDinoHUD : MonoBehaviour {
 
     float boostDuration = 0f;
     Color colorBoost;
+
+    bool pause = false;
+    bool Pause
+    {
+        set
+        {
+            pause = value;
+            menuPause.SetActive(value);
+            Cursor.visible = value;
+            if (value)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
+            }
+        }
+    }
 
     void Start()
     {
@@ -49,6 +70,15 @@ public class CarDinoHUD : MonoBehaviour {
         canvas.worldCamera = Camera.main;
 
         colorBoost = boost[0].color;
+
+        pInput = Rewired.ReInput.players.GetPlayer(0);
+
+        buttons[0].onClick.AddListener(Resume);
+        buttons[1].onClick.AddListener(Restart);
+        buttons[2].onClick.AddListener(Options);
+        buttons[3].onClick.AddListener(Quit);
+
+        Pause = false;
     }
 
     void Update()
@@ -104,10 +134,10 @@ public class CarDinoHUD : MonoBehaviour {
 
     void UpdatePause()
     {
-        /*if (pInput.GetButtonDown(Globals.BtnStart))
+        if (pInput.GetButtonDown(Globals.BtnStart))
         {
-            Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
-        }*/
+            Pause = !pause;
+        }
     }
 
     string GetTimes()
@@ -127,5 +157,40 @@ public class CarDinoHUD : MonoBehaviour {
     string GetTime(int t)
     {
         return (t < 10 ? "0" : "") + t.ToString();
+    }
+
+    void Resume()
+    {
+        if (pause)
+        {
+            Time.timeScale = 1f;
+            Pause = false;
+        }
+    }
+
+    void Restart()
+    {
+        if (pause)
+        {
+            Resume();
+            FindObjectOfType<Restart>().RestartScene();
+        }
+    }
+
+    void Options()
+    {
+
+    }
+
+    void Quit()
+    {
+        if (pause)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 }

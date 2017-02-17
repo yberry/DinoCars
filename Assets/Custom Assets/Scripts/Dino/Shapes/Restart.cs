@@ -20,14 +20,24 @@ public class Restart : MonoBehaviour {
     {
 		if (Input.GetKeyDown(restartKeycode) || pInput.GetAxis(Globals.BtnAction4) > 0f)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            bank.UnloadBank(bank.gameObject);
+            RestartScene();
         }
 
         if (Input.GetKeyDown(menuKeycode))
         {
-            SceneManager.LoadScene(0);
-            bank.UnloadBank(bank.gameObject);
+            RestartMenu();
         }
 	}
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        bank.UnloadBank(bank.gameObject);
+    }
+
+    public void RestartMenu()
+    {
+        SceneManager.LoadScene(0);
+        bank.UnloadBank(bank.gameObject);
+    }
 }
