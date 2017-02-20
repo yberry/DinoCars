@@ -10,10 +10,10 @@ namespace CND.Car
 
         public virtual float TargetSpeed { get { return rBody.velocity.magnitude+10f; } }
 
-        const float speedKph = 3.6f;
-        const float speedMph = 2.23693629f;
+		protected const float mpsToKph = 3.6f;
+		protected const float mpsToMph = 2.23693629f;
 
-        public float CurrentSpeed { get { return rBody.velocity.magnitude * speedKph; } }
+        public virtual float CurrentSpeed { get { return rBody.velocity.magnitude * mpsToKph; } }
         public int CurrentGear { get { return GetGear(); } }
 		public float Brake { get; protected set; }
         public Rigidbody rBody {get; protected set;}
@@ -161,6 +161,7 @@ namespace CND.Car
 		public Settings CurrentSettings { get { return Settings.Lerp(normalSettings.displayedSettings, driftSettings.displayedSettings,drift); } }
 		protected Settings CurStg { get { return CurrentSettings; } }
 		public float TargetSteerAngleDeg { get { return steering * CurStg.maxTurnAngle; } }
+		//public override float CurrentSpeed { get { return ((transform.position-prevPos).magnitude/Time.fixedDeltaTime) * speedKph; } }
 
 		public Vector3 CamTargetPoint { get; protected set; }
 
