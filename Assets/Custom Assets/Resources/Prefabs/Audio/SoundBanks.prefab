@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: f2d9e0ec
+  triggerList: f7e1664c
   useOtherObject: 0
   valueGuid: 21ddcfd93a016d4c85eb0be37920e722
   eventID: -510743741
