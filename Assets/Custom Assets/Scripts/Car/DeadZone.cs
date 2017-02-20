@@ -32,5 +32,6 @@ public class DeadZone : MonoBehaviour {
         car.position = CheckPoint.lastPosition;
         car.rotation = Quaternion.identity;
         car.gameObject.SetActive(true);
+        car.GetComponent<CND.Car.ArcadeCarController>().Action(0f, 0f, 0f, 0f);
     }
 }

@@ -711,7 +711,7 @@ Rigidbody:
   m_Mass: 1500
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -863,9 +863,10 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxExpansion: 1.25
-    springForce: 1200
-    damping: 300
-    stiffness: 0.5
+    springForce: 1000
+    compressionDamping: 750
+    decompressionDamping: 500
+    stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
     maxForwardFriction: 1
@@ -873,7 +874,7 @@ MonoBehaviour:
   supportDynamicMeshColliders: 1
   legacyContacts: 0
   legacySuspensions: 0
-  hitDetectionTolerance: 1.125
+  hitDetectionTolerance: 1.0125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -893,13 +894,13 @@ MonoBehaviour:
     right: {fileID: 114053449215138718}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.25, z: 1.25}
-    antiRollForce: 3000
+    antiRollForce: 2000
   rearWheels:
     left: {fileID: 114301671462212306}
     right: {fileID: 114117943460069762}
     lockPositions: 0
     positionOffset: {x: 0.875, y: 0.25, z: -1.25}
-    antiRollForce: 3000
+    antiRollForce: 2000
 --- !u!114 &114117943460069762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -917,9 +918,10 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxExpansion: 1.25
-    springForce: 1200
-    damping: 300
-    stiffness: 0.5
+    springForce: 1000
+    compressionDamping: 750
+    decompressionDamping: 500
+    stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
     maxForwardFriction: 1
@@ -927,7 +929,7 @@ MonoBehaviour:
   supportDynamicMeshColliders: 1
   legacyContacts: 0
   legacySuspensions: 0
-  hitDetectionTolerance: 1.125
+  hitDetectionTolerance: 1.0125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -967,8 +969,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airControl: 1
-  pitchSpeed: 3
-  rollSpeed: 1.5
+  pitchSpeed: 6
+  rollSpeed: 3
   maxRotSpeed: 100
   autoAlign: 0
   maxRotDelta: 0.00707
@@ -999,7 +1001,7 @@ MonoBehaviour:
       brakeEffectiveness: 0.75
       tractionControl: 0
       driftControl: 0.75
-      steeringHelper: 0.5
+      steeringHelper: 0.875
       ackermannSteering: -0.125
       centerOfMassOffset: {x: 0, y: -0.15, z: 0.15}
       orientationFix: 0
@@ -1019,7 +1021,7 @@ MonoBehaviour:
       driftControl: 0
       steeringHelper: 0.15
       ackermannSteering: 0.25
-      centerOfMassOffset: {x: 0, y: -0.175, z: 0.15}
+      centerOfMassOffset: {x: 0, y: -0.2, z: 0.05}
       orientationFix: 0
   angularDrag: {x: 0.05, y: 0.05, z: 0.05}
   dynamicDrag: 0.35
@@ -1074,9 +1076,10 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxExpansion: 1.25
-    springForce: 1200
-    damping: 300
-    stiffness: 0.5
+    springForce: 1000
+    compressionDamping: 750
+    decompressionDamping: 500
+    stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
     maxForwardFriction: 1
@@ -1084,7 +1087,7 @@ MonoBehaviour:
   supportDynamicMeshColliders: 1
   legacyContacts: 0
   legacySuspensions: 0
-  hitDetectionTolerance: 1.125
+  hitDetectionTolerance: 1.0125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -1138,9 +1141,10 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxExpansion: 1.25
-    springForce: 1200
-    damping: 300
-    stiffness: 0.5
+    springForce: 1000
+    compressionDamping: 750
+    decompressionDamping: 500
+    stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
     maxForwardFriction: 1
@@ -1148,7 +1152,7 @@ MonoBehaviour:
   supportDynamicMeshColliders: 1
   legacyContacts: 0
   legacySuspensions: 0
-  hitDetectionTolerance: 1.125
+  hitDetectionTolerance: 1.0125
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
@@ -1323,7 +1327,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653494722449946}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82cc257fedb03cd498e7313688b4e695, type: 3}
   m_Name: 

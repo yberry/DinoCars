@@ -253,7 +253,7 @@ namespace CND.Car
 
 			var newLength = Vector3.Distance(contact.finalContactPoint, contact.rootPoint);
 			var oldLength = Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.rootPoint);
-			contact.compressionVelocity = (newLength - oldLength)/Time.fixedDeltaTime;
+			contact.compressionVelocity = -(newLength - oldLength)/Time.fixedDeltaTime;
 
 			/*/interpolations?
 			contact.rootVelocity = Vector3.Lerp(m_contactInfo.rootVelocity, contact.rootVelocity, 0.9f);
@@ -281,7 +281,7 @@ namespace CND.Car
 				float springExpand = 1f + contact.verticalRootVelocity.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
 				springExpand = Mathf.Clamp(springExpand, contact.springCompression,1f+ contact.springCompression+0* 100f * settings.springForce + 0 * float.PositiveInfinity);
 
-				float springDamp = 1f - ((contact.verticalRootVelocity.magnitude) * settings.damping * Mathf.Sign(dotVelY));
+				float springDamp = 1f - ((contact.verticalRootVelocity.magnitude) * settings.compressionDamping * Mathf.Sign(dotVelY));
 				springDamp = Mathf.Clamp(springDamp, -1f * 0, 1f);
 
 				upForce = Vector3.Lerp(
@@ -293,7 +293,8 @@ namespace CND.Car
 
 			} else	{
 				float springExpand = (springResistance) * settings.springForce;// * 0.95f;
-				float springDamp = (-contactInfo.compressionVelocity)  * settings.damping;
+				float dampingForce = contactInfo.compressionVelocity >= 0 ? settings.compressionDamping : settings.decompressionDamping;
+				float springDamp = contactInfo.compressionVelocity * dampingForce;
 				upForce = (transform.up * springExpand + transform.up * springDamp);
 				//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
 				/*
@@ -365,7 +366,7 @@ namespace CND.Car
 		{
 			float springResistance = Mathf.Lerp(
 				 contact.springCompression.Squared(),
-				Mathf.Clamp01(Mathf.Sin(halfPI * contact.springCompression)), settings.stiffness) * 100f * Time.fixedDeltaTime;
+				Mathf.Clamp01(Mathf.Sin(halfPI * contact.springCompression)), settings.stiffnessAdjust) * 100f * Time.fixedDeltaTime;
 			//Debug.Log(contact.springCompression + " -> " + springResistance);
 			return springResistance;
 		}

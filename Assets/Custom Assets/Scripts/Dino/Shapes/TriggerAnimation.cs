@@ -32,7 +32,7 @@ public class TriggerAnimation : TriggerLoft {
         }
     }
 
-    protected override void Trigger()
+    public override void Trigger()
     {
         active = true;
 
