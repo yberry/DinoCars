@@ -2703,6 +2703,11 @@ Prefab:
       propertyPath: m_Name
       value: SoundBanks
       objectReference: {fileID: 0}
+    - target: {fileID: 114643981056405356, guid: 9146ec97f7a0b1b42bf2e6a30abc9ce8,
+        type: 2}
+      propertyPath: eventID
+      value: -2040941828
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9146ec97f7a0b1b42bf2e6a30abc9ce8, type: 2}
   m_IsPrefabParent: 0

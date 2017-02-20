@@ -16,19 +16,43 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -1847943617
-    m_lastTimePart2: -1999349941
+    m_lastTimePsrt1: -276447351
+    m_lastTimePart2: -1999349383
     List:
-    - Name: Car_Boost
-      Path: Default Work Unit\Car\Car_Boost
+    - Name: Ambiance_Main_Play
+      Path: Default Work Unit\Ambiance\Ambiance_Main_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Ambiance
+        ObjectType: 4
+      - ElementName: Ambiance_Main_Play
+        ObjectType: 3
+      ID: -167168472
+      Guid: 0e609aa6c8e27a4f8aa5fd27d4516a51
+      maxAttenuation: 0
+    - Name: Ambiance_Wind_Play
+      Path: Default Work Unit\Ambiance\Ambiance_Wind_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Ambiance
+        ObjectType: 4
+      - ElementName: Ambiance_Wind_Play
+        ObjectType: 3
+      ID: -535488381
+      Guid: 4dba2d9037fae24c9c55cf179b39e691
+      maxAttenuation: 0
+    - Name: Car_Boost_Play
+      Path: Default Work Unit\Car\Car_Boost_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Car
         ObjectType: 4
-      - ElementName: Car_Boost
+      - ElementName: Car_Boost_Play
         ObjectType: 3
-      ID: -51323519
+      ID: 2086347706
       Guid: 4a208208b49a704ead922074610b7f62
       maxAttenuation: 0
     - Name: Car_Boost_Stop
@@ -43,29 +67,53 @@ MonoBehaviour:
       ID: -809537340
       Guid: 023f1068d1b5d941852662fd2bef78b6
       maxAttenuation: 0
-    - Name: Car_Brake
-      Path: Default Work Unit\Car\Car_Brake
+    - Name: Car_Brake_Play
+      Path: Default Work Unit\Car\Car_Brake_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Car
         ObjectType: 4
-      - ElementName: Car_Brake
+      - ElementName: Car_Brake_Play
         ObjectType: 3
-      ID: -205733671
+      ID: 993029682
       Guid: 60b8e6c3bdf1c24da447e704d87884bf
       maxAttenuation: 0
-    - Name: Car_Crash
-      Path: Default Work Unit\Car\Car_Crash
+    - Name: Car_Crash_Play
+      Path: Default Work Unit\Car\Car_Crash_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Car
         ObjectType: 4
-      - ElementName: Car_Crash
+      - ElementName: Car_Crash_Play
         ObjectType: 3
-      ID: 410072009
+      ID: 900533538
       Guid: 49885191d5345141821c5dbb7f1e4b22
+      maxAttenuation: 0
+    - Name: Car_Explosion_Play
+      Path: Default Work Unit\Car\Car_Explosion_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Explosion_Play
+        ObjectType: 3
+      ID: 1070810022
+      Guid: d2c0cde316f8f74bbd084ff8072a31da
+      maxAttenuation: 0
+    - Name: Car_Motor_Play
+      Path: Default Work Unit\Car\Car_Motor_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Motor_Play
+        ObjectType: 3
+      ID: -2040941828
+      Guid: 7aa47b59cc36ff48ade5a6fbb5febaa9
       maxAttenuation: 0
     - Name: Car_Skid_Play
       Path: Default Work Unit\Car\Car_Skid_Play
@@ -91,77 +139,41 @@ MonoBehaviour:
       ID: -2004893388
       Guid: cc009cace6bf6d42807c8461c99d5f7c
       maxAttenuation: 0
-    - Name: Play_Ambiance
-      Path: Default Work Unit\Ambiance\Play_Ambiance
+    - Name: Footsteps_Play
+      Path: Default Work Unit\Ambiance\Footsteps_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Ambiance
         ObjectType: 4
-      - ElementName: Play_Ambiance
+      - ElementName: Footsteps_Play
         ObjectType: 3
-      ID: -1120487318
-      Guid: 0e609aa6c8e27a4f8aa5fd27d4516a51
-      maxAttenuation: 0
-    - Name: Play_Footsteps
-      Path: Default Work Unit\Dino\Play_Footsteps
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Dino
-        ObjectType: 4
-      - ElementName: Play_Footsteps
-        ObjectType: 3
-      ID: -440811497
+      ID: 1198733287
       Guid: 37d2dd20ba10124c97fc56428c89c5d8
       maxAttenuation: 0
-    - Name: Play_Motor
-      Path: Default Work Unit\Car\Play_Motor
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Car
-        ObjectType: 4
-      - ElementName: Play_Motor
-        ObjectType: 3
-      ID: 520985213
-      Guid: 7aa47b59cc36ff48ade5a6fbb5febaa9
-      maxAttenuation: 0
-    - Name: Play_Music_Boost
-      Path: Default Work Unit\Music\Play_Music_Boost
+    - Name: Music_Boost_Play
+      Path: Default Work Unit\Music\Music_Boost_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Music
         ObjectType: 4
-      - ElementName: Play_Music_Boost
+      - ElementName: Music_Boost_Play
         ObjectType: 3
-      ID: 672575431
+      ID: -1471963217
       Guid: 8c363215e136b945818214dd190e5e98
       maxAttenuation: 0
-    - Name: Play_Music_Circuit
-      Path: Default Work Unit\Music\Play_Music_Circuit
+    - Name: Music_Circuit_Play
+      Path: Default Work Unit\Music\Music_Circuit_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Music
         ObjectType: 4
-      - ElementName: Play_Music_Circuit
+      - ElementName: Music_Circuit_Play
         ObjectType: 3
-      ID: -104423069
+      ID: 1942074459
       Guid: 3c307cc0cf34964098592e314e30f506
-      maxAttenuation: 0
-    - Name: Play_Wind
-      Path: Default Work Unit\Ambiance\Play_Wind
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Ambiance
-        ObjectType: 4
-      - ElementName: Play_Wind
-        ObjectType: 3
-      ID: 1020223172
-      Guid: 4dba2d9037fae24c9c55cf179b39e691
       maxAttenuation: 0
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -256,8 +268,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: -1847973714
-    m_lastTimePart2: -1999349941
+    m_lastTimePsrt1: -276427349
+    m_lastTimePart2: -1999349383
     List:
     - Name: Ambiance
       Path: Default Work Unit\Ambiance
@@ -299,7 +311,7 @@ MonoBehaviour:
   - /CarsDino_CAR_Motor
   - /CarsDino_CAR_Motor/Events
   - /CarsDino_CAR_Motor/Events/Default Work Unit
-  - /CarsDino_CAR_Motor/Events/Default Work Unit/Music
+  - /CarsDino_CAR_Motor/Events/Default Work Unit/Car
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1
