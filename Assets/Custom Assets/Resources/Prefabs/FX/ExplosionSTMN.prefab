@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4705452876525310}
   - component: {fileID: 198771625435870066}
   - component: {fileID: 199018480712033826}
+  - component: {fileID: 114546481760951524}
   m_Layer: 0
   m_Name: ExplosionSTMN
   m_TagString: Untagged
@@ -41,6 +42,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -98.766, y: -0.000015258789, z: 0}
+--- !u!114 &114546481760951524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944338286704352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: d2c0cde316f8f74bbd084ff8072a31da
+  eventID: 1070810022
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!198 &198771625435870066
 ParticleSystem:
   m_ObjectHideFlags: 1

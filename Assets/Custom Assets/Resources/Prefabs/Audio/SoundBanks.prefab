@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114186856885266652}
   - component: {fileID: 114385195790602696}
   - component: {fileID: 114042979926134648}
+  - component: {fileID: 114612261709754768}
+  - component: {fileID: 114890026360456958}
   m_Layer: 0
   m_Name: SoundBanks
   m_TagString: Untagged
@@ -58,7 +60,7 @@ MonoBehaviour:
   triggerList: f2d9e0ec
   useOtherObject: 0
   valueGuid: 4a208208b49a704ead922074610b7f62
-  eventID: -51323519
+  eventID: 2086347706
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
@@ -80,7 +82,7 @@ MonoBehaviour:
   triggerList: f7e1664c
   useOtherObject: 0
   valueGuid: 7aa47b59cc36ff48ade5a6fbb5febaa9
-  eventID: 520985213
+  eventID: -2040941828
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
@@ -131,6 +133,50 @@ MonoBehaviour:
   transitionDuration: 0
   m_callbackData: {fileID: 0}
   playingId: 0
+--- !u!114 &114612261709754768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266619680953786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: 21ddcfd93a016d4c85eb0be37920e722
+  eventID: -510743741
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114890026360456958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266619680953786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f2d9e0ec
+  useOtherObject: 0
+  valueGuid: b4d3780b2853a1499816bdb7df95eab8
+  eventID: 1852543838
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!114 &114979168742921624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_positionOffsetData:
     positionOffset: {x: 0, y: 0, z: 0}
-    KeepMe: 0
+    KeepMe: 1
   isEnvironmentAware: 0
   listenerMask: 1
   isStaticObject: 0
