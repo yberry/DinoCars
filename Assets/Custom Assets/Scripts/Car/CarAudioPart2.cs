@@ -9,7 +9,7 @@ namespace CND.Car
 		public float LastTimeSpawned { get; protected set; }
 		public float TimeSinceLastSpawn { get { return Time.time - LastTimeSpawned; } }
 
-		partial void ManageCollision(Collision col);
+
 
 		void OnCollisionEnter(Collision col)
 		{

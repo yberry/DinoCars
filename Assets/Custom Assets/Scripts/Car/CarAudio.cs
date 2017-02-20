@@ -131,15 +131,20 @@ namespace CND.Car
 
         void ManageCollision(Collision col)
         {
-            
-            if (col.relativeVelocity.magnitude < (200 / 3.6f))
+            float normal = 1f - Mathf.Abs(Vector3.Dot(col.relativeVelocity.normalized, transform.up));
+            Debug.Log("normal: " + normal);
+            if (normal > 0.95f)
             {
-                AkSoundEngine.PostEvent("Car_Impact_Small_Play", gameObject);
+                if (col.relativeVelocity.magnitude < (200 / 3.6f))
+                {
+                    AkSoundEngine.PostEvent("Car_Impact_Small_Play", gameObject);
+                }
+                else
+                {
+                    AkSoundEngine.PostEvent("Car_Impact_Big_Play", gameObject);
+                }
             }
-           else
-            {
-                AkSoundEngine.PostEvent("Car_Impact_Big_Play", gameObject);
-            }
+          
         }
         // commenter une ligne
         /* commenter un bout de truc*/
