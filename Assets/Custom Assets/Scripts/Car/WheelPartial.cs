@@ -193,6 +193,7 @@ namespace CND.Car
 		[Header("Debug Gizmos")]
 		public bool showDrift = true;
 		public bool showForward = true;
+		public bool showSpring = true;
 
 		void OnDrawGizmos()
 		{
@@ -271,24 +272,43 @@ namespace CND.Car
 
 			if (m_contactInfo.isOnFloor)
 			{
-				Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
+				Gizmos.color = Handles.color=defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
 			}
 			else
 			{
-				Gizmos.color = Color.yellow;
+				Gizmos.color = Handles.color=Color.yellow;
 			}
 
-
-			Gizmos.DrawWireSphere(src, 0.075f);
-			Gizmos.DrawLine(src, center); //spring
+			if (showSpring)
+			{
+				Color oldCol = Gizmos.color, nextCol = Gizmos.color*1.5f;
+				nextCol.a = 1f;
+				Handles.color = nextCol*2f;
+				Gizmos.color = nextCol;
+				Handles.DrawAAPolyLine(null,10f,src, center);
+				Gizmos.DrawSphere(src, 0.075f);
+				Gizmos.DrawLine(src, center); //spring
+				//nextCol.a *= 0.66f;
+				
+				Gizmos.DrawWireSphere(src, 0.075f);
+				Gizmos.color = oldCol;
+				Handles.color = oldCol;
+			}
 
 			Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
 			if (m_contactInfo.isOnFloor && m_contactInfo.hit.distance < settings.baseSpringLength - (settings.baseSpringLength * settings.maxCompression))
 			{
 				Gizmos.color = defGizmoColor = Color.yellow;
 			}
-			Gizmos.DrawWireSphere(targetContactPoint - lagOffset, 0.0375f);
 
+			//--contact points
+			Gizmos.DrawWireSphere(targetContactPoint - lagOffset, 0.0375f);
+			Vector3 raycastHitPoint = Application.isPlaying ? contactInfo.finalContactPoint : targetContactPoint;
+			Gizmos.color *= 1.5f;
+			Gizmos.DrawSphere(raycastHitPoint - lagOffset, 0.05f);
+			Gizmos.DrawWireSphere(raycastHitPoint - lagOffset, 0.05f);
+			Gizmos.color *= 0.75f;
+			//--
 
 			Handles.color = Gizmos.color * 0.25f;
 			Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
