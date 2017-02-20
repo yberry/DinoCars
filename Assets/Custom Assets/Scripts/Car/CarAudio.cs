@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 namespace CND.Car
 {
     [RequireComponent(typeof (BaseCarController))]
-    public class CarAudio : MonoBehaviour
+    public partial class CarAudio : MonoBehaviour
     {
 
         public BaseCarController car;
