@@ -45,8 +45,7 @@ public class CustomMegaBarrier : MonoBehaviour {
 
         while (numbers * surfaceLayers.Length > transform.childCount)
         {
-            MegaWalkLoft walk = Instantiate(prefabWalk);
-            walk.transform.SetParent(transform);
+            Instantiate(prefabWalk, transform);
         }
 
         while (numbers * surfaceLayers.Length < transform.childCount)
