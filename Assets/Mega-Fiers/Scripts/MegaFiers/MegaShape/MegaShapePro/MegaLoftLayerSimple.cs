@@ -154,7 +154,15 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public float alignCross = 0.0f;
 
-	public virtual void Notify(MegaSpline spline, int reason)
+    //Custom
+    public bool customizeOffset = false;
+    MegaShapeRectangle rect;
+    public float param1 = 3f;
+    public float param2 = 1f / 3f;
+    public float param3 = 10f;
+    public float param4 = 5f;
+
+    public virtual void Notify(MegaSpline spline, int reason)
 	{
 		if ( layerPath && layerPath.splines != null && layerSection && layerSection.splines != null )
 		{
@@ -1582,7 +1590,7 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 		for ( int cr = 0; cr < crosses; cr++ )
 		{
-			float a = ((float)cr / (float)(crosses - 1));
+			float a = cr / (crosses - 1f);
 			float alpha = pathStart + (pathLength * a);
 
 			totaloff = offset;
@@ -1700,10 +1708,26 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 				}
 				else
 				{
-					loftverts[vi].x = p.x + totaloff.x;
-					loftverts[vi].y = p.y + totaloff.y;
-					loftverts[vi].z = p.z + totaloff.z;
-				}
+                    if (customizeOffset && offsetCrvY.Evaluate(alpha) > 0f)
+                    {
+                        if (rect == null)
+                        {
+                            rect = layerSection as MegaShapeRectangle;
+                        }
+                        float alphaGuigui = Mathf.Max(0, Mathf.Abs(p.x) - param1) / (param2 * rect.width);
+                        alphaGuigui *= alphaGuigui * (3f - 2f * alphaGuigui);
+                        //alphaGuigui *= 3f;
+                        float dz = Mathf.Sin(p.z / param3);
+                        float off = dz > 0f ? alphaGuigui : param4 - alphaGuigui;
+                        loftverts[vi].y = p.y + totaloff.y - off;
+                    }
+                    else
+                    {                     
+                        loftverts[vi].y = p.y + totaloff.y;
+                    }
+                    loftverts[vi].x = p.x + totaloff.x;
+                    loftverts[vi].z = p.z + totaloff.z;
+                }
 
 				if ( planarMode == MegaPlanarMode.World )
 				{
