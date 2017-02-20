@@ -6,12 +6,13 @@ namespace CND.Car
 {
 	public class SkidFX : MonoBehaviour
 	{
-
+		public Vector3 offset;
 		protected Wheel wheel;
 		public List<ParticleSystem> skidParticles;
 		[Range(0,1000)]
 		public float rateOverDistThreshold;
 		public float minParticleCount;
+
 		// Use this for initialization
 		protected virtual void Start()
 		{
@@ -62,8 +63,8 @@ namespace CND.Car
 			em.rateOverDistanceMultiplier = rate;
 			*/
 
-			ps.transform.position = wheel.contactInfo.hit.point;
-			float velMag = Mathf.Clamp(wheel.contactInfo.velocity.magnitude, 0, 10);
+			ps.transform.position = wheel.contactInfo.hit.point+transform.rotation* offset;
+			float velMag = Mathf.Clamp(wheel.contactInfo.rootVelocity.magnitude, 0, 10);
 			float sideFriction = Mathf.Abs(wheel.contactInfo.sidewaysRatio.Cubed());
 
 			var main = ps.main;

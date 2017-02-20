@@ -28,6 +28,14 @@ namespace CND.Car
 		public float boostFOV = 100;
 		[Range(0,1f), DisplayModifier("Follow target: Direction <> Velocity",decorations: DM_Decorations.MoveLabel)]
 		public float followTargetRatio;
+		ArcadeCarController car;
+
+		protected override void Start()
+		{
+			base.Start();
+			car = m_Target.GetComponentInChildren<ArcadeCarController>();
+			
+		}
 
 		protected override void FollowTarget(float deltaTime)
         {
@@ -38,25 +46,34 @@ namespace CND.Car
             }
 
             // initialise some vars, we'll be modifying these in a moment
-            var targetForward = m_Target.forward;
-            var targetUp = m_Target.up;
-
-            if (m_FollowTarget && Application.isPlaying)
+            var targetForward =  m_Target.forward;
+			var targetUp = m_Target.up;
+			targetUp=Vector3.Slerp(this.targetUp, car.GroundedWheels > 0 ? m_Target.up : -car.LocalGravity.normalized , 0.951f );
+		//	Debug.Log("contacts: "+car.GroundedWheels);
+			if (m_FollowTarget && Application.isPlaying)
             {
-                // in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
-                // but only if the object is traveling faster than a given threshold.
+				// in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
+				// but only if the object is traveling faster than a given threshold.
+				if (car.IsReversing) targetForward = Vector3.Lerp(targetForward.normalized, -targetForward.normalized, 0.5f);
+				if (car.GroundedWheels == 0)
+				{
+			//		targetForward = Vector3.Lerp(targetForward, targetRigidbody.velocity.normalized, (car.rBody.velocity.magnitude+ car.rBody.angularVelocity.sqrMagnitude*50f)*Time.fixedDeltaTime);
+				}
 
-                if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
+				if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
                 {
-                    // velocity is high enough, so we'll use the target's velocty
-                    targetForward = Vector3.Slerp(targetRigidbody.transform.forward, targetRigidbody.velocity.normalized,followTargetRatio);
-                    targetUp = Vector3.up;
+					// velocity is high enough, so we'll use the target's velocty
+					
+					targetForward = Vector3.Slerp(targetForward, targetRigidbody.velocity.normalized,followTargetRatio);
+                   // targetUp = Vector3.up;
                 }
                 else
                 {
-                    targetUp = Vector3.up;
-                }
-                m_CurrentTurnAmount = Mathf.SmoothDamp(m_CurrentTurnAmount, 1, ref m_TurnSpeedVelocityChange, m_SmoothTurnTime);
+					//  targetUp = Vector3.up;
+				}
+
+
+				m_CurrentTurnAmount = Mathf.SmoothDamp(m_CurrentTurnAmount, 1, ref m_TurnSpeedVelocityChange, m_SmoothTurnTime);
             }
             else
             {
@@ -102,10 +119,11 @@ namespace CND.Car
                     targetForward = transform.forward;
                 }
             }
-            var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+			if (targetForward.sqrMagnitude <= 0.001f) targetForward = Target.forward* 0.001f;
+			var rollRotation = Quaternion.LookRotation(targetForward.normalized, m_RollUp);
 
             // and aligning with the target object's up direction (i.e. its 'roll')
-            m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : Vector3.up;
+            m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : -car.LocalGravity.normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
         }
 

@@ -10,6 +10,7 @@ namespace CND.Car
 
         public WheelPair frontWheels;
         public WheelPair rearWheels;
+		public int totalContacts { get; protected set; }
 
         [HideInInspector]
         public Wheel.ContactInfo contactFL, contactFR, contactRL, contactRR;
@@ -33,10 +34,10 @@ namespace CND.Car
 			rearWheels.Stabilize(rBody);
 		}
 
-        public void SetSteering(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
+        public void SetSteering(float degAngle, float maxAngle, float ackermanSteeringRatio=0)
         {
 
-			frontWheels.SetSteeringRotation(degAngle, maxAngle, maxOuterAngleReduction);
+			frontWheels.SetSteeringRotation(degAngle, maxAngle, ackermanSteeringRatio);
             
         }
 
@@ -56,34 +57,35 @@ namespace CND.Car
 
             frontContacts = frontWheels.GetContacts(out contactFL, out contactFR);
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
-            int contacts = frontContacts + rearContacts;
+            totalContacts = frontContacts + rearContacts;
 
+			float contactForceMod = 1;// ( 1f/totalContacts );
 
 			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
-							((up)/(Time.fixedDeltaTime* Time.fixedDeltaTime)) / (float)(contacts),
-						    pt,
-							ForceMode.Force);
+				(up * 10f * contactForceMod),
+				pt,
+				ForceMode.Force);
 
 			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
-				up,
+				up* contactForceMod *Time.fixedDeltaTime,
 				pt,
 				ForceMode.Acceleration);
 
 			var addVertical = addForce;
 
-			if (contacts > 0)
+			if (totalContacts > 0)
             {
                 if (frontContacts > 0)
                 {
                     if (steeringAngle < 0)
                     {
 						addVertical(
-                            contactFL.upForce,/// (float)(contacts),
+                           contactFL.upForce,/// (float)(contacts),
 						   contactFL.pushPoint);
 
 						addVertical(
-                             contactFR.upForce,/// (float)(contacts),
-						    contactFR.pushPoint);
+                           contactFR.upForce,/// (float)(contacts),
+						   contactFR.pushPoint);
 
                     } else
                     {

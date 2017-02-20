@@ -140,8 +140,8 @@ public class VHSEffect : ImageEffectBase {
 		int closePowY = Mathf.ClosestPowerOfTwo(source.height);
 
 		//pre-blur pass
-		RenderTexture blurH = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
-		RenderTexture blur = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+		RenderTexture blurH = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY), 0, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+		RenderTexture blur = RenderTexture.GetTemporary((closePowX / downSamplingX), (closePowY / downSamplingY),0, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
 
 		blurH.filterMode = FilterMode.Trilinear;
 		Graphics.Blit(source, blurH, material,0);
@@ -159,10 +159,10 @@ public class VHSEffect : ImageEffectBase {
 			return;
 		} else
 		{
-			RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
-			temp.filterMode = FilterMode.Trilinear;
+			//RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+			//temp.filterMode = FilterMode.Trilinear;
 			//Graphics.Blit(blur, source);
-			RenderTexture.ReleaseTemporary(temp);
+			//RenderTexture.ReleaseTemporary(temp);
 			Graphics.Blit(source, destination, material, 2);
 		}
 

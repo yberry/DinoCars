@@ -21,9 +21,11 @@ namespace CND.Car
             [Range(float.Epsilon, 1000000f)]
             public float springForce;
             [Range(float.Epsilon, 1000000f)]
-            public float damping;
-            [Range(0, 1f)]
-            public float stiffness;
+            public float compressionDamping;
+			[Range(float.Epsilon, 1000000f)]
+			public float decompressionDamping;
+			[Range(0, 1f)]
+            public float stiffnessAdjust;
 
             [Header("Wheel"), Space(2.5f)]
             [Range(0, 1000)]
@@ -40,7 +42,7 @@ namespace CND.Car
 			public Settings(float wheelRadius, float mass=20f,
                 float baseSpringLength = 1,
                 float maxCompression = 0.5f, float maxExpansion = 1.25f,
-                float springForce = 1000f, float damping = 1f, float stiffness = 1f,
+                float springForce = 1000f, float compressionDamping =250f, float decompressionDamping = 125f, float stiffness = 1f,
                 float maxForwardFriction = 1f, float maxSidewaysFriction = 1f//,float maxOuterSteeringReduction = 0.25f
 				)
             {
@@ -50,8 +52,9 @@ namespace CND.Car
                 this.maxCompression = maxCompression;
                 this.maxExpansion = maxExpansion;
                 this.springForce = springForce;
-                this.damping = damping;
-                this.stiffness = stiffness;
+                this.compressionDamping = compressionDamping;
+				this.decompressionDamping = decompressionDamping;
+				this.stiffnessAdjust = stiffness;
                 this.maxForwardFriction = maxForwardFriction;
                 this.maxSidewaysFriction = maxSidewaysFriction;
 				//this.maxOuterSteeringReduction = maxOuterSteeringReduction;
@@ -80,8 +83,8 @@ namespace CND.Car
 				lerp.maxCompression = Mathf.Lerp(left.maxCompression, right.maxCompression, interp);
 				lerp.maxExpansion = Mathf.Lerp(left.maxExpansion, right.maxExpansion, interp);
 				lerp.springForce = Mathf.Lerp(left.springForce, right.springForce, interp);
-				lerp.damping = Mathf.Lerp(left.damping, right.damping, interp);
-				lerp.stiffness = Mathf.Lerp(left.stiffness, right.stiffness, interp);
+				lerp.compressionDamping = Mathf.Lerp(left.compressionDamping, right.compressionDamping, interp);
+				lerp.stiffnessAdjust = Mathf.Lerp(left.stiffnessAdjust, right.stiffnessAdjust, interp);
 				lerp.maxForwardFriction = Mathf.Lerp(left.maxForwardFriction, right.maxForwardFriction, interp);
 				lerp.maxSidewaysFriction = Mathf.Lerp(left.maxSidewaysFriction, right.maxSidewaysFriction, interp);
 
@@ -95,21 +98,32 @@ namespace CND.Car
             public bool wasAlreadyOnFloor { get; internal set; }
             public Vector3 upForce { get; internal set; }
             public Vector3 forwardDirection { get; internal set; }
-            public Vector3 sideDirection { get; internal set; }
-            public Quaternion relativeRotation { get; internal set; }
-            public Vector3 velocity { get; internal set; }
-			public Vector3 horizontalVelocity { get; internal set; }
-			public Vector3 verticalVelocity { get; internal set; }
+            public Vector3 sideSlipDirection { get; internal set; }
+			public Quaternion worldRotation { get; internal set; }
+			public Quaternion relativeRotation { get; internal set; }
+            public Vector3 rootVelocity { get; internal set; }
+			public Vector3 pointVelocity { get; internal set; }
+			public Vector3 horizontalRootVelocity { get; internal set; }
+			public Vector3 verticalRootVelocity { get; internal set; }
+			public Vector3 horizontalPointVelocity { get; internal set; }
+			public Vector3 verticalPointVelocity { get; internal set; }
+			/// <summary> Compression velocity on vertical axis. Negative values mean decompression</summary>
+			public float compressionVelocity { get; internal set; }
 			public Vector3 otherColliderVelocity { get; internal set; }
 			public float angularVelocity { get; internal set; }
             public Vector3 pushPoint { get; internal set; }
-            public float springLength { get; internal set; }
+			public Vector3 rootPoint { get; internal set; }
+			public Vector3 targetContactPoint { get; internal set; }
+			public Vector3 finalContactPoint { get; internal set; }
+			public float springLength { get; internal set; }
             public float springCompression { get; internal set; }
+			/// <summary> Angle between wheel orientation and velocity direction: 1/-1=Fully forward/backward, 0 = 90° on either sides</summary>
 			public float forwardDot { get; internal set; }
+			/// <summary> Angle between wheel left-side normal and velocity direction: -1/1=Full left/right, 0 = fully forward/backward</summary>
 			public float sidewaysDot { get; internal set; }
-			/// <summary> Forward angle ratio: 1/-1=Fully forward/backward, 0 = 90° on either sides, 45°=0.5 </summary>
+			/// <summary> Forward angle ratio, relative to velocity direction: 1/-1=Fully forward/backward, 0 = 90° on either sides, 45°=0.5 </summary>
 			public float forwardRatio { get; internal set; }
-			/// <summary> Side angle ratio: -1/1=Full left/right, 0 = fully forward/backward, 45°=0.5 </summary>
+			/// <summary> Side angle ratio, relative to velocity direction: -1/1=Full left/right, 0 = fully forward/backward, 45°=0.5 </summary>
 			public float sidewaysRatio { get; internal set; }
 			/// <summary> Forward friction ratio, calculated from current angle and friction </summary>
 			public float forwardFriction { get; internal set; }
@@ -119,5 +133,6 @@ namespace CND.Car
             public RaycastHit hit { get; internal set; }
         }
 
-    }
+
+	}
 }

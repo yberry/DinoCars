@@ -16,7 +16,7 @@ namespace CND.Car
 
             public bool lockPositions;
             public Vector3 positionOffset;
-			[Range(0,10000)]
+			[Range(0,100000)]
 			public float antiRollForce;
 
 			private float steerAng, maxAng;
@@ -30,25 +30,32 @@ namespace CND.Car
 
             }
 
-            public void SetSteeringRotation(float degAngle, float maxAngle, float maxOuterAngleReduction=0)
+            public void SetSteeringRotation(float degAngle, float maxAngle, float ackermanSteeringRatio = 0)
             {
 				maxAng = maxAngle;
 				float steerAngleDeg = steerAng = degAngle;
 				float degAngRatio = degAngle / maxAngle;
 
-				left.steerAngleDeg = degAngle - maxOuterAngleReduction * Mathf.Clamp01(degAngRatio);
-				right.steerAngleDeg = degAngle + maxOuterAngleReduction * Mathf.Clamp01(-degAngRatio);
-	
+				left.steerAngleDeg = degAngle;
+				right.steerAngleDeg = degAngle;
+
+				if (!Mathf.Approximately( ackermanSteeringRatio, 0))
+				{
+					float steerSign = Mathf.Sign(degAngle);
+					left.steerAngleDeg *= 1f-  Mathf.Clamp01(ackermanSteeringRatio* steerSign);
+					right.steerAngleDeg *= 1f - Mathf.Clamp01(-ackermanSteeringRatio* steerSign);
+				} 
+
 			}
             
 			public void Stabilize(Rigidbody rBody)
 			{
 				float appliedAntiRoll;
 
-				float compL = Mathf.Min(1, left.contactInfo.springCompression / left.settings.maxCompression);
-				float compR = Mathf.Min(1, right.contactInfo.springCompression / right.settings.maxCompression);
+				float compL = Mathf.Min(1, left.contactInfo.springCompression.Squared() / left.settings.maxCompression);
+				float compR = Mathf.Min(1, right.contactInfo.springCompression.Squared() / right.settings.maxCompression);
 
-				appliedAntiRoll = (compL - compR) * antiRollForce;// * (-steerAng/maxAng);
+				appliedAntiRoll = (compL - compR) * antiRollForce *10;// * (-steerAng/maxAng);
 
 				if (left.contactInfo.wasAlreadyOnFloor)
 					rBody.AddForceAtPosition(left.transform.up * appliedAntiRoll, left.transform.position,ForceMode.Force);

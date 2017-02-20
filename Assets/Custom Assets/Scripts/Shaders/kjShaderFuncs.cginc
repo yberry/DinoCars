@@ -29,7 +29,7 @@ inline fixed4 smoothBlurLine(sampler2D tex, half2 refCoord, half2 targetOffset, 
 	float fSteps = (float)steps;
 	float stepDist = targetOffset / fSteps;
 
-	fixed4 sum = 0;// o*0.5;
+	fixed4 sum = o*0.5;
 
 	for (int i = 0; i < steps.x; i++) {
 		float interp =  (i+1) / fSteps;
