@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -276447351
-    m_lastTimePart2: -1999349383
+    m_lastTimePsrt1: 88826704
+    m_lastTimePart2: -1999349363
     List:
     - Name: Ambiance_Main_Play
       Path: Default Work Unit\Ambiance\Ambiance_Main_Play
@@ -102,6 +102,30 @@ MonoBehaviour:
         ObjectType: 3
       ID: 1070810022
       Guid: d2c0cde316f8f74bbd084ff8072a31da
+      maxAttenuation: 0
+    - Name: Car_Impact_Big_Play
+      Path: Default Work Unit\Car\Car_Impact_Big_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Impact_Big_Play
+        ObjectType: 3
+      ID: 1852543838
+      Guid: b4d3780b2853a1499816bdb7df95eab8
+      maxAttenuation: 0
+    - Name: Car_Impact_Small_Play
+      Path: Default Work Unit\Car\Car_Impact_Small_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Car
+        ObjectType: 4
+      - ElementName: Car_Impact_Small_Play
+        ObjectType: 3
+      ID: -510743741
+      Guid: 21ddcfd93a016d4c85eb0be37920e722
       maxAttenuation: 0
     - Name: Car_Motor_Play
       Path: Default Work Unit\Car\Car_Motor_Play
@@ -268,8 +292,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: -276427349
-    m_lastTimePart2: -1999349383
+    m_lastTimePsrt1: 88866563
+    m_lastTimePart2: -1999349363
     List:
     - Name: Ambiance
       Path: Default Work Unit\Ambiance

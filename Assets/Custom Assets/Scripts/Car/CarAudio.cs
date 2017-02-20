@@ -97,7 +97,7 @@ namespace CND.Car
             if (aCar.IsBoosting && !prevBoost)
             {
                
-                AkSoundEngine.PostEvent("Car_Boost", gameObject);
+                AkSoundEngine.PostEvent("Car_Boost_Play", gameObject);
                 
             }
             else if (!aCar.IsBoosting && prevBoost)
@@ -128,6 +128,19 @@ namespace CND.Car
                 AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
             }
             }
+
+        void ManageCollision(Collision col)
+        {
+          
+            if (col.relativeVelocity.magnitude < (200 / 3.6f))
+            {
+                AkSoundEngine.PostEvent("Car_Impact_Small_Play", gameObject);
+            }
+           else
+            {
+                AkSoundEngine.PostEvent("Car_Impact_Big_Play", gameObject);
+            }
+        }
         // commenter une ligne
         /* commenter un bout de truc*/
 
