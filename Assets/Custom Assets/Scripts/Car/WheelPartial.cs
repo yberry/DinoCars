@@ -121,7 +121,7 @@ namespace CND.Car
 				Vector3 pushForce;
 				float springResistance = Mathf.Lerp(
 					 contact.springCompression * contact.springCompression * contact.springCompression,
-					Mathf.Clamp01(Mathf.Sin(halfPI * contact.springCompression)), settings.stiffness) * 100f * Time.fixedDeltaTime;
+					Mathf.Clamp01(Mathf.Sin(halfPI * contact.springCompression)), settings.stiffnessAdjust) * 100f * Time.fixedDeltaTime;
 
 
 				if (legacySuspensions)
@@ -129,7 +129,7 @@ namespace CND.Car
 					float springExpand = 1f + verticalVel.magnitude * Time.fixedDeltaTime * Time.fixedDeltaTime * settings.springForce * Mathf.Sign(-dotVelY);
 					springExpand = Mathf.Clamp(springExpand, contact.springCompression, (1f+ contact.springCompression)+0* 100f * settings.springForce + 0 * float.PositiveInfinity);
 
-					float springDamp = 1f - ((verticalVel.magnitude) * settings.damping * Mathf.Sign(dotVelY));
+					float springDamp = 1f - ((verticalVel.magnitude) * settings.compressionDamping * Mathf.Sign(dotVelY));
 					springDamp = Mathf.Clamp(springDamp, -1f * 0, 1f);
 
 					pushForce = Vector3.Lerp(
@@ -143,7 +143,7 @@ namespace CND.Car
 				else
 				{
 					float springExpand = (contactInfo.springCompression) * settings.springForce * 0.95f;
-					float springDamp = verticalVel.magnitude * (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.damping;
+					float springDamp = verticalVel.magnitude * (contactInfo.springCompression - prevContactInfo.springCompression) / Time.fixedDeltaTime * settings.compressionDamping;
 					pushForce = (transform.up * springExpand + transform.up * springDamp) * Time.fixedDeltaTime * Time.fixedDeltaTime;
 					//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
 					/*
