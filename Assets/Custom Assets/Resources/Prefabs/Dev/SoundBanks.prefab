@@ -58,7 +58,7 @@ MonoBehaviour:
   triggerList: f2d9e0ec
   useOtherObject: 0
   valueGuid: 4a208208b49a704ead922074610b7f62
-  eventID: -51323519
+  eventID: 2086347706
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   triggerList: f7e1664c
   useOtherObject: 0
   valueGuid: 7aa47b59cc36ff48ade5a6fbb5febaa9
-  eventID: 520985213
+  eventID: -2040941828
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
