@@ -17,7 +17,7 @@ MonoBehaviour:
     accelCurve: 0.35
     downForce: 100
     maxTurnAngle: 45
-    turnSpeed: 50
+    turnSpeed: 70
     brakeEffectiveness: 0.5
     tractionControl: 1
     driftControl: 0
