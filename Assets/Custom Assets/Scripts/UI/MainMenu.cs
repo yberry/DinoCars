@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour {
 
     public RectTransform titleScreen;
+    public Camera cameraVHS;
+    public Text canal;
 
     RectTransform currentMenu;
 
@@ -29,6 +31,9 @@ public class MainMenu : MonoBehaviour {
             currentMenu = newMenu;
             SetSelection();
         }
+
+        cameraVHS.enabled = currentMenu != titleScreen;
+        canal.text = "Canal : " + currentMenu.name;
     }
 
     void SetSelection()

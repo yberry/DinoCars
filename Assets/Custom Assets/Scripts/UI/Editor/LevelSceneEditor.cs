@@ -12,7 +12,7 @@ public class LevelSceneEditor : Editor {
     {
         levelScene = target as LevelScene;
 
-        levelScene.Update(ref levelScene.scene, "Scene", SwitchScene.SceneArray());
+        levelScene.Update(ref levelScene.scene, "Scene", SwitchScene.SceneArray);
         levelScene.Update(ref levelScene.sprite, "Sprite");
     }
 }

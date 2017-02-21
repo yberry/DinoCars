@@ -11,6 +11,6 @@ public class SwitchSceneEditor : Editor {
 
         switchScene.Update(ref switchScene.quit, "Quit");
 
-        switchScene.mask = EditorGUILayout.MaskField("Scene", switchScene.mask, SwitchScene.SceneArray());
+        switchScene.mask = EditorGUILayout.MaskField("Scene", switchScene.mask, SwitchScene.SceneArray);
     }
 }
