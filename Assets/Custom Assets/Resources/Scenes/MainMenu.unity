@@ -91,6 +91,39 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2975418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2975419}
+  m_Layer: 5
+  m_Name: Telecommande defaut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!224 &2975419
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2975418}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1056508523}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -45, y: 0}
+  m_SizeDelta: {x: 413, y: 964}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &21132057
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +359,9 @@ MonoBehaviour:
   titleScreen: {fileID: 1090385031}
   cameraVHS: {fileID: 1187605733}
   canal: {fileID: 1569615466}
+  telDefault: {fileID: 2975419}
+  telVire: {fileID: 1461205849}
+  telStandby: {fileID: 1174278963}
 --- !u!1 &62327034
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,8 +488,8 @@ MonoBehaviour:
   - {fileID: 1779293065}
   - {fileID: 21132058}
   - {fileID: 362277430}
-  - {fileID: 478012151}
   quit: {fileID: 478012151}
+  telecommande: {fileID: 77225984}
 --- !u!114 &67228393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,8 +1417,8 @@ MonoBehaviour:
   - {fileID: 1192285356}
   - {fileID: 766280121}
   - {fileID: 1416128078}
-  - {fileID: 2131277045}
   quit: {fileID: 2131277045}
+  telecommande: {fileID: 1853751072}
 --- !u!114 &282260978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3190,6 +3226,9 @@ RectTransform:
   - {fileID: 1690547555}
   - {fileID: 1093058110}
   - {fileID: 1569615465}
+  - {fileID: 2975419}
+  - {fileID: 1461205849}
+  - {fileID: 1174278963}
   m_Father: {fileID: 59989393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3626,6 +3665,39 @@ RectTransform:
   m_AnchoredPosition: {x: -114.69997, y: -324.70447}
   m_SizeDelta: {x: 72, y: 69}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1174278962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1174278963}
+  m_Layer: 5
+  m_Name: Telecommande standby
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!224 &1174278963
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1174278962}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1056508523}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -45, y: -1115}
+  m_SizeDelta: {x: 413, y: 964}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1182058672
 GameObject:
   m_ObjectHideFlags: 0
@@ -5142,6 +5214,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: 0
   sprite: {fileID: 0}
+--- !u!1 &1461205848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1461205849}
+  m_Layer: 5
+  m_Name: Telecommande vire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!224 &1461205849
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1461205848}
+  m_LocalRotation: {x: -0, y: -0, z: -0.32511058, w: 0.945676}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1056508523}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -37.945004}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 639, y: 1392}
+  m_SizeDelta: {x: 413, y: 964}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1534700826
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,7 +5382,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Canal : Level Selection'
+  m_Text: 'Canal : Main Menu'
 --- !u!222 &1569615467
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5782,8 +5887,8 @@ MonoBehaviour:
   - {fileID: 157007389}
   - {fileID: 1140379527}
   - {fileID: 1185766332}
-  - {fileID: 705631392}
   quit: {fileID: 705631392}
+  telecommande: {fileID: 1624056325}
 --- !u!1 &1744785722
 GameObject:
   m_ObjectHideFlags: 0
@@ -6286,8 +6391,8 @@ MonoBehaviour:
   buttons:
   - {fileID: 675622991}
   - {fileID: 496901508}
-  - {fileID: 146834981}
   quit: {fileID: 146834981}
+  telecommande: {fileID: 145048162}
 --- !u!21 &1928724795
 Material:
   serializedVersion: 6
