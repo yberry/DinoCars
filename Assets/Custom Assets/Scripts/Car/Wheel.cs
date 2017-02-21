@@ -155,7 +155,8 @@ namespace CND.Car
 			FillContactInfo_WheelVelocities_PreHitCheck(ref contact);
 			FillContactInfo_Orientations(ref contact);
 
-			if (FillContactInfo_Raycast(ref contact, out hit))
+			//if (FillContactInfo_Raycast(ref contact, out hit))
+			if (FillContactInfo_CapsuleCast(ref contact, out hit))
 			{
 				FillContactInfo_WheelVelocities_PostHitCheck(ref contact, hit);
 				FillContactInfo_OnFloor(ref contact, ref hit);
@@ -205,8 +206,8 @@ namespace CND.Car
 			Vector3 capsuleLeft, capsuleRight;
 			float width = 0.5f;
 
-			capsuleLeft = wheelCenter + (steerRot * Quaternion.LookRotation(transform.forward, transform.up)) * Vector3.left * width * 0.5f;
-			capsuleRight = wheelCenter + (steerRot * Quaternion.LookRotation(transform.forward, transform.up)) * Vector3.right * width * 0.5f;
+			capsuleLeft = wheelCenter + ( Quaternion.LookRotation(transform.forward, transform.up)*steerRot) * Vector3.left * width * 0.5f;
+			capsuleRight = wheelCenter + (Quaternion.LookRotation(transform.forward, transform.up)*steerRot) * Vector3.right * width * 0.5f;
 
 			var hits = Physics.CapsuleCastAll(capsuleLeft, capsuleRight, settings.wheelRadius, -transform.up, 0.1f);
 			bool success = false;
@@ -220,6 +221,7 @@ namespace CND.Car
 				Vector3 capsuleCylinder = (capsuleRight - capsuleLeft);
 				Vector3 capsuleDir = capsuleCylinder.normalized;
 				Plane leftPlane = new Plane(-capsuleDir, capsuleLeft);
+				Plane middlePlane = new Plane(capsuleDir, (capsuleRight + capsuleLeft)*0.5f);
 				Plane rightPlane = new Plane(capsuleDir, capsuleRight);
 				float tolerance = 0.1f;
 
@@ -230,19 +232,23 @@ namespace CND.Car
 
 					float distFromLeftPlane = leftPlane.GetDistanceToPoint(tempHit.point);
 					float distFromRightPlane = rightPlane.GetDistanceToPoint(tempHit.point);
-					bool isInLeftBound = distFromLeftPlane < tolerance;
-					bool isInRightBound = distFromRightPlane < tolerance;
+					float distFromMidPlane = middlePlane.GetDistanceToPoint(tempHit.point);
+					if (Mathf.Abs(distFromMidPlane) > 0.5f * width * hitDetectionTolerance) continue;
+
+					bool isInLeftBound = Mathf.Abs( distFromMidPlane) < 0.5f* width*hitDetectionTolerance;
+					bool isInRightBound = Mathf.Abs(distFromMidPlane) < 0.5f * width * hitDetectionTolerance;
 					bool isInside = (isInLeftBound && isInRightBound);
 
-					if (isInside && tempHit.distance <= lastBestHit.distance)
+					if (isInside && Mathf.Abs(tempHit.distance-settings.wheelRadius) <= Mathf.Abs(lastBestHit.distance - settings.wheelRadius))
 					{
 						lastBestHit = tempHit;
 
 						success = true;
 					}
 
+					Debug.Log("CapsCast contact dist: " + tempHit.distance + " - Dist from central plane: "+distFromMidPlane+" - InLeft: " + isInLeftBound + " , InRight: " + isInRightBound );
 
-					Debug.Log("CapsCast contact dist: " + tempHit.distance + " - OutLeft: " + isInLeftBound + "/" + distFromLeftPlane + " , OutRight: " + isInRightBound + "/" + distFromRightPlane);
+					//Debug.Log("CapsCast contact dist: " + tempHit.distance + " - InLeft: " + isInLeftBound + "/" + distFromLeftPlane + " , InRight: " + isInRightBound + "/" + distFromRightPlane);
 				}
 				hit = lastBestHit;
 				if (success)
