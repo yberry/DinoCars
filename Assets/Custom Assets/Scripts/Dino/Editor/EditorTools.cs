@@ -33,6 +33,17 @@ public static class EditorTools {
         }
     }
 
+    public static void Update(this Object obj, ref int field, string label, string[] options)
+    {
+        EditorGUI.BeginChangeCheck();
+        int i = EditorGUILayout.Popup(label, field, options);
+        if (EditorGUI.EndChangeCheck())
+        {
+            obj.Record(label);
+            field = i;
+        }
+    }
+
     public static void Update(this Object obj, ref float field, string label)
     {
         EditorGUI.BeginChangeCheck();

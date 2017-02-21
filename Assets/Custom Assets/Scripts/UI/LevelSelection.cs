@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class LevelSelection : MonoBehaviour {
 
-    public RectTransform selected;
+    public LevelHighlight selected;
 
-    public RectTransform[] levels;
-    public float speedMove = 1f;
+    public LevelScenes[] levels;
 
     int selectedLevel = 0;
     int SelectedLevel
@@ -31,6 +30,50 @@ public class LevelSelection : MonoBehaviour {
             {
                 selectedLevel = value;
             }
+            SelectedMap = selectedMap;
+            selected.SetLevel(level);
+        }
+    }
+
+    LevelScenes level
+    {
+        get
+        {
+            return levels[selectedLevel];
+        }
+    }
+
+    int selectedMap = 0;
+    int SelectedMap
+    {
+        get
+        {
+            return selectedMap;
+        }
+
+        set
+        {
+            if (value >= level.scenes.Length)
+            {
+                selectedMap = 0;
+            }
+            else if (value < 0)
+            {
+                selectedMap = level.scenes.Length - 1;
+            }
+            else
+            {
+                selectedMap = value;
+            }
+            selected.SetMap(map);
+        }
+    }
+
+    LevelScene map
+    {
+        get
+        {
+            return level.scenes[selectedMap];
         }
     }
 
@@ -44,8 +87,19 @@ public class LevelSelection : MonoBehaviour {
         SelectedLevel++;
     }
 
-    void Update()
+    public void MoveLeft()
     {
-        selected.position = Vector3.MoveTowards(selected.position, levels[selectedLevel].position, speedMove * Time.deltaTime);
+        SelectedMap--;
+    }
+
+    public void MoveRight()
+    {
+        SelectedMap++;
+    }
+
+    void Start()
+    {
+        SelectedLevel = 0;
+        SelectedMap = 0;
     }
 }
