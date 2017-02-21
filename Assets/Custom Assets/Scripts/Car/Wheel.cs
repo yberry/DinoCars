@@ -14,6 +14,7 @@ namespace CND.Car
 
         protected Vector3 gravity = Physics.gravity;
 		public Vector3 LocalGravity { get { return gravity; } set { gravity = value; } }
+		protected Rigidbody parentRigidBody;
 
         public float steerAngleDeg { get; set; }
 		float WheelCircumference { get { return settings.wheelRadius * fullCircle; } }
@@ -88,8 +89,9 @@ namespace CND.Car
             wheelGfx.transform.SetParent(transform);
             wheelGfx.transform.position = wheelCenter;
             wheelGfx.SetActive(true);
-           
-        }
+			parentRigidBody = GetComponentInParent<BaseCarController>().GetComponentInChildren<Rigidbody>();
+
+		}
 
         // Update is called once per frame
         void FixedUpdate()
@@ -170,7 +172,7 @@ namespace CND.Car
 		protected virtual void FillContactInfo_Orientations(ref ContactInfo contact)
 		{
 			contact.relativeRotation = steerRot;
-			contact.worldRotation = transform.rotation * Quaternion.Euler(0, steerAngleDeg, 0);
+			contact.worldRotation = transform.rotation * Quaternion.AngleAxis(steerAngleDeg,Vector3.up);
 			contact.forwardDirection = (transform.rotation * steerRot) * Vector3.forward;
 
 			var projMoveDir = Vector3.ProjectOnPlane(pointMoveDir, transform.up);
@@ -195,6 +197,80 @@ namespace CND.Car
 
 		}
 
+		protected virtual bool FillContactInfo_CapsuleCast(ref ContactInfo contact, out RaycastHit hit)
+		{
+
+			float checkDist = (contact.springLength + settings.wheelRadius) * hitDetectionTolerance/* * settings.maxExpansion */;
+
+			Vector3 capsuleLeft, capsuleRight;
+			float width = 0.5f;
+
+			capsuleLeft = wheelCenter + (steerRot * Quaternion.LookRotation(transform.forward, transform.up)) * Vector3.left * width * 0.5f;
+			capsuleRight = wheelCenter + (steerRot * Quaternion.LookRotation(transform.forward, transform.up)) * Vector3.right * width * 0.5f;
+
+			var hits = Physics.CapsuleCastAll(capsuleLeft, capsuleRight, settings.wheelRadius, -transform.up, 0.1f);
+			bool success = false;
+			bool foundContact = hits.Length > 0;
+			hit = default(RaycastHit);
+			contact.finalContactPoint = contact.targetContactPoint;
+
+			if (foundContact) //check if hit is out of the cylinder part of the capsule collider
+			{
+				RaycastHit lastBestHit = hits[0];
+				Vector3 capsuleCylinder = (capsuleRight - capsuleLeft);
+				Vector3 capsuleDir = capsuleCylinder.normalized;
+				Plane leftPlane = new Plane(-capsuleDir, capsuleLeft);
+				Plane rightPlane = new Plane(capsuleDir, capsuleRight);
+				float tolerance = 0.1f;
+
+				for (int i = 0; i < hits.Length; i++)
+				{
+					var tempHit = hits[i];
+					if (tempHit.rigidbody == parentRigidBody) continue;
+
+					float distFromLeftPlane = leftPlane.GetDistanceToPoint(tempHit.point);
+					float distFromRightPlane = rightPlane.GetDistanceToPoint(tempHit.point);
+					bool isInLeftBound = distFromLeftPlane < tolerance;
+					bool isInRightBound = distFromRightPlane < tolerance;
+					bool isInside = (isInLeftBound && isInRightBound);
+
+					if (isInside && tempHit.distance <= lastBestHit.distance)
+					{
+						lastBestHit = tempHit;
+
+						success = true;
+					}
+
+
+					Debug.Log("CapsCast contact dist: " + tempHit.distance + " - OutLeft: " + isInLeftBound + "/" + distFromLeftPlane + " , OutRight: " + isInRightBound + "/" + distFromRightPlane);
+				}
+				hit = lastBestHit;
+				if (success)
+				{
+					contact.hit = hit;
+					contact.finalContactPoint = hit.point;
+				}
+			}
+
+
+			//if (success=Physics.Raycast(transform.position, -transform.up, out hit, checkDist)){
+			/*if (success)
+			{
+				contact.hit = hit;
+				contact.finalContactPoint = hit.point;
+			}
+			else
+			{
+				hit = default(RaycastHit);
+				contact.finalContactPoint = contact.targetContactPoint;
+
+			}*/
+			pointMoveDelta = (contact.finalContactPoint - prevContactInfo.finalContactPoint);
+			pointMoveDir = pointMoveDelta.normalized;
+			contact.pushPoint = Vector3.LerpUnclamped(transform.position, wheelCenter, 0.5f);
+			//contact.pushPoint = Vector3.LerpUnclamped(transform.position, contact.finalContactPoint, 0.8f);
+			return success;
+		}
 
 		protected virtual bool FillContactInfo_Raycast(ref ContactInfo contact, out RaycastHit hit)
 		{
@@ -211,6 +287,7 @@ namespace CND.Car
 				contact.finalContactPoint = contact.targetContactPoint;
 
 			}
+
 			pointMoveDelta = (contact.finalContactPoint - prevContactInfo.finalContactPoint);
 			pointMoveDir = pointMoveDelta.normalized;
 			contact.pushPoint = Vector3.LerpUnclamped(transform.position, wheelCenter, 0.5f);
@@ -295,7 +372,9 @@ namespace CND.Car
 				float springExpand = (springResistance) * settings.springForce;// * 0.95f;
 				float dampingForce = contactInfo.compressionVelocity >= 0 ? settings.compressionDamping : settings.decompressionDamping;
 				float springDamp = contactInfo.compressionVelocity * dampingForce;
-				upForce = (transform.up * springExpand + transform.up * springDamp);
+				upForce = transform.up * (springExpand +  springDamp);
+
+				//upForce = Vector3.Lerp(upForce, upForce+upForce.normalized*(1f+Mathf.Max(0,contactInfo.compressionVelocity)), contact.springCompression);
 				//	pushForce = Vector3.Lerp(m_contactInfo.upForce, stickToFloor, 0.5f);
 				/*
 				float springExpand =( contactInfo.springCompression) *Time.deltaTime * Time.deltaTime * settings.springForce ;

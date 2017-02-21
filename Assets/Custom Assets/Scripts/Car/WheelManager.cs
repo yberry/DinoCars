@@ -59,7 +59,7 @@ namespace CND.Car
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
             totalContacts = frontContacts + rearContacts;
 
-			float contactForceMod = 1;// ( 1f/totalContacts );
+			float contactForceMod = 1f;// ( 1f/totalContacts );
 
 			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
 				(up * 10f * contactForceMod),

@@ -194,9 +194,13 @@ namespace CND.Car
 		public bool showDrift = true;
 		public bool showForward = true;
 		public bool showSpring = true;
+		public bool showWheelDisc = true;
+
 
 		void OnDrawGizmos()
 		{
+
+			const float arcAngle = 30f;
 			Quaternion curRot = steerRot;
 			var src = transform.position;
 			Vector3 center;
@@ -224,16 +228,38 @@ namespace CND.Car
 
 			Color defHandleColor = Color.white;
 			Color defGizmoColor = Color.white;
+			
 			if (!enabled)
 			{
 				Gizmos.color = defGizmoColor *= 0.5f;
 				Handles.color = defHandleColor *= 0.5f;
 			}
 
+			Color contactColor = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
+
+			Gizmos.color = defGizmoColor * contactColor;
+			if (m_contactInfo.isOnFloor && m_contactInfo.hit.distance < settings.baseSpringLength - (settings.baseSpringLength * settings.maxCompression))
+			{
+				Gizmos.color = defGizmoColor * Color.yellow;
+			}
+
+			if (showWheelDisc)
+			{
+				Handles.color = Gizmos.color * 0.25f;
+				Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
+
+				Handles.color = Gizmos.color;
+				Handles.CircleCap(0, center, lookRotNormal, settings.wheelRadius);
+				Handles.color = Gizmos.color * 0.75f;
 
 
-			//var end = (transform.position- transform.up* contactInfo.springLength);
-			// var center = end - (end - src).normalized * settings.wheelRadius * 0.5f;
+				Handles.DrawSolidArc(center, lookRotNormal * Vector3.forward,
+				   rotNorm * (Quaternion.Euler(angularVelAngle * Mathf.Rad2Deg - arcAngle * 0.5f, 0, 0)) * Vector3.down, arcAngle, settings.wheelRadius * 0.9f);
+
+			}
+
+
+			Gizmos.color = Handles.color = defGizmoColor;
 			Color dirMultipliers = new Color(1.2f, 0.8f, 1.2f, 0.85f);
 			Gizmos.DrawWireSphere(center, 0.05f);
 			if (showDrift && absSide > 0.01)
@@ -281,48 +307,40 @@ namespace CND.Car
 
 			if (showSpring)
 			{
-				Color oldCol = Gizmos.color, nextCol = Gizmos.color*1.5f;
+				Color oldCol = Gizmos.color, nextCol = Gizmos.color*1f;
 				nextCol.a = 1f;
-				Handles.color = nextCol*2f;
+
 				Gizmos.color = nextCol;
+				Gizmos.DrawLine(src, center);
+
+				Handles.color = nextCol;
+				Gizmos.color = nextCol * 1.5f;
+				//Gizmos.DrawSphere(src, 0.075f);
 				Handles.DrawAAPolyLine(null,10f,src, center);
-				Gizmos.DrawSphere(src, 0.075f);
-				Gizmos.DrawLine(src, center); //spring
-				//nextCol.a *= 0.66f;
+
 				
+				Handles.DrawSolidDisc(src, -Camera.current.gameObject.transform.forward, 0.075f);
+				Gizmos.color = nextCol*1.1f;
 				Gizmos.DrawWireSphere(src, 0.075f);
+
 				Gizmos.color = oldCol;
 				Handles.color = oldCol;
 			}
 
-			Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
-			if (m_contactInfo.isOnFloor && m_contactInfo.hit.distance < settings.baseSpringLength - (settings.baseSpringLength * settings.maxCompression))
-			{
-				Gizmos.color = defGizmoColor = Color.yellow;
-			}
+
 
 			//--contact points
-			Gizmos.DrawWireSphere(targetContactPoint - lagOffset, 0.0375f);
+
 			Vector3 raycastHitPoint = Application.isPlaying ? contactInfo.finalContactPoint : targetContactPoint;
-			Gizmos.color *= 1.5f;
-			Gizmos.DrawSphere(raycastHitPoint - lagOffset, 0.05f);
-			Gizmos.DrawWireSphere(raycastHitPoint - lagOffset, 0.05f);
-			Gizmos.color *= 0.75f;
-			//--
+			Handles.color = contactColor;
+			Handles.DrawSolidDisc(raycastHitPoint - lagOffset, -Camera.current.gameObject.transform.forward, 0.025f);
+			//Gizmos.DrawSphere(raycastHitPoint - lagOffset, 0.05f);
+			Gizmos.color = contactColor * 1.1f;
+			Gizmos.DrawWireSphere(targetContactPoint - lagOffset, 0.025f);
+			Gizmos.DrawWireSphere(raycastHitPoint - lagOffset, 0.025f);
 
-			Handles.color = Gizmos.color * 0.25f;
-			Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
+			Gizmos.color /= 1.1f;
 
-			Handles.color = Gizmos.color;
-			Handles.CircleCap(0, center, lookRotNormal, settings.wheelRadius);
-			Handles.color = Gizmos.color * 0.75f;
-
-
-			const float arcAngle = 30f;
-			Handles.DrawSolidArc(center, lookRotNormal * Vector3.forward,
-			   rotNorm * (Quaternion.Euler(angularVelAngle * Mathf.Rad2Deg - arcAngle * 0.5f, 0, 0)) * Vector3.down, arcAngle, settings.wheelRadius * 0.9f);
-
-			//max compression circle
 			if (!Application.isPlaying)
 			{
 				var compressedCenter = transform.position - transform.up * CompressedLength(settings.baseSpringLength, settings.maxCompression);
