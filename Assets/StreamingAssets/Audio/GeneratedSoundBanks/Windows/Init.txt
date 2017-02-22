@@ -8,6 +8,7 @@ State	ID	Name	State Group			Notes
 	1845389165	Body	InGame			
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
+	3588613048	Play_Without_Loosing			\Default Work Unit\Play_Without_Loosing	
 	3809038260	RTPC_BUS_MASTER_GLOBAL_VOL			\Default Work Unit\Volume\RTPC_BUS_MASTER_GLOBAL_VOL	
 	4026530778	RTPC_BUS_MASTER_MUSIC_VOL			\Default Work Unit\Volume\RTPC_BUS_MASTER_MUSIC_VOL	
 

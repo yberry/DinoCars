@@ -5,6 +5,7 @@ Event	ID	Name			Wwise Object Path	Notes
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
+	3588613048	Play_Without_Loosing			\Default Work Unit\Play_Without_Loosing	
 	4243643777	Car_Boost			\Default Work Unit\Car_Various\Car_Boost	
 
 Effect plug-ins	ID	Name	Type				Notes

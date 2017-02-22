@@ -17,6 +17,7 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
 	822292696	Skid			\Default Work Unit\Car_Various\Skid	
 	1200033591	OnGround			\Default Work Unit\Car_Engine\OnGround	
+	3588613048	Play_Without_Loosing			\Default Work Unit\Play_Without_Loosing	
 
 Effect plug-ins	ID	Name	Type				Notes
 	2080872166	Brick_Wall_Minus_6dB_Peak_Fast_Release	Wwise Peak Limiter			

@@ -155,8 +155,8 @@ namespace CND.Car
 			FillContactInfo_WheelVelocities_PreHitCheck(ref contact);
 			FillContactInfo_Orientations(ref contact);
 
-			//if (FillContactInfo_Raycast(ref contact, out hit))
-			if (FillContactInfo_CapsuleCast(ref contact, out hit))
+			if (FillContactInfo_Raycast(ref contact, out hit))
+			//if (FillContactInfo_CapsuleCast(ref contact, out hit))
 			{
 				FillContactInfo_WheelVelocities_PostHitCheck(ref contact, hit);
 				FillContactInfo_OnFloor(ref contact, ref hit);
