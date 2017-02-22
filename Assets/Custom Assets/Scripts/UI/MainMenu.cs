@@ -6,10 +6,13 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour {
 
-    public RectTransform titleScreen;
-    public Camera cameraVHS;
+    [Header("Camera effects")]
+    public Texture[] noiseTex;
+    public postVHSPro cameraVHS;
     public Text canal;
 
+    [Header("Menu transitions")]
+    public RectTransform titleScreen;
     public RectTransform telDefault;
     public RectTransform telVire;
     public RectTransform telStandby;
@@ -39,36 +42,33 @@ public class MainMenu : MonoBehaviour {
                 manageCurrent.telecommande.position = telDefault.position;
                 manageCurrent.telecommande.rotation = telDefault.rotation;
 
-                manageCurrent.targetTel = Instantiate(telVire);
-                manageCurrent.targetTel.position = telVire.position;
-                manageCurrent.targetTel.rotation = telVire.rotation;
+                manageCurrent.targetTel = telVire;
 
-                yield return new WaitUntil(() => manageCurrent.telCheck);
+                yield return new WaitForSeconds(0.2f);
             }
             currentMenu.gameObject.SetActive(false);
         }
 
         if (newMenu != null)
         {
+            cameraVHS.enabled = newMenu != titleScreen;
+
             ManageButtons manageNew = newMenu.GetComponent<ManageButtons>();
             if (manageNew != null)
             {
                 manageNew.telecommande.position = telStandby.position;
                 manageNew.telecommande.rotation = telStandby.rotation;
 
-                manageNew.targetTel = Instantiate(telDefault);
-                manageNew.targetTel.position = telDefault.position;
-                manageNew.targetTel.rotation = telDefault.rotation;
+                manageNew.targetTel = telDefault;
 
                 newMenu.gameObject.SetActive(true);
-                yield return new WaitUntil(() => manageNew.telCheck);
+                yield return new WaitForSeconds(0.2f);
             }
             newMenu.gameObject.SetActive(true);
             currentMenu = newMenu;
             SetSelection();
         }
-
-        cameraVHS.enabled = currentMenu != titleScreen;
+        
         canal.text = "Canal : " + currentMenu.name;
     }
 

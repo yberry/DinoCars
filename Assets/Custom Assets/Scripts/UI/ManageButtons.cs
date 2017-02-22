@@ -11,14 +11,6 @@ public class ManageButtons : MonoBehaviour {
 
     public RectTransform targetTel { get; set; }
 
-    public bool telCheck
-    {
-        get
-        {
-            return telecommande.position == targetTel.position && telecommande.rotation == targetTel.rotation;
-        }
-    }
-
     void Start()
     {
         foreach (Button button in buttons)
