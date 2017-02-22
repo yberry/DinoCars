@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 114929940424162682}
   - component: {fileID: 114453610290607354}
   - component: {fileID: 114867058202794902}
+  - component: {fileID: 114117976779532660}
   m_Layer: 5
   m_Name: UI INGAME
   m_TagString: Untagged
@@ -715,6 +716,21 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114117976779532660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1261002052872146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9775a7243ce4ce847a2e346f6861476e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restartKeycode: 8
+  menuKeycode: 27
+  banks: []
+  debug: 0
 --- !u!114 &114124041109599058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -809,7 +825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 114739060468410486}
+    m_SelectOnUp: {fileID: 114045554141338424}
     m_SelectOnDown: {fileID: 114941031918414172}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -1287,7 +1303,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 114158860663009582}
   m_OnClick:
     m_PersistentCalls:
@@ -18089,7 +18105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 10, y: -42.00006}
+  m_AnchoredPosition: {x: 10, y: -42}
   m_SizeDelta: {x: 2000, y: 2500}
   m_Pivot: {x: 1, y: 0}
 --- !u!224 &224982082282691262

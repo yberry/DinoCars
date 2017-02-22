@@ -53,22 +53,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.877
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: signalNoisePower
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
         value: 0.15
         inSlope: 0
         outSlope: 0
@@ -96,12 +80,6 @@ AnimationClip:
       isPPtrCurve: 0
     - path: 0
       attribute: 3618164454
-      script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}
-      classID: 114
-      customType: 0
-      isPPtrCurve: 0
-    - path: 0
-      attribute: 1069057725
       script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}
       classID: 114
       customType: 0
@@ -163,22 +141,6 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: tapeNoiseAmount
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0.877
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: signalNoisePower
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}

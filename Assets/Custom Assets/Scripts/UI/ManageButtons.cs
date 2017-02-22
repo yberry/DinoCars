@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class ManageButtons : MonoBehaviour {
 
+    public Rewired.Player pInput;
+
     public Button[] buttons;
 
     public Button quit;
@@ -28,6 +30,8 @@ public class ManageButtons : MonoBehaviour {
         }
         quit.gameObject.AddComponent<EventButton>();
         quit.onClick.AddListener(QuitClick);
+
+        pInput = Rewired.ReInput.players.GetPlayer(0);
     }
 
     void Update()
@@ -35,7 +39,7 @@ public class ManageButtons : MonoBehaviour {
         telecommande.position = Vector3.MoveTowards(telecommande.position, targetTel.position, 1000f * Time.deltaTime);
         telecommande.rotation = Quaternion.RotateTowards(telecommande.rotation, targetTel.rotation, 1000f * Time.deltaTime);
 
-        if (Input.GetButtonDown("Cancel"))
+        if (pInput.GetAxis(Globals.BtnAction2) > 0f)
         {
             quit.onClick.Invoke();
         }
