@@ -386,6 +386,13 @@ public class MegaLoftLayerSimpleEditor : MegaLoftLayerBaseEditor
 
 		EditorGUILayout.EndVertical();
 		MegaShapeLoftEditor.PopCols();
+
+        layer.customizeOffset = EditorGUILayout.BeginToggleGroup("Customize Offset", layer.customizeOffset);
+        layer.param1 = EditorGUILayout.FloatField("Param 1", layer.param1);
+        layer.param2 = EditorGUILayout.FloatField("Param 2", layer.param2);
+        layer.param3 = EditorGUILayout.FloatField("Param 3", layer.param3);
+        layer.param4 = EditorGUILayout.FloatField("Param 4", layer.param4);
+        EditorGUILayout.EndToggleGroup();
 	}
 
 	Vector3 V2Field(GUIContent content, Vector2 val)

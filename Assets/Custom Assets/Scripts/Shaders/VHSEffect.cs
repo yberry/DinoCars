@@ -159,10 +159,10 @@ public class VHSEffect : ImageEffectBase {
 			return;
 		} else
 		{
-			//RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
-			//temp.filterMode = FilterMode.Trilinear;
+			RenderTexture temp = RenderTexture.GetTemporary(closePowX, closePowY, 24, source.format, RenderTextureReadWrite.Default, 1 << (AAlevel - 1));
+			temp.filterMode = FilterMode.Trilinear;
 			//Graphics.Blit(blur, source);
-			//RenderTexture.ReleaseTemporary(temp);
+			RenderTexture.ReleaseTemporary(temp);
 			Graphics.Blit(source, destination, material, 2);
 		}
 

@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114612261709754768}
   - component: {fileID: 114890026360456958}
   m_Layer: 0
-  m_Name: SoundBanks
+  m_Name: Audio_Car_DS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: f7e1664c
+  triggerList: f2d9e0ec
   useOtherObject: 0
   valueGuid: 21ddcfd93a016d4c85eb0be37920e722
   eventID: -510743741

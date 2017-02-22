@@ -530,7 +530,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     rateOverDistance:
-      scalar: 42
+      scalar: 200
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -590,15 +590,15 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.23895289
-          inSlope: 2.7286403
-          outSlope: 2.7286403
+          value: 0.31228623
+          inSlope: 1.6120142
+          outSlope: 1.6120142
           tangentMode: 0
         - serializedVersion: 2
           time: 1
           value: 0.70680624
-          inSlope: -0.802606
-          outSlope: -0.802606
+          inSlope: -0.2771791
+          outSlope: -0.2771791
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -608,19 +608,19 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.06666667
-          inSlope: 1.8540542
-          outSlope: 1.8540542
+          value: 0
+          inSlope: 0
+          outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 0.37333333
-          inSlope: -0.48075476
-          outSlope: -0.48075476
+          value: 0
+          inSlope: 0
+          outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
       minMaxState: 2
     y:
       scalar: 1

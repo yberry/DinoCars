@@ -9,19 +9,37 @@ public class SwitchScene : MonoBehaviour {
     public Button quit;
     public string[] scenes;
 
+    public LayerMask mask;
+
     List<Button> buttons = new List<Button>();
     Text text;
 
-    void Start()
+    public static IEnumerable<string> SceneNames()
     {
-        foreach (string scene in scenes)
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
-            Button button = Instantiate(quit, transform);
-            button.name = scene;
-            button.GetComponentInChildren<Text>().text = scene;
-            button.onClick.AddListener(() => Load(scene));
-            button.transform.localScale = Vector3.one;
-            buttons.Add(button);
+            string[] path = SceneUtility.GetScenePathByBuildIndex(i).Split('/');
+            string scene = path[path.Length - 1];
+            yield return scene.Substring(0, scene.Length - 6);
+        }
+    }
+
+    void Awake()
+    {
+        int i = 0;
+        foreach (string scene in SceneNames())
+        {
+            int sc = 1 << i;
+            if ((mask & sc) != 0)
+            {
+                Button button = Instantiate(quit, transform);
+                button.name = scene;
+                button.GetComponentInChildren<Text>().text = scene;
+                button.onClick.AddListener(() => Load(scene));
+                button.transform.localScale = Vector3.one;
+                buttons.Add(button);
+            }
+            i++;
         }
 
         quit.onClick.AddListener(Quit);
