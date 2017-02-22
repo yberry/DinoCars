@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+#if UNITY_EDITOR
+using UnityEditor; // A BANNIR KJHTRFEGFLBLKLERUZHMKGJHJLZREHGKJZERHLKJGEFKJGBERLMKUHGKERUHGKJBLR
+#endif
 using UnityEngine;
 namespace CND.Car
 {
