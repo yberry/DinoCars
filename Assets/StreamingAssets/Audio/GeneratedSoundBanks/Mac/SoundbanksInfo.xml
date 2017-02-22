@@ -183,10 +183,6 @@
 					<ShortName>CRIS\Cris-09.wav</ShortName>
 					<Path>SFX\CRIS\Cris-09_9E69E797.wem</Path>
 				</File>
-				<File Id="1007456096" Language="SFX">
-					<ShortName>Brake\CarBrake.wav</ShortName>
-					<Path>SFX\Brake\CarBrake_9E69E797.wem</Path>
-				</File>
 				<File Id="1053869606" Language="SFX">
 					<ShortName>Amb_Simple_OK.wav</ShortName>
 					<Path>SFX\Amb_Simple_OK_4B8CC0C5.wem</Path>
@@ -238,10 +234,6 @@
 				<File Id="443602592" Language="SFX">
 					<ShortName>Kick_6.wav</ShortName>
 					<Path>SFX\Kick_6_9E69E797.wem</Path>
-				</File>
-				<File Id="499639942" Language="SFX">
-					<ShortName>UI\Pass_Over_02.wav</ShortName>
-					<Path>SFX\UI\Pass_Over_02_9E69E797.wem</Path>
 				</File>
 				<File Id="504099344" Language="SFX">
 					<ShortName>UI\Click_Valid_01.wav</ShortName>

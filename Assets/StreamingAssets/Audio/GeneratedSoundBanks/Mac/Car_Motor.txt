@@ -63,7 +63,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	946708904	Dino_SingleFtsp_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_01		117696
 	947323065	Impact_Small_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact\Impact_Small_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Small\Impact_Small_02		199744
 	1002126405	Cris-09	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-09_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino\Cris-09		736640
-	1007456096	CarBrake	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Brake\CarBrake_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Brake\CarBrake		275656
 	1053869606	Ambiance_Light_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Amb_Simple_OK_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambiance_Light_01		10552128
 
 Plug-in Media	ID	Name	Source file	Type	Wwise Object Path	Notes	Data Size
