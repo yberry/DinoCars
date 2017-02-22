@@ -199,6 +199,58 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
+		<SoundBank Id="1551306167" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
+			<ShortName>UI</ShortName>
+			<Path>UI.bnk</Path>
+			<IncludedEvents>
+				<Event Id="452547817" Name="Stop_All" ObjectPath="\Events\Default Work Unit\Stop_All"/>
+				<Event Id="2935474450" Name="UI_Button_Bkwd_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Bkwd_Play"/>
+				<Event Id="3716974573" Name="UI_Button_Fwd_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Fwd_Play"/>
+				<Event Id="2379069253" Name="UI_Button_PassOver_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_PassOver_Play"/>
+				<Event Id="1230956281" Name="UI_Button_Stop" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Stop"/>
+				<Event Id="1795653221" Name="UI_TV_ChangeChannel_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_ChangeChannel_Play"/>
+				<Event Id="3324432945" Name="UI_TV_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_Play"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="133896403" Language="SFX">
+					<ShortName>UI\Glitch_01.wav</ShortName>
+					<Path>SFX\UI\Glitch_01_9E69E797.wem</Path>
+				</File>
+				<File Id="383823647" Language="SFX">
+					<ShortName>UI\Click_Valid_02.wav</ShortName>
+					<Path>SFX\UI\Click_Valid_02_9E69E797.wem</Path>
+				</File>
+				<File Id="499639942" Language="SFX">
+					<ShortName>UI\Pass_Over_02.wav</ShortName>
+					<Path>SFX\UI\Pass_Over_02_9E69E797.wem</Path>
+				</File>
+				<File Id="504099344" Language="SFX">
+					<ShortName>UI\Click_Valid_01.wav</ShortName>
+					<Path>SFX\UI\Click_Valid_01_9E69E797.wem</Path>
+				</File>
+				<File Id="507276653" Language="SFX">
+					<ShortName>UI\Click_Remote_01.wav</ShortName>
+					<Path>SFX\UI\Click_Remote_01_9E69E797.wem</Path>
+				</File>
+				<File Id="563163464" Language="SFX">
+					<ShortName>UI\Click_Valid_03.wav</ShortName>
+					<Path>SFX\UI\Click_Valid_03_9E69E797.wem</Path>
+				</File>
+				<File Id="644304571" Language="SFX">
+					<ShortName>UI\Click_Alt_01.wav</ShortName>
+					<Path>SFX\UI\Click_Alt_01_9E69E797.wem</Path>
+				</File>
+				<File Id="763012072" Language="SFX">
+					<ShortName>UI\Click_Remote_02.wav</ShortName>
+					<Path>SFX\UI\Click_Remote_02_9E69E797.wem</Path>
+				</File>
+				<File Id="1026844953" Language="SFX">
+					<ShortName>UI\Zap.wav</ShortName>
+					<Path>SFX\UI\Zap_9E69E797.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
 		<SoundBank Id="2396968173" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Dino</ObjectPath>
 			<ShortName>Dino</ShortName>
