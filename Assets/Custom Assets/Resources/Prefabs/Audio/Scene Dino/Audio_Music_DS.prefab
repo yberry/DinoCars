@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 114066874501274628}
   - component: {fileID: 114414813019195894}
   - component: {fileID: 114029019740990138}
-  - component: {fileID: 114188219437945838}
   m_Layer: 0
   m_Name: Audio_Music_DS
   m_TagString: Untagged
@@ -86,28 +85,6 @@ MonoBehaviour:
   decodeBank: 0
   saveDecodedBank: 0
   unloadTriggerList: 958ca0ea
---- !u!114 &114188219437945838
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1114742127965842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  valueGuid: 8c363215e136b945818214dd190e5e98
-  eventID: -1471963217
-  soundEmitterObject: {fileID: 0}
-  enableActionOnEvent: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  transitionDuration: 0
-  m_callbackData: {fileID: 0}
-  playingId: 0
 --- !u!114 &114414813019195894
 MonoBehaviour:
   m_ObjectHideFlags: 1

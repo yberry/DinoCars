@@ -26,7 +26,9 @@ GameObject:
   - component: {fileID: 114030355517786022}
   - component: {fileID: 114607232117873380}
   - component: {fileID: 114118137197147484}
-  - component: {fileID: 114491960635822244}
+  - component: {fileID: 114803320528550408}
+  - component: {fileID: 114510926532060798}
+  - component: {fileID: 114858819268109094}
   m_Layer: 0
   m_Name: Audio_UI
   m_TagString: Untagged
@@ -132,7 +134,7 @@ MonoBehaviour:
   transitionDuration: 0
   m_callbackData: {fileID: 0}
   playingId: 0
---- !u!114 &114491960635822244
+--- !u!114 &114510926532060798
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -145,8 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerList: 958ca0ea
   useOtherObject: 0
-  valueGuid: d6afb7fff9b6a241a84c745a82c3ae9b
-  eventID: 452547817
+  valueGuid: e6d57b2b1de8864095db22ae35957fcc
+  eventID: -1030305977
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
@@ -191,6 +193,50 @@ MonoBehaviour:
   useOtherObject: 0
   valueGuid: 4c6473b77625c34fad28223266a0faa8
   eventID: -970534351
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114803320528550408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266619680953786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: de022489a8492b4a8eb87f7026b17368
+  eventID: 2013246097
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114858819268109094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266619680953786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: cf4fab9d418a7246acab563831c701dc
+  eventID: -751944214
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
