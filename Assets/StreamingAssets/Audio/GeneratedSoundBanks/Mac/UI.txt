@@ -1,0 +1,20 @@
+Event	ID	Name			Wwise Object Path	Notes
+	452547817	Stop_All			\Default Work Unit\Stop_All	
+	1230956281	UI_Button_Stop			\Default Work Unit\UI\UI_Button_Stop	
+	1795653221	UI_TV_ChangeChannel_Play			\Default Work Unit\UI\UI_TV_ChangeChannel_Play	
+	2379069253	UI_Button_PassOver_Play			\Default Work Unit\UI\UI_Button_PassOver_Play	
+	2935474450	UI_Button_Bkwd_Play			\Default Work Unit\UI\UI_Button_Bkwd_Play	
+	3324432945	UI_TV_Play			\Default Work Unit\UI\UI_TV_Play	
+	3716974573	UI_Button_Fwd_Play			\Default Work Unit\UI\UI_Button_Fwd_Play	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	133896403	Glitch_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Glitch_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Glitch_01		1015872
+	383823647	Click_Valid_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Valid_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_02		131404
+	499639942	Pass_Over_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Pass_Over_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Pass_Over_02		97088
+	504099344	Click_Valid_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Valid_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_01		150948
+	507276653	Click_Remote_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Remote_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_TV_ChangeChannel\Click_Remote_01		118080
+	563163464	Click_Valid_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Valid_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_03		211784
+	644304571	Click_Alt_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Alt_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Click_Alt_01		131136
+	763012072	Click_Remote_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Remote_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_TV_ChangeChannel\Click_Remote_02		71744
+	1026844953	Zap	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Zap_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Zap		38144
+

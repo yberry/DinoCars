@@ -16,20 +16,29 @@
 			<ShortName>Car_Motor</ShortName>
 			<Path>Car_Motor.bnk</Path>
 			<IncludedEvents>
-				<Event Id="4243643777" Name="Car_Boost" ObjectPath="\Events\Default Work Unit\Car\Car_Boost"/>
+				<Event Id="4127798824" Name="Ambiance_Main_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Main_Play"/>
+				<Event Id="3759478915" Name="Ambiance_Wind_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Wind_Play"/>
+				<Event Id="2086347706" Name="Car_Boost_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Boost_Play"/>
 				<Event Id="3485429956" Name="Car_Boost_Stop" ObjectPath="\Events\Default Work Unit\Car\Car_Boost_Stop"/>
-				<Event Id="4089233625" Name="Car_Brake" ObjectPath="\Events\Default Work Unit\Car\Car_Brake"/>
-				<Event Id="410072009" Name="Car_Crash" ObjectPath="\Events\Default Work Unit\Car\Car_Crash"/>
+				<Event Id="993029682" Name="Car_Brake_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Brake_Play"/>
+				<Event Id="900533538" Name="Car_Crash_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Crash_Play"/>
+				<Event Id="1070810022" Name="Car_Explosion_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Explosion_Play"/>
+				<Event Id="1852543838" Name="Car_Impact_Big_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Impact_Big_Play"/>
+				<Event Id="3784223555" Name="Car_Impact_Small_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Impact_Small_Play"/>
+				<Event Id="2254025468" Name="Car_Motor_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Motor_Play"/>
 				<Event Id="885871882" Name="Car_Skid_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Play"/>
 				<Event Id="2290073908" Name="Car_Skid_Stop" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Stop"/>
-				<Event Id="3174479978" Name="Play_Ambiance" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Ambiance"/>
-				<Event Id="520985213" Name="Play_Motor" ObjectPath="\Events\Default Work Unit\Car\Play_Motor"/>
-				<Event Id="1020223172" Name="Play_Wind" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Wind"/>
+				<Event Id="1198733287" Name="Footsteps_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Footsteps_Play"/>
+				<Event Id="2823004079" Name="Music_Boost_Play" ObjectPath="\Events\Default Work Unit\Music\Music_Boost_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="12002936" Language="SFX">
 					<ShortName>CRIS\Cris-15.wav</ShortName>
 					<Path>SFX\CRIS\Cris-15_9E69E797.wem</Path>
+				</File>
+				<File Id="18950946" Language="SFX">
+					<ShortName>Music_Boost_Loop_2.wav</ShortName>
+					<Path>SFX\Music_Boost_Loop_2_4D7BABE6.wem</Path>
 				</File>
 				<File Id="32068388" Language="SFX">
 					<ShortName>TireSkid_04.wav</ShortName>
@@ -39,9 +48,17 @@
 					<ShortName>CRIS\Cris-14.wav</ShortName>
 					<Path>SFX\CRIS\Cris-14_9E69E797.wem</Path>
 				</File>
-				<File Id="155421546" Language="SFX">
-					<ShortName>Ford_Mustang.model</ShortName>
-					<Path>Plugins\CrankcaseAudio REV\Ford_Mustang_3732F468.wem</Path>
+				<File Id="82365473" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_06.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_06_9E69E797.wem</Path>
+				</File>
+				<File Id="123176561" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_02.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_02_9E69E797.wem</Path>
+				</File>
+				<File Id="146464488" Language="SFX">
+					<ShortName>Impact\Impact_Big_03.wav</ShortName>
+					<Path>SFX\Impact\Impact_Big_03_9E69E797.wem</Path>
 				</File>
 				<File Id="160762649" Language="SFX">
 					<ShortName>CRIS\Cris-16.wav</ShortName>
@@ -55,6 +72,10 @@
 					<ShortName>CRIS\Cris-12.wav</ShortName>
 					<Path>SFX\CRIS\Cris-12_9E69E797.wem</Path>
 				</File>
+				<File Id="292250076" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_07.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_07_9E69E797.wem</Path>
+				</File>
 				<File Id="303478541" Language="SFX">
 					<ShortName>TireSkid_05.wav</ShortName>
 					<Path>SFX\TireSkid_05_9E69E797.wem</Path>
@@ -63,29 +84,85 @@
 					<ShortName>CRIS\Cris-18.wav</ShortName>
 					<Path>SFX\CRIS\Cris-18_9E69E797.wem</Path>
 				</File>
+				<File Id="333540538" Language="SFX">
+					<ShortName>Impact\Impact_Small_03.wav</ShortName>
+					<Path>SFX\Impact\Impact_Small_03_9E69E797.wem</Path>
+				</File>
 				<File Id="352217460" Language="SFX">
 					<ShortName>CRIS\Cris-13.wav</ShortName>
 					<Path>SFX\CRIS\Cris-13_9E69E797.wem</Path>
+				</File>
+				<File Id="354615153" Language="SFX">
+					<ShortName>Impact\Impact_Big_02.wav</ShortName>
+					<Path>SFX\Impact\Impact_Big_02_9E69E797.wem</Path>
+				</File>
+				<File Id="358359546" Language="SFX">
+					<ShortName>SFX_Explosion\Explosion_02.wav</ShortName>
+					<Path>SFX\SFX_Explosion\Explosion_02_9E69E797.wem</Path>
+				</File>
+				<File Id="418387229" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_03.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_03_9E69E797.wem</Path>
 				</File>
 				<File Id="475528038" Language="SFX">
 					<ShortName>TireSkid_01.wav</ShortName>
 					<Path>SFX\TireSkid_01_9E69E797.wem</Path>
 				</File>
+				<File Id="509314267" Language="SFX">
+					<ShortName>SFX_Explosion\Explosion_04.wav</ShortName>
+					<Path>SFX\SFX_Explosion\Explosion_04_9E69E797.wem</Path>
+				</File>
 				<File Id="524977779" Language="SFX">
 					<ShortName>TireSkid_02.wav</ShortName>
 					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
+				</File>
+				<File Id="536937558" Language="SFX">
+					<ShortName>Impact\Impact_Big_01.wav</ShortName>
+					<Path>SFX\Impact\Impact_Big_01_9E69E797.wem</Path>
+				</File>
+				<File Id="555406778" Language="SFX">
+					<ShortName>SFX_Explosion\Explosion_Simple.wav</ShortName>
+					<Path>SFX\SFX_Explosion\Explosion_Simple_9E69E797.wem</Path>
 				</File>
 				<File Id="573882583" Language="SFX">
 					<ShortName>CRIS\Cris-11.wav</ShortName>
 					<Path>SFX\CRIS\Cris-11_9E69E797.wem</Path>
 				</File>
+				<File Id="646456027" Language="SFX">
+					<ShortName>SFX_Explosion\Explosion_01.wav</ShortName>
+					<Path>SFX\SFX_Explosion\Explosion_01_9E69E797.wem</Path>
+				</File>
+				<File Id="658790606" Language="SFX">
+					<ShortName>SFX_Explosion\Explosion_03.wav</ShortName>
+					<Path>SFX\SFX_Explosion\Explosion_03_9E69E797.wem</Path>
+				</File>
+				<File Id="673251954" Language="SFX">
+					<ShortName>Ferrari_430.model</ShortName>
+					<Path>Plugins\CrankcaseAudio REV\Ferrari_430_6937BA7F.wem</Path>
+				</File>
 				<File Id="704711695" Language="SFX">
 					<ShortName>TireSkid_03.wav</ShortName>
 					<Path>SFX\TireSkid_03_9E69E797.wem</Path>
 				</File>
+				<File Id="755627189" Language="SFX">
+					<ShortName>Impact\Impact_Small_01.wav</ShortName>
+					<Path>SFX\Impact\Impact_Small_01_9E69E797.wem</Path>
+				</File>
 				<File Id="770348932" Language="SFX">
 					<ShortName>CRIS\Cris-17.wav</ShortName>
 					<Path>SFX\CRIS\Cris-17_9E69E797.wem</Path>
+				</File>
+				<File Id="808389963" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_05.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_05_9E69E797.wem</Path>
+				</File>
+				<File Id="881912051" Language="SFX">
+					<ShortName>SFX_Explosion\Explosion_05.wav</ShortName>
+					<Path>SFX\SFX_Explosion\Explosion_05_9E69E797.wem</Path>
+				</File>
+				<File Id="893174470" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_04.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_04_9E69E797.wem</Path>
 				</File>
 				<File Id="913329079" Language="SFX">
 					<ShortName>CRIS\Cris-19.wav</ShortName>
@@ -93,7 +170,15 @@
 				</File>
 				<File Id="943764081" Language="SFX">
 					<ShortName>Boost_Start_02.wav</ShortName>
-					<Path>SFX\Boost_Start_02_9E69E797.wem</Path>
+					<Path>SFX\Boost_Start_02_D38E5F28.wem</Path>
+				</File>
+				<File Id="946708904" Language="SFX">
+					<ShortName>Footsteps\Dino_SingleFtsp_01.wav</ShortName>
+					<Path>SFX\Footsteps\Dino_SingleFtsp_01_9E69E797.wem</Path>
+				</File>
+				<File Id="947323065" Language="SFX">
+					<ShortName>Impact\Impact_Small_02.wav</ShortName>
+					<Path>SFX\Impact\Impact_Small_02_9E69E797.wem</Path>
 				</File>
 				<File Id="1002126405" Language="SFX">
 					<ShortName>CRIS\Cris-09.wav</ShortName>
@@ -114,6 +199,58 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
+		<SoundBank Id="1551306167" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
+			<ShortName>UI</ShortName>
+			<Path>UI.bnk</Path>
+			<IncludedEvents>
+				<Event Id="452547817" Name="Stop_All" ObjectPath="\Events\Default Work Unit\Stop_All"/>
+				<Event Id="2935474450" Name="UI_Button_Bkwd_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Bkwd_Play"/>
+				<Event Id="3716974573" Name="UI_Button_Fwd_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Fwd_Play"/>
+				<Event Id="2379069253" Name="UI_Button_PassOver_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_PassOver_Play"/>
+				<Event Id="1230956281" Name="UI_Button_Stop" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Stop"/>
+				<Event Id="1795653221" Name="UI_TV_ChangeChannel_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_ChangeChannel_Play"/>
+				<Event Id="3324432945" Name="UI_TV_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_Play"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="133896403" Language="SFX">
+					<ShortName>UI\Glitch_01.wav</ShortName>
+					<Path>SFX\UI\Glitch_01_9E69E797.wem</Path>
+				</File>
+				<File Id="383823647" Language="SFX">
+					<ShortName>UI\Click_Valid_02.wav</ShortName>
+					<Path>SFX\UI\Click_Valid_02_9E69E797.wem</Path>
+				</File>
+				<File Id="499639942" Language="SFX">
+					<ShortName>UI\Pass_Over_02.wav</ShortName>
+					<Path>SFX\UI\Pass_Over_02_9E69E797.wem</Path>
+				</File>
+				<File Id="504099344" Language="SFX">
+					<ShortName>UI\Click_Valid_01.wav</ShortName>
+					<Path>SFX\UI\Click_Valid_01_9E69E797.wem</Path>
+				</File>
+				<File Id="507276653" Language="SFX">
+					<ShortName>UI\Click_Remote_01.wav</ShortName>
+					<Path>SFX\UI\Click_Remote_01_9E69E797.wem</Path>
+				</File>
+				<File Id="563163464" Language="SFX">
+					<ShortName>UI\Click_Valid_03.wav</ShortName>
+					<Path>SFX\UI\Click_Valid_03_9E69E797.wem</Path>
+				</File>
+				<File Id="644304571" Language="SFX">
+					<ShortName>UI\Click_Alt_01.wav</ShortName>
+					<Path>SFX\UI\Click_Alt_01_9E69E797.wem</Path>
+				</File>
+				<File Id="763012072" Language="SFX">
+					<ShortName>UI\Click_Remote_02.wav</ShortName>
+					<Path>SFX\UI\Click_Remote_02_9E69E797.wem</Path>
+				</File>
+				<File Id="1026844953" Language="SFX">
+					<ShortName>UI\Zap.wav</ShortName>
+					<Path>SFX\UI\Zap_9E69E797.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
 		<SoundBank Id="2396968173" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Dino</ObjectPath>
 			<ShortName>Dino</ShortName>
@@ -124,8 +261,8 @@
 			<ShortName>Ambiance</ShortName>
 			<Path>Ambiance.bnk</Path>
 			<IncludedEvents>
-				<Event Id="3174479978" Name="Play_Ambiance" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Ambiance"/>
-				<Event Id="1020223172" Name="Play_Wind" ObjectPath="\Events\Default Work Unit\Ambiance\Play_Wind"/>
+				<Event Id="4127798824" Name="Ambiance_Main_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Main_Play"/>
+				<Event Id="3759478915" Name="Ambiance_Wind_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Wind_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="12002936" Language="SFX">
@@ -179,9 +316,14 @@
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<IncludedEvents>
-				<Event Id="4190544227" Name="Play_Music_Circuit" ObjectPath="\Events\Default Work Unit\Music\Play_Music_Circuit"/>
+				<Event Id="2823004079" Name="Music_Boost_Play" ObjectPath="\Events\Default Work Unit\Music\Music_Boost_Play"/>
+				<Event Id="1942074459" Name="Music_Circuit_Play" ObjectPath="\Events\Default Work Unit\Music\Music_Circuit_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
+				<File Id="18950946" Language="SFX">
+					<ShortName>Music_Boost_Loop_2.wav</ShortName>
+					<Path>SFX\Music_Boost_Loop_2_4D7BABE6.wem</Path>
+				</File>
 				<File Id="52507000" Language="SFX">
 					<ShortName>Original-SyntheEerie2.wav</ShortName>
 					<Path>SFX\Original-SyntheEerie2_4D7BABE6.wem</Path>
