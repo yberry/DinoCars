@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1f51de255743888468b16ddd2ab3849d
+timeCreated: 1487169780
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Radioland Slim
+  fontNames:
+  - Radioland Slim
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

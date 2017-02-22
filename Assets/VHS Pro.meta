@@ -1,0 +1,37 @@
+fileFormatVersion: 2
+guid: 05c4a19c3f88245be9d7e02c47ce6247
+labels:
+- Retro
+- NES
+- VCR
+- VHS
+- CRT
+- Emulation
+- scanlines
+- unscaledtime
+- gamma
+- pixilate
+- vignette
+- fisheye
+- YIQ
+- bleeding
+- bleed
+- monitor
+- screen
+- tv
+- commodore64
+- atari
+- phosphortrail
+- phosphor
+- noise
+- interlacing
+- glitchart
+- glitch
+- jitter
+folderAsset: yes
+timeCreated: 1440779238
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
