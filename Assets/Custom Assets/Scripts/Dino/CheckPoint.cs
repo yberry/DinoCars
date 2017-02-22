@@ -9,13 +9,13 @@ public class CheckPoint : MonoBehaviour {
     public MegaShapeLoft previousLoft;
     public MegaShapeLoft nextLoft;
 
-    static Transform lastCheckPoint;
+    static CheckPoint lastCheckPoint;
 
     public static Vector3 lastPosition
     {
         get
         {
-            return lastCheckPoint.position;
+            return lastCheckPoint.transform.position;
         }
     }
 
@@ -23,7 +23,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (num == 0)
         {
-            lastCheckPoint = transform;
+            lastCheckPoint = this;
         }
     }
 
@@ -31,17 +31,38 @@ public class CheckPoint : MonoBehaviour {
     {
         if (col is MeshCollider)
         {
-            nextLoft.DoCollider = true;
-            nextLoft.RefreshCollider();
-            lastCheckPoint = transform;
+            if (nextLoft)
+            {
+                nextLoft.DoCollider = true;
+                nextLoft.RefreshCollider();
+            }
+            if (previousLoft)
+            {
+                previousLoft.DoCollider = true;
+                previousLoft.RefreshCollider();
+            }
+            if (num > lastCheckPoint.num)
+            {
+                lastCheckPoint = this;
+            }
         }
     }
 
     void OnTriggerExit(Collider col)
     {
-        if (col is MeshCollider && previousLoft)
+        if (col is MeshCollider)
         {
-            previousLoft.DoCollider = false;
+            if (Vector3.Dot(transform.forward, col.transform.position - transform.position) >= 0f)
+            {
+                if (previousLoft)
+                {
+                    previousLoft.DoCollider = false;
+                }
+            }
+            else if (nextLoft)
+            {
+                nextLoft.DoCollider = false;
+            }
         }
     }
 }

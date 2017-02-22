@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 114351558062328478}
   - component: {fileID: 114730760443928384}
   - component: {fileID: 114644207943675818}
+  - component: {fileID: 114270989756564272}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -842,7 +843,7 @@ MonoBehaviour:
     maxExpansion: 1.25
     springForce: 1000
     compressionDamping: 750
-    decompressionDamping: 500
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -855,6 +856,8 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
 --- !u!114 &114080216642132724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -897,7 +900,7 @@ MonoBehaviour:
     maxExpansion: 1.25
     springForce: 1000
     compressionDamping: 750
-    decompressionDamping: 500
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -910,6 +913,8 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
 --- !u!114 &114155485411123586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -994,8 +999,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airControl: 1
-  pitchSpeed: 10
-  rollSpeed: 5
+  pitchSpeed: 6
+  rollSpeed: 3
   maxRotSpeed: 100
   autoAlign: 0
   maxRotDelta: 0.00707
@@ -1068,6 +1073,18 @@ MonoBehaviour:
   rateOverDistThreshold: 10
   minParticleCount: 1000
   car: {fileID: 114217766517351466}
+--- !u!114 &114270989756564272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7c27b55c4590d4e87bdba18fdf1b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 0}
 --- !u!114 &114279119407651590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1083,7 +1100,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114301671462212306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1103,7 +1120,7 @@ MonoBehaviour:
     maxExpansion: 1.25
     springForce: 1000
     compressionDamping: 750
-    decompressionDamping: 500
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -1116,6 +1133,8 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
 --- !u!114 &114351558062328478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1148,7 +1167,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114358493479665454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1168,7 +1187,7 @@ MonoBehaviour:
     maxExpansion: 1.25
     springForce: 1000
     compressionDamping: 750
-    decompressionDamping: 500
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -1181,6 +1200,8 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
 --- !u!114 &114420388749100058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1196,7 +1217,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114425393501492620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1419,7 +1440,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114987307862932422
 MonoBehaviour:
   m_ObjectHideFlags: 1

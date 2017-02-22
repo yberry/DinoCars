@@ -7,7 +7,7 @@ public abstract class TriggerLoft : MonoBehaviour {
 
     public MegaLoftLayerSimple layer;
 
-    protected bool active = false;
+    public bool active { get; protected set; }
 
-    protected abstract void Trigger();
+    public abstract void Trigger();
 }

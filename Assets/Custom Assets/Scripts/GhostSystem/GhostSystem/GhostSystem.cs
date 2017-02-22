@@ -28,10 +28,10 @@ public class GhostSystem : MonoBehaviour {
     [Tooltip("Use debug functionnality ?")]
     public bool debug = true;
 
-    public Transform TARGET;
+    public CarGhost TARGET;
 #endif
 
-    void Update()
+    void FixedUpdate()
     {
         foreach(Ghost g in ghosts)
         {
@@ -64,7 +64,7 @@ public class GhostSystem : MonoBehaviour {
     {
         foreach (Ghost g in ghosts)
         {
-            g.transform = Instantiate(ghostPrefab).transform;
+            g.ownCarGhost = Instantiate(ghostPrefab).GetComponent<CarGhost>();
         }
     }
 
@@ -74,7 +74,7 @@ public class GhostSystem : MonoBehaviour {
     /// <param name="g"></param>
     public void CreateGhost(Ghost g)
     {
-        g.transform = Instantiate(ghostPrefab).transform;
+        g.ownCarGhost = Instantiate(ghostPrefab).GetComponent<CarGhost>();
     }
 
 
@@ -100,6 +100,13 @@ public class GhostSystem : MonoBehaviour {
         return g;
     }
 
+    /// <summary>
+    /// Wrapper for recording target status on a ghost.
+    /// </summary>
+    public void StartRecording(Ghost g, CarGhost target)
+    {
+        g.StartRecording(target, maxStatesStored);
+    }
 
 
 #if UNITY_EDITOR
@@ -144,9 +151,9 @@ public class GhostSystem : MonoBehaviour {
         foreach (Ghost g in ghosts)
         {
             if (g.isPlaying)
-                Handles.Label(g.transform.position + Vector3.up, "Is Playing");
+                Handles.Label(g.ownCarGhost.car.position + Vector3.up, "Is Playing");
             else if (g.isRecording)
-                Handles.Label(g.transform.position + Vector3.up, "Is Recording");
+                Handles.Label(g.ownCarGhost.car.position + Vector3.up, "Is Recording");
         }
 
     }

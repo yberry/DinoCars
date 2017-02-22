@@ -10,12 +10,12 @@ namespace CND.Car
 		public float LastTimeSpawned { get; protected set; }
 		public float TimeSinceLastSpawn { get { return Time.time - LastTimeSpawned; } }
 
-		ArcadeCarController car;
+		public BaseCarController car;
 		// Use this for initialization
 		void Start()
 		{
 			if (!car)
-				car = GetComponent<ArcadeCarController>();
+				car = GetComponent<BaseCarController>();
 
 			enabled = car;
 		}
@@ -26,9 +26,22 @@ namespace CND.Car
 
 		}
 
-		public void Spawn()
+		public void Spawn(Vector3 position, Quaternion rotation)
 		{
 			LastTimeSpawned = Time.time;
+			car.gameObject.SetActive(true);
+			car.rBody.velocity = Vector3.zero;
+			car.rBody.angularVelocity = Vector3.zero;
+			car.transform.position = position;
+			car.transform.rotation = rotation;
+		}
+
+		public void Kill()
+		{
+			car.gameObject.SetActive(false);
+			car.rBody.velocity = Vector3.zero;
+			car.rBody.angularVelocity = Vector3.zero;
+			//LastTimeSpawned = Time.time;
 		}
 	}
 
