@@ -16,8 +16,10 @@ public class ManageButtons : MonoBehaviour {
         foreach (Button button in buttons)
         {
             button.gameObject.AddComponent<EventButton>();
+            button.onClick.AddListener(PlayClick);
         }
         quit.gameObject.AddComponent<EventButton>();
+        quit.onClick.AddListener(QuitClick);
     }
 
     void Update()
@@ -29,5 +31,15 @@ public class ManageButtons : MonoBehaviour {
         {
             quit.onClick.Invoke();
         }
+    }
+
+    void PlayClick()
+    {
+        AkSoundEngine.PostEvent("UI_Button_Fwd_Play", gameObject);
+    }
+
+    void QuitClick()
+    {
+        AkSoundEngine.PostEvent("UI_Button_Bkwd_Play", gameObject);
     }
 }

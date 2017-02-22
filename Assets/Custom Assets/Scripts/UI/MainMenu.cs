@@ -18,15 +18,19 @@ public class MainMenu : MonoBehaviour {
     public RectTransform telStandby;
 
     RectTransform currentMenu;
+    Animator animator;
 
     void Start()
     {
         currentMenu = titleScreen;
         SetSelection();
+        animator = cameraVHS.GetComponent<Animator>();
     }
 
     public void ChangeTo(RectTransform newMenu)
     {
+        AkSoundEngine.PostEvent("UI_TV_ChangeChannel_Play", gameObject);
+        animator.SetTrigger("Transition");
         StartCoroutine(Anim(newMenu));
     }
 

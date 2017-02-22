@@ -7,6 +7,11 @@ public class EventButton : EventTrigger {
 
     public override void OnSelect(BaseEventData eventData)
     {
-        base.OnSelect(eventData);
+        AkSoundEngine.PostEvent("UI_Button_PassOver_Play", gameObject);
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        AkSoundEngine.PostEvent("UI_Button_PassOver_Play", gameObject);
     }
 }
