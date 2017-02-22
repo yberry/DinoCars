@@ -335,9 +335,10 @@ namespace CND.Car
 			contact.horizontalPointVelocity = Vector3.ProjectOnPlane(pointPlusOtherVel, transform.up);
 			contact.verticalPointVelocity = (contact.pointVelocity - contact.horizontalPointVelocity);
 
-			var newLength = Vector3.Distance(contact.finalContactPoint, contact.rootPoint);
-			var oldLength = Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.rootPoint);
-			contact.compressionVelocity = -(newLength - oldLength)/Time.fixedDeltaTime;
+			float newLength = Vector3.Distance(contact.finalContactPoint, contact.rootPoint);
+			float oldLength = Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.rootPoint);
+
+			contact.compressionVelocity = -(newLength - oldLength) / Time.fixedDeltaTime;// + (newSinkDist-oldSinkDist) / Time.fixedDeltaTime;
 
 			/*/interpolations?
 			contact.rootVelocity = Vector3.Lerp(m_contactInfo.rootVelocity, contact.rootVelocity, 0.9f);
@@ -377,15 +378,20 @@ namespace CND.Car
 
 			} else	{
 				//float sinkCompensation = Mathf.Pow( contactInfo.springCompression,10) * Mathf.Max(0, contact.compressionVelocity*10f) / Time.fixedDeltaTime;
+				Vector3 prev_rcDistToContactGap = prevContactInfo.targetContactPoint - prevContactInfo.finalContactPoint;
 				Vector3 rcDistToContactGap = contact.targetContactPoint - contact.finalContactPoint; //gap between raycast targetpoint and hitpoint (to calculate ground sink distance)
-				float sinkCompensationVel = rcDistToContactGap.magnitude / Time.fixedDeltaTime;
-				float sinkCompensation = contact.hit.distance < (contact.springLength+settings.wheelRadius)  ? sinkCompensationVel : 0;
-				sinkCompensation *= (contactInfo.compressionVelocity) * 10f;
-				sinkCompensation = Mathf.Min(sinkCompensation, 6000);
+				float newSinkDist = Vector3.Distance(contact.finalContactPoint, contact.targetContactPoint);
+				float oldSinkDist = Vector3.Distance(prevContactInfo.finalContactPoint, prevContactInfo.targetContactPoint);
+
+				float sinkCompensation = contact.hit.distance < (contact.springLength+settings.wheelRadius)  ? (newSinkDist+ oldSinkDist)*0.5f / Time.fixedDeltaTime : 0;
+				sinkCompensation = (sinkCompensation / Time.fixedDeltaTime) * Mathf.Max(0,contactInfo.compressionVelocity*0.75f) * Mathf.Pow( contact.springCompression,4);
+				//sinkCompensation = Mathf.Min(sinkCompensation, settings.springForce*4);
+
 				float springExpand = springResistance *settings.springForce;// * 0.95f;
-				float dampingForce = contactInfo.compressionVelocity >= 0 ? settings.compressionDamping + sinkCompensation : settings.decompressionDamping;
+				float dampingForce = contactInfo.compressionVelocity >= 0 ? settings.compressionDamping : settings.decompressionDamping;
 				float springDamp = contactInfo.compressionVelocity * dampingForce;
-				upForce = Vector3.Slerp(transform.up, hit.normal, 0.75f) * (springExpand + springDamp);
+				upForce = Vector3.SlerpUnclamped(transform.up, hit.normal,0.75f) * (springExpand + springDamp + sinkCompensation);
+				//upForce *= 1f+MathEx.DotToLinear(Vector3.Dot(contact.horizontalRootVelocity, hit.normal));
 
 				if (Mathf.Abs(contactInfo.compressionVelocity) > 1)
 					Debug.Log("Compression Vel: " + contactInfo.compressionVelocity);
