@@ -356,9 +356,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02786277acc5ae249bbdc427f58b4525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseTex: []
+  noiseTex:
+  - {fileID: 2800000, guid: 16ef045b101590349ab3bb081f568864, type: 3}
+  - {fileID: 2800000, guid: 808cfab7f3a6e9845bad5a23ce3b214f, type: 3}
+  - {fileID: 2800000, guid: 2f85aca4e56e5464ca79ece60f3ea341, type: 3}
+  - {fileID: 2800000, guid: 0c7e9854dfe64da46bf6c5bbf55558ce, type: 3}
+  - {fileID: 2800000, guid: fa5f04e4b4aadee419f09bbbe40e9aed, type: 3}
+  - {fileID: 2800000, guid: 0174e4690e4c64f419486692699bd5f9, type: 3}
+  - {fileID: 2800000, guid: 8512ce221d9152441861596a8c0618b3, type: 3}
+  - {fileID: 2800000, guid: a4e5ee20a9ae1a44b98ffef6d0dc266d, type: 3}
+  - {fileID: 2800000, guid: 963ec5917b2afae41bc75ec755128f3b, type: 3}
+  - {fileID: 2800000, guid: 238e603833ea09543a708a3b8e7d4770, type: 3}
+  - {fileID: 2800000, guid: b735baed8926c8841bb188d369cf5d4f, type: 3}
+  - {fileID: 2800000, guid: d8e2c1c0b9b6053479a47b4faaaaf0dc, type: 3}
+  - {fileID: 2800000, guid: 644739e70e9060349b41b296b6397669, type: 3}
+  - {fileID: 2800000, guid: 74e15167152ddda4393ce394a1b340af, type: 3}
+  - {fileID: 2800000, guid: f94f0ab7e47a49547bb438010c31a7ba, type: 3}
   cameraVHS: {fileID: 1187605729}
   canal: {fileID: 1569615466}
+  speedColor: 10
   titleScreen: {fileID: 1090385031}
   telDefault: {fileID: 2975419}
   telVire: {fileID: 1461205849}
@@ -3938,7 +3954,7 @@ MonoBehaviour:
   g_showSignal: 1
   g_showFeedback: 1
   g_showExtra: 0
-  g_showBypass: 0
+  g_showBypass: 1
   bleedOn: 1
   crtMode: 0
   crtLinesMode: 0
@@ -4016,11 +4032,11 @@ MonoBehaviour:
   noiseLinesMode: 1
   noiseLinesNum: 240
   noiseQuantizeX: 0
-  filmgrainOn: 0
-  filmGrainAmount: 0.016
+  filmgrainOn: 1
+  filmGrainAmount: 0.05
   signalNoiseOn: 1
   signalNoiseAmount: 0.15
-  signalNoisePower: 0.83
+  signalNoisePower: 0.877
   tapeNoiseOn: 1
   tapeNoiseTH: 0.63
   tapeNoiseAmount: 1
@@ -4050,12 +4066,12 @@ MonoBehaviour:
   signalShiftI: 1
   signalShiftQ: 1
   gammaCorection: 1
-  feedbackOn: 0
+  feedbackOn: 1
   feedbackMode: 0
   feedbackThresh: 0.1
   feedbackAmount: 2
-  feedbackFade: 0.82
-  feedbackColor: {r: 1, g: 0.5, b: 0, a: 1}
+  feedbackFade: 0.6
+  feedbackColor: {r: 1, g: 0, b: 0, a: 1}
   feedbackDebugOn: 0
   independentTimeOn: 0
   bypassTex: {fileID: 0}

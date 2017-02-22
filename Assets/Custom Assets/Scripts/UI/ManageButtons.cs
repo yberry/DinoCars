@@ -11,6 +11,14 @@ public class ManageButtons : MonoBehaviour {
 
     public RectTransform targetTel { get; set; }
 
+    public bool IsNear
+    {
+        get
+        {
+            return Vector3.Distance(telecommande.position, targetTel.position) < 0.1f;
+        }
+    }
+
     void Start()
     {
         foreach (Button button in buttons)
@@ -35,7 +43,7 @@ public class ManageButtons : MonoBehaviour {
 
     void PlayClick()
     {
-        AkSoundEngine.PostEvent("UI_Button_Select_Play", gameObject);
+        AkSoundEngine.PostEvent("UI_Button_Fwd_Play", gameObject);
     }
 
     void QuitClick()

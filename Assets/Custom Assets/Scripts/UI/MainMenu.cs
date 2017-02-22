@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
     public Texture[] noiseTex;
     public postVHSPro cameraVHS;
     public Text canal;
+    public float speedColor = 10f;
 
     [Header("Menu transitions")]
     public RectTransform titleScreen;
@@ -19,6 +20,7 @@ public class MainMenu : MonoBehaviour {
 
     RectTransform currentMenu;
     Animator animator;
+    float timeColor = 0f;
 
     void Start()
     {
@@ -52,7 +54,11 @@ public class MainMenu : MonoBehaviour {
 
                 manageCurrent.targetTel = telVire;
 
-                yield return new WaitForSeconds(0.2f);
+                while (!manageCurrent.IsNear)
+                {
+                    cameraVHS.bypassTex = noiseTex[Random.Range(0, noiseTex.Length)];
+                    yield return null;
+                }
             }
             currentMenu.gameObject.SetActive(false);
         }
@@ -70,8 +76,14 @@ public class MainMenu : MonoBehaviour {
                 manageNew.targetTel = telDefault;
 
                 newMenu.gameObject.SetActive(true);
-                yield return new WaitForSeconds(0.2f);
+
+                while (!manageNew.IsNear)
+                {
+                    cameraVHS.bypassTex = noiseTex[Random.Range(0, noiseTex.Length)];
+                    yield return null;
+                }
             }
+            cameraVHS.bypassTex = null;
             newMenu.gameObject.SetActive(true);
             currentMenu = newMenu;
             SetSelection();
@@ -85,5 +97,15 @@ public class MainMenu : MonoBehaviour {
         Selectable[] selectables = currentMenu.GetComponentsInChildren<Selectable>();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selectables[0].gameObject);
+    }
+
+    void Update()
+    {
+        timeColor += speedColor * Time.deltaTime;
+        if (timeColor > 359f)
+        {
+            timeColor = 0f;
+        }
+        cameraVHS.feedbackColor = Color.HSVToRGB(timeColor / 359f, 1f, 1f);
     }
 }
