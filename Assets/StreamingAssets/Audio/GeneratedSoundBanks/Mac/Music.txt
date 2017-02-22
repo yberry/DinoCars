@@ -1,5 +1,7 @@
 Event	ID	Name			Wwise Object Path	Notes
-	4190544227	Play_Music_Circuit			\Default Work Unit\Music\Play_Music_Circuit	
+	1942074459	Music_Circuit_Play			\Default Work Unit\Music\Music_Circuit_Play	
+	2013246097	Music_Menu_Play			\Default Work Unit\Music\Music_Menu_Play	
+	3264661319	Music_Menu_Stop			\Default Work Unit\Music\Music_Menu_Stop	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
@@ -21,4 +23,5 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	879311514	Original-Synthe2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Synthe2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Synthe2		4858523
 	932823784	Original-Nappeprincipale	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Nappeprincipale_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Nappeprincipale		2843887
 	966593190	Original-Nappe2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Nappe2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Nappe2		887117
+	980800417	Music_Pause_Loop	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Pause_Loop_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Pause\Music_Pause_Loop\Music_Pause_Loop		379349
 
