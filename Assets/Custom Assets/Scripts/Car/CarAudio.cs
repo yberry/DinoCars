@@ -132,7 +132,7 @@ namespace CND.Car
         void ManageCollision(Collision col)
         {
             float normal = 1f - Mathf.Abs(Vector3.Dot(col.relativeVelocity.normalized, transform.up));
-            Debug.Log("normal: " + normal);
+           // Debug.Log("normal: " + normal);
             if (normal > 0.95f)
             {
                 if (col.relativeVelocity.magnitude < (200 / 3.6f))
