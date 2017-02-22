@@ -30,6 +30,10 @@ public class MainMenu : MonoBehaviour {
     public void ChangeTo(RectTransform newMenu)
     {
         AkSoundEngine.PostEvent("UI_TV_ChangeChannel_Play", gameObject);
+        if (currentMenu == titleScreen)
+        {
+            AkSoundEngine.PostEvent("UI_TV_Play", gameObject);
+        }
         animator.SetTrigger("Transition");
         StartCoroutine(Anim(newMenu));
     }

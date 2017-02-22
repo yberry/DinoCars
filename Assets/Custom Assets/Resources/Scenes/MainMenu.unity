@@ -4035,7 +4035,7 @@ MonoBehaviour:
   stretchOn: 1
   twitchHOn: 0
   twitchHFreq: 1
-  twitchVOn: 0
+  twitchVOn: 1
   twitchVFreq: 1
   jitterHOn: 1
   jitterHAmount: 0.5
@@ -5412,12 +5412,27 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114607232117873380, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
+    - target: {fileID: 114118137197147484, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114510926532060798, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114803320528550408, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
         type: 2}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114118137197147484, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
+    - target: {fileID: 114858819268109094, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114607232117873380, guid: ef040e4cdd25b62458aa6ff9d52a5fa4,
         type: 2}
       propertyPath: m_Enabled
       value: 0

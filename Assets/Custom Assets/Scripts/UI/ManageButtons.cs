@@ -35,7 +35,7 @@ public class ManageButtons : MonoBehaviour {
 
     void PlayClick()
     {
-        AkSoundEngine.PostEvent("UI_Button_Fwd_Play", gameObject);
+        AkSoundEngine.PostEvent("UI_Button_Select_Play", gameObject);
     }
 
     void QuitClick()
