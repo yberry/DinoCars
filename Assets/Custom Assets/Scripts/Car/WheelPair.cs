@@ -52,10 +52,10 @@ namespace CND.Car
 			{
 				float appliedAntiRoll;
 
-				float compL = Mathf.Min(1, left.contactInfo.springCompression.Squared() / left.settings.maxCompression);
-				float compR = Mathf.Min(1, right.contactInfo.springCompression.Squared() / right.settings.maxCompression);
-
-				appliedAntiRoll = (compL - compR) * antiRollForce *10;// * (-steerAng/maxAng);
+				float compL = Mathf.Min(1, left.contactInfo.springCompression / left.settings.maxCompression);
+				float compR = Mathf.Min(1, right.contactInfo.springCompression / right.settings.maxCompression);
+				float compDiff = (compL - compR);
+				appliedAntiRoll = compDiff * antiRollForce *10;// * (-steerAng/maxAng);
 
 				if (left.contactInfo.wasAlreadyOnFloor)
 					rBody.AddForceAtPosition(left.transform.up * appliedAntiRoll, left.transform.position,ForceMode.Force);

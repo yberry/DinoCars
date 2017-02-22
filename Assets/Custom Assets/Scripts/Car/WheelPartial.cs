@@ -169,7 +169,7 @@ namespace CND.Car
 					if (Application.isPlaying)
 					{
 						contact.hit = default(RaycastHit);
-						contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 50f * Time.fixedDeltaTime);
+						contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxDroop, dotDownGrav), 50f * Time.fixedDeltaTime);
 						contact.springCompression = (settings.baseSpringLength - contact.springLength) / compressionMargin;
 					}
 
@@ -193,7 +193,7 @@ namespace CND.Car
 		public bool showForward = true;
 		public bool showSpring = true;
 		public bool showWheelDisc = true;
-
+		public bool showCompressedWheelDisc = true;
 
 		void OnDrawGizmos()
 		{
@@ -339,7 +339,7 @@ namespace CND.Car
 
 			Gizmos.color /= 1.1f;
 
-			if (!Application.isPlaying)
+			if (!Application.isPlaying || showCompressedWheelDisc)
 			{
 				var compressedCenter = transform.position - transform.up * CompressedLength(settings.baseSpringLength, settings.maxCompression);
 				Handles.color = Gizmos.color = Color.blue * 0.75f;

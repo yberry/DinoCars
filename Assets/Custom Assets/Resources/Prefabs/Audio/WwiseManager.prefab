@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifyBussesVolume: 1
-  volumeGlobal: 100
+  volumeGlobal: 0
   volumeMusic: 100
   volumeVoice: 100
   volumeSFX: 100

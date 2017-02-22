@@ -29,7 +29,7 @@ public class CylinderCollider : MonoBehaviour {
 		Gizmos.color = Color.white;
 		if (hits.IsNotNull())
 		{
-			Debug.Log(hits.Length);
+			//Debug.Log(hits.Length);
 			RaycastHit[] _hits=new RaycastHit[hits.Length];
 			hits.CopyTo(_hits,0);
 			foreach (var h in _hits)

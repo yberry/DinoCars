@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 114730760443928384}
   - component: {fileID: 114644207943675818}
   - component: {fileID: 114270989756564272}
+  - component: {fileID: 114131667869799208}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -840,10 +841,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 250
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -858,6 +859,7 @@ MonoBehaviour:
   showForward: 1
   showSpring: 1
   showWheelDisc: 1
+  showCompressedWheelDisc: 1
 --- !u!114 &114080216642132724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -897,10 +899,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 250
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -915,6 +917,19 @@ MonoBehaviour:
   showForward: 1
   showSpring: 1
   showWheelDisc: 1
+  showCompressedWheelDisc: 1
+--- !u!114 &114131667869799208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7c27b55c4590d4e87bdba18fdf1b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 0}
 --- !u!114 &114155485411123586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -999,8 +1014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airControl: 1
-  pitchSpeed: 6
-  rollSpeed: 3
+  pitchSpeed: 60
+  rollSpeed: 30
   maxRotSpeed: 100
   autoAlign: 0
   maxRotDelta: 0.00707
@@ -1117,10 +1132,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 250
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -1135,6 +1150,7 @@ MonoBehaviour:
   showForward: 1
   showSpring: 1
   showWheelDisc: 1
+  showCompressedWheelDisc: 1
 --- !u!114 &114351558062328478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1184,10 +1200,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 250
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -1202,6 +1218,7 @@ MonoBehaviour:
   showForward: 1
   showSpring: 1
   showWheelDisc: 1
+  showCompressedWheelDisc: 1
 --- !u!114 &114420388749100058
 MonoBehaviour:
   m_ObjectHideFlags: 1
