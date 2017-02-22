@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 namespace CND.Car
 {
     [RequireComponent(typeof (BaseCarController))]
-    public partial class CarAudio : MonoBehaviour
+    public class CarAudio : MonoBehaviour
     {
 
         public BaseCarController car;
@@ -97,7 +97,7 @@ namespace CND.Car
             if (aCar.IsBoosting && !prevBoost)
             {
                
-                AkSoundEngine.PostEvent("Car_Boost_Play", gameObject);
+                AkSoundEngine.PostEvent("Car_Boost", gameObject);
                 
             }
             else if (!aCar.IsBoosting && prevBoost)
@@ -128,24 +128,6 @@ namespace CND.Car
                 AkSoundEngine.SetRTPCValue("OnGround", c.isOnFloor? 0f : 1f);
             }
             }
-
-        void ManageCollision(Collision col)
-        {
-            float normal = 1f - Mathf.Abs(Vector3.Dot(col.relativeVelocity.normalized, transform.up));
-            Debug.Log("normal: " + normal);
-            if (normal > 0.95f)
-            {
-                if (col.relativeVelocity.magnitude < (200 / 3.6f))
-                {
-                    AkSoundEngine.PostEvent("Car_Impact_Small_Play", gameObject);
-                }
-                else
-                {
-                    AkSoundEngine.PostEvent("Car_Impact_Big_Play", gameObject);
-                }
-            }
-          
-        }
         // commenter une ligne
         /* commenter un bout de truc*/
 

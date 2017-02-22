@@ -969,8 +969,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airControl: 1
-  pitchSpeed: 10
-  rollSpeed: 5
+  pitchSpeed: 6
+  rollSpeed: 3
   maxRotSpeed: 100
   autoAlign: 0
   maxRotDelta: 0.00707
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114301671462212306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1123,7 +1123,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114358493479665454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114425393501492620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1385,7 +1385,7 @@ MonoBehaviour:
   skidParticles:
   - {fileID: 198408283541678326, guid: a098f55105d221e46a1b387dab835379, type: 2}
   rateOverDistThreshold: 10
-  minParticleCount: 50
+  minParticleCount: 25
 --- !u!114 &114987307862932422
 MonoBehaviour:
   m_ObjectHideFlags: 1
