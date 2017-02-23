@@ -153,7 +153,7 @@ namespace CND.Car
 
             if (Collision_IsFromUnderneath(col))
             {
-                AkSoundEngine.PostEvent("Footsteps_Play", gameObject);
+                AkSoundEngine.PostEvent("Car_Impact_Pneumatic_Play", gameObject);
             } else
             {
                 if (Collision_IsAboveSpeed(col, (200 / 3.6f)))

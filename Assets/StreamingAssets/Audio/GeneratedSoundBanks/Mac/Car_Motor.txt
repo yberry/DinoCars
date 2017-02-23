@@ -2,6 +2,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	885871882	Car_Skid_Play			\Default Work Unit\Car\Car_Skid_Play	
 	900533538	Car_Crash_Play			\Default Work Unit\Car\Car_Crash_Play	
 	993029682	Car_Brake_Play			\Default Work Unit\Car\Car_Brake_Play	
+	1051603354	Car_Impact_Pneumatic_Play			\Default Work Unit\Car\Car_Impact_Pneumatic_Play	
 	1070810022	Car_Explosion_Play			\Default Work Unit\Car\Car_Explosion_Play	
 	1198733287	Footsteps_Play			\Default Work Unit\Ambiance\Footsteps_Play	
 	1852543838	Car_Impact_Big_Play			\Default Work Unit\Car\Car_Impact_Big_Play	
@@ -32,6 +33,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	64159668	Cris-14	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-14_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino\Cris-14		1507472
 	82365473	Dino_SingleFtsp_06	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_06_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_06		113856
 	100271176	Music_Boost_Loop_2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Boost_Loop_2_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost\Music_Boost_Loop_2		2634288
+	102361454	Impact_Pneumatic_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_04		184384
 	123176561	Dino_SingleFtsp_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_02		138304
 	146464488	Impact_Big_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact\Impact_Big_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Big\Impact_Big_03		307264
 	160762649	Cris-16	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-16_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino\Cris-16		777724
@@ -47,8 +49,10 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	418387229	Dino_SingleFtsp_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_03		130880
 	475528038	Car_Skid_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\TireSkid_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\Car_Skid_01		88264
 	509314267	Explosion_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\SFX_Explosion\Explosion_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Explosion\Explosion\Explosion_04		1236544
+	517366726	Impact_Pneumatic_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_05_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_05		199744
 	524977779	Car_Skid_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\TireSkid_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\Car_Skid_02		182100
 	536937558	Impact_Big_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact\Impact_Big_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Big\Impact_Big_01		284224
+	540160979	Impact_Pneumatic_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_02		161344
 	555406778	Explosion_Simple	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\SFX_Explosion\Explosion_Simple_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Explosion\Explosion\Explosion_Simple		852544
 	573882583	Cris-11	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-11_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino\Cris-11		794212
 	646456027	Explosion_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\SFX_Explosion\Explosion_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Explosion\Explosion\Explosion_01		852544
@@ -56,9 +60,11 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	704711695	Car_Skid_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\TireSkid_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Skid\Skid\Car_Skid_03		75788
 	755627189	Impact_Small_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact\Impact_Small_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Small\Impact_Small_01		215104
 	770348932	Cris-17	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-17_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino\Cris-17		1147112
+	793991666	Impact_Pneumatic_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_01		169024
 	808389963	Dino_SingleFtsp_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_05_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_05		127424
 	881912051	Explosion_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\SFX_Explosion\Explosion_05_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Explosion\Explosion\Explosion_05		1321024
 	893174470	Dino_SingleFtsp_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_04		125248
+	907194361	Impact_Pneumatic_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_03		199744
 	913329079	Cris-19	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-19_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino\Cris-19		919564
 	943764081	Boost_Start	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Boost_Start_02_D38E5F28.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost\Boost_Start		429324
 	946708904	Dino_SingleFtsp_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_01		117696
