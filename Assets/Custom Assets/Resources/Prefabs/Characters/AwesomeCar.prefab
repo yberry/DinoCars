@@ -148,9 +148,7 @@ GameObject:
   - component: {fileID: 114187729547844014}
   - component: {fileID: 114351558062328478}
   - component: {fileID: 114730760443928384}
-  - component: {fileID: 114644207943675818}
   - component: {fileID: 114270989756564272}
-  - component: {fileID: 114131667869799208}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -918,18 +916,6 @@ MonoBehaviour:
   showSpring: 1
   showWheelDisc: 1
   showCompressedWheelDisc: 1
---- !u!114 &114131667869799208
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653494722449946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7c27b55c4590d4e87bdba18fdf1b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  car: {fileID: 0}
 --- !u!114 &114155485411123586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1014,8 +1000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airControl: 1
-  pitchSpeed: 60
-  rollSpeed: 30
+  pitchSpeed: 30
+  rollSpeed: 15
   maxRotSpeed: 100
   autoAlign: 0
   maxRotDelta: 0.00707
@@ -1329,24 +1315,6 @@ MonoBehaviour:
   nbRotationClutch: 3000
   RPM: 0.3345459
   maxValueRotation: 0
---- !u!114 &114644207943675818
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653494722449946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea95645650cb10d42af3c01784989e2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_positionOffsetData:
-    positionOffset: {x: 0, y: 0, z: 0}
-    KeepMe: 0
-  isEnvironmentAware: 1
-  listenerMask: 1
-  isStaticObject: 0
-  m_posOffsetData: {fileID: 0}
 --- !u!114 &114686652665806732
 MonoBehaviour:
   m_ObjectHideFlags: 1
