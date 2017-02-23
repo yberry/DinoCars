@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114414813019195894}
   - component: {fileID: 114029019740990138}
   m_Layer: 0
-  m_Name: Audio_Music_PS
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
