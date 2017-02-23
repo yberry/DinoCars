@@ -62,7 +62,7 @@ public class CarAirControl : MonoBehaviour {
 		Vector2 xy;
 		xy.x = inputManager.pInput.GetAxis(Globals.Axis_X1);
 		xy.y = inputManager.pInput.GetAxis(Globals.Axis_Y1);
-		xy *= car.rBody.mass;
+		xy *= car.rBody.mass  *car.rBody.velocity.magnitude*Time.fixedDeltaTime;
 		car.rBody.AddRelativeTorque(xy.y*pitchSpeed, 0,-xy.x*rollSpeed);
 
 		var angVel = car.rBody.angularVelocity;

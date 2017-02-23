@@ -43,6 +43,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1164218853259476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4485850164768350}
+  - component: {fileID: 114155485411123586}
+  - component: {fileID: 114768282120462418}
+  - component: {fileID: 114158293680711658}
+  - component: {fileID: 114545911091009324}
+  - component: {fileID: 114181201007674478}
+  - component: {fileID: 114700114710785168}
+  - component: {fileID: 114686652665806732}
+  m_Layer: 0
+  m_Name: SoundBanks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1269244447691702
 GameObject:
   m_ObjectHideFlags: 1
@@ -108,27 +130,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1631803513430980
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4501650885592802}
-  - component: {fileID: 114669665777727036}
-  - component: {fileID: 114000047573594682}
-  - component: {fileID: 114725495390466558}
-  - component: {fileID: 114819409408058442}
-  - component: {fileID: 114610745108639090}
-  - component: {fileID: 114140119183422740}
-  m_Layer: 0
-  m_Name: SoundBanks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1653494722449946
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +149,8 @@ GameObject:
   - component: {fileID: 114351558062328478}
   - component: {fileID: 114730760443928384}
   - component: {fileID: 114644207943675818}
+  - component: {fileID: 114270989756564272}
+  - component: {fileID: 114131667869799208}
   m_Layer: 0
   m_Name: AwesomeCar
   m_TagString: Untagged
@@ -433,12 +436,12 @@ Transform:
   m_Father: {fileID: 4534674890397648}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4501650885592802
+--- !u!4 &4485850164768350
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
+  m_GameObject: {fileID: 1164218853259476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -478,7 +481,7 @@ Transform:
   - {fileID: 4284934059096966}
   - {fileID: 4417968995938628}
   - {fileID: 4579839124633386}
-  - {fileID: 4501650885592802}
+  - {fileID: 4485850164768350}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -761,30 +764,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000047573594682
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d72576895e01634abe36d2d079c82cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  valueGuid: 7aa47b59cc36ff48ade5a6fbb5febaa9
-  eventID: 520985213
-  soundEmitterObject: {fileID: 1631803513430980}
-  enableActionOnEvent: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  transitionDuration: 0
-  m_callbackData: {fileID: 0}
-  playingId: 249
-  multiPositionTypeLabel: 0
-  multiPositionArray: []
 --- !u!114 &114010133985757034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -862,10 +841,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 500
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -878,6 +857,9 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
+  showCompressedWheelDisc: 1
 --- !u!114 &114080216642132724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -917,10 +899,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 500
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -933,17 +915,58 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
---- !u!114 &114140119183422740
+  showSpring: 1
+  showWheelDisc: 1
+  showCompressedWheelDisc: 1
+--- !u!114 &114131667869799208
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
+  m_GameObject: {fileID: 1653494722449946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e57b2f5ab9c3b5546a23cbc841bf2515, type: 3}
+  m_Script: {fileID: 11500000, guid: dc7c27b55c4590d4e87bdba18fdf1b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 0}
+--- !u!114 &114155485411123586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164218853259476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea95645650cb10d42af3c01784989e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_positionOffsetData:
+    positionOffset: {x: 0, y: 0, z: 0}
+    KeepMe: 1
+  isEnvironmentAware: 0
+  listenerMask: 1
+  isStaticObject: 0
+  m_posOffsetData: {fileID: 0}
+--- !u!114 &114158293680711658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164218853259476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f940b6dcb36621642884c79b2e59ba76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: 0ffee3c1d0b6e74fa3b19a665a64f48e
+  bankName: Car_Motor
+  loadAsynchronous: 0
+  decodeBank: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
 --- !u!114 &114181036833823674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -957,6 +980,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WaitTime: 1.5
   m_VelocityThreshold: 1
+--- !u!114 &114181201007674478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164218853259476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f2d9e0ec
+  useOtherObject: 0
+  valueGuid: 4a208208b49a704ead922074610b7f62
+  eventID: 2086347706
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!114 &114187729547844014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -969,8 +1014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airControl: 1
-  pitchSpeed: 6
-  rollSpeed: 3
+  pitchSpeed: 60
+  rollSpeed: 30
   maxRotSpeed: 100
   autoAlign: 0
   maxRotDelta: 0.00707
@@ -1043,6 +1088,18 @@ MonoBehaviour:
   rateOverDistThreshold: 10
   minParticleCount: 1000
   car: {fileID: 114217766517351466}
+--- !u!114 &114270989756564272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653494722449946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7c27b55c4590d4e87bdba18fdf1b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 0}
 --- !u!114 &114279119407651590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1075,10 +1132,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 500
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -1091,6 +1148,9 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
+  showCompressedWheelDisc: 1
 --- !u!114 &114351558062328478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1140,10 +1200,10 @@ MonoBehaviour:
   settings:
     baseSpringLength: 0.35
     maxCompression: 0.5
-    maxExpansion: 1.25
-    springForce: 1000
-    compressionDamping: 750
-    decompressionDamping: 500
+    maxDroop: 1.25
+    springForce: 750
+    compressionDamping: 500
+    decompressionDamping: 750
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -1156,6 +1216,9 @@ MonoBehaviour:
   shockAbsorb: 1
   showDrift: 1
   showForward: 1
+  showSpring: 1
+  showWheelDisc: 1
+  showCompressedWheelDisc: 1
 --- !u!114 &114420388749100058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1204,6 +1267,28 @@ MonoBehaviour:
   rateOverDistThreshold: 10
   minParticleCount: 1000
   car: {fileID: 114217766517351466}
+--- !u!114 &114545911091009324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164218853259476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  valueGuid: ad5e59ea8b295f4facaf669fe73bbf7d
+  eventID: 885871882
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!114 &114549246515893482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1244,28 +1329,6 @@ MonoBehaviour:
   nbRotationClutch: 3000
   RPM: 0.3345459
   maxValueRotation: 0
---- !u!114 &114610745108639090
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f2d9e0ec
-  useOtherObject: 0
-  valueGuid: 4a208208b49a704ead922074610b7f62
-  eventID: -51323519
-  soundEmitterObject: {fileID: 0}
-  enableActionOnEvent: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  transitionDuration: 0
-  m_callbackData: {fileID: 0}
-  playingId: 0
 --- !u!114 &114644207943675818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1284,43 +1347,50 @@ MonoBehaviour:
   listenerMask: 1
   isStaticObject: 0
   m_posOffsetData: {fileID: 0}
---- !u!114 &114669665777727036
+--- !u!114 &114686652665806732
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
+  m_GameObject: {fileID: 1164218853259476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea95645650cb10d42af3c01784989e2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_positionOffsetData:
-    positionOffset: {x: 0, y: 0, z: 0}
-    KeepMe: 0
-  isEnvironmentAware: 0
-  listenerMask: 1
-  isStaticObject: 0
-  m_posOffsetData: {fileID: 0}
---- !u!114 &114725495390466558
+  triggerList: f2d9e0ec
+  useOtherObject: 0
+  valueGuid: b4d3780b2853a1499816bdb7df95eab8
+  eventID: 1852543838
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114700114710785168
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
+  m_GameObject: {fileID: 1164218853259476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f940b6dcb36621642884c79b2e59ba76, type: 3}
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerList: f7e1664c
   useOtherObject: 0
-  valueGuid: 0ffee3c1d0b6e74fa3b19a665a64f48e
-  bankName: Car_Motor
-  loadAsynchronous: 0
-  decodeBank: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
+  valueGuid: 21ddcfd93a016d4c85eb0be37920e722
+  eventID: -510743741
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
 --- !u!114 &114730760443928384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1334,28 +1404,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applyOnCenterOfMass: 0
   currentGravity: {x: -0.11392622, y: -9.809116, z: 0.06589234}
---- !u!114 &114819409408058442
+--- !u!114 &114768282120462418
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1631803513430980}
+  m_GameObject: {fileID: 1164218853259476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d72576895e01634abe36d2d079c82cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerList: f7e1664c
   useOtherObject: 0
-  valueGuid: ad5e59ea8b295f4facaf669fe73bbf7d
-  eventID: 885871882
-  soundEmitterObject: {fileID: 1631803513430980}
+  valueGuid: 7aa47b59cc36ff48ade5a6fbb5febaa9
+  eventID: -2040941828
+  soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
   curveInterpolation: 4
   transitionDuration: 0
   m_callbackData: {fileID: 0}
-  playingId: 248
+  playingId: 0
+  multiPositionTypeLabel: 0
+  multiPositionArray: []
 --- !u!114 &114837363459404940
 MonoBehaviour:
   m_ObjectHideFlags: 1

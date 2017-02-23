@@ -17,7 +17,7 @@ namespace CND.Car
             [Range(0, 1)]
             public float maxCompression;
             [Range(1, 10)]
-            public float maxExpansion;
+            public float maxDroop;
             [Range(float.Epsilon, 1000000f)]
             public float springForce;
             [Range(float.Epsilon, 1000000f)]
@@ -50,7 +50,7 @@ namespace CND.Car
                 this.wheelRadius = wheelRadius;
                 this.baseSpringLength = baseSpringLength;
                 this.maxCompression = maxCompression;
-                this.maxExpansion = maxExpansion;
+                this.maxDroop = maxExpansion;
                 this.springForce = springForce;
                 this.compressionDamping = compressionDamping;
 				this.decompressionDamping = decompressionDamping;
@@ -81,7 +81,7 @@ namespace CND.Car
 				lerp.wheelRadius = Mathf.Lerp(left.wheelRadius, right.wheelRadius, interp);
 				lerp.baseSpringLength = Mathf.Lerp(left.baseSpringLength, right.baseSpringLength, interp);
 				lerp.maxCompression = Mathf.Lerp(left.maxCompression, right.maxCompression, interp);
-				lerp.maxExpansion = Mathf.Lerp(left.maxExpansion, right.maxExpansion, interp);
+				lerp.maxDroop = Mathf.Lerp(left.maxDroop, right.maxDroop, interp);
 				lerp.springForce = Mathf.Lerp(left.springForce, right.springForce, interp);
 				lerp.compressionDamping = Mathf.Lerp(left.compressionDamping, right.compressionDamping, interp);
 				lerp.stiffnessAdjust = Mathf.Lerp(left.stiffnessAdjust, right.stiffnessAdjust, interp);
