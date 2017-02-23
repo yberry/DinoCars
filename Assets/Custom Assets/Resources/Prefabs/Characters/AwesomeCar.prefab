@@ -840,9 +840,9 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxDroop: 1.25
-    springForce: 750
-    compressionDamping: 500
-    decompressionDamping: 750
+    springForce: 900
+    compressionDamping: 150
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -852,7 +852,7 @@ MonoBehaviour:
   legacyContacts: 0
   legacySuspensions: 0
   hitDetectionTolerance: 1.0125
-  shockAbsorb: 1
+  sinkCompensationForce: 1500
   showDrift: 1
   showForward: 1
   showSpring: 1
@@ -898,9 +898,9 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxDroop: 1.25
-    springForce: 750
-    compressionDamping: 500
-    decompressionDamping: 750
+    springForce: 900
+    compressionDamping: 150
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -910,7 +910,7 @@ MonoBehaviour:
   legacyContacts: 0
   legacySuspensions: 0
   hitDetectionTolerance: 1.0125
-  shockAbsorb: 1
+  sinkCompensationForce: 1500
   showDrift: 1
   showForward: 1
   showSpring: 1
@@ -1119,9 +1119,9 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxDroop: 1.25
-    springForce: 750
-    compressionDamping: 500
-    decompressionDamping: 750
+    springForce: 900
+    compressionDamping: 150
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.45
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   legacyContacts: 0
   legacySuspensions: 0
   hitDetectionTolerance: 1.0125
-  shockAbsorb: 1
+  sinkCompensationForce: 1500
   showDrift: 1
   showForward: 1
   showSpring: 1
@@ -1187,9 +1187,9 @@ MonoBehaviour:
     baseSpringLength: 0.35
     maxCompression: 0.5
     maxDroop: 1.25
-    springForce: 750
-    compressionDamping: 500
-    decompressionDamping: 750
+    springForce: 900
+    compressionDamping: 150
+    decompressionDamping: 250
     stiffnessAdjust: 0.5
     mass: 20
     wheelRadius: 0.4
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   legacyContacts: 0
   legacySuspensions: 0
   hitDetectionTolerance: 1.0125
-  shockAbsorb: 1
+  sinkCompensationForce: 1500
   showDrift: 1
   showForward: 1
   showSpring: 1
