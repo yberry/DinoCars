@@ -69,18 +69,11 @@ public class LevelSelection : MonoBehaviour {
         }
     }
 
-    LevelScene map
+    public LevelScene map
     {
         get
         {
             return level.scenes[selectedMap];
-        }
-    }
-    public int scene
-    {
-        get
-        {
-            return map.scene;
         }
     }
 

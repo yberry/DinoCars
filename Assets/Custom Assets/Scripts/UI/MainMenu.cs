@@ -78,8 +78,9 @@ public class MainMenu : MonoBehaviour {
 
         if (newMenu == null)
         {
+            cameraVHS.spriteTex = levelSelection.map.sprite;
             animator.SetTrigger("Shut");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             async.allowSceneActivation = true;
         }
         else
@@ -130,6 +131,7 @@ public class MainMenu : MonoBehaviour {
 
     public void ChooseLevel()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         StartCoroutine(ChargeLevel());
     }
 
@@ -137,13 +139,13 @@ public class MainMenu : MonoBehaviour {
     {
         pourcentage.enabled = true;
 
-        async = SceneManager.LoadSceneAsync(levelSelection.scene);
+        async = SceneManager.LoadSceneAsync(levelSelection.map.scene);
         async.allowSceneActivation = false;
 
         while (async.progress < 0.9f)
         {
             float progress = Mathf.Clamp01(async.progress / 0.9f);
-            pourcentage.text = Mathf.Floor(100f * progress) + "%";
+            pourcentage.text = Mathf.Floor(100f * progress) + " %";
 
             yield return null;
         }
