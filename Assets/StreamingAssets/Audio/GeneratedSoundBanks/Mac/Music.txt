@@ -1,10 +1,12 @@
 Event	ID	Name			Wwise Object Path	Notes
-	1942074459	Music_Circuit_Play			\Default Work Unit\Music\Music_Circuit_Play	
 	2013246097	Music_Menu_Play			\Default Work Unit\Music\Music_Menu_Play	
+	2156898104	Music_DinoScene_Play			\Default Work Unit\Music\Music_DinoScene_Play	
 	3264661319	Music_Menu_Stop			\Default Work Unit\Music\Music_Menu_Stop	
+	3414308035	Music_PracticeScene_Play			\Default Work Unit\Music\Music_PracticeScene_Play	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
+	3588613048	Play_Without_Loosing			\Default Work Unit\Play_Without_Loosing	
 	4243643777	Car_Boost			\Default Work Unit\Car_Various\Car_Boost	
 
 Effect plug-ins	ID	Name	Type				Notes
@@ -13,15 +15,25 @@ Effect plug-ins	ID	Name	Type				Notes
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	52507000	Original-SyntheEerie2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-SyntheEerie2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-SyntheEerie2		361187
 	204806054	Original-HH	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-HH_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-HH		3358715
+	238915334	Music_Circuit_10	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_10_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_10		552137
+	254471471	Music_Circuit_09	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_09_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_09		3024305
 	256552076	Original-Beat	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Beat_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Beat		2111662
+	286869350	Music_Circuit_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_05_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_05		732085
+	293142317	Music_Circuit_06	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_06_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_06		557063
 	352268829	Original-Kick	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Kick_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Kick		1099391
+	385114083	Music_Circuit_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_01_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_01		356196
 	422978390	Original-SyntheEerie	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-SyntheEerie_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-SyntheEerie		1039609
 	483280379	Original-GuitSat	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-GuitSat_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-GuitSat		453298
+	552587768	Music_Circuit_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_02_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_02		202614
+	628301151	Music_Circuit_08	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_08_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_08		2442473
 	669969615	Original-Tom	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Tom_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Tom		1456629
 	744461911	Original-Bass	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Bass_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Bass		819354
+	772755722	Music_Circuit_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_03_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_03		3904835
 	788186834	Original-Guit1	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Guit1_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Guit1		1626585
 	879311514	Original-Synthe2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Synthe2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Synthe2		4858523
 	932823784	Original-Nappeprincipale	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Nappeprincipale_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Nappeprincipale		2843887
 	966593190	Original-Nappe2	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Original-Nappe2_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Chorus\Principal\Original-Nappe2		887117
 	980800417	Music_Pause_Loop	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Pause_Loop_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Pause\Music_Pause_Loop\Music_Pause_Loop		379349
+	993200957	Music_Circuit_07	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_07_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_07		2410946
+	1046285184	Music_Circuit_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Circuit_04_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Practice\Circuit\Music_Circuit_04		955014
 
