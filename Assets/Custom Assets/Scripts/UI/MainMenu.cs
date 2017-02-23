@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class MainMenu : MonoBehaviour {
     public RectTransform telDefault;
     public RectTransform telVire;
     public RectTransform telStandby;
+
+    [Header("Level Selection")]
+    public LevelSelection levelSelection;
 
     RectTransform currentMenu;
     Animator animator;
@@ -60,7 +64,13 @@ public class MainMenu : MonoBehaviour {
             currentMenu.gameObject.SetActive(false);
         }
 
-        if (newMenu != null)
+        if (newMenu == null)
+        {
+            animator.SetTrigger("Shut");
+            yield return new WaitForSeconds(0.2f);
+            SceneManager.LoadScene(levelSelection.scene);
+        }
+        else
         {
             cameraVHS.enabled = newMenu != titleScreen;
 
@@ -104,5 +114,10 @@ public class MainMenu : MonoBehaviour {
             timeColor = 0f;
         }
         cameraVHS.feedbackColor = Color.HSVToRGB(timeColor / 359f, 1f, 1f);
+    }
+
+    public void ChooseLevel()
+    {
+        ChangeTo(null);
     }
 }

@@ -379,6 +379,7 @@ MonoBehaviour:
   telDefault: {fileID: 2975419}
   telVire: {fileID: 1461205849}
   telStandby: {fileID: 1174278963}
+  levelSelection: {fileID: 1722655522}
 --- !u!1 &62327034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,7 +2058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2881135038cdb43be1202d3f006abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 5
+  scene: 3
 --- !u!1 &675622990
 GameObject:
   m_ObjectHideFlags: 0
@@ -6208,7 +6209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2881135038cdb43be1202d3f006abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 4
+  scene: 2
 --- !u!1 &1853751071
 GameObject:
   m_ObjectHideFlags: 0
@@ -6473,7 +6474,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1722655522}
+      - m_Target: {fileID: 59989394}
         m_MethodName: ChooseLevel
         m_Mode: 1
         m_Arguments:

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour {
 
@@ -77,6 +76,13 @@ public class LevelSelection : MonoBehaviour {
             return level.scenes[selectedMap];
         }
     }
+    public int scene
+    {
+        get
+        {
+            return map.scene;
+        }
+    }
 
     public void MoveUp()
     {
@@ -102,10 +108,5 @@ public class LevelSelection : MonoBehaviour {
     {
         SelectedLevel = 0;
         SelectedMap = 0;
-    }
-
-    public void ChooseLevel()
-    {
-        SceneManager.LoadScene(map.scene);
     }
 }
