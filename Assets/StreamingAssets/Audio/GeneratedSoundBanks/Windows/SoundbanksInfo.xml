@@ -24,6 +24,7 @@
 				<Event Id="900533538" Name="Car_Crash_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Crash_Play"/>
 				<Event Id="1070810022" Name="Car_Explosion_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Explosion_Play"/>
 				<Event Id="1852543838" Name="Car_Impact_Big_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Impact_Big_Play"/>
+				<Event Id="1051603354" Name="Car_Impact_Pneumatic_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Impact_Pneumatic_Play"/>
 				<Event Id="3784223555" Name="Car_Impact_Small_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Impact_Small_Play"/>
 				<Event Id="2254025468" Name="Car_Motor_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Motor_Play"/>
 				<Event Id="885871882" Name="Car_Skid_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Skid_Play"/>
@@ -50,6 +51,10 @@
 				<File Id="100271176" Language="SFX">
 					<ShortName>Music_Boost_Loop_2.wav</ShortName>
 					<Path>SFX\Music_Boost_Loop_2_4B8CC0C5.wem</Path>
+				</File>
+				<File Id="102361454" Language="SFX">
+					<ShortName>Impact_Pneumatic_04.wav</ShortName>
+					<Path>SFX\Impact_Pneumatic_04_9E69E797.wem</Path>
 				</File>
 				<File Id="123176561" Language="SFX">
 					<ShortName>Footsteps\Dino_SingleFtsp_02.wav</ShortName>
@@ -111,6 +116,10 @@
 					<ShortName>SFX_Explosion\Explosion_04.wav</ShortName>
 					<Path>SFX\SFX_Explosion\Explosion_04_9E69E797.wem</Path>
 				</File>
+				<File Id="517366726" Language="SFX">
+					<ShortName>Impact_Pneumatic_05.wav</ShortName>
+					<Path>SFX\Impact_Pneumatic_05_9E69E797.wem</Path>
+				</File>
 				<File Id="524977779" Language="SFX">
 					<ShortName>TireSkid_02.wav</ShortName>
 					<Path>SFX\TireSkid_02_9E69E797.wem</Path>
@@ -118,6 +127,10 @@
 				<File Id="536937558" Language="SFX">
 					<ShortName>Impact\Impact_Big_01.wav</ShortName>
 					<Path>SFX\Impact\Impact_Big_01_9E69E797.wem</Path>
+				</File>
+				<File Id="540160979" Language="SFX">
+					<ShortName>Impact_Pneumatic_02.wav</ShortName>
+					<Path>SFX\Impact_Pneumatic_02_9E69E797.wem</Path>
 				</File>
 				<File Id="555406778" Language="SFX">
 					<ShortName>SFX_Explosion\Explosion_Simple.wav</ShortName>
@@ -151,6 +164,10 @@
 					<ShortName>CRIS\Cris-17.wav</ShortName>
 					<Path>SFX\CRIS\Cris-17_9E69E797.wem</Path>
 				</File>
+				<File Id="793991666" Language="SFX">
+					<ShortName>Impact_Pneumatic_01.wav</ShortName>
+					<Path>SFX\Impact_Pneumatic_01_9E69E797.wem</Path>
+				</File>
 				<File Id="808389963" Language="SFX">
 					<ShortName>Footsteps\Dino_SingleFtsp_05.wav</ShortName>
 					<Path>SFX\Footsteps\Dino_SingleFtsp_05_9E69E797.wem</Path>
@@ -162,6 +179,10 @@
 				<File Id="893174470" Language="SFX">
 					<ShortName>Footsteps\Dino_SingleFtsp_04.wav</ShortName>
 					<Path>SFX\Footsteps\Dino_SingleFtsp_04_9E69E797.wem</Path>
+				</File>
+				<File Id="907194361" Language="SFX">
+					<ShortName>Impact_Pneumatic_03.wav</ShortName>
+					<Path>SFX\Impact_Pneumatic_03_9E69E797.wem</Path>
 				</File>
 				<File Id="913329079" Language="SFX">
 					<ShortName>CRIS\Cris-19.wav</ShortName>
@@ -182,10 +203,6 @@
 				<File Id="1002126405" Language="SFX">
 					<ShortName>CRIS\Cris-09.wav</ShortName>
 					<Path>SFX\CRIS\Cris-09_9E69E797.wem</Path>
-				</File>
-				<File Id="1007456096" Language="SFX">
-					<ShortName>Brake\CarBrake.wav</ShortName>
-					<Path>SFX\Brake\CarBrake_9E69E797.wem</Path>
 				</File>
 				<File Id="1053869606" Language="SFX">
 					<ShortName>Amb_Simple_OK.wav</ShortName>
@@ -212,12 +229,13 @@
 				<Event Id="3543023082" Name="UI_Button_Select_Play" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Select_Play"/>
 				<Event Id="1230956281" Name="UI_Button_Stop" ObjectPath="\Events\Default Work Unit\UI\UI_Button_Stop"/>
 				<Event Id="1795653221" Name="UI_TV_ChangeChannel_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_ChangeChannel_Play"/>
-				<Event Id="3324432945" Name="UI_TV_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_Play"/>
+				<Event Id="3864794543" Name="UI_TV_Glitch_01_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_Glitch_01_Play"/>
+				<Event Id="4263096094" Name="UI_TV_Glitch_02_Play" ObjectPath="\Events\Default Work Unit\UI\UI_TV_Glitch_02_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="133896403" Language="SFX">
-					<ShortName>UI\Glitch_01.wav</ShortName>
-					<Path>SFX\UI\Glitch_01_9E69E797.wem</Path>
+				<File Id="76135366" Language="SFX">
+					<ShortName>Glitch_Loop_02.wav</ShortName>
+					<Path>SFX\Glitch_Loop_02_4B8CC0C5.wem</Path>
 				</File>
 				<File Id="267839946" Language="SFX">
 					<ShortName>Kick_5.wav</ShortName>
@@ -238,10 +256,6 @@
 				<File Id="443602592" Language="SFX">
 					<ShortName>Kick_6.wav</ShortName>
 					<Path>SFX\Kick_6_9E69E797.wem</Path>
-				</File>
-				<File Id="499639942" Language="SFX">
-					<ShortName>UI\Pass_Over_02.wav</ShortName>
-					<Path>SFX\UI\Pass_Over_02_9E69E797.wem</Path>
 				</File>
 				<File Id="504099344" Language="SFX">
 					<ShortName>UI\Click_Valid_01.wav</ShortName>
@@ -274,6 +288,10 @@
 				<File Id="845447835" Language="SFX">
 					<ShortName>Kick_4.wav</ShortName>
 					<Path>SFX\Kick_4_9E69E797.wem</Path>
+				</File>
+				<File Id="917583348" Language="SFX">
+					<ShortName>Glitch_Loop_01.wav</ShortName>
+					<Path>SFX\Glitch_Loop_01_4B8CC0C5.wem</Path>
 				</File>
 				<File Id="971373209" Language="SFX">
 					<ShortName>Kick_3.wav</ShortName>
@@ -354,9 +372,10 @@
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1942074459" Name="Music_Circuit_Play" ObjectPath="\Events\Default Work Unit\Music\Music_Circuit_Play"/>
+				<Event Id="2156898104" Name="Music_DinoScene_Play" ObjectPath="\Events\Default Work Unit\Music\Music_DinoScene_Play"/>
 				<Event Id="2013246097" Name="Music_Menu_Play" ObjectPath="\Events\Default Work Unit\Music\Music_Menu_Play"/>
 				<Event Id="3264661319" Name="Music_Menu_Stop" ObjectPath="\Events\Default Work Unit\Music\Music_Menu_Stop"/>
+				<Event Id="3414308035" Name="Music_PracticeScene_Play" ObjectPath="\Events\Default Work Unit\Music\Music_PracticeScene_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="52507000" Language="SFX">
@@ -367,13 +386,33 @@
 					<ShortName>Original-HH.wav</ShortName>
 					<Path>SFX\Original-HH_4D7BABE6.wem</Path>
 				</File>
+				<File Id="238915334" Language="SFX">
+					<ShortName>Music_Circuit_10.wav</ShortName>
+					<Path>SFX\Music_Circuit_10_4D7BABE6.wem</Path>
+				</File>
+				<File Id="254471471" Language="SFX">
+					<ShortName>Music_Circuit_09.wav</ShortName>
+					<Path>SFX\Music_Circuit_09_4D7BABE6.wem</Path>
+				</File>
 				<File Id="256552076" Language="SFX">
 					<ShortName>Original-Beat.wav</ShortName>
 					<Path>SFX\Original-Beat_4D7BABE6.wem</Path>
 				</File>
+				<File Id="286869350" Language="SFX">
+					<ShortName>Music_Circuit_05.wav</ShortName>
+					<Path>SFX\Music_Circuit_05_4D7BABE6.wem</Path>
+				</File>
+				<File Id="293142317" Language="SFX">
+					<ShortName>Music_Circuit_06.wav</ShortName>
+					<Path>SFX\Music_Circuit_06_4D7BABE6.wem</Path>
+				</File>
 				<File Id="352268829" Language="SFX">
 					<ShortName>Original-Kick.wav</ShortName>
 					<Path>SFX\Original-Kick_4D7BABE6.wem</Path>
+				</File>
+				<File Id="385114083" Language="SFX">
+					<ShortName>Music_Circuit_01.wav</ShortName>
+					<Path>SFX\Music_Circuit_01_4D7BABE6.wem</Path>
 				</File>
 				<File Id="422978390" Language="SFX">
 					<ShortName>Original-SyntheEerie.wav</ShortName>
@@ -383,6 +422,14 @@
 					<ShortName>Original-GuitSat.wav</ShortName>
 					<Path>SFX\Original-GuitSat_4D7BABE6.wem</Path>
 				</File>
+				<File Id="552587768" Language="SFX">
+					<ShortName>Music_Circuit_02.wav</ShortName>
+					<Path>SFX\Music_Circuit_02_4D7BABE6.wem</Path>
+				</File>
+				<File Id="628301151" Language="SFX">
+					<ShortName>Music_Circuit_08.wav</ShortName>
+					<Path>SFX\Music_Circuit_08_4D7BABE6.wem</Path>
+				</File>
 				<File Id="669969615" Language="SFX">
 					<ShortName>Original-Tom.wav</ShortName>
 					<Path>SFX\Original-Tom_4D7BABE6.wem</Path>
@@ -390,6 +437,10 @@
 				<File Id="744461911" Language="SFX">
 					<ShortName>Original-Bass.wav</ShortName>
 					<Path>SFX\Original-Bass_4D7BABE6.wem</Path>
+				</File>
+				<File Id="772755722" Language="SFX">
+					<ShortName>Music_Circuit_03.wav</ShortName>
+					<Path>SFX\Music_Circuit_03_4D7BABE6.wem</Path>
 				</File>
 				<File Id="788186834" Language="SFX">
 					<ShortName>Original-Guit1.wav</ShortName>
@@ -410,6 +461,14 @@
 				<File Id="980800417" Language="SFX">
 					<ShortName>Music_Pause_Loop.wav</ShortName>
 					<Path>SFX\Music_Pause_Loop_4D7BABE6.wem</Path>
+				</File>
+				<File Id="993200957" Language="SFX">
+					<ShortName>Music_Circuit_07.wav</ShortName>
+					<Path>SFX\Music_Circuit_07_4D7BABE6.wem</Path>
+				</File>
+				<File Id="1046285184" Language="SFX">
+					<ShortName>Music_Circuit_04.wav</ShortName>
+					<Path>SFX\Music_Circuit_04_4D7BABE6.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
