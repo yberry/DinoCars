@@ -10,6 +10,9 @@ public class CarDinoHUD : MonoBehaviour {
 
     [Header("Chrono")]
     public Text[] chrono;
+    public Text penality;
+    public float penalityDuration = 3f;
+    public bool hasPenality = false;
 
     [Header("Compteur")]
     public Image[] boost;
@@ -27,11 +30,11 @@ public class CarDinoHUD : MonoBehaviour {
 
     public Rewired.Player pInput;
 
+    Color colorPenality;
+    float timePenality = 0f;
+
     const float minRot = 141f;
     const float maxSpeed = 340f;
-
-    float time = 0f;
-    const float maxTime = 5999.99f;
 
     float boostDuration = 0f;
     Color colorBoost;
@@ -65,6 +68,8 @@ public class CarDinoHUD : MonoBehaviour {
             particlesCamera = Camera.main.transform.GetChild(0).GetComponent<Camera>();
         }
 
+        colorPenality = penality.color;
+
         Canvas canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
@@ -83,12 +88,6 @@ public class CarDinoHUD : MonoBehaviour {
 
     void Update()
     {
-        time += Time.deltaTime;
-        if (time > maxTime)
-        {
-            time = maxTime;
-        }
-
         UpdateChrono();
         UpdateCompteur();
         UpdatePause();
@@ -98,11 +97,28 @@ public class CarDinoHUD : MonoBehaviour {
 
     void UpdateChrono()
     {
-        string times = GetTimes();
+        string times = GetTimes(GameManager.instance.time);
 
         for (int i = 0; i < 6; i++)
         {
             chrono[i].text = times[i].ToString();
+        }
+
+        if (hasPenality)
+        {
+            timePenality += Time.deltaTime / penalityDuration;
+
+            string p = GetTimes(GameManager.instance.penality);
+            penality.text = "+ " + p[0] + p[1] + ":" + p[2] + p[3] + ":" + p[4] + p[5];
+
+            if (timePenality >= 1f)
+            {
+                timePenality = 0f;
+                hasPenality = false;
+            }
+
+            colorPenality.a = Mathf.Sin(timePenality * Mathf.PI);
+            penality.color = colorPenality;
         }
     }
 
@@ -140,7 +156,7 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
-    string GetTimes()
+    string GetTimes(float time)
     {
         int floor = Mathf.FloorToInt(time);
         int reste = floor % 60;
@@ -173,7 +189,7 @@ public class CarDinoHUD : MonoBehaviour {
         if (pause)
         {
             Resume();
-            FindObjectOfType<Restart>().RestartScene();
+            GetComponent<Restart>().RestartScene();
         }
     }
 

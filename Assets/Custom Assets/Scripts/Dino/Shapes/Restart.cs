@@ -39,19 +39,28 @@ public class Restart : MonoBehaviour {
 
     public void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        foreach (AkBank bank in banks)
-        {
-            bank.UnloadBank(bank.gameObject);
-        }
+        Res(true);
     }
 
     public void RestartMenu()
     {
-        SceneManager.LoadScene(0);
+        Res(false);
+    }
+
+    void Res(bool scene)
+    {
+        if (scene)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
         foreach (AkBank bank in banks)
         {
             bank.UnloadBank(bank.gameObject);
         }
+        GameManager.instance.Restart();
     }
 }
