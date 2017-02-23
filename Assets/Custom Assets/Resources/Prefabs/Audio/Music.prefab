@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114414813019195894}
   - component: {fileID: 114029019740990138}
   m_Layer: 0
-  m_Name: Music
+  m_Name: Audio_Music_PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   triggerList: f7e1664c
   useOtherObject: 0
   valueGuid: 3c307cc0cf34964098592e314e30f506
-  eventID: -104423069
+  eventID: -880659261
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0

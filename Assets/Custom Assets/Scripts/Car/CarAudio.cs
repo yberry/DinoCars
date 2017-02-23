@@ -10,6 +10,7 @@ namespace CND.Car
     {
 
         public BaseCarController car;
+        private CarStateManager carState;
         public Wheel[] wheels;
         private bool gearUpDown;
         private bool play;
@@ -32,6 +33,8 @@ namespace CND.Car
             if (!car)
                 car = GetComponent<BaseCarController>();
                  wheels = GetComponentsInChildren<Wheel>();
+
+            carState = car.GetComponent<CarStateManager>();
         }
    
         // Use this for initialization
@@ -93,7 +96,9 @@ namespace CND.Car
             AkSoundEngine.SetRTPCValue("RPM", aCar.GetRPMRatio());
             AkSoundEngine.SetRTPCValue("Velocity", aCar.rBody.velocity.magnitude);
             AkSoundEngine.SetRTPCValue("Car_Boost", aCar.BoostDuration);
+            AkSoundEngine.SetRTPCValue("Play_Without_Loosing", carState.TimeSinceLastSpawn);
 
+           
             if (aCar.IsBoosting && !prevBoost)
             {
                
@@ -106,13 +111,13 @@ namespace CND.Car
                 
             }
 
-          
+
             //AkSoundEngine.PostEvent("Car_Event", )
             //if (((ArcadeCarController)carController).BoostDuration > 0)            
 
             //Debug.Log("BoostTimer: " + ((ArcadeCarController)car).BoostDuration);
 
-
+           // carState.TimeSinceLastSpawn
 
 
             foreach (var w in wheels)
@@ -121,7 +126,7 @@ namespace CND.Car
                 //var abs = Mathf.Abs(-1); //valeur absolue
                 float drift = Mathf.Abs(c.sidewaysRatio * c.rootVelocity.magnitude) - 5f;
                 float finalDrift = Mathf.Clamp(drift, 0, 15);
-
+                
                 AkSoundEngine.SetRTPCValue("Skid", finalDrift);
                
 
@@ -133,30 +138,48 @@ namespace CND.Car
         {
             float normal = 1f - Mathf.Abs(Vector3.Dot(col.relativeVelocity.normalized, transform.up));
            // Debug.Log("normal: " + normal);
-            if (normal > 0.95f)
+           /* if (normal > 0.95f)
             {
                 if (col.relativeVelocity.magnitude < (200 / 3.6f))
                 {
                     AkSoundEngine.PostEvent("Car_Impact_Small_Play", gameObject);
                 }
+                  
                 else
                 {
                     AkSoundEngine.PostEvent("Car_Impact_Big_Play", gameObject);
                 }
+            }*/
+
+            if (Collision_IsFromUnderneath(col))
+            {
+                AkSoundEngine.PostEvent("Car_Impact_Pneumatic_Play", gameObject);
+            } else
+            {
+                if (Collision_IsAboveSpeed(col, (200 / 3.6f)))
+                {
+                    AkSoundEngine.PostEvent("Car_Impact_Big_Play", gameObject);
+                }
+                else
+                {
+                    AkSoundEngine.PostEvent("Car_Impact_Small_Play", gameObject);
+
+                }
             }
-          
+
         }
+
         // commenter une ligne
         /* commenter un bout de truc*/
 
 
-//#if UNITY_EDITOR
-			// (UnityEditor.EditorUtility.audioMasterMute)
-             //   AkSoundEngine.StopAll();
-//#endif
+        //#if UNITY_EDITOR
+        // (UnityEditor.EditorUtility.audioMasterMute)
+        //   AkSoundEngine.StopAll();
+        //#endif
 
 
-		}
+    }
 
 
     }
