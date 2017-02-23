@@ -49,9 +49,6 @@ public class MainMenu : MonoBehaviour {
             ManageButtons manageCurrent = currentMenu.GetComponent<ManageButtons>();
             if (manageCurrent != null)
             {
-                manageCurrent.telecommande.position = telDefault.position;
-                manageCurrent.telecommande.rotation = telDefault.rotation;
-
                 manageCurrent.targetTel = telVire;
 
                 while (!manageCurrent.IsNear)

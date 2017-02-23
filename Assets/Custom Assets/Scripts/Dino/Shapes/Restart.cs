@@ -26,7 +26,7 @@ public class Restart : MonoBehaviour {
             return;
         }
 
-		if (Input.GetKeyDown(restartKeycode) || pInput.GetAxis(Globals.BtnAction4) > 0f)
+		if (Input.GetKeyDown(restartKeycode) || pInput.GetButtonDown(Globals.BtnAction4))
         {
             RestartScene();
         }
