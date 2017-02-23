@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour {
     public Texture[] noiseTex;
     public postVHSPro cameraVHS;
     public Text canal;
+    public Text pourcentage;
     public float speedColor = 10f;
 
     [Header("Menu transitions")]
@@ -25,12 +26,19 @@ public class MainMenu : MonoBehaviour {
     RectTransform currentMenu;
     Animator animator;
     float timeColor = 0f;
+    AsyncOperation async;
+
+    public static MainMenu instance { get; private set; }
 
     void Start()
     {
         currentMenu = titleScreen;
         SetSelection();
         animator = cameraVHS.GetComponent<Animator>();
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
     public void ChangeTo(RectTransform newMenu)
@@ -38,7 +46,11 @@ public class MainMenu : MonoBehaviour {
         AkSoundEngine.PostEvent("UI_TV_ChangeChannel_Play", gameObject);
         if (currentMenu == titleScreen)
         {
-            AkSoundEngine.PostEvent("UI_TV_Play", gameObject);
+            AkSoundEngine.PostEvent("UI_TV_Glitch_02_Play", gameObject);
+        }
+        else if (newMenu == titleScreen)
+        {
+            AkSoundEngine.PostEvent("Stop_All", gameObject);
         }
         animator.SetTrigger("Transition");
         StartCoroutine(Anim(newMenu));
@@ -67,8 +79,8 @@ public class MainMenu : MonoBehaviour {
         if (newMenu == null)
         {
             animator.SetTrigger("Shut");
-            yield return new WaitForSeconds(0.2f);
-            SceneManager.LoadScene(levelSelection.scene);
+            yield return new WaitForSeconds(0.5f);
+            async.allowSceneActivation = true;
         }
         else
         {
@@ -118,6 +130,24 @@ public class MainMenu : MonoBehaviour {
 
     public void ChooseLevel()
     {
+        StartCoroutine(ChargeLevel());
+    }
+
+    IEnumerator ChargeLevel()
+    {
+        pourcentage.enabled = true;
+
+        async = SceneManager.LoadSceneAsync(levelSelection.scene);
+        async.allowSceneActivation = false;
+
+        while (async.progress < 0.9f)
+        {
+            float progress = Mathf.Clamp01(async.progress / 0.9f);
+            pourcentage.text = Mathf.Floor(100f * progress) + "%";
+
+            yield return null;
+        }
+
         ChangeTo(null);
     }
 }
