@@ -25,13 +25,13 @@ public class DeadZone : MonoBehaviour {
     IEnumerator Restart(Transform car)
     {
         GameObject explosion = Instantiate(ExplosionPrefab, car.position, Quaternion.identity);
-        car.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        car.gameObject.SetActive(false);
+
+		var carStateMgr = car.GetComponent<CND.Car.CarStateManager>();
+		carStateMgr.Kill();
+
         yield return new WaitForSeconds(duration);
         Destroy(explosion);
-        car.position = CheckPoint.lastPosition;
-        car.rotation = Quaternion.identity;
-        car.gameObject.SetActive(true);
-        car.GetComponent<CND.Car.ArcadeCarController>().Action(0f, 0f, 0f, 0f);
+		carStateMgr.Spawn(CheckPoint.lastPosition, Quaternion.identity);
+
     }
 }

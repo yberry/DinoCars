@@ -67,9 +67,14 @@ namespace CND.Car
 				ForceMode.Force);
 
 			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
-				up* contactForceMod *Time.fixedDeltaTime,
+				up* contactForceMod  *Time.fixedDeltaTime,
 				pt,
 				ForceMode.Acceleration);
+
+			System.Action<Vector3, Vector3> addImpulse = (up, pt) => rBody.AddForceAtPosition(
+					up / 10f * contactForceMod,
+					pt,
+					ForceMode.Impulse);
 
 			var addVertical = addForce;
 
