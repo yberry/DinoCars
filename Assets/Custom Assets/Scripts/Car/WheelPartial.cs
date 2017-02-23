@@ -169,7 +169,7 @@ namespace CND.Car
 					if (Application.isPlaying)
 					{
 						contact.hit = default(RaycastHit);
-						contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxExpansion, dotDownGrav), 50f * Time.fixedDeltaTime);
+						contact.springLength = Mathf.Lerp(m_contactInfo.springLength, settings.baseSpringLength * Mathf.Lerp(1f, settings.maxDroop, dotDownGrav), 50f * Time.fixedDeltaTime);
 						contact.springCompression = (settings.baseSpringLength - contact.springLength) / compressionMargin;
 					}
 
@@ -191,9 +191,14 @@ namespace CND.Car
 		[Header("Debug Gizmos")]
 		public bool showDrift = true;
 		public bool showForward = true;
+		public bool showSpring = true;
+		public bool showWheelDisc = true;
+		public bool showCompressedWheelDisc = true;
 
 		void OnDrawGizmos()
 		{
+
+			const float arcAngle = 30f;
 			Quaternion curRot = steerRot;
 			var src = transform.position;
 			Vector3 center;
@@ -221,16 +226,38 @@ namespace CND.Car
 
 			Color defHandleColor = Color.white;
 			Color defGizmoColor = Color.white;
+			
 			if (!enabled)
 			{
 				Gizmos.color = defGizmoColor *= 0.5f;
 				Handles.color = defHandleColor *= 0.5f;
 			}
 
+			Color contactColor = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
+
+			Gizmos.color = defGizmoColor * contactColor;
+			if (m_contactInfo.isOnFloor && m_contactInfo.hit.distance < settings.baseSpringLength - (settings.baseSpringLength * settings.maxCompression))
+			{
+				Gizmos.color = defGizmoColor * Color.yellow;
+			}
+
+			if (showWheelDisc)
+			{
+				Handles.color = Gizmos.color * 0.25f;
+				Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
+
+				Handles.color = Gizmos.color;
+				Handles.CircleCap(0, center, lookRotNormal, settings.wheelRadius);
+				Handles.color = Gizmos.color * 0.75f;
 
 
-			//var end = (transform.position- transform.up* contactInfo.springLength);
-			// var center = end - (end - src).normalized * settings.wheelRadius * 0.5f;
+				Handles.DrawSolidArc(center, lookRotNormal * Vector3.forward,
+				   rotNorm * (Quaternion.Euler(angularVelAngle * Mathf.Rad2Deg - arcAngle * 0.5f, 0, 0)) * Vector3.down, arcAngle, settings.wheelRadius * 0.9f);
+
+			}
+
+
+			Gizmos.color = Handles.color = defGizmoColor;
 			Color dirMultipliers = new Color(1.2f, 0.8f, 1.2f, 0.85f);
 			Gizmos.DrawWireSphere(center, 0.05f);
 			if (showDrift && absSide > 0.01)
@@ -269,39 +296,50 @@ namespace CND.Car
 
 			if (m_contactInfo.isOnFloor)
 			{
-				Gizmos.color = defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
+				Gizmos.color = Handles.color=defGizmoColor * Color.Lerp(Color.green, Color.red, contactInfo.springCompression);
 			}
 			else
 			{
-				Gizmos.color = Color.yellow;
+				Gizmos.color = Handles.color=Color.yellow;
 			}
 
-
-			Gizmos.DrawWireSphere(src, 0.075f);
-			Gizmos.DrawLine(src, center); //spring
-
-			Gizmos.color = defGizmoColor * (m_contactInfo.isOnFloor ? Color.green : Color.red);
-			if (m_contactInfo.isOnFloor && m_contactInfo.hit.distance < settings.baseSpringLength - (settings.baseSpringLength * settings.maxCompression))
+			if (showSpring)
 			{
-				Gizmos.color = defGizmoColor = Color.yellow;
+				Color oldCol = Gizmos.color, nextCol = Gizmos.color*1f;
+				nextCol.a = 1f;
+
+				Gizmos.color = nextCol;
+				Gizmos.DrawLine(src, center);
+
+				Handles.color = nextCol;
+				Gizmos.color = nextCol * 1.5f;
+				//Gizmos.DrawSphere(src, 0.075f);
+				Handles.DrawAAPolyLine(null,10f,src, center);
+
+				
+				Handles.DrawSolidDisc(src, -Camera.current.gameObject.transform.forward, 0.075f);
+				Gizmos.color = nextCol*1.1f;
+				Gizmos.DrawWireSphere(src, 0.075f);
+
+				Gizmos.color = oldCol;
+				Handles.color = oldCol;
 			}
-			Gizmos.DrawWireSphere(targetContactPoint - lagOffset, 0.0375f);
 
 
-			Handles.color = Gizmos.color * 0.25f;
-			Handles.DrawSolidDisc(center, lookRotNormal * Vector3.forward, settings.wheelRadius);
 
-			Handles.color = Gizmos.color;
-			Handles.CircleCap(0, center, lookRotNormal, settings.wheelRadius);
-			Handles.color = Gizmos.color * 0.75f;
+			//--contact points
 
+			Vector3 raycastHitPoint = Application.isPlaying ? contactInfo.finalContactPoint : targetContactPoint;
+			Handles.color = contactColor;
+			Handles.DrawSolidDisc(raycastHitPoint - lagOffset, -Camera.current.gameObject.transform.forward, 0.025f);
+			//Gizmos.DrawSphere(raycastHitPoint - lagOffset, 0.05f);
+			Gizmos.color = contactColor * 1.1f;
+			Gizmos.DrawWireSphere(targetContactPoint - lagOffset, 0.025f);
+			Gizmos.DrawWireSphere(raycastHitPoint - lagOffset, 0.025f);
 
-			const float arcAngle = 30f;
-			Handles.DrawSolidArc(center, lookRotNormal * Vector3.forward,
-			   rotNorm * (Quaternion.Euler(angularVelAngle * Mathf.Rad2Deg - arcAngle * 0.5f, 0, 0)) * Vector3.down, arcAngle, settings.wheelRadius * 0.9f);
+			Gizmos.color /= 1.1f;
 
-			//max compression circle
-			if (!Application.isPlaying)
+			if (!Application.isPlaying || showCompressedWheelDisc)
 			{
 				var compressedCenter = transform.position - transform.up * CompressedLength(settings.baseSpringLength, settings.maxCompression);
 				Handles.color = Gizmos.color = Color.blue * 0.75f;

@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114612261709754768}
   - component: {fileID: 114890026360456958}
   m_Layer: 0
-  m_Name: Audio_Car_DS
+  m_Name: SoundBanks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
