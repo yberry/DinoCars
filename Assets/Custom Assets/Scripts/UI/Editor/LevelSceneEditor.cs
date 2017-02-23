@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
 [CustomEditor(typeof(LevelScene))]
 public class LevelSceneEditor : Editor {
@@ -13,6 +10,5 @@ public class LevelSceneEditor : Editor {
         levelScene = target as LevelScene;
 
         levelScene.Update(ref levelScene.scene, "Scene", SwitchScene.SceneArray);
-        levelScene.Update(ref levelScene.sprite, "Sprite");
     }
 }

@@ -31,8 +31,8 @@ public class LevelSelection : MonoBehaviour {
             {
                 selectedLevel = value;
             }
-            SelectedMap = selectedMap;
             selected.SetLevel(level);
+            SelectedMap = selectedMap;
         }
     }
 

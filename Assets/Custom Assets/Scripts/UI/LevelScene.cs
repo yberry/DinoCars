@@ -7,13 +7,12 @@ using UnityEngine.UI;
 public class LevelScene : MonoBehaviour {
 
     public int scene;
-    public Sprite sprite;
 
-    void Start()
+    public Sprite sprite
     {
-        if (sprite)
+        get
         {
-            GetComponent<Image>().sprite = sprite;
+            return GetComponent<Image>().sprite;
         }
     }
 }

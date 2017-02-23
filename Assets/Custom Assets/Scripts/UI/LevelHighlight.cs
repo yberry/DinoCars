@@ -29,5 +29,6 @@ public class LevelHighlight : MonoBehaviour {
     public void SetMap(LevelScene map)
     {
         mapTarget = map;
+        image.sprite = map.sprite;
     }
 }
