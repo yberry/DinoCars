@@ -60,9 +60,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void PassCheckPoint()
+    {
+        FindObjectOfType<CarDinoHUD>().showCheck = true;
+    }
+
     public void CheckBack()
     {
-        FindObjectOfType<CarDinoHUD>().hasPenality = true;
+        CarDinoHUD hud = FindObjectOfType<CarDinoHUD>();
+        hud.showCheck = true;
+        hud.hasPenality = true;
         CheckPoint.AddPenality(penality);
         time = CheckPoint.data.time;
     }

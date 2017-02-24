@@ -31,6 +31,7 @@ public class CheckPoint : MonoBehaviour {
         if (col is MeshCollider && num > lastCheckPoint.num)
         {
             UpdateCheckPoint();
+            GameManager.instance.PassCheckPoint();
         }
     }
 

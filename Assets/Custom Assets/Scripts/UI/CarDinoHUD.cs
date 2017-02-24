@@ -10,9 +10,12 @@ public class CarDinoHUD : MonoBehaviour {
 
     [Header("Chrono")]
     public Text[] chrono;
-    public Text penality;
-    public float penalityDuration = 3f;
+    public Text checkTime;
+    public Text[] penality;
+    public bool showCheck = false;
+    public float showCheckDuration = 3f;
     public bool hasPenality = false;
+    public float penalityDuration = 3f;
 
     [Header("Compteur")]
     public Image[] boost;
@@ -33,7 +36,7 @@ public class CarDinoHUD : MonoBehaviour {
     static Color greenColor = new Color(23f / 255f, 252f / 255f, 141f / 255f);
     static Color redColor = new Color(252f / 255f, 23f / 255f, 23f / 255f);
 
-    Color colorPenality;
+    float showTime = 0f;
     float timePenality = 0f;
 
     const float minRot = 141f;
@@ -71,8 +74,6 @@ public class CarDinoHUD : MonoBehaviour {
             particlesCamera = Camera.main.transform.GetChild(0).GetComponent<Camera>();
         }
 
-        colorPenality = penality.color;
-
         Canvas canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
@@ -109,11 +110,23 @@ public class CarDinoHUD : MonoBehaviour {
             chrono[i].text = times[i].ToString();
         }
 
+        if (showCheck)
+        {
+            showTime += Time.deltaTime / showCheckDuration;
+
+            if (showTime > 1f)
+            {
+                showTime = 0f;
+                showCheck = false;
+            }
+
+            checkTime.text = GetTimes(CheckPoint.data.time - (hasPenality ? GameManager.instance.penality : 0f));
+        }
+        checkTime.enabled = showCheck;
+
         if (hasPenality)
         {
             timePenality += Time.deltaTime / penalityDuration;
-
-            penality.text = "+ " + GetTimes(GameManager.instance.penality);
 
             if (timePenality >= 1f)
             {
@@ -121,8 +134,11 @@ public class CarDinoHUD : MonoBehaviour {
                 hasPenality = false;
             }
 
-            colorPenality.a = Mathf.Sin(timePenality * Mathf.PI);
-            penality.color = colorPenality;
+            penality[1].text = GetTimes(GameManager.instance.penality);
+        }
+        foreach (Text p in penality)
+        {
+            p.enabled = hasPenality;
         }
     }
 
