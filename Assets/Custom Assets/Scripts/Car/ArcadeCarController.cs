@@ -403,14 +403,15 @@ namespace CND.Car
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
 			//motor power and/or inertia, relative to to input
 			float accelPower = Mathf.Lerp( inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
+			//apply boost power
+			accelPower *= Mathf.Lerp(1, CurStg.boostRatio, boost);
 			//braking power, relative to input
 			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
 			float gravForward = MathEx.DotToLinear(Vector3.Dot(LocalGravity.normalized, contact.forwardDirection));
 			float angVelDelta = contact.rootVelocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
 
-			 //apply boost power
-			accelPower *= Mathf.Lerp(1, CurStg.boostRatio,boost);
+
 
 			//calculations for forward velocity
 			var motorVel = contact.forwardDirection * accelPower;

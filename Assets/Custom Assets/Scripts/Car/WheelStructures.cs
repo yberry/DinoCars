@@ -96,7 +96,7 @@ namespace CND.Car
         {
             public bool isOnFloor { get; internal set; }
             public bool wasAlreadyOnFloor { get; internal set; }
-            public Vector3 upForce { get; internal set; }
+            public Vector3 appliedSpringForce { get; internal set; }
             public Vector3 forwardDirection { get; internal set; }
             public Vector3 sideSlipDirection { get; internal set; }
 			public Quaternion worldRotation { get; internal set; }

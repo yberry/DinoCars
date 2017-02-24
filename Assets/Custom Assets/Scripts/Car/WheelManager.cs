@@ -36,10 +36,13 @@ namespace CND.Car
 
         public void SetSteering(float degAngle, float maxAngle, float ackermanSteeringRatio=0)
         {
-
-			frontWheels.SetSteeringRotation(degAngle, maxAngle, ackermanSteeringRatio);
-            
+			frontWheels.SetSteeringRotation(degAngle, maxAngle, ackermanSteeringRatio);            
         }
+
+		public Wheel[] GetWheels()
+		{
+			return new[] { frontWheels.left, frontWheels.right, rearWheels.left, rearWheels.right };
+		}
 
         private void ManageSuspensions()
         {
@@ -59,78 +62,69 @@ namespace CND.Car
             rearContacts = rearWheels.GetContacts(out contactRL, out contactRR);
             totalContacts = frontContacts + rearContacts;
 
-			float contactForceMod = 1f;// ( 1f/totalContacts );
+			int contactForceMod = 4;
 
-			System.Action<Vector3, Vector3> addForce = (up, pt) => rBody.AddForceAtPosition(
-				(up * 10f * contactForceMod),
-				pt,
+			System.Action<Wheel> addForce = (w) => rBody.AddForceAtPosition(
+				(w.GetAppliedSuspensionForce(contactForceMod, rBody.mass)),
+				w.contactInfo.pushPoint,
 				ForceMode.Force);
 
-			System.Action<Vector3, Vector3> addAccel = (up, pt) => rBody.AddForceAtPosition(
-				up* contactForceMod  *Time.fixedDeltaTime,
-				pt,
+			System.Action<Wheel> addAccel = (w) => rBody.AddForceAtPosition(
+				w.GetAppliedSuspensionForce(contactForceMod, rBody.mass) * Time.fixedDeltaTime,
+				w.contactInfo.pushPoint,
 				ForceMode.Acceleration);
 
-			System.Action<Vector3, Vector3> addImpulse = (up, pt) => rBody.AddForceAtPosition(
-					up / 10f * contactForceMod,
-					pt,
+			System.Action<Wheel> addImpulse = (w) => rBody.AddForceAtPosition(
+					w.GetAppliedSuspensionForce(contactForceMod, rBody.mass) / 10f,
+					w.contactInfo.pushPoint,
 					ForceMode.Impulse);
 
-			var addVertical = addForce;
+			System.Action<Wheel> addVel = (w) => rBody.AddForceAtPosition(
+					w.GetAppliedSuspensionForce(contactForceMod, rBody.mass) *  Time.fixedDeltaTime.Squared(),
+					w.contactInfo.pushPoint,
+					ForceMode.VelocityChange);
+
+			var addVertical = addAccel;
 
 			if (totalContacts > 0)
             {
-                if (frontContacts > 0)
+#if !OPTI
+				foreach(var w in GetWheels())
+					addVertical(w);
+				
+#else
+				if (frontContacts > 0)
                 {
                     if (steeringAngle < 0)
                     {
-						addVertical(
-                           contactFL.upForce,/// (float)(contacts),
-						   contactFL.pushPoint);
+						addVertical(frontWheels.left);
+						addVertical(frontWheels.right);
 
-						addVertical(
-                           contactFR.upForce,/// (float)(contacts),
-						   contactFR.pushPoint);
-
-                    } else
+					} else
                     {
-
-						addVertical(
-                             contactFR.upForce,/// (float)(contacts),
-                         contactFR.pushPoint);
-
-						addVertical(
-                            contactFL.upForce,/// (float)(contacts),
-                            contactFL.pushPoint);
-
-                    }
+						addVertical(frontWheels.right);
+						addVertical(frontWheels.left);	
+					}
 
                 }
 
                 if (rearContacts > 0)
                 {
-                    if (steeringAngle < 0)
-                    {
-						addVertical(
-							contactRL.upForce,/// (float)(contacts),
-							contactRL.pushPoint);
+					if (steeringAngle < 0)
+					{
+						addVertical(rearWheels.left);
+						addVertical(rearWheels.right);
 
-						addVertical(
-                             contactRR.upForce,// / (float)(contacts),
-                             contactRR.pushPoint);
-                    } else
-                    {
+					}
+					else
+					{
+						addVertical(rearWheels.right);
+						addVertical(rearWheels.left);
+					}
 
-						addVertical(
-                             contactRR.upForce,// / (float)(contacts),
-                             contactRR.pushPoint);
-						addVertical(
-                            contactRL.upForce,/// (float)(contacts),
-                            contactRL.pushPoint);
-
-                    }
-                }
-            }
+				}
+#endif
+			}
 
             /*
               rBody.AddForceAtPosition(

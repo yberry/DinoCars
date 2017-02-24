@@ -13,6 +13,10 @@ public class CarGravityOverride : MonoBehaviour {
 	BaseCarController car;
 	List<IOverridableGravity> overridableComponents;
 
+	void Awake()
+	{
+		//car.rBody.useGravity = !this.enabled;
+	}
 	// Use this for initialization
 	void Start () {
 		car = GetComponent<BaseCarController>();
