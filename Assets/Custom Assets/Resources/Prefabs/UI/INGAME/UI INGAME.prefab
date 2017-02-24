@@ -39,11 +39,11 @@ GameObject:
   - component: {fileID: 222687344597271514}
   - component: {fileID: 114827777858351236}
   m_Layer: 5
-  m_Name: Min1
+  m_Name: Min0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1098230139734378
 GameObject:
@@ -112,7 +112,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1224756921280698
 GameObject:
@@ -231,11 +231,11 @@ GameObject:
   - component: {fileID: 222433795745521380}
   - component: {fileID: 114376140816689820}
   m_Layer: 5
-  m_Name: Sec0
+  m_Name: Sec1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1370300863174818
 GameObject:
@@ -266,11 +266,11 @@ GameObject:
   - component: {fileID: 222441060436514134}
   - component: {fileID: 114810236731403536}
   m_Layer: 5
-  m_Name: Min0
+  m_Name: Min1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1454383364420286
 GameObject:
@@ -304,7 +304,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1551686488515048
 GameObject:
@@ -405,11 +405,11 @@ GameObject:
   - component: {fileID: 222127086641566130}
   - component: {fileID: 114207983211925368}
   m_Layer: 5
-  m_Name: Cent0
+  m_Name: Cent1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1664810568671372
 GameObject:
@@ -524,11 +524,11 @@ GameObject:
   - component: {fileID: 222720397598282372}
   - component: {fileID: 114553797191129648}
   m_Layer: 5
-  m_Name: Cent1
+  m_Name: Cent0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1926826886384154
 GameObject:
@@ -575,11 +575,11 @@ GameObject:
   - component: {fileID: 222967454126232324}
   - component: {fileID: 114380601844923352}
   m_Layer: 5
-  m_Name: Sec1
+  m_Name: Sec0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1975109854991322
 GameObject:
@@ -746,7 +746,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restartKeycode: 8
   menuKeycode: 27
-  banks: []
   debug: 1
 --- !u!114 &114124041109599058
 MonoBehaviour:
@@ -1270,7 +1269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 521d6dafc99fda74c9a3624117c42474, type: 2}
-  m_Color: {r: 0.09019608, g: 0.98823535, b: 0.5529412, a: 0}
+  m_Color: {r: 0.98823535, g: 0.090196095, b: 0.090196095, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1495,8 +1494,10 @@ MonoBehaviour:
   chrono:
   - {fileID: 114810236731403536}
   - {fileID: 114827777858351236}
+  - {fileID: 114378605286508220}
   - {fileID: 114376140816689820}
   - {fileID: 114380601844923352}
+  - {fileID: 114133351660120824}
   - {fileID: 114207983211925368}
   - {fileID: 114553797191129648}
   penality: {fileID: 114553938432495920}
@@ -17730,7 +17731,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 223.21997, y: 10.549999}
+  m_AnchoredPosition: {x: 220, y: 10.549999}
   m_SizeDelta: {x: 57.600006, y: -133.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224103793021082788
@@ -17842,7 +17843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -80, y: -9}
+  m_AnchoredPosition: {x: -84, y: -9}
   m_SizeDelta: {x: 53, y: -94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224354012931480540

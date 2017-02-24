@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviour {
 
     const float maxTime = 5999.99f;
 
-    public bool defile = true;
+    public bool defile = false;
+
+    bool backward = false;
+    float timeDestruction = 0f;
 
     void Start()
     {
@@ -33,20 +36,35 @@ public class GameManager : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()
     {
         if (defile)
         {
+            backward = false;
             time += Time.deltaTime;
+        }
+        else
+        {
+            if (!backward)
+            {
+                backward = true;
+                timeDestruction = time;
+            }
+            time = Mathf.MoveTowards(time, CheckPoint.data.time, (timeDestruction - CheckPoint.data.time) * Time.deltaTime);
         }
     }
 
-    public void CheckBack(CheckPoint check)
+    public void CheckBack()
     {
         FindObjectOfType<CarDinoHUD>().hasPenality = true;
-        time = check.timeCol + penality;
+        CheckPoint.AddPenality(penality);
+        time = CheckPoint.data.time;
     }
 
     public void Restart()

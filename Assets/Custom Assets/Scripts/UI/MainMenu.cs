@@ -82,6 +82,7 @@ public class MainMenu : MonoBehaviour {
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
             async.allowSceneActivation = true;
+            GameManager.instance.defile = true;
         }
         else
         {

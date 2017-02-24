@@ -30,6 +30,9 @@ public class CarDinoHUD : MonoBehaviour {
 
     public Rewired.Player pInput;
 
+    static Color greenColor = new Color(23f / 255f, 252f / 255f, 141f / 255f);
+    static Color redColor = new Color(252f / 255f, 23f / 255f, 23f / 255f);
+
     Color colorPenality;
     float timePenality = 0f;
 
@@ -99,8 +102,10 @@ public class CarDinoHUD : MonoBehaviour {
     {
         string times = GetTimes(GameManager.instance.time);
 
-        for (int i = 0; i < 6; i++)
+        Color col = GameManager.instance.defile ? greenColor : redColor;
+        for (int i = 0; i < 8; i++)
         {
+            chrono[i].color = col;
             chrono[i].text = times[i].ToString();
         }
 
@@ -108,8 +113,7 @@ public class CarDinoHUD : MonoBehaviour {
         {
             timePenality += Time.deltaTime / penalityDuration;
 
-            string p = GetTimes(GameManager.instance.penality);
-            penality.text = "+ " + p[0] + p[1] + ":" + p[2] + p[3] + ":" + p[4] + p[5];
+            penality.text = "+ " + GetTimes(GameManager.instance.penality);
 
             if (timePenality >= 1f)
             {
@@ -167,7 +171,7 @@ public class CarDinoHUD : MonoBehaviour {
         int cent = Mathf.FloorToInt(100f * (time - floor));
         string cen = GetTime(cent);
 
-        return min + sec + cen;
+        return min + ":" + sec + ":" + cen;
     }
 
     string GetTime(int t)
