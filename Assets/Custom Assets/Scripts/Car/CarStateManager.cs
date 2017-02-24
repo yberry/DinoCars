@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,12 +37,22 @@ namespace CND.Car
 			car.transform.rotation = rotation;
 		}
 
-		public void Kill()
+		public void Kill(bool explode=false)
 		{
 			car.gameObject.SetActive(false);
 			car.rBody.velocity = Vector3.zero;
 			car.rBody.angularVelocity = Vector3.zero;
 			//LastTimeSpawned = Time.time;
+		}
+
+		internal void Explode()
+		{
+			var exp = GetComponentInChildren<PseudoVolumetricExplosion>();
+			if (exp)
+			{
+				exp.enabled = true;
+				exp.Play();
+			}
 		}
 	}
 
