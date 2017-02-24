@@ -1743,8 +1743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   type: 1
-  alphaMin: 0.5
-  alphaMax: 1
+  colorMin: {r: 1, g: 1, b: 1, a: 0.503}
+  colorMax: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114915917619752664
 MonoBehaviour:
   m_ObjectHideFlags: 1
