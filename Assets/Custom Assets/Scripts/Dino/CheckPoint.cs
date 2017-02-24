@@ -5,64 +5,54 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class CheckPoint : MonoBehaviour {
 
+    public struct Data
+    {
+        public Vector3 position;
+        public Quaternion rotation;
+        public float time;
+    }
+
     public int num;
-    public MegaShapeLoft previousLoft;
-    public MegaShapeLoft nextLoft;
 
     static CheckPoint lastCheckPoint;
 
-    public static Vector3 lastPosition
-    {
-        get
-        {
-            return lastCheckPoint.transform.position;
-        }
-    }
+    public static Data data { get; private set; }
 
     void Start()
     {
         if (num == 0)
         {
-            lastCheckPoint = this;
+            UpdateCheckPoint();
         }
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (col is MeshCollider)
+        if (col is MeshCollider && num > lastCheckPoint.num)
         {
-            if (nextLoft)
-            {
-                nextLoft.DoCollider = true;
-                nextLoft.RefreshCollider();
-            }
-            if (previousLoft)
-            {
-                previousLoft.DoCollider = true;
-                previousLoft.RefreshCollider();
-            }
-            if (num > lastCheckPoint.num)
-            {
-                lastCheckPoint = this;
-            }
+            UpdateCheckPoint();
+            GameManager.instance.PassCheckPoint();
         }
     }
 
-    void OnTriggerExit(Collider col)
+    void UpdateCheckPoint()
     {
-        if (col is MeshCollider)
+        lastCheckPoint = this;
+        data = new Data
         {
-            if (Vector3.Dot(transform.forward, col.transform.position - transform.position) >= 0f)
-            {
-                if (previousLoft)
-                {
-                    previousLoft.DoCollider = false;
-                }
-            }
-            else if (nextLoft)
-            {
-                nextLoft.DoCollider = false;
-            }
-        }
+            position = transform.position,
+            rotation = transform.rotation,
+            time = GameManager.instance.time
+        };
+    }
+
+    public static void AddPenality(float penality)
+    {
+        data = new Data
+        {
+            position = data.position,
+            rotation = data.rotation,
+            time = data.time + penality
+        };
     }
 }

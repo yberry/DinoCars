@@ -24,6 +24,7 @@ public class DeadZone : MonoBehaviour {
 
     IEnumerator Restart(Transform car)
     {
+        GameManager.instance.defile = false;
         GameObject explosion = Instantiate(ExplosionPrefab, car.position, Quaternion.identity);
 
 		var carStateMgr = car.GetComponent<CND.Car.CarStateManager>();
@@ -31,7 +32,10 @@ public class DeadZone : MonoBehaviour {
 
         yield return new WaitForSeconds(duration);
         Destroy(explosion);
-		carStateMgr.Spawn(CheckPoint.lastPosition, Quaternion.identity);
+        CheckPoint.Data data = CheckPoint.data;
+        GameManager.instance.CheckBack();
+        GameManager.instance.defile = true;
+		carStateMgr.Spawn(data.position, data.rotation);
 
     }
 }
