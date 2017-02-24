@@ -1,15 +1,16 @@
 ﻿using UnityEditor;
 
 [CustomEditor(typeof(LevelScene))]
-public class LevelSceneEditor : Editor {
+public class LevelSceneEditor : ChooseSceneEditor {
 
     LevelScene levelScene;
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
+
         levelScene = target as LevelScene;
 
-        levelScene.Update(ref levelScene.scene, "Scene", SwitchScene.SceneArray);
         levelScene.Update(ref levelScene.titre, "Titre");
         if (levelScene.titre.Length > 50)
         {

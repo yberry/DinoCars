@@ -130,17 +130,17 @@ public class MainMenu : MonoBehaviour {
         cameraVHS.feedbackColor = Color.HSVToRGB(timeColor / 359f, 1f, 1f);
     }
 
-    public void ChooseLevel()
+    public void ChooseLevel(bool practise)
     {
         EventSystem.current.SetSelectedGameObject(null);
-        StartCoroutine(ChargeLevel());
+        StartCoroutine(ChargeLevel(practise));
     }
 
-    IEnumerator ChargeLevel()
+    IEnumerator ChargeLevel(bool practise)
     {
         pourcentage.enabled = true;
 
-        async = SceneManager.LoadSceneAsync(levelSelection.map.scene);
+        async = SceneManager.LoadSceneAsync(practise ? GetComponent<ChooseScene>().scene : levelSelection.map.scene);
         async.allowSceneActivation = false;
 
         while (async.progress < 0.9f)
@@ -152,5 +152,14 @@ public class MainMenu : MonoBehaviour {
         }
 
         ChangeTo(null);
+    }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

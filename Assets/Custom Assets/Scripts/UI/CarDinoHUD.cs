@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -176,7 +174,7 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
-    string GetTimes(float time)
+    public static string GetTimes(float time)
     {
         int floor = Mathf.FloorToInt(time);
         int reste = floor % 60;
@@ -190,7 +188,7 @@ public class CarDinoHUD : MonoBehaviour {
         return min + ":" + sec + ":" + cen;
     }
 
-    string GetTime(int t)
+    static string GetTime(int t)
     {
         return (t < 10 ? "0" : "") + t.ToString();
     }
@@ -222,11 +220,8 @@ public class CarDinoHUD : MonoBehaviour {
     {
         if (pause)
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            Resume();
+            GetComponent<Restart>().RestartMenu();
         }
     }
 }
