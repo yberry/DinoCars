@@ -423,6 +423,10 @@
 					<ShortName>UI\Click_Alt_01.wav</ShortName>
 					<Path>SFX\UI\Click_Alt_01_9E69E797.wem</Path>
 				</File>
+				<File Id="697563373" Language="SFX">
+					<ShortName>Music_Menu_Loop.wav</ShortName>
+					<Path>SFX\Music_Menu_Loop_4D7BABE6.wem</Path>
+				</File>
 				<File Id="705967970" Language="SFX">
 					<ShortName>Kick_10.wav</ShortName>
 					<Path>SFX\Kick_10_9E69E797.wem</Path>
@@ -442,10 +446,6 @@
 				<File Id="971373209" Language="SFX">
 					<ShortName>Kick_3.wav</ShortName>
 					<Path>SFX\Kick_3_9E69E797.wem</Path>
-				</File>
-				<File Id="980800417" Language="SFX">
-					<ShortName>Music_Pause_Loop.wav</ShortName>
-					<Path>SFX\Music_Pause_Loop_4D7BABE6.wem</Path>
 				</File>
 				<File Id="1026844953" Language="SFX">
 					<ShortName>UI\Zap.wav</ShortName>
@@ -670,97 +670,25 @@
 				<Event Id="3414308035" Name="Music_PracticeScene_Play" ObjectPath="\Events\Default Work Unit\Music\Music_PracticeScene_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="52507000" Language="SFX">
-					<ShortName>Original-SyntheEerie2.wav</ShortName>
-					<Path>SFX\Original-SyntheEerie2_4D7BABE6.wem</Path>
+				<File Id="77944704" Language="SFX">
+					<ShortName>Music_Dino_Beat_Loop.wav</ShortName>
+					<Path>SFX\Music_Dino_Beat_Loop_4D7BABE6.wem</Path>
 				</File>
-				<File Id="204806054" Language="SFX">
-					<ShortName>Original-HH.wav</ShortName>
-					<Path>SFX\Original-HH_4D7BABE6.wem</Path>
+				<File Id="258758959" Language="SFX">
+					<ShortName>Music_Practice_Synthe_Loop.wav</ShortName>
+					<Path>SFX\Music_Practice_Synthe_Loop_4D7BABE6.wem</Path>
 				</File>
-				<File Id="238915334" Language="SFX">
-					<ShortName>Music_Circuit_10.wav</ShortName>
-					<Path>SFX\Music_Circuit_10_4D7BABE6.wem</Path>
+				<File Id="425884850" Language="SFX">
+					<ShortName>Music_Practice_Beat_Loop.wav</ShortName>
+					<Path>SFX\Music_Practice_Beat_Loop_4D7BABE6.wem</Path>
 				</File>
-				<File Id="254471471" Language="SFX">
-					<ShortName>Music_Circuit_09.wav</ShortName>
-					<Path>SFX\Music_Circuit_09_4D7BABE6.wem</Path>
+				<File Id="697563373" Language="SFX">
+					<ShortName>Music_Menu_Loop.wav</ShortName>
+					<Path>SFX\Music_Menu_Loop_4D7BABE6.wem</Path>
 				</File>
-				<File Id="256552076" Language="SFX">
-					<ShortName>Original-Beat.wav</ShortName>
-					<Path>SFX\Original-Beat_4D7BABE6.wem</Path>
-				</File>
-				<File Id="286869350" Language="SFX">
-					<ShortName>Music_Circuit_05.wav</ShortName>
-					<Path>SFX\Music_Circuit_05_4D7BABE6.wem</Path>
-				</File>
-				<File Id="293142317" Language="SFX">
-					<ShortName>Music_Circuit_06.wav</ShortName>
-					<Path>SFX\Music_Circuit_06_4D7BABE6.wem</Path>
-				</File>
-				<File Id="352268829" Language="SFX">
-					<ShortName>Original-Kick.wav</ShortName>
-					<Path>SFX\Original-Kick_4D7BABE6.wem</Path>
-				</File>
-				<File Id="385114083" Language="SFX">
-					<ShortName>Music_Circuit_01.wav</ShortName>
-					<Path>SFX\Music_Circuit_01_4D7BABE6.wem</Path>
-				</File>
-				<File Id="422978390" Language="SFX">
-					<ShortName>Original-SyntheEerie.wav</ShortName>
-					<Path>SFX\Original-SyntheEerie_4D7BABE6.wem</Path>
-				</File>
-				<File Id="483280379" Language="SFX">
-					<ShortName>Original-GuitSat.wav</ShortName>
-					<Path>SFX\Original-GuitSat_4D7BABE6.wem</Path>
-				</File>
-				<File Id="552587768" Language="SFX">
-					<ShortName>Music_Circuit_02.wav</ShortName>
-					<Path>SFX\Music_Circuit_02_4D7BABE6.wem</Path>
-				</File>
-				<File Id="628301151" Language="SFX">
-					<ShortName>Music_Circuit_08.wav</ShortName>
-					<Path>SFX\Music_Circuit_08_4D7BABE6.wem</Path>
-				</File>
-				<File Id="669969615" Language="SFX">
-					<ShortName>Original-Tom.wav</ShortName>
-					<Path>SFX\Original-Tom_4D7BABE6.wem</Path>
-				</File>
-				<File Id="744461911" Language="SFX">
-					<ShortName>Original-Bass.wav</ShortName>
-					<Path>SFX\Original-Bass_4D7BABE6.wem</Path>
-				</File>
-				<File Id="772755722" Language="SFX">
-					<ShortName>Music_Circuit_03.wav</ShortName>
-					<Path>SFX\Music_Circuit_03_4D7BABE6.wem</Path>
-				</File>
-				<File Id="788186834" Language="SFX">
-					<ShortName>Original-Guit1.wav</ShortName>
-					<Path>SFX\Original-Guit1_4D7BABE6.wem</Path>
-				</File>
-				<File Id="879311514" Language="SFX">
-					<ShortName>Original-Synthe2.wav</ShortName>
-					<Path>SFX\Original-Synthe2_4D7BABE6.wem</Path>
-				</File>
-				<File Id="932823784" Language="SFX">
-					<ShortName>Original-Nappeprincipale.wav</ShortName>
-					<Path>SFX\Original-Nappeprincipale_4D7BABE6.wem</Path>
-				</File>
-				<File Id="966593190" Language="SFX">
-					<ShortName>Original-Nappe2.wav</ShortName>
-					<Path>SFX\Original-Nappe2_4D7BABE6.wem</Path>
-				</File>
-				<File Id="980800417" Language="SFX">
-					<ShortName>Music_Pause_Loop.wav</ShortName>
-					<Path>SFX\Music_Pause_Loop_4D7BABE6.wem</Path>
-				</File>
-				<File Id="993200957" Language="SFX">
-					<ShortName>Music_Circuit_07.wav</ShortName>
-					<Path>SFX\Music_Circuit_07_4D7BABE6.wem</Path>
-				</File>
-				<File Id="1046285184" Language="SFX">
-					<ShortName>Music_Circuit_04.wav</ShortName>
-					<Path>SFX\Music_Circuit_04_4D7BABE6.wem</Path>
+				<File Id="801910844" Language="SFX">
+					<ShortName>Music_Dino_Synthe_Loop.wav</ShortName>
+					<Path>SFX\Music_Dino_Synthe_Loop_4D7BABE6.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
