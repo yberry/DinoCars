@@ -16,20 +16,44 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8F2297CB-3E8A-4D0B-B84F-CF5B73B1BEC4}'
-    m_lastTimePsrt1: -990996376
-    m_lastTimePart2: -1999348779
+    m_lastTimePsrt1: 260455001
+    m_lastTimePart2: -1999348732
     List:
-    - Name: Ambiance_Main_Play
-      Path: Default Work Unit\Ambiance\Ambiance_Main_Play
+    - Name: Ambiance_Checkpoint_Play
+      Path: Default Work Unit\Ambiance\Ambiance_Checkpoint_Play
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Ambiance
         ObjectType: 4
-      - ElementName: Ambiance_Main_Play
+      - ElementName: Ambiance_Checkpoint_Play
         ObjectType: 3
-      ID: -167168472
+      ID: 1296828403
+      Guid: cd74ba426613d84790c5a313d02029c9
+      maxAttenuation: 0
+    - Name: Ambiance_DS_Main_Play
+      Path: Default Work Unit\Ambiance\Ambiance_DS_Main_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Ambiance
+        ObjectType: 4
+      - ElementName: Ambiance_DS_Main_Play
+        ObjectType: 3
+      ID: -1740293754
       Guid: 0e609aa6c8e27a4f8aa5fd27d4516a51
+      maxAttenuation: 0
+    - Name: Ambiance_PS_Main_Play
+      Path: Default Work Unit\Ambiance\Ambiance_PS_Main_Play
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Ambiance
+        ObjectType: 4
+      - ElementName: Ambiance_PS_Main_Play
+        ObjectType: 3
+      ID: -1335810590
+      Guid: 8224f2ae7814104a9ebd54be58ff1745
       maxAttenuation: 0
     - Name: Ambiance_Wind_Play
       Path: Default Work Unit\Ambiance\Ambiance_Wind_Play
@@ -345,8 +369,8 @@ MonoBehaviour:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{8AF1870F-F097-4779-BE1C-A5E68D0C94B1}'
-    m_lastTimePsrt1: 1722359811
-    m_lastTimePart2: -1999348942
+    m_lastTimePsrt1: 724060190
+    m_lastTimePart2: -1999348730
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
@@ -434,8 +458,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{39C57A1E-4548-40AD-9C4D-823982D1C3AC}'
-    m_lastTimePsrt1: -154010507
-    m_lastTimePart2: -1999348779
+    m_lastTimePsrt1: 260425000
+    m_lastTimePart2: -1999348732
     List:
     - Name: Ambiance
       Path: Default Work Unit\Ambiance
@@ -486,7 +510,7 @@ MonoBehaviour:
   - /CarsDino_CAR_Motor
   - /CarsDino_CAR_Motor/Events
   - /CarsDino_CAR_Motor/Events/Default Work Unit
-  - /CarsDino_CAR_Motor/Events/Default Work Unit/Car
+  - /CarsDino_CAR_Motor/Events/Default Work Unit/Ambiance
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1
