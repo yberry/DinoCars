@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114042979926134648}
   - component: {fileID: 114612261709754768}
   - component: {fileID: 114890026360456958}
+  - component: {fileID: 114541383312677450}
   m_Layer: 0
   m_Name: Audio_Car_PS
   m_TagString: Untagged
@@ -126,6 +127,28 @@ MonoBehaviour:
   useOtherObject: 0
   valueGuid: ad5e59ea8b295f4facaf669fe73bbf7d
   eventID: 885871882
+  soundEmitterObject: {fileID: 0}
+  enableActionOnEvent: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  transitionDuration: 0
+  m_callbackData: {fileID: 0}
+  playingId: 0
+--- !u!114 &114541383312677450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266619680953786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f2d9e0ec
+  useOtherObject: 0
+  valueGuid: 3e524b5f0937384782edaf4984d5241d
+  eventID: 1051603354
   soundEmitterObject: {fileID: 0}
   enableActionOnEvent: 0
   actionOnEventType: 0
