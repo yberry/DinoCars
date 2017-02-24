@@ -2184,7 +2184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9775a7243ce4ce847a2e346f6861476e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartKeyboard: 27
+  restartKeycode: 8
+  menuKeycode: 27
+  bank: {fileID: 0}
 --- !u!1001 &501359301
 Prefab:
   m_ObjectHideFlags: 0
@@ -3257,9 +3259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85abab0c6045eb74aa5ef66173780ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loft: {fileID: 1090724256}
-  layer: 0
-  refreshCollider: 1
+  layer: {fileID: 0}
   curve: 0
 --- !u!65 &758424499
 BoxCollider:
@@ -8070,6 +8070,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   alignCross: 0
+  customizeOffset: 0
+  param1: 3
+  param2: 0.33333334
+  param3: 10
+  param4: 5
   conform: 0
   direction: {x: 0, y: -1, z: 0}
   target: {fileID: 0}
@@ -14184,14 +14189,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d813b1f3ec114dd4b9209c4830721645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loft: {fileID: 1090724256}
-  layer: 0
-  refreshCollider: 0
+  layer: {fileID: 0}
   axis: 1
+  min: 0
+  max: 1
+  amplitude: 2
+  loop: 0
+  type: 0
   startToEnd: 0
   duration: 5
-  amplitude: 2
   gap: 0.2
+  turns: 1
+  freq: 1
+  speed: 1
+  customizeOffset: 0
+  param1: 3
+  param2: 0.33333334
+  param3: 10
+  param4: 5
 --- !u!65 &1163207137
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14430,9 +14445,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabWalk: {fileID: 114908325241254700, guid: dc59713724804454f9f5d2700165be78,
     type: 2}
-  surfaceLoft: {fileID: 1090724256}
-  surfaceLayer: 0
+  surfaceLayers: []
   numbers: 51
+  min: 0
+  max: 1
   crossalpha: 0.948
   delay: 0
   offset: -1.55
