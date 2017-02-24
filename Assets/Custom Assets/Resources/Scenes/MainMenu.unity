@@ -461,6 +461,7 @@ GameObject:
   - component: {fileID: 67228394}
   - component: {fileID: 67228393}
   - component: {fileID: 67228392}
+  - component: {fileID: 67228396}
   m_Layer: 5
   m_Name: Ghost Selection
   m_TagString: Untagged
@@ -565,6 +566,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &67228396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 67228390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8720329c9bc25ff4e8538a651d098517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &77225983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1393,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 0
+  titre: 
+  available: 0
 --- !u!1 &282260975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,6 +2074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 3
+  titre: "La fameuse sc\xE8ne de test"
+  available: 1
 --- !u!1 &675622990
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,6 +2418,7 @@ RectTransform:
   m_Children:
   - {fileID: 1426776055}
   - {fileID: 210578698}
+  - {fileID: 1855813490}
   - {fileID: 930597348}
   m_Father: {fileID: 1722655518}
   m_RootOrder: 0
@@ -2457,6 +2474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlight: {fileID: 1426776055}
   image: {fileID: 210578699}
+  titre: {fileID: 1855813491}
   speedMove: 200
 --- !u!1 &766280120
 GameObject:
@@ -2866,7 +2884,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 742264317}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -3094,6 +3112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 1
+  titre: Switch
+  available: 1
 --- !u!1 &1006662285
 GameObject:
   m_ObjectHideFlags: 0
@@ -5199,6 +5219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 0
+  titre: 
+  available: 0
 --- !u!1 &1461205848
 GameObject:
   m_ObjectHideFlags: 0
@@ -5847,8 +5869,8 @@ GameObject:
   - component: {fileID: 1722655521}
   - component: {fileID: 1722655520}
   - component: {fileID: 1722655519}
-  - component: {fileID: 1722655522}
   - component: {fileID: 1722655523}
+  - component: {fileID: 1722655522}
   m_Layer: 5
   m_Name: Level Selection
   m_TagString: Untagged
@@ -5947,11 +5969,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce12dd1cb3527448b00284a04cf445b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: {fileID: 742264320}
+  highlight: {fileID: 742264320}
   levels:
   - {fileID: 2018145525}
   - {fileID: 184231251}
   - {fileID: 1684188597}
+  choose: {fileID: 2005270512}
 --- !u!114 &1722655523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6290,7 +6313,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2881135038cdb43be1202d3f006abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 2
+  scene: 0
+  titre: Dino qui fonctionne pas
+  available: 1
 --- !u!1 &1853751071
 GameObject:
   m_ObjectHideFlags: 0
@@ -6363,6 +6388,80 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1853751071}
+--- !u!1 &1855813489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1855813490}
+  - component: {fileID: 1855813492}
+  - component: {fileID: 1855813491}
+  m_Layer: 5
+  m_Name: Titre
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!224 &1855813490
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1855813489}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 742264317}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 739, y: -162}
+  m_SizeDelta: {x: 367.5, y: 78.75}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &1855813491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1855813489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 1f16052dfd5f6f54e94e97ecedd4c86b, type: 3}
+    m_FontSize: 48
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Le niveau de l'enfer
+--- !u!222 &1855813492
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1855813489}
 --- !u!1 &1921679375
 GameObject:
   m_ObjectHideFlags: 0
@@ -7365,6 +7464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 2
+  titre: Record
+  available: 1
 --- !u!1 &2131277043
 GameObject:
   m_ObjectHideFlags: 0

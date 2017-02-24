@@ -77,6 +77,17 @@ public static class EditorTools {
         }
     }
 
+    public static void Update(this Object obj, ref string field, string label)
+    {
+        EditorGUI.BeginChangeCheck();
+        string s = EditorGUILayout.TextField(label, field);
+        if (EditorGUI.EndChangeCheck())
+        {
+            obj.Record(label);
+            field = s;
+        }
+    }
+
     public static void Update(this Object obj, ref Vector3 field, string label)
     {
         EditorGUI.BeginChangeCheck();

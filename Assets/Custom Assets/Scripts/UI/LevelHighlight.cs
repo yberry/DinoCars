@@ -7,6 +7,7 @@ public class LevelHighlight : MonoBehaviour {
 
     public RectTransform highlight;
     public Image image;
+    public Text titre;
     public float speedMove = 1000f;
 
     LevelScenes levelTarget;
@@ -18,6 +19,7 @@ public class LevelHighlight : MonoBehaviour {
         {
             transform.position = Vector3.MoveTowards(transform.position, levelTarget.rect.position, speedMove * Time.deltaTime);
             highlight.transform.position = Vector3.MoveTowards(highlight.transform.position, mapTarget.transform.position, speedMove * Time.deltaTime);
+            titre.text = mapTarget.titre;
         }
     }
 

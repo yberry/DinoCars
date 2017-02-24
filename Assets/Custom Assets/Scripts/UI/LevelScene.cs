@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class LevelScene : MonoBehaviour {
 
     public int scene;
+    public string titre;
+    public bool available = true;
 
     public Sprite sprite
     {

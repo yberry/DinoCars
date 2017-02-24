@@ -112,7 +112,7 @@ public class CarDinoHUD : MonoBehaviour {
 
         if (showCheck)
         {
-            showTime += Time.deltaTime / showCheckDuration;
+            showTime += Time.deltaTime / (hasPenality ? penalityDuration : showCheckDuration);
 
             if (showTime > 1f)
             {
@@ -128,7 +128,7 @@ public class CarDinoHUD : MonoBehaviour {
         {
             timePenality += Time.deltaTime / penalityDuration;
 
-            if (timePenality >= 1f)
+            if (timePenality > 1f)
             {
                 timePenality = 0f;
                 hasPenality = false;

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelSelection : MonoBehaviour {
 
-    public LevelHighlight selected;
-
+    public LevelHighlight highlight;
     public LevelScenes[] levels;
+    public Button choose;
 
     int selectedLevel = 0;
     int SelectedLevel
@@ -30,7 +31,7 @@ public class LevelSelection : MonoBehaviour {
             {
                 selectedLevel = value;
             }
-            selected.SetLevel(level);
+            highlight.SetLevel(level);
             SelectedMap = selectedMap;
         }
     }
@@ -65,7 +66,9 @@ public class LevelSelection : MonoBehaviour {
             {
                 selectedMap = value;
             }
-            selected.SetMap(map);
+            highlight.SetMap(map);
+
+            choose.interactable = map.available;
         }
     }
 
