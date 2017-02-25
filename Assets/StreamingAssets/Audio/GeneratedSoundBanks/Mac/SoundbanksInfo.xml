@@ -18,7 +18,9 @@
 			<IncludedEvents>
 				<Event Id="1296828403" Name="Ambiance_Checkpoint_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Checkpoint_Play"/>
 				<Event Id="2554673542" Name="Ambiance_DS_Main_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_DS_Main_Play"/>
+				<Event Id="3368049974" Name="Ambiance_Finish_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Finish_Play"/>
 				<Event Id="2959156706" Name="Ambiance_PS_Main_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_PS_Main_Play"/>
+				<Event Id="4277185621" Name="Ambiance_Start_CountDown_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Start_CountDown_Play"/>
 				<Event Id="3759478915" Name="Ambiance_Wind_Play" ObjectPath="\Events\Default Work Unit\Ambiance\Ambiance_Wind_Play"/>
 				<Event Id="2086347706" Name="Car_Boost_Play" ObjectPath="\Events\Default Work Unit\Car\Car_Boost_Play"/>
 				<Event Id="3485429956" Name="Car_Boost_Stop" ObjectPath="\Events\Default Work Unit\Car\Car_Boost_Stop"/>
@@ -286,6 +288,10 @@
 					<ShortName>Footsteps\Dino_SingleFtsp_05.wav</ShortName>
 					<Path>SFX\Footsteps\Dino_SingleFtsp_05_9E69E797.wem</Path>
 				</File>
+				<File Id="851313268" Language="SFX">
+					<ShortName>Ambiance_Finish.wav</ShortName>
+					<Path>SFX\Ambiance_Finish_9E69E797.wem</Path>
+				</File>
 				<File Id="868162391" Language="SFX">
 					<ShortName>Ambiance trucs\Ambiance_Divers_07.wav</ShortName>
 					<Path>SFX\Ambiance trucs\Ambiance_Divers_07_3ADACB5C.wem</Path>
@@ -305,6 +311,10 @@
 				<File Id="907194361" Language="SFX">
 					<ShortName>Impact_Pneumatic_03.wav</ShortName>
 					<Path>SFX\Impact_Pneumatic_03_3AE5877C.wem</Path>
+				</File>
+				<File Id="909382560" Language="SFX">
+					<ShortName>Ambiance_Start.wav</ShortName>
+					<Path>SFX\Ambiance_Start_9E69E797.wem</Path>
 				</File>
 				<File Id="913329079" Language="SFX">
 					<ShortName>CRIS\Cris-19.wav</ShortName>

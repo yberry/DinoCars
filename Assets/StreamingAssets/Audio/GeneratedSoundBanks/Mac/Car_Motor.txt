@@ -12,9 +12,11 @@ Event	ID	Name			Wwise Object Path	Notes
 	2290073908	Car_Skid_Stop			\Default Work Unit\Car\Car_Skid_Stop	
 	2554673542	Ambiance_DS_Main_Play			\Default Work Unit\Ambiance\Ambiance_DS_Main_Play	
 	2959156706	Ambiance_PS_Main_Play			\Default Work Unit\Ambiance\Ambiance_PS_Main_Play	
+	3368049974	Ambiance_Finish_Play			\Default Work Unit\Ambiance\Ambiance_Finish_Play	
 	3485429956	Car_Boost_Stop			\Default Work Unit\Car\Car_Boost_Stop	
 	3759478915	Ambiance_Wind_Play			\Default Work Unit\Ambiance\Ambiance_Wind_Play	
 	3784223555	Car_Impact_Small_Play			\Default Work Unit\Car\Car_Impact_Small_Play	
+	4277185621	Ambiance_Start_CountDown_Play			\Default Work Unit\Ambiance\Ambiance_Start_CountDown_Play	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	796049864	RPM			\Default Work Unit\Car_Engine\RPM	
@@ -92,11 +94,13 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	793991666	Impact_Pneumatic_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_01_3AE5877C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_01		46374
 	804587457	Ambiance_Trucs_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Ambiance trucs\Ambiance_Trucs_03_3ADACB5C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Checkpoint\Ambiance_Trucs_03		195575
 	808389963	Dino_SingleFtsp_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_05_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_05		127424
+	851313268	Ambiance_Finish	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Ambiance_Finish_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Ambiance_Finish		1536064
 	868162391	Ambiance_Divers_07	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Ambiance trucs\Ambiance_Divers_07_3ADACB5C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambiance trucs\Random_Cris_01\Ambiance_Divers_07		294701
 	881912051	Explosion_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\SFX_Explosion\Explosion_05_3AE5877C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Explosion\Explosion\Explosion_05		359622
 	893174470	Dino_SingleFtsp_04	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Footsteps\Dino_SingleFtsp_04_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Footsteps\Footsteps\Dino_SingleFtsp_04		125248
 	898156801	Ambiance_Divers_05	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Ambiance trucs\Ambiance_Divers_05_3ADACB5C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambiance trucs\Random_Cris_01\Ambiance_Divers_05		372157
 	907194361	Impact_Pneumatic_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Impact_Pneumatic_03_3AE5877C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Impact\Impact_Pneumatic\Impact_Pneumatic_03		59067
+	909382560	Ambiance_Start	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Ambiance_Start_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Ambiance_Start		1536064
 	913329079	Cris-19	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\CRIS\Cris-19_3ADACB5C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino_Cris_02\Cris-19		117118
 	917889807	Ambiance_Dino_Cris_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Ambiance trucs\Ambiance_Dino_Cris_02_3ADACB5C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Dinosaure\Dino_Cris_01\Ambiance_Dino_Cris_02		198884
 	943764081	Boost_Start	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Boost_Start_02_59832A9F.wem		\Actor-Mixer Hierarchy\Default Work Unit\Car\Boost\Boost_Start		105091
