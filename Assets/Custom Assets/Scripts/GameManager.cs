@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    const float maxTime = 5999.99f;
+    public const float maxTime = 5999.99f;
 
     public bool defile = false;
 

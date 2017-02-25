@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Custom Assets/Resources/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Custom Assets/Resources/Scenes/PracticeSkinFinal.unity
+    path: Assets/Custom Assets/Resources/Scenes/PracticeSkinFinal_Habillage.unity
   - enabled: 1
     path: Assets/Custom Assets/Resources/Scenes/SwitchScene.unity
   - enabled: 1

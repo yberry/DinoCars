@@ -32,7 +32,13 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
     [HideInInspector]
     public int lastRecordedStateIndex = -1;
 
-
+    public float totalTime
+    {
+        get
+        {
+            return states[lastRecordedStateIndex].timeSinceGhostStart;
+        }
+    }
 
     public void GetObjectData(BinaryWriter writer)
     {
@@ -212,7 +218,7 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
             {
                 State currentState = states[currentIndexRecorded];
 
-                currentState.timeSinceGhostStart = Time.realtimeSinceStartup - recordTime;
+                currentState.timeSinceGhostStart = Mathf.Min(Time.realtimeSinceStartup - recordTime, GameManager.maxTime);
 
                 FillState(currentState, targetCarGhost);
 

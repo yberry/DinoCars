@@ -8,9 +8,20 @@ public class GhostSelection : MonoBehaviour {
 
     public RectTransform table;
     public Text textPrefab;
+    public RectTransform highlight;
 
     float height;
     List<Ghost> ghosts;
+
+    Vector2 NewPosition
+    {
+        get
+        {
+            Vector2 position = textPrefab.rectTransform.anchoredPosition;
+            position.y -= (table.childCount - 2) * height;
+            return position;
+        }
+    }
 
     void Start()
     {
@@ -18,15 +29,16 @@ public class GhostSelection : MonoBehaviour {
 
         ghosts = PersistentDataSystem.Instance.LoadAllSavedData<Ghost>(20);
 
-        ghosts.Sort((x, y) => x.recordTime.CompareTo(y.recordTime));
+        ghosts.Sort((x, y) => x.totalTime.CompareTo(y.totalTime));
 
-        ghosts.ForEach(g => AddGhost(g.recordTime));
+        ghosts.ForEach(AddGhost);
     }
 
-    void AddGhost(float time)
+    void AddGhost(Ghost ghost)
     {
         Text text = Instantiate(textPrefab, table);
-        text.text = "#" + (table.childCount - 1) + " : " + CarDinoHUD.GetTimes(time);
+        text.rectTransform.anchoredPosition = NewPosition;
+        text.text = "#" + (table.childCount - 2) + " : " + CarDinoHUD.GetTimes(ghost.totalTime);
         text.gameObject.SetActive(true);
     }
 }
