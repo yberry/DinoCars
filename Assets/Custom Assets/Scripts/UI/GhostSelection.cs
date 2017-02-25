@@ -9,36 +9,73 @@ public class GhostSelection : MonoBehaviour {
     public RectTransform table;
     public Text textPrefab;
     public RectTransform highlight;
+    public float speedMove = 100f;
 
-    float height;
     List<Ghost> ghosts;
 
-    Vector2 NewPosition
+    int index = 0;
+    int Index
     {
         get
         {
-            Vector2 position = textPrefab.rectTransform.anchoredPosition;
-            position.y -= (table.childCount - 2) * height;
-            return position;
+            return index;
+        }
+
+        set
+        {
+            if (value > ghosts.Count)
+            {
+                index = 0;
+            }
+            else if (value < 0)
+            {
+                index = ghosts.Count;
+            }
+            else
+            {
+                index = value;
+            }
+        }
+    }
+
+    Vector3 CurrentPosition
+    {
+        get
+        {
+            return table.GetChild(index).transform.position;
         }
     }
 
     void Start()
     {
-        height = textPrefab.rectTransform.rect.height;
-
         ghosts = PersistentDataSystem.Instance.LoadAllSavedData<Ghost>(20);
 
         ghosts.Sort((x, y) => x.totalTime.CompareTo(y.totalTime));
 
         ghosts.ForEach(AddGhost);
+
+        Index = 0;
+    }
+
+    void Update()
+    {
+        highlight.position = Vector3.MoveTowards(highlight.position, CurrentPosition, speedMove * Time.deltaTime);
     }
 
     void AddGhost(Ghost ghost)
     {
-        Text text = Instantiate(textPrefab, table);
-        text.rectTransform.anchoredPosition = NewPosition;
-        text.text = "#" + (table.childCount - 2) + " : " + CarDinoHUD.GetTimes(ghost.totalTime);
-        text.gameObject.SetActive(true);
+        string num = table.childCount.ToString();
+        Text newText = Instantiate(textPrefab, table);
+        newText.text = "#" + num + " : " + CarDinoHUD.GetTimes(ghost.totalTime);
+    }
+
+    public void Up()
+    {
+        Index--;
+    }
+
+    public void Down()
+    {
+        Index++;
     }
 }
