@@ -10,6 +10,12 @@ public class CarDinoHUD : MonoBehaviour {
 
     [Header("Chrono")]
     public Text[] chrono;
+    public Text checkTime;
+    public Text[] penality;
+    public bool showCheck = false;
+    public float showCheckDuration = 3f;
+    public bool hasPenality = false;
+    public float penalityDuration = 3f;
 
     [Header("Compteur")]
     public Image[] boost;
@@ -27,11 +33,14 @@ public class CarDinoHUD : MonoBehaviour {
 
     public Rewired.Player pInput;
 
+    static Color greenColor = new Color(23f / 255f, 252f / 255f, 141f / 255f);
+    static Color redColor = new Color(252f / 255f, 23f / 255f, 23f / 255f);
+
+    float showTime = 0f;
+    float timePenality = 0f;
+
     const float minRot = 141f;
     const float maxSpeed = 340f;
-
-    float time = 0f;
-    const float maxTime = 5999.99f;
 
     float boostDuration = 0f;
     Color colorBoost;
@@ -83,12 +92,6 @@ public class CarDinoHUD : MonoBehaviour {
 
     void Update()
     {
-        time += Time.deltaTime;
-        if (time > maxTime)
-        {
-            time = maxTime;
-        }
-
         UpdateChrono();
         UpdateCompteur();
         UpdatePause();
@@ -98,11 +101,44 @@ public class CarDinoHUD : MonoBehaviour {
 
     void UpdateChrono()
     {
-        string times = GetTimes();
+        string times = GetTimes(GameManager.instance.time);
 
-        for (int i = 0; i < 6; i++)
+        Color col = GameManager.instance.defile ? greenColor : redColor;
+        for (int i = 0; i < 8; i++)
         {
+            chrono[i].color = col;
             chrono[i].text = times[i].ToString();
+        }
+
+        if (showCheck)
+        {
+            showTime += Time.deltaTime / (hasPenality ? penalityDuration : showCheckDuration);
+
+            if (showTime > 1f)
+            {
+                showTime = 0f;
+                showCheck = false;
+            }
+
+            checkTime.text = GetTimes(CheckPoint.data.time - (hasPenality ? GameManager.instance.penality : 0f));
+        }
+        checkTime.enabled = showCheck;
+
+        if (hasPenality)
+        {
+            timePenality += Time.deltaTime / penalityDuration;
+
+            if (timePenality > 1f)
+            {
+                timePenality = 0f;
+                hasPenality = false;
+            }
+
+            penality[1].text = GetTimes(GameManager.instance.penality);
+        }
+        foreach (Text p in penality)
+        {
+            p.enabled = hasPenality;
         }
     }
 
@@ -140,7 +176,7 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
-    string GetTimes()
+    string GetTimes(float time)
     {
         int floor = Mathf.FloorToInt(time);
         int reste = floor % 60;
@@ -151,7 +187,7 @@ public class CarDinoHUD : MonoBehaviour {
         int cent = Mathf.FloorToInt(100f * (time - floor));
         string cen = GetTime(cent);
 
-        return min + sec + cen;
+        return min + ":" + sec + ":" + cen;
     }
 
     string GetTime(int t)
@@ -173,7 +209,7 @@ public class CarDinoHUD : MonoBehaviour {
         if (pause)
         {
             Resume();
-            FindObjectOfType<Restart>().RestartScene();
+            GetComponent<Restart>().RestartScene();
         }
     }
 

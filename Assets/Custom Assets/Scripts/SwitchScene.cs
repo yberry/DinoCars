@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -14,20 +15,31 @@ public class SwitchScene : MonoBehaviour {
     List<Button> buttons = new List<Button>();
     Text text;
 
-    public static IEnumerable<string> SceneNames()
+    static IEnumerable<string> SceneNames
     {
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        get
         {
-            string[] path = SceneUtility.GetScenePathByBuildIndex(i).Split('/');
-            string scene = path[path.Length - 1];
-            yield return scene.Substring(0, scene.Length - 6);
+            for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+            {
+                string[] path = SceneUtility.GetScenePathByBuildIndex(i).Split('/');
+                string scene = path[path.Length - 1];
+                yield return scene.Substring(0, scene.Length - 6);
+            }
+        }
+    }
+
+    public static string[] SceneArray
+    {
+        get
+        {
+            return SceneNames.ToArray();
         }
     }
 
     void Awake()
     {
         int i = 0;
-        foreach (string scene in SceneNames())
+        foreach (string scene in SceneNames)
         {
             int sc = 1 << i;
             if ((mask & sc) != 0)

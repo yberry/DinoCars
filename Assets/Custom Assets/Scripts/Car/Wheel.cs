@@ -73,8 +73,8 @@ namespace CND.Car
 		public bool legacySuspensions = false;
 		[Range(1, 2f)]
 		public float hitDetectionTolerance=1;
-		[Range(1,1000f)]
-		public float shockAbsorb = 1f;
+		[Range(0,10000f)]
+		public float sinkCompensationForce = 0;
 		// Use this for initialization
 		void Start()
         {
@@ -120,6 +120,8 @@ namespace CND.Car
 			steerRot = transform.localRotation * Quaternion.Euler(0, steerAngleDeg, 0);
 			
 		}
+
+
 
 		public void RefreshFixedData()
 		{
@@ -282,8 +284,9 @@ namespace CND.Car
 		protected virtual bool FillContactInfo_Raycast(ref ContactInfo contact, out RaycastHit hit)
 		{
 			bool success;
-			float checkDist = (contact.springLength + settings.wheelRadius) * hitDetectionTolerance/* * settings.maxExpansion */;
-
+			float rayDist = (contact.springLength + settings.wheelRadius);
+			float checkDist = rayDist * hitDetectionTolerance/* * settings.maxExpansion */;
+			contact.targetContactPoint = transform.position - transform.up * rayDist;
 			if (success=Physics.Raycast(transform.position, -transform.up, out hit, checkDist)){
 				contact.hit = hit;
 				contact.finalContactPoint = hit.point;
@@ -326,7 +329,7 @@ namespace CND.Car
 				//contact.springLength = Mathf.Lerp(contact.springLength,springLength,1f-prevContactInfo.springCompression*0.5f);
 
 				pointPlusOtherVel += contact.otherColliderVelocity;
-				contact.targetContactPoint = transform.position - transform.up * (contact.springLength + settings.wheelRadius);
+				
 
 			} else
 			{
@@ -355,7 +358,7 @@ namespace CND.Car
 			Vector3 rcDistToContactGap = contact.targetContactPoint - contact.finalContactPoint; //gap between raycast targetpoint and hitpoint (to calculate ground sink distance)
 			float newSinkDist = Vector3.Distance(contact.finalContactPoint, contact.targetContactPoint);
 
-			float currentCompressionLength = settings.baseSpringLength - contact.springLength + (contact.compressionVelocity > 0? newSinkDist*0.99f :0);
+			float currentCompressionLength = (settings.baseSpringLength - contact.springLength) + (contact.compressionVelocity != 0? newSinkDist :0);
 			contact.springCompression = settings.maxCompression > float.Epsilon ? currentCompressionLength / compressionMargin : 1f;
 
 			Vector3 shockCancel = GetShockCancelForce(contact);
@@ -384,8 +387,9 @@ namespace CND.Car
 				float springExpand = springResistance *settings.springForce;// * 0.95f;
 				float dampingForce = contactInfo.compressionVelocity >= 0 ? settings.compressionDamping : settings.decompressionDamping;
 				float springDamp = contactInfo.compressionVelocity * dampingForce;
-				upForce = Vector3.SlerpUnclamped(transform.up, hit.normal,0.5f) * (springExpand + springDamp);
-				upForce += GetSinkThroughGroundCompensationForce(contact);
+				float finalForce = (springExpand + springDamp);
+				upForce = Vector3.SlerpUnclamped(transform.up, hit.normal,0.5f) * (finalForce != 0 ? finalForce : 0.01f);
+
 				//upForce *= 1f+MathEx.DotToLinear(Vector3.Dot(contact.horizontalRootVelocity, hit.normal));
 
 				//upForce = Vector3.Lerp(upForce, upForce+upForce.normalized*(1f+Mathf.Max(0,contactInfo.compressionVelocity)), contact.springCompression);
@@ -396,7 +400,7 @@ namespace CND.Car
 				pushForce = Vector3.Lerp(m_contactInfo.upForce, transform.up * (springExpand+ springDamp),1f);*/
 			}
 
-			contact.upForce = upForce;
+			contact.appliedSpringForce = upForce;
 		}
 
 		protected virtual void FillContactInfo_NotOnFloor(ref ContactInfo contact)
@@ -438,8 +442,9 @@ namespace CND.Car
 
 
 		#endregion FillContact methods
-		protected virtual Vector3 GetSinkThroughGroundCompensationForce(ContactInfo contact)
+		protected virtual Vector3 GetSinkThroughGroundCompensationForce(ContactInfo contact, float? carMass)
 		{
+#if BACKUP_CODE
 			//float sinkCompensation = Mathf.Pow( contactInfo.springCompression,10) * Mathf.Max(0, contact.compressionVelocity*10f) / Time.fixedDeltaTime;
 			Vector3 prev_rcDistToContactGap = prevContactInfo.targetContactPoint - prevContactInfo.finalContactPoint;
 			Vector3 rcDistToContactGap = contact.targetContactPoint - contact.finalContactPoint; //gap between raycast targetpoint and hitpoint (to calculate ground sink distance)
@@ -449,15 +454,26 @@ namespace CND.Car
 			float compressionSign = Mathf.Sign(contactInfo.compressionVelocity);
 			float sinkCompensationVel = Mathf.Lerp(contactInfo.compressionVelocity, 5f * Mathf.Sqrt(contactInfo.compressionVelocity) * compressionSign, contactInfo.compressionVelocity * 0.025f);
 
-
 			float sinkCompensation = contact.hit.distance < (contact.springLength + settings.wheelRadius) ?
 				Mathf.Max(oldSinkDist * 0.75f, newSinkDist) / Time.fixedDeltaTime : 0;
 			sinkCompensation = (sinkCompensation / Time.fixedDeltaTime) * Mathf.Clamp(contactInfo.compressionVelocity, -Mathf.Max(0, sinkCompensationVel), Mathf.Abs(sinkCompensationVel)) * Mathf.Pow(contact.springCompression, 4);
-			//sinkCompensation = Mathf.Min(sinkCompensation, settings.springForce*4);
-			if ((contactInfo.compressionVelocity) > 5)
-				Debug.Log("Compression Vel: " + contactInfo.compressionVelocity + " Reduced compression vel: " + sinkCompensationVel);
+#endif
+			if (contact.compressionVelocity < 0 && contact.springCompression < 0.975f) return Vector3.zero;
 
-			return transform.up * 1500 * Mathf.Pow(Mathf.Max(0,contact.springCompression),MathEx.E);
+			float mass = (carMass.HasValue ? carMass.Value : sinkCompensationForce);
+			float compressionMod = Mathf.Pow(Mathf.Clamp(contact.springCompression,0,1.5f),4);
+			//compressionMod = Mathf.Lerp(0, compressionMod, contact.springCompression*2f-1f);
+			float filteredMass = ( mass *compressionMod);
+			float compressionCompensation = Mathf.Clamp01(compressionMod) * (contact.compressionVelocity*100f) / Time.fixedDeltaTime;
+			return  transform.up *( contact.compressionVelocity >= 0 ? (filteredMass +  compressionCompensation): 0 );
+		}
+
+		public virtual Vector3 GetAppliedSuspensionForce(int groundedWheels, float? carMass)
+		{
+			if (groundedWheels <= 0 || !contactInfo.isOnFloor) return Vector3.zero;
+
+			return contactInfo.appliedSpringForce + GetSinkThroughGroundCompensationForce(contactInfo, carMass) / (float) groundedWheels;
+
 		}
 
 		protected virtual Vector3 GetShockCancelForce(ContactInfo contact)
