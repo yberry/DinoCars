@@ -11,13 +11,9 @@ public class Restart : MonoBehaviour {
 
     public Rewired.Player pInput;
 
-    AkBank[] banks;
-
     void Start()
     {
         pInput = Rewired.ReInput.players.GetPlayer(0);
-
-        banks = FindObjectsOfType<AkBank>();
     }
 	
 	void Update ()
@@ -41,21 +37,22 @@ public class Restart : MonoBehaviour {
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Res();
+        UnloadBanks();
+        GameManager.instance.Restart();
     }
 
     public void RestartMenu()
     {
         SceneManager.LoadScene(0);
-        Res();
+        UnloadBanks();
+        GameManager.instance.Restart();
     }
 
-    void Res()
+    public static void UnloadBanks()
     {
-        foreach (AkBank bank in banks)
+        foreach (AkBank bank in FindObjectsOfType<AkBank>())
         {
             bank.UnloadBank(bank.gameObject);
         }
-        GameManager.instance.Restart();
     }
 }

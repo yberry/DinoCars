@@ -81,6 +81,7 @@ public class MainMenu : MonoBehaviour {
             cameraVHS.spriteTex = levelSelection.map.sprite;
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
+            Restart.UnloadBanks();
             async.allowSceneActivation = true;
             GameManager.instance.defile = true;
         }
@@ -123,10 +124,8 @@ public class MainMenu : MonoBehaviour {
     void Update()
     {
         timeColor += speedColor * Time.deltaTime;
-        if (timeColor > 359f)
-        {
-            timeColor = 0f;
-        }
+        timeColor %= 359f;
+
         cameraVHS.feedbackColor = Color.HSVToRGB(timeColor / 359f, 1f, 1f);
     }
 
