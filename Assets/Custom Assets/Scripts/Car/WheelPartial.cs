@@ -154,7 +154,7 @@ namespace CND.Car
 					pushForce = Vector3.Lerp(m_contactInfo.upForce, transform.up * (springExpand+ springDamp),1f);*/
 				}
 
-				contact.upForce = pushForce;
+				contact.appliedSpringForce = pushForce;
 
 			}
 			else
