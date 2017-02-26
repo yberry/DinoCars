@@ -32,6 +32,8 @@ public class ManageButtons : MonoBehaviour {
         quit.onClick.AddListener(QuitClick);
 
         pInput = Rewired.ReInput.players.GetPlayer(0);
+
+        targetTel = telecommande;
     }
 
     void Update()

@@ -7,9 +7,15 @@ using EquilibreGames;
 public class GhostSelection : MonoBehaviour {
 
     public RectTransform table;
+    public RectTransform container;
+    public Scrollbar scrollBar;
     public Text textPrefab;
     public RectTransform highlight;
     public float speedMove = 100f;
+
+    float yMin;
+    float yMax;
+    const float handleSize = 0.1f;
 
     List<Ghost> ghosts;
 
@@ -42,7 +48,7 @@ public class GhostSelection : MonoBehaviour {
     {
         get
         {
-            return table.GetChild(index).transform.position;
+            return container.GetChild(index).transform.position;
         }
     }
 
@@ -62,12 +68,14 @@ public class GhostSelection : MonoBehaviour {
         }
     }
 
-    void Start()
+    void Awake()
     {
+        yMax = table.position.y;
+        yMin = yMax - table.rect.height + highlight.rect.height;
+        Debug.Log(yMin + " " + yMax);
+
         ghosts = PersistentDataSystem.Instance.LoadAllSavedData<Ghost>(20);
-
         ghosts.Sort((x, y) => x.totalTime.CompareTo(y.totalTime));
-
         ghosts.ForEach(AddGhost);
 
         Index = 0;
@@ -75,13 +83,25 @@ public class GhostSelection : MonoBehaviour {
 
     void Update()
     {
-        highlight.position = Vector3.MoveTowards(highlight.position, CurrentPosition, speedMove * Time.deltaTime);
+        scrollBar.size = handleSize;
+
+        Vector3 current = CurrentPosition;
+        if (current.y > yMax)
+        {
+            scrollBar.value = Mathf.MoveTowards(scrollBar.value, 1f, speedMove * Time.deltaTime);
+        }
+        else if (current.y < yMin)
+        {
+            scrollBar.value = Mathf.MoveTowards(scrollBar.value, 0f, speedMove * Time.deltaTime);
+        }
+
+        highlight.position = Vector3.MoveTowards(highlight.position, current, speedMove * Time.deltaTime);
     }
 
     void AddGhost(Ghost ghost)
     {
-        string num = table.childCount.ToString();
-        Text newText = Instantiate(textPrefab, table);
+        string num = container.childCount.ToString();
+        Text newText = Instantiate(textPrefab, container);
         newText.text = "#" + num + " : " + CarDinoHUD.GetTimes(ghost.totalTime);
     }
 
