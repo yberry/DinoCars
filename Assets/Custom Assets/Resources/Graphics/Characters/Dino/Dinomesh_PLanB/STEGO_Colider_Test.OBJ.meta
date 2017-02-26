@@ -47,6 +47,14 @@ ModelImporter:
     4300010: Group6
     4300012: Group7
     4300014: ZBrush_defualt_group
+    6400000: Group1
+    6400002: Group2
+    6400004: Group3
+    6400006: Group4
+    6400008: Group5
+    6400010: Group6
+    6400012: Group7
+    6400014: ZBrush_defualt_group
   materials:
     importMaterials: 1
     materialName: 0
@@ -71,9 +79,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
