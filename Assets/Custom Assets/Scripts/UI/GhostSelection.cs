@@ -46,6 +46,22 @@ public class GhostSelection : MonoBehaviour {
         }
     }
 
+    public bool HasGhost
+    {
+        get
+        {
+            return index > 0;
+        }
+    }
+
+    public Ghost SelectedGhost
+    {
+        get
+        {
+            return ghosts[index - 1];
+        }
+    }
+
     void Start()
     {
         ghosts = PersistentDataSystem.Instance.LoadAllSavedData<Ghost>(20);

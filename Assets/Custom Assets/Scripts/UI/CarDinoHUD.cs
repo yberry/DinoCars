@@ -7,7 +7,8 @@ public class CarDinoHUD : MonoBehaviour {
     public CND.Car.ArcadeCarController car;
 
     [Header("Chrono")]
-    public Text[] chrono;
+    public GameObject chrono;
+    public Text[] numbers;
     public Text checkTime;
     public Text[] penality;
     public bool showCheck = false;
@@ -76,12 +77,14 @@ public class CarDinoHUD : MonoBehaviour {
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
 
+        chrono.SetActive(!GameManager.instance.practise);
+
         colorBoost = boost[0].color;
 
         pInput = Rewired.ReInput.players.GetPlayer(0);
 
         buttons[0].onClick.AddListener(Resume);
-        buttons[1].onClick.AddListener(Restart);
+        buttons[1].onClick.AddListener(ReStart);
         buttons[2].onClick.AddListener(Options);
         buttons[3].onClick.AddListener(Quit);
 
@@ -104,8 +107,8 @@ public class CarDinoHUD : MonoBehaviour {
         Color col = GameManager.instance.defile ? greenColor : redColor;
         for (int i = 0; i < 8; i++)
         {
-            chrono[i].color = col;
-            chrono[i].text = times[i].ToString();
+            numbers[i].color = col;
+            numbers[i].text = times[i].ToString();
         }
 
         if (showCheck)
@@ -202,12 +205,12 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
-    void Restart()
+    void ReStart()
     {
         if (pause)
         {
             Resume();
-            GetComponent<Restart>().RestartScene();
+            Restart.RestartScene();
         }
     }
 
@@ -221,7 +224,7 @@ public class CarDinoHUD : MonoBehaviour {
         if (pause)
         {
             Resume();
-            GetComponent<Restart>().RestartMenu();
+            Restart.RestartMenu();
         }
     }
 }

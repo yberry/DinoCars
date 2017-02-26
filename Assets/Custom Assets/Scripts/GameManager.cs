@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour {
 
     public bool defile = false;
 
+    public bool practise { get; set; }
+    public int scene { get; set; }
+    public Ghost ghost { get; set; }
+
     bool backward = false;
     float timeDestruction = 0f;
 

@@ -11,7 +11,6 @@ public class MainMenu : MonoBehaviour {
     public Texture[] noiseTex;
     public postVHSPro cameraVHS;
     public Text canal;
-    public Text pourcentage;
     public float speedColor = 10f;
 
     [Header("Menu transitions")]
@@ -20,8 +19,10 @@ public class MainMenu : MonoBehaviour {
     public RectTransform telVire;
     public RectTransform telStandby;
 
-    [Header("Level Selection")]
+    [Header("Paramaters")]
+    public Sprite spritePractise;
     public LevelSelection levelSelection;
+    public GhostSelection ghostSelection;
 
     RectTransform currentMenu;
     Animator animator;
@@ -78,12 +79,11 @@ public class MainMenu : MonoBehaviour {
 
         if (newMenu == null)
         {
-            cameraVHS.spriteTex = levelSelection.map.sprite;
+            cameraVHS.spriteTex = GameManager.instance.practise ? spritePractise : levelSelection.map.sprite;
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
             Restart.UnloadBanks();
             async.allowSceneActivation = true;
-            GameManager.instance.defile = true;
         }
         else
         {
@@ -132,20 +132,32 @@ public class MainMenu : MonoBehaviour {
     public void ChooseLevel(bool practise)
     {
         EventSystem.current.SetSelectedGameObject(null);
-        StartCoroutine(ChargeLevel(practise));
+        GameManager.instance.practise = practise;
+        StartCoroutine(ChargeLevel());
     }
 
-    IEnumerator ChargeLevel(bool practise)
+    IEnumerator ChargeLevel()
     {
-        pourcentage.enabled = true;
+        if (GameManager.instance.practise)
+        {
+            GameManager.instance.scene = GetComponent<ChooseScene>().scene;
+        }
+        else
+        {
+            GameManager.instance.scene = levelSelection.map.scene;
+            if (ghostSelection.HasGhost)
+            {
+                GameManager.instance.ghost = ghostSelection.SelectedGhost;
+            }
+        }
 
-        async = SceneManager.LoadSceneAsync(practise ? GetComponent<ChooseScene>().scene : levelSelection.map.scene);
+        async = SceneManager.LoadSceneAsync(GameManager.instance.scene);
         async.allowSceneActivation = false;
 
         while (async.progress < 0.9f)
         {
             float progress = Mathf.Clamp01(async.progress / 0.9f);
-            pourcentage.text = Mathf.Floor(100f * progress) + " %";
+            canal.text = "Chargement en cours : " + Mathf.Floor(100f * progress) + "%";
 
             yield return null;
         }
