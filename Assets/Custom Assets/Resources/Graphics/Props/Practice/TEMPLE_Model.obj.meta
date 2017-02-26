@@ -1,0 +1,127 @@
+fileFormatVersion: 2
+guid: b3b01ca2420a5224e9ea1db08473cedc
+timeCreated: 1486217765
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Temple_Central_Temple
+    100002: //RootNode
+    100004: Temple_Temple_Escalier01
+    100006: Temple_Temple_Escalier02
+    100008: Temple_Temple_Escalier03
+    100010: Temple_Temple_Escalier04
+    100012: Group1
+    100014: Group2
+    100016: Group3
+    100018: Group4
+    100020: ZBrush_defualt_group
+    400000: Temple_Central_Temple
+    400002: //RootNode
+    400004: Temple_Temple_Escalier01
+    400006: Temple_Temple_Escalier02
+    400008: Temple_Temple_Escalier03
+    400010: Temple_Temple_Escalier04
+    400012: Group1
+    400014: Group2
+    400016: Group3
+    400018: Group4
+    400020: ZBrush_defualt_group
+    2300000: Temple_Central_Temple
+    2300002: Temple_Temple_Escalier01
+    2300004: Temple_Temple_Escalier02
+    2300006: Temple_Temple_Escalier03
+    2300008: Temple_Temple_Escalier04
+    2300010: Group1
+    2300012: Group2
+    2300014: Group3
+    2300016: Group4
+    2300018: ZBrush_defualt_group
+    3300000: Temple_Central_Temple
+    3300002: Temple_Temple_Escalier01
+    3300004: Temple_Temple_Escalier02
+    3300006: Temple_Temple_Escalier03
+    3300008: Temple_Temple_Escalier04
+    3300010: Group1
+    3300012: Group2
+    3300014: Group3
+    3300016: Group4
+    3300018: ZBrush_defualt_group
+    4300000: Temple_Central_Temple
+    4300002: Temple_Temple_Escalier01
+    4300004: Temple_Temple_Escalier02
+    4300006: Temple_Temple_Escalier03
+    4300008: Temple_Temple_Escalier04
+    4300010: Group1
+    4300012: Group2
+    4300014: Group3
+    4300016: Group4
+    4300018: ZBrush_defualt_group
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
