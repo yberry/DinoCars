@@ -11,6 +11,14 @@ namespace CND.Car
 		public float LastTimeSpawned { get; protected set; }
 		public float TimeSinceLastSpawn { get { return Time.time - LastTimeSpawned; } }
 
+
+
+		public float fadeDuration = 1.5f;
+		public float FadeProgress { get { return fadeTimer / fadeDuration; } }
+
+
+		float fadeTimer;
+
 		public BaseCarController car;
 		// Use this for initialization
 		void Start()
@@ -24,7 +32,7 @@ namespace CND.Car
 		// Update is called once per frame
 		void Update()
 		{
-
+			fadeTimer += Time.deltaTime;
 		}
 
 		public void Spawn(Vector3 position, Quaternion rotation)
@@ -47,12 +55,18 @@ namespace CND.Car
 
 		internal void Explode()
 		{
+			ResetFX();
 			var exp = GetComponentInChildren<PseudoVolumetricExplosion>();
 			if (exp)
 			{
 				exp.enabled = true;
 				exp.Play();
 			}
+		}
+
+		void ResetFX()
+		{
+			fadeTimer = 0;
 		}
 	}
 
