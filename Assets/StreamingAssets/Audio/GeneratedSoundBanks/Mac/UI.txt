@@ -23,11 +23,11 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	563163464	Click_Valid_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Valid_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_03		211784
 	565642281	Kick_9	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Kick_9_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_9		33240
 	644304571	Click_Alt_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Alt_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Click_Alt_01		131136
+	697563373	Music_Menu_Loop	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Menu_Loop_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Pause\Music_Menu_Loop\Music_Menu_Loop		398373
 	705967970	Kick_10	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Kick_10_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_10		51152
 	763012072	Click_Remote_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Click_Remote_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_TV_ChangeChannel\Click_Remote_02		71744
 	845447835	Kick_4	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Kick_4_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_4		165440
 	917583348	Glitch_Loop_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Glitch_Loop_01_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Glitch_Loop_01		14352448
 	971373209	Kick_3	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Kick_3_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_3		165440
-	980800417	Music_Pause_Loop	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\Music_Pause_Loop_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Pause\Music_Pause_Loop\Music_Pause_Loop		379349
 	1026844953	Zap	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Mac\SFX\UI\Zap_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Zap		38144
 
