@@ -47,6 +47,7 @@ public class MapManager : MonoBehaviour {
         }
         LoadNewGhost();
         GameManager.instance.defile = true;
+        GameManager.instance.isRunning = true;
     }
 
     void LoadOldGhost()
@@ -64,13 +65,15 @@ public class MapManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        GameManager manager = GameManager.instance;
+
+        manager.defile = false;
+        manager.isRunning = false;
+
         newGhost.StopRecording();
+        manager.newGhost = newGhost;
 
-        SaveGhost();
-    }
-
-    void SaveGhost()
-    {
-        PersistentDataSystem.Instance.SaveData(newGhost);
+        float time = manager.hasGhost ? newGhost.totalTime - oldGhost.totalTime : 0f;
+        FindObjectOfType<CarDinoHUD>().End(time);
     }
 }

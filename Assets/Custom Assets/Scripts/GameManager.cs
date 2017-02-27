@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EquilibreGames;
 
 public class GameManager : MonoBehaviour {
 
@@ -25,12 +26,15 @@ public class GameManager : MonoBehaviour {
 
     public const float maxTime = 5999.99f;
 
-    public bool defile = false;
+    public bool defile { get; set; }
+    public bool isRunning { get; set; }
 
     public bool practise { get; set; }
     public int scene { get; set; }
     public bool hasGhost { get; set; }
     public Ghost ghost { get; set; }
+
+    public Ghost newGhost { get; set; }
 
     bool backward = false;
     float timeDestruction = 0f;
@@ -46,10 +50,18 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+        defile = false;
+        isRunning = false;
     }
 
     void Update()
     {
+        if (!isRunning)
+        {
+            return;
+        }
+
         if (defile)
         {
             backward = false;
@@ -78,6 +90,11 @@ public class GameManager : MonoBehaviour {
         hud.hasPenality = true;
         CheckPoint.AddPenality(penality);
         time = CheckPoint.data.time;
+    }
+
+    public void SaveGhost()
+    {
+        PersistentDataSystem.Instance.SaveData(newGhost);
     }
 
     public void Restart()

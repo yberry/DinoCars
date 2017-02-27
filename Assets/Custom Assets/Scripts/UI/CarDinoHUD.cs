@@ -23,7 +23,13 @@ public class CarDinoHUD : MonoBehaviour {
 
     [Header("Pause")]
     public GameObject menuPause;
-    public Button[] buttons;
+    public Button[] pauseButtons;
+
+    [Header("Fin")]
+    public GameObject fin;
+    public Text score;
+    public Text ghost;
+    public Button[] endButtons;
 
     [Header("Variables")]
     public Camera particlesCamera;
@@ -55,7 +61,7 @@ public class CarDinoHUD : MonoBehaviour {
             if (value)
             {
                 EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
+                EventSystem.current.SetSelectedGameObject(pauseButtons[0].gameObject);
             }
         }
     }
@@ -83,12 +89,18 @@ public class CarDinoHUD : MonoBehaviour {
 
         pInput = Rewired.ReInput.players.GetPlayer(0);
 
-        buttons[0].onClick.AddListener(Resume);
-        buttons[1].onClick.AddListener(ReStart);
-        buttons[2].onClick.AddListener(Options);
-        buttons[3].onClick.AddListener(Quit);
+        pauseButtons[0].onClick.AddListener(Resume);
+        pauseButtons[1].onClick.AddListener(ReStart);
+        pauseButtons[2].onClick.AddListener(Options);
+        pauseButtons[3].onClick.AddListener(Quit);
+
+        endButtons[0].onClick.AddListener(ReStart);
+        endButtons[1].onClick.AddListener(SaveGhost);
+        endButtons[2].onClick.AddListener(Quit);
 
         Pause = false;
+
+        fin.SetActive(false);
     }
 
     void Update()
@@ -171,7 +183,7 @@ public class CarDinoHUD : MonoBehaviour {
 
     void UpdatePause()
     {
-        if (pInput.GetButtonDown(Globals.BtnStart))
+        if (GameManager.instance.isRunning && pInput.GetButtonDown(Globals.BtnStart))
         {
             Pause = !pause;
         }
@@ -196,6 +208,37 @@ public class CarDinoHUD : MonoBehaviour {
         return (t < 10 ? "0" : "") + t.ToString();
     }
 
+    public void End(float time)
+    {
+        fin.SetActive(true);
+        Cursor.visible = true;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(endButtons[0].gameObject);
+
+        score.text = "Your score : " + GetTimes(GameManager.instance.time);
+
+        if (GameManager.instance.hasGhost)
+        {
+            ghost.enabled = true;
+            string ecart = GetTimes(Mathf.Abs(time));
+            if (time < 0f)
+            {
+                ghost.color = greenColor;
+                ghost.text = "VS Ghost : -" + ecart;
+            }
+            else
+            {
+                ghost.color = redColor;
+                ghost.text = "VS Ghost : +" + ecart;
+            }
+        }
+        else
+        {
+            ghost.enabled = false;
+        }
+    }
+
     void Resume()
     {
         if (pause)
@@ -216,7 +259,12 @@ public class CarDinoHUD : MonoBehaviour {
 
     void Options()
     {
+        //LOL
+    }
 
+    void SaveGhost()
+    {
+        GameManager.instance.SaveGhost();
     }
 
     void Quit()
