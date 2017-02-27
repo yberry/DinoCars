@@ -36,15 +36,15 @@ public class Restart : MonoBehaviour {
 
     public static void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         UnloadBanks();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.Restart();
     }
 
     public static void RestartMenu()
     {
-        SceneManager.LoadScene(0);
         UnloadBanks();
+        SceneManager.LoadScene(0);
         GameManager.instance.Restart();
     }
 

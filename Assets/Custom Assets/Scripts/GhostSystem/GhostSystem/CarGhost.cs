@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CarGhost : MonoBehaviour {
 
-    public Transform car;
     public List<Transform> wheels;
+
+    void Start()
+    {
+        for (int i = 0; i < wheels.Count; i++)
+        {
+            wheels[i] = wheels[i].GetChild(0);
+        }
+    }
 }

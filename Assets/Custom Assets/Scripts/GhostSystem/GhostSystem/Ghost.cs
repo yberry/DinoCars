@@ -155,8 +155,8 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
             nextState = states[currentIndexPlayed + 1];
             float t = Mathf.InverseLerp(currentState.timeSinceGhostStart, nextState.timeSinceGhostStart, Time.realtimeSinceStartup - playTime);
 
-            ownCarGhost.car.position = Vector3.Lerp(currentState.carPosition, nextState.carPosition, t);
-            ownCarGhost.car.rotation = Quaternion.Slerp(Quaternion.Euler(currentState.carRotation), Quaternion.Euler(nextState.carRotation), t);
+            ownCarGhost.transform.position = Vector3.Lerp(currentState.carPosition, nextState.carPosition, t);
+            ownCarGhost.transform.rotation = Quaternion.Slerp(Quaternion.Euler(currentState.carRotation), Quaternion.Euler(nextState.carRotation), t);
 
             for(int i =0; i < ownCarGhost.wheels.Count; i++)
             {
@@ -167,8 +167,8 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         }
         else
         {
-            ownCarGhost.car.position = currentState.carPosition;
-            ownCarGhost.car.rotation = Quaternion.Euler(currentState.carRotation);
+            ownCarGhost.transform.position = currentState.carPosition;
+            ownCarGhost.transform.rotation = Quaternion.Euler(currentState.carRotation);
 
             for (int i = 0; i < targetCarGhost.wheels.Count; i++)
             {
@@ -262,8 +262,8 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
     /// <param name="c"></param>
     void FillState(State s, CarGhost c)
     {
-        s.carPosition = c.car.position;
-        s.carRotation = c.car.rotation.eulerAngles;
+        s.carPosition = c.transform.position;
+        s.carRotation = c.transform.rotation.eulerAngles;
 
         s.wheelsPosition = new List<Vector3>();
         s.wheelsRotation = new List<Vector3>();

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance { get; private set; }
 
+    public CarGhost ghostPrefab;
     public float penality = 5f;
 
     float m_time = 0f;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
     public bool practise { get; set; }
     public int scene { get; set; }
+    public bool hasGhost { get; set; }
     public Ghost ghost { get; set; }
 
     bool backward = false;
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour {
 
     public void Restart()
     {
+        defile = false;
         time = 0f;
+        CheckPoint.ReStart();
     }
 }

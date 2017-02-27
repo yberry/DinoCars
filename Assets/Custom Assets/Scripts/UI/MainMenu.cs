@@ -82,8 +82,8 @@ public class MainMenu : MonoBehaviour {
             cameraVHS.spriteTex = GameManager.instance.practise ? spritePractise : levelSelection.map.sprite;
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
-            Restart.UnloadBanks();
             async.allowSceneActivation = true;
+            Restart.UnloadBanks();
         }
         else
         {
@@ -116,7 +116,7 @@ public class MainMenu : MonoBehaviour {
 
     void SetSelection()
     {
-        Selectable[] selectables = currentMenu.GetComponentsInChildren<Selectable>();
+        Button[] selectables = currentMenu.GetComponentsInChildren<Button>();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selectables[0].gameObject);
     }
@@ -138,20 +138,24 @@ public class MainMenu : MonoBehaviour {
 
     IEnumerator ChargeLevel()
     {
-        if (GameManager.instance.practise)
+        GameManager manager = GameManager.instance;
+
+        if (manager.practise)
         {
-            GameManager.instance.scene = GetComponent<ChooseScene>().scene;
+            manager.scene = GetComponent<ChooseScene>().scene;
+            manager.hasGhost = false;
         }
         else
         {
-            GameManager.instance.scene = levelSelection.map.scene;
+            manager.scene = levelSelection.map.scene;
+            manager.hasGhost = ghostSelection.HasGhost;
             if (ghostSelection.HasGhost)
             {
-                GameManager.instance.ghost = ghostSelection.SelectedGhost;
+                manager.ghost = ghostSelection.SelectedGhost;
             }
         }
 
-        async = SceneManager.LoadSceneAsync(GameManager.instance.scene);
+        async = SceneManager.LoadSceneAsync(manager.scene);
         async.allowSceneActivation = false;
 
         while (async.progress < 0.9f)

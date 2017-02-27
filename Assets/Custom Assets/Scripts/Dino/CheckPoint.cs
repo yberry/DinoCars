@@ -55,4 +55,14 @@ public class CheckPoint : MonoBehaviour {
             time = data.time + penality
         };
     }
+
+    public static void ReStart()
+    {
+        data = new Data
+        {
+            position = data.position,
+            rotation = data.rotation,
+            time = 0f
+        };
+    }
 }

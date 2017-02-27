@@ -71,20 +71,15 @@ public class GhostSelection : MonoBehaviour {
 
     void Start()
     {
-        rects = new List<RectTransform>();
-        rects.Add(textPrefab.rectTransform);
+        
 
         yMax = table.rect.yMax;
         yMin = table.rect.yMin + highlight.rect.height;
 
         ghosts = PersistentDataSystem.Instance.LoadAllSavedData<Ghost>(20);
         ghosts.Sort((x, y) => x.totalTime.CompareTo(y.totalTime));
-        ghosts.ForEach(AddGhost);
 
-        Index = 0;
-        
-        scrollBar.value = 1f;
-        Resize();
+        ResetList();
     }
 
     void Update()
@@ -117,6 +112,25 @@ public class GhostSelection : MonoBehaviour {
         rects.Add(newText.rectTransform);
     }
 
+    public void DeleteGhost()
+    {
+        if (index == 0)
+        {
+            return;
+        }
+
+        ghosts.RemoveAt(index - 1);
+
+        PersistentDataSystem inst = PersistentDataSystem.Instance;
+
+        inst.EraseAllSavedData();
+        inst.Init();
+        ghosts.ForEach(inst.AddSavedDataToDictionnary);
+        inst.SaveAllData();
+
+        ResetList();
+    }
+
     public void Up()
     {
         Index--;
@@ -125,5 +139,23 @@ public class GhostSelection : MonoBehaviour {
     public void Down()
     {
         Index++;
+    }
+
+    void ResetList()
+    {
+        rects = new List<RectTransform>();
+        rects.Add(textPrefab.rectTransform);
+
+        while (container.childCount > 1)
+        {
+            DestroyImmediate(container.GetChild(1).gameObject);
+        }
+        
+        ghosts.ForEach(AddGhost);
+
+        Index = 0;
+
+        scrollBar.value = 1f;
+        Resize();
     }
 }
