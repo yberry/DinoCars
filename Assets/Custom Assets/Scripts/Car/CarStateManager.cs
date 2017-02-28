@@ -79,8 +79,9 @@ namespace CND.Car
 			if (explosionFXManager)
 			{
 				explosionFXManager.PlayOnce();
-				var sound = car.GetComponentInChildren<AudioSource>();
-				sound.Play();
+				//var sound = car.GetComponentInChildren<AudioSource>();
+				//sound.Play();
+				AkSoundEngine.PostEvent("Car_Explosion_Play", gameObject);
 			}
 		}
 
