@@ -4,22 +4,48 @@ using UnityEngine;
 
 public class PteroRotation : MonoBehaviour {
 
+    public float distance = 50f;
+
     [Tooltip("Rotation (deg/s)")]
-    public float speedRotation = 60f;
+    public float speedPtero = 60f;
 
     public Transform ptero;
-    [Tooltip("Ptero Pending (deg)")]
-    public float pteroPending = -30f;
+
+    public float penchement = 3f;
 
     float angle = 0f;
 
     void Update()
     {
-        angle += speedRotation * Time.deltaTime * Mathf.Deg2Rad * 0.5f;
+        //Calcul angle
+        angle += speedPtero * Time.deltaTime * Mathf.Deg2Rad;
 
-        transform.rotation = new Quaternion(0f, Mathf.Sin(angle), 0f, Mathf.Cos(angle));
+        //Calcul position
+        float cos = Mathf.Cos(angle);
+        float sin = Mathf.Sin(angle);
 
-        float anglePtero = pteroPending * Mathf.Deg2Rad * 0.5f;
-        ptero.localRotation = new Quaternion(0f, 0f, Mathf.Sin(anglePtero), Mathf.Cos(anglePtero));
+        float coef = sin / (1f + cos * cos);
+
+        float x = distance * coef;
+
+        ptero.localPosition = new Vector3(x, 0f, cos * x);
+
+        //Calcul vitesse
+        float dcoef = cos * (1f + 2f * coef * coef);
+
+        float dx = distance * dcoef;
+        float dz = dx * cos - x * sin;
+
+        Vector3 forward = new Vector3(dx, 0f, dz);
+
+        //Calcul acceleration
+        float ddcoef = 4f * cos * coef * dcoef - sin * (1 + 2f * coef * coef);
+
+        float ddx = distance * ddcoef;
+        float ddz = ddx * cos - 2f * dx * sin - x * cos;
+
+        Vector3 upwards = new Vector3(ddx, distance * penchement, ddz);
+
+        ptero.localRotation = Quaternion.LookRotation(forward, upwards);
     }
 }
