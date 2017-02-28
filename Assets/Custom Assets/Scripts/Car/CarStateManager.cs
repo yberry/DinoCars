@@ -43,6 +43,12 @@ namespace CND.Car
 
 		public void Spawn(Vector3 position, Quaternion rotation)
 		{
+			if (explosionFXManager)
+			{
+				explosionFXManager.Stop();
+			}
+			ShouldPlayExplosion = false;
+
 			LastTimeSpawned = Time.time;
 			car.gameObject.SetActive(true);
 			car.rBody.velocity = Vector3.zero;
@@ -73,6 +79,8 @@ namespace CND.Car
 			if (explosionFXManager)
 			{
 				explosionFXManager.PlayOnce();
+				var sound = car.GetComponentInChildren<AudioSource>();
+				sound.Play();
 			}
 		}
 
