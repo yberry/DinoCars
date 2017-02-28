@@ -19,8 +19,8 @@ MonoBehaviour:
     maxTurnAngle: 35
     turnSpeed: 40
     brakeEffectiveness: 0.75
-    tractionControl: 0.05
-    driftControl: 0.95
+    tractionControl: 0
+    driftControl: 1
     steeringHelper: 0.7
     ackermannSteering: -0.125
     centerOfMassOffset: {x: 0, y: -0.15, z: 0.15}
