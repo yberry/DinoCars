@@ -780,7 +780,7 @@ namespace EquilibreGames
             return newSavedData;
         }
 
-        private void AddSavedDataToDictionnary(SavedData savedData)
+        public void AddSavedDataToDictionnary(SavedData savedData)
         {
             Type type = savedData.GetType();
             List<SavedData> dataList;
