@@ -33,7 +33,7 @@ public class CarReInput : MonoBehaviour {
 #if UNITY_EDITOR
 
 		if (pInput.GetButtonDown(Globals.BtnBack)) UnityEditor.EditorApplication.isPaused = !UnityEditor.EditorApplication.isPaused;
-
+		if (pInput.GetButtonDown(Globals.BtnAction4)) car.GetComponentInChildren<CarStateManager>().Explode();
 #endif
 
 	}
