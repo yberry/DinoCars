@@ -7,12 +7,18 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: Group2334
+    100004: initialShadingGroup_Group2334
     400000: //RootNode
     400002: Group2334
+    400004: initialShadingGroup_Group2334
     2300000: Group2334
+    2300002: initialShadingGroup_Group2334
     3300000: Group2334
+    3300002: initialShadingGroup_Group2334
     4300000: Group2334
+    4300002: initialShadingGroup_Group2334
     6400000: Group2334
+    6400002: initialShadingGroup_Group2334
   materials:
     importMaterials: 1
     materialName: 0
