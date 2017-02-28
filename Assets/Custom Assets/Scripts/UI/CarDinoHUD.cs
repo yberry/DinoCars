@@ -7,6 +7,7 @@ public class CarDinoHUD : MonoBehaviour {
     public CND.Car.ArcadeCarController car;
 
     [Header("Chrono")]
+    public bool afficheChrono = true;
     public GameObject chrono;
     public Text[] numbers;
     public Text checkTime;
@@ -83,7 +84,7 @@ public class CarDinoHUD : MonoBehaviour {
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
 
-        chrono.SetActive(!GameManager.instance.practise);
+        chrono.SetActive(afficheChrono);
 
         colorBoost = boost[0].color;
 

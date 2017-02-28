@@ -178,7 +178,6 @@ GameObject:
   - component: {fileID: 114929940424162682}
   - component: {fileID: 114453610290607354}
   - component: {fileID: 114867058202794902}
-  - component: {fileID: 114117976779532660}
   m_Layer: 5
   m_Name: UI INGAME
   m_TagString: Untagged
@@ -895,20 +894,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114117976779532660
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1261002052872146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9775a7243ce4ce847a2e346f6861476e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restartKeycode: 8
-  menuKeycode: 27
-  debug: 1
 --- !u!114 &114124041109599058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2141,6 +2126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 0}
+  afficheChrono: 1
   chrono: {fileID: 1199409475854040}
   numbers:
   - {fileID: 114810236731403536}
