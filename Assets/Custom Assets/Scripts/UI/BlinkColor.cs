@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
+[RequireComponent(typeof(Graphic))]
 public class BlinkColor : MonoBehaviour {
 
     public float speed = 1f;
     public MovementType type;
-    [Range(0f, 1f)]
-    public float alphaMin = 0f;
-    [Range(0f, 1f)]
-    public float alphaMax = 1f;
+    public Color colorMin = Color.white;
+    public Color colorMax = Color.white;
 
-    Image image;
-    Color color;
+    Graphic graphic;
     float time = 0f;
 
     void Start()
     {
-        image = GetComponent<Image>();
-        color = image.color;
+        graphic = GetComponent<Graphic>();
     }
 
     void Update()
@@ -32,7 +28,9 @@ public class BlinkColor : MonoBehaviour {
         {
             fact = Mathf.Asin(fact);
         }
-        color.a = (fact * (alphaMax - alphaMin) + (alphaMax + alphaMin)) * 0.5f;
-        image.color = color;
+
+        fact = (fact + 1f) * 0.5f;
+
+        graphic.color = Color.Lerp(colorMin, colorMax, fact);
     }
 }
