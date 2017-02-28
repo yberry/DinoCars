@@ -65,7 +65,7 @@ namespace CND.Car
 			//LastTimeSpawned = Time.time;
 		}
 
-		internal void Explode()
+		public void Explode()
 		{
 			ResetFX();
 			ShouldPlayExplosion = true;
