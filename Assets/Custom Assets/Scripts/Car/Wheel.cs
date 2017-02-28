@@ -288,7 +288,7 @@ namespace CND.Car
 			float checkDist = rayDist * hitDetectionTolerance/* * settings.maxExpansion */;
 			contact.targetContactPoint = transform.position - transform.up * rayDist;
 			if (success=Physics.Raycast(transform.position, -transform.up, out hit, checkDist)){
-				contact.hit = hit;
+				contact.hit = hit;				
 				contact.finalContactPoint = hit.point;
 			}
 			else
