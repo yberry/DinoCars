@@ -11,7 +11,6 @@ public class MainMenu : MonoBehaviour {
     public Texture[] noiseTex;
     public postVHSPro cameraVHS;
     public Text canal;
-    public Text pourcentage;
     public float speedColor = 10f;
 
     [Header("Menu transitions")]
@@ -20,8 +19,10 @@ public class MainMenu : MonoBehaviour {
     public RectTransform telVire;
     public RectTransform telStandby;
 
-    [Header("Level Selection")]
+    [Header("Paramaters")]
+    public Sprite spritePractise;
     public LevelSelection levelSelection;
+    public GhostSelection ghostSelection;
 
     RectTransform currentMenu;
     Animator animator;
@@ -32,6 +33,7 @@ public class MainMenu : MonoBehaviour {
 
     void Start()
     {
+        AkSoundEngine.PostEvent("Music_Menu_Play", gameObject);
         currentMenu = titleScreen;
         SetSelection();
         animator = cameraVHS.GetComponent<Animator>();
@@ -78,11 +80,12 @@ public class MainMenu : MonoBehaviour {
 
         if (newMenu == null)
         {
-            cameraVHS.spriteTex = levelSelection.map.sprite;
+            cameraVHS.spriteTex = GameManager.instance.practise ? spritePractise : levelSelection.map.sprite;
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
+            AkSoundEngine.PostEvent("Stop_All", gameObject);
+            AkSoundEngine.PostEvent("Music_Menu_Stop", gameObject);
             async.allowSceneActivation = true;
-            GameManager.instance.defile = true;
         }
         else
         {
@@ -115,7 +118,7 @@ public class MainMenu : MonoBehaviour {
 
     void SetSelection()
     {
-        Selectable[] selectables = currentMenu.GetComponentsInChildren<Selectable>();
+        Button[] selectables = currentMenu.GetComponentsInChildren<Button>();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selectables[0].gameObject);
     }
@@ -123,34 +126,57 @@ public class MainMenu : MonoBehaviour {
     void Update()
     {
         timeColor += speedColor * Time.deltaTime;
-        if (timeColor > 359f)
-        {
-            timeColor = 0f;
-        }
+        timeColor %= 359f;
+
         cameraVHS.feedbackColor = Color.HSVToRGB(timeColor / 359f, 1f, 1f);
     }
 
-    public void ChooseLevel()
+    public void ChooseLevel(bool practise)
     {
         EventSystem.current.SetSelectedGameObject(null);
+        GameManager.instance.practise = practise;
         StartCoroutine(ChargeLevel());
     }
 
     IEnumerator ChargeLevel()
     {
-        pourcentage.enabled = true;
+        GameManager manager = GameManager.instance;
 
-        async = SceneManager.LoadSceneAsync(levelSelection.map.scene);
+        if (manager.practise)
+        {
+            manager.scene = GetComponent<ChooseScene>().scene;
+            manager.hasGhost = false;
+        }
+        else
+        {
+            manager.scene = levelSelection.map.scene;
+            manager.hasGhost = ghostSelection.HasGhost;
+            if (ghostSelection.HasGhost)
+            {
+                manager.ghost = ghostSelection.SelectedGhost;
+            }
+        }
+
+        async = SceneManager.LoadSceneAsync(manager.scene);
         async.allowSceneActivation = false;
 
         while (async.progress < 0.9f)
         {
             float progress = Mathf.Clamp01(async.progress / 0.9f);
-            pourcentage.text = Mathf.Floor(100f * progress) + " %";
+            canal.text = "Chargement en cours : " + Mathf.Floor(100f * progress) + "%";
 
             yield return null;
         }
 
         ChangeTo(null);
+    }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
