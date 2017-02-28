@@ -8,11 +8,22 @@ public class Restart : MonoBehaviour {
     public KeyCode restartKeycode = KeyCode.Backspace;
     public KeyCode menuKeycode = KeyCode.Escape;
     public bool debug = false;
+    public AkBank bank;
 
     public Rewired.Player pInput;
 
+    public static Restart instance { get; private set; }
+
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         pInput = Rewired.ReInput.players.GetPlayer(0);
     }
 	
@@ -34,25 +45,22 @@ public class Restart : MonoBehaviour {
         }
 	}
 
-    public static void RestartScene()
+    public void RestartScene()
     {
         UnloadBanks();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.Restart();
     }
 
-    public static void RestartMenu()
+    public void RestartMenu()
     {
         UnloadBanks();
         SceneManager.LoadScene(0);
         GameManager.instance.Restart();
     }
 
-    public static void UnloadBanks()
+    public void UnloadBanks()
     {
-        foreach (AkBank bank in FindObjectsOfType<AkBank>())
-        {
-            bank.UnloadBank(bank.gameObject);
-        }
+        bank.UnloadBank(bank.gameObject);
     }
 }

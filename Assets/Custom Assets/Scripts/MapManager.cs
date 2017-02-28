@@ -43,6 +43,7 @@ public class MapManager : MonoBehaviour {
 
     IEnumerator StartCountDown()
     {
+        AkSoundEngine.PostEvent("Ambiance_Start_CountDown_Play", gameObject);
         //animator.SetTrigger("Start");
         yield return new WaitForSeconds(3f);
         if (GameManager.instance.hasGhost)
@@ -69,12 +70,15 @@ public class MapManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        AkSoundEngine.PostEvent("Ambiance_Finish_Play", gameObject);
+        
         GameManager manager = GameManager.instance;
 
         manager.defile = false;
         manager.isRunning = false;
 
         newGhost.StopRecording();
+        newGhost.totalTime = manager.time;
         manager.newGhost = newGhost;
 
         float time = manager.hasGhost ? newGhost.totalTime - oldGhost.totalTime : 0f;

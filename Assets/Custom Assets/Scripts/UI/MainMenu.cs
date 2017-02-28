@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour {
 
     void Start()
     {
+        AkSoundEngine.PostEvent("Music_Menu_Play", gameObject);
         currentMenu = titleScreen;
         SetSelection();
         animator = cameraVHS.GetComponent<Animator>();
@@ -83,8 +84,8 @@ public class MainMenu : MonoBehaviour {
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
             AkSoundEngine.PostEvent("Stop_All", gameObject);
+            AkSoundEngine.PostEvent("Music_Menu_Stop", gameObject);
             async.allowSceneActivation = true;
-            Restart.UnloadBanks();
         }
         else
         {

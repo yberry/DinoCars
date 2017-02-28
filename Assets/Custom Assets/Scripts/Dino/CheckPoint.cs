@@ -30,6 +30,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (col is MeshCollider && num > lastCheckPoint.num)
         {
+            AkSoundEngine.PostEvent("Ambiance_Checkpoint_Play", gameObject);
             UpdateCheckPoint();
             GameManager.instance.PassCheckPoint();
         }

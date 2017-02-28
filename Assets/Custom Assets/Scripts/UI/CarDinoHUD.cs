@@ -251,7 +251,7 @@ public class CarDinoHUD : MonoBehaviour {
     void ReStart()
     {
         Resume();
-        Restart.RestartScene();
+        Restart.instance.RestartScene();
     }
 
     void Options()
@@ -267,6 +267,6 @@ public class CarDinoHUD : MonoBehaviour {
     void Quit()
     {
         Resume();
-        Restart.RestartMenu();
+        Restart.instance.RestartMenu();
     }
 }

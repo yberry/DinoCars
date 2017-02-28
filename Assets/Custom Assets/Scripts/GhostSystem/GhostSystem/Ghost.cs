@@ -40,6 +40,11 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         {
             return states[lastRecordedStateIndex].timeSinceGhostStart;
         }
+
+        set
+        {
+            states[lastRecordedStateIndex].timeSinceGhostStart = value;
+        }
     }
 
     public void GetObjectData(BinaryWriter writer)
