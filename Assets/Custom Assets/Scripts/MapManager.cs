@@ -21,6 +21,10 @@ public class MapManager : MonoBehaviour {
         {
             car = FindObjectOfType<CND.Car.ArcadeCarController>().GetComponent<CarGhost>();
         }
+
+        oldGhost = null;
+        newGhost = null;
+
         StartCoroutine(StartCountDown());
     }
 

@@ -257,9 +257,8 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
     public void StartRecording(CarGhost target, int maxStatesStored)
     {
         isPlaying = false;
-        isRecording = true;
+        
         recordTime = Time.realtimeSinceStartup;
-
 
         targetCarGhost = target;
         lastRecordedStateIndex = 0;
@@ -274,6 +273,8 @@ public class Ghost : SavedData, SavedData.IFullSerializationControl {
         firstState.timeSinceGhostStart = 0;
         FillState(firstState, targetCarGhost);
         currentIndexRecorded = 1;
+
+        isRecording = true;
     }
 
 

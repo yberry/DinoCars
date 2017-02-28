@@ -7,7 +7,8 @@ public class CarGhost : MonoBehaviour {
     public List<Transform> wheels;
     public List<Transform> boosts;
 
-    public List<ParticleSystem> particles { get; set; }
+    bool hasParticles = false;
+    public ParticleSystem[] particles;
 
     void Start()
     {
@@ -16,11 +17,22 @@ public class CarGhost : MonoBehaviour {
             wheels[i] = wheels[i].GetChild(0);
         }
 
-        particles = new List<ParticleSystem>();
+        particles = new ParticleSystem[boosts.Count];
+    }
 
-        foreach (Transform boost in boosts)
+    void FixedUpdate()
+    {
+        if (hasParticles)
         {
-            particles.Add(boost.GetComponentInChildren<ParticleSystem>());
+            return;
         }
+
+        for (int i = 0; i < boosts.Count; i++)
+        {
+            particles[i] = boosts[i].GetComponentInChildren<ParticleSystem>();
+        }
+
+        hasParticles = System.Array.Exists(particles, p => p == null);
+
     }
 }

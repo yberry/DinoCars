@@ -82,6 +82,7 @@ public class MainMenu : MonoBehaviour {
             cameraVHS.spriteTex = GameManager.instance.practise ? spritePractise : levelSelection.map.sprite;
             animator.SetTrigger("Shut");
             yield return new WaitForSeconds(1f);
+            AkSoundEngine.PostEvent("Stop_All", gameObject);
             async.allowSceneActivation = true;
             Restart.UnloadBanks();
         }
