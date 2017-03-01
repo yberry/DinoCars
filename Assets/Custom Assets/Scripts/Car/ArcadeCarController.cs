@@ -185,6 +185,7 @@ namespace CND.Car
 		float velocityForwardness;
         Vector3 curVelocity, prevVelocity, prevPos;
         float boost, drift;
+		int prevGear;
 
 		
 		protected Vector3 m_LocalGravity=Physics.gravity;
@@ -220,8 +221,9 @@ namespace CND.Car
 
 			prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
-			var dotMoveFwd = Vector3.Dot((transform.position- prevPos ).normalized, transform.forward);
+			var dotMoveFwd = Vector3.Dot(rBody.velocity.normalized, transform.forward);
 			velocityForwardness =( Mathf.Approximately(dotMoveFwd, 0f) ? dotMoveFwd: Mathf.Sign(accelOutput));
+			velocityForwardness = dotMoveFwd;
 
 			ApplyDownForce();
             ApplySteering();
@@ -282,9 +284,10 @@ namespace CND.Car
         {
 			const float offsetVal = 0.15f;
 			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? offsetVal : -offsetVal;
-			float nexGear = (Mathf.Clamp((Mathf.Sign(VelocityForwardness) + (GearCount + offset) * SpeedRatio ), -1, GearCount));
+			float gearBase = Mathf.Clamp( Mathf.Sign(VelocityForwardness)+Math.Sign(accelOutput),-1,1);// VelocityForwardness != 0 ? Mathf.Sign(VelocityForwardness) : Math.Sign(accelOutput);
+			float nexGear = (Mathf.Clamp((gearBase + (GearCount + offset) * SpeedRatio ), -1, GearCount));
 			
-			return (int)( accelOutput < 0 && ((int)nexGear < (1f - offsetVal) && VelocityAccelSign < 0) ? -1 : nexGear);
+			return (int)(accelOutput < 0 && (nexGear <= (1f - offsetVal) ) ? -1 : nexGear);
 			//return GetGearForSpeedRatio(SpeedRatio);
         }
 
@@ -422,13 +425,13 @@ namespace CND.Car
 
 			//target speed for the current gear
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
-			float gearSpeedInterp = Mathf.Lerp(EvalGearCurve(gear, tCurve) * CurStg.targetSpeed, gearSpeed , 1f);
+			//float gearSpeedInterp = Mathf.Lerp(EvalGearCurve(prevGear, tCurve) * CurStg.targetSpeed, gearSpeed , 0.5f);
 			//motor power and/or inertia, relative to to input
-			float accelPower = Mathf.Lerp( inertiaPower * speedDecay, gearSpeedInterp / powerRatio, powerInput);
+			float accelPower = Mathf.Lerp( inertiaPower * speedDecay, gearSpeed / powerRatio, powerInput);
 			//apply boost power
 			accelPower *= Mathf.Lerp(1, CurStg.boostRatio, boost);
 			//braking power, relative to input
-			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
+			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower*0.9f), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
 			float gravForward = MathEx.DotToLinear(Vector3.Dot(LocalGravity.normalized, contact.forwardDirection));
 			float angVelDelta = contact.rootVelocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
@@ -484,7 +487,7 @@ namespace CND.Car
                 contact.pushPoint,
                 ForceMode.Acceleration);
 
-
+			prevGear = gear;
 		}
 
 
