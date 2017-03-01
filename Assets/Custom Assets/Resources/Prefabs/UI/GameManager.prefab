@@ -137,7 +137,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1491901485229806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 591309cdc97c3214ebcc3a50e3e22cc8, type: 3}
   m_Name: 
@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghostPrefab: {fileID: 114987792955055550, guid: c2bc856215175e74b9f63ef432eaed6e,
+    type: 2}
+  explosionPrefab: {fileID: 1944338286704352, guid: a061f75efbc43c04caaa64563c41887d,
     type: 2}
   penality: 5
 --- !u!114 &114410283734239810

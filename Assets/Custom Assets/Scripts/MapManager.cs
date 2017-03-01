@@ -6,6 +6,8 @@ using EquilibreGames;
 [RequireComponent(typeof(Collider))]
 public class MapManager : MonoBehaviour {
 
+    public static MapManager instance { get; private set; }
+
     public CarGhost car;
     public Animator animator;
 
@@ -17,6 +19,15 @@ public class MapManager : MonoBehaviour {
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         if (!car)
         {
             car = FindObjectOfType<CND.Car.ArcadeCarController>().GetComponent<CarGhost>();
@@ -83,5 +94,20 @@ public class MapManager : MonoBehaviour {
 
         float time = manager.hasGhost ? newGhost.totalTime - oldGhost.totalTime : 0f;
         FindObjectOfType<CarDinoHUD>().End(time);
+    }
+
+    public void ReStart()
+    {
+        ResetVar();
+
+        StartCoroutine(StartCountDown());
+    }
+
+    public void ResetVar()
+    {
+        newGhost.StopRecording();
+
+        oldGhost = null;
+        newGhost = null;
     }
 }

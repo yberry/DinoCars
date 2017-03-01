@@ -7,7 +7,13 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance { get; private set; }
 
+    [Header("Ghost")]
     public CarGhost ghostPrefab;
+
+    [Header("Destruction")]
+    public GameObject explosionPrefab;
+
+    [Header("Penality")]
     public float penality = 5f;
 
     float m_time = 0f;
@@ -39,6 +45,8 @@ public class GameManager : MonoBehaviour {
     bool backward = false;
     float timeDestruction = 0f;
 
+    float durationDestruction;
+
     void Start()
     {
         if (instance == null)
@@ -53,6 +61,7 @@ public class GameManager : MonoBehaviour {
 
         defile = false;
         isRunning = false;
+        durationDestruction = explosionPrefab.GetComponent<ParticleSystem>().main.duration;
     }
 
     void Update()
@@ -97,10 +106,43 @@ public class GameManager : MonoBehaviour {
         PersistentDataSystem.Instance.SaveData(newGhost);
     }
 
-    public void Restart()
+    public void Restart(CND.Car.CarStateManager car, bool resetTime)
+    {
+        StartCoroutine(ReStart(car, resetTime));
+    }
+
+    IEnumerator ReStart(CND.Car.CarStateManager car, bool resetTime)
+    {
+        ResetVar(resetTime);
+
+        GameObject explosion = Instantiate(explosionPrefab, car.transform.position, Quaternion.identity);
+
+        car.Kill();
+
+        yield return new WaitForSeconds(durationDestruction);
+        Destroy(explosion);
+        CheckPoint.Data data = CheckPoint.data;
+        if (resetTime)
+        {
+            MapManager.instance.ReStart();
+        }
+        else
+        {
+            CheckBack();
+            defile = true;
+        }
+        
+        car.Spawn(data.position, data.rotation);
+    }
+
+    public void ResetVar(bool resetTime)
     {
         defile = false;
-        time = 0f;
-        CheckPoint.ReStart();
+        if (resetTime)
+        {
+            time = 0f;
+            isRunning = false;
+            CheckPoint.ReStart();
+        }
     }
 }
