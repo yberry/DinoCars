@@ -158,11 +158,22 @@ namespace CND.Car
 
 		public override float TargetSpeed {get {return CurrentSettings.targetSpeed; }}
         public float SpeedRatio { get { return CurrentSpeed / CurrentSettings.targetSpeed; } }
+		//public float GearSpeedRatio { get { return SpeedRatio * EvalGearCurve(CurrentGear,; } }
 		public Settings CurrentSettings { get { return Settings.Lerp(normalSettings.displayedSettings, driftSettings.displayedSettings,drift); } }
 		protected Settings CurStg { get { return CurrentSettings; } }
 		public float TargetSteerAngleDeg { get { return steering * CurStg.maxTurnAngle; } }
 
 		public Vector3 CamTargetPoint { get; protected set; }
+
+
+		public bool IsBoosting { get { return boost > 0; } }
+		public float BoostDuration { get; protected set; }
+		public bool IsDrifting { get { return drift > 0.1f; } }
+		public bool IsDecelerating { get { return VelocityAccelSign < 0f; } }
+		public float VelocityAccelDiff { get { return Mathf.Sign(VelocityAccelSign) * (rBody.velocity - prevVelocity).magnitude; } }
+		public float VelocityAccelSign { get { return Mathf.Sign(rBody.velocity.magnitude - prevVelocity.magnitude); } }
+		public float VelocityForwardness { get { return velocityForwardness; } }
+		public int GroundedWheels { get { return wheelMgr.totalContacts; } }
 
 		WheelManager wheelMgr;
 
@@ -171,14 +182,11 @@ namespace CND.Car
 
         float steering, rawAccel, rawFootbrake, accelInput, handbrake;
         float accelOutput;
-		float moveForwardness;
+		float velocityForwardness;
         Vector3 curVelocity, prevVelocity, prevPos;
         float boost, drift;
-		public bool IsBoosting { get { return boost > 0; } }
-		public float BoostDuration { get; protected set; }
-		public bool IsDrifting { get { return drift > 0.1f; } }
-		public bool IsReversing { get { return moveForwardness < 0f; } }
-		public int GroundedWheels { get { return wheelMgr.totalContacts; } }
+		int prevGear;
+
 		
 		protected Vector3 m_LocalGravity=Physics.gravity;
 		public Vector3 LocalGravity { get { return m_LocalGravity; } set { m_LocalGravity = value; } }
@@ -213,8 +221,9 @@ namespace CND.Car
 
 			prevVelocity = curVelocity;
             curVelocity = rBody.velocity;
-			var dotMoveFwd = Vector3.Dot((transform.position- prevPos ).normalized, transform.forward);
-			moveForwardness = Mathf.Approximately(dotMoveFwd, 0f) ? dotMoveFwd: Mathf.Sign(accelOutput);
+			var dotMoveFwd = Vector3.Dot(rBody.velocity.normalized, transform.forward);
+			velocityForwardness =( Mathf.Approximately(dotMoveFwd, 0f) ? dotMoveFwd: Mathf.Sign(accelOutput));
+			velocityForwardness = dotMoveFwd;
 
 			ApplyDownForce();
             ApplySteering();
@@ -275,10 +284,25 @@ namespace CND.Car
         {
 			const float offsetVal = 0.15f;
 			float offset = Mathf.Sign(curVelocity.magnitude - prevVelocity.magnitude) > 0 ? offsetVal : -offsetVal;
-			int nexGear = (int)(Mathf.Clamp((Mathf.Sign(moveForwardness) + (GearCount + offset) * SpeedRatio ), -1, GearCount));
-
-			return accelOutput < 0 && ( nexGear <= (1f - offsetVal) && moveForwardness < 0) ? -1 : nexGear;
+			float gearBase = Mathf.Clamp( Mathf.Sign(VelocityForwardness)+Math.Sign(accelOutput),-1,1);// VelocityForwardness != 0 ? Mathf.Sign(VelocityForwardness) : Math.Sign(accelOutput);
+			float nexGear = (Mathf.Clamp((gearBase + (GearCount + offset) * SpeedRatio ), -1, GearCount));
+			
+			return (int)(accelOutput < 0 && (nexGear <= (1f - offsetVal) ) ? -1 : nexGear);
+			//return GetGearForSpeedRatio(SpeedRatio);
         }
+
+		[Obsolete("Experimental")]
+		protected int GetGearForSpeedRatio(float speedRatio)
+		{
+			//must fix jerky deceleration bug!!!
+			const float offsetVal = 0.15f;
+			float offset = VelocityAccelSign > 0 ? offsetVal : -offsetVal;
+			float accelOutputSign = Mathf.Sign(accelOutput);
+			float baseGearSign = VelocityAccelSign == 0 ? 1: Mathf.Clamp(VelocityAccelSign, -1, 1);
+			int nexGear = (int)(Mathf.Clamp(baseGearSign + (GearCount + offset) * speedRatio, -1, GearCount));
+			bool shouldReverse = VelocityAccelSign < 0;// || Mathf.Sign(Vector3.Dot(transform.forward, rBody.velocity)) <= 0 || rBody.velocity.magnitude < 1f;
+			return accelOutput < 0 && (nexGear <= (1f - offsetVal) && shouldReverse) ? -1 : nexGear;
+		}
 
         float EvalGearCurve(int gear, float t)
         {
@@ -348,7 +372,7 @@ namespace CND.Car
 			effectiveSteerAngleDeg =  Mathf.MoveTowardsAngle(
                 prevSteerAngleDeg, nextAngle, CurStg.turnSpeed*Time.fixedDeltaTime*angleRatio);
 			float finalSteering = Mathf.SmoothStep(
-				prevSteerAngleDeg, effectiveSteerAngleDeg/(1+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
+				prevSteerAngleDeg, effectiveSteerAngleDeg/(1f+steerCompensation* 0.01f * CurStg.steeringHelper), 1f);
 			//finalSteering *= Mathf.Sign(Vector3.Dot(transform.up,-Physics.gravity.normalized) + float.Epsilon);
 			wheelMgr.SetSteering(finalSteering,CurStg.maxTurnAngle, CurStg.ackermannSteering);
             prevSteerAngleDeg = finalSteering;
@@ -401,12 +425,13 @@ namespace CND.Car
 
 			//target speed for the current gear
 			float gearSpeed = EvalGearCurve(gear, tCurve) * CurStg.targetSpeed;
+			//float gearSpeedInterp = Mathf.Lerp(EvalGearCurve(prevGear, tCurve) * CurStg.targetSpeed, gearSpeed , 0.5f);
 			//motor power and/or inertia, relative to to input
-			float accelPower = Mathf.Lerp( inertiaPower * speedDecay * 0.5f, gearSpeed / powerRatio, powerInput);
+			float accelPower = Mathf.Lerp( inertiaPower * speedDecay, gearSpeed / powerRatio, powerInput);
 			//apply boost power
 			accelPower *= Mathf.Lerp(1, CurStg.boostRatio, boost);
 			//braking power, relative to input
-			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower), brakeInput);
+			float brakePower = Mathf.Lerp(0,Mathf.Max(inertiaPower,accelPower*0.9f), brakeInput);
 			//effects of gravity, from direction of the wheels relative to gravity direction
 			float gravForward = MathEx.DotToLinear(Vector3.Dot(LocalGravity.normalized, contact.forwardDirection));
 			float angVelDelta = contact.rootVelocity.magnitude * contact.forwardFriction * Mathf.Sign(contact.forwardRatio) - contact.angularVelocity;
@@ -462,7 +487,7 @@ namespace CND.Car
                 contact.pushPoint,
                 ForceMode.Acceleration);
 
-
+			prevGear = gear;
 		}
 
 

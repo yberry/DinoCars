@@ -6,27 +6,28 @@ Event	ID	Name			Wwise Object Path	Notes
 	2379069253	UI_Button_PassOver_Play			\Default Work Unit\UI\UI_Button_PassOver_Play	
 	2935474450	UI_Button_Bkwd_Play			\Default Work Unit\UI\UI_Button_Bkwd_Play	
 	3264661319	Music_Menu_Stop			\Default Work Unit\Music\Music_Menu_Stop	
-	3324432945	UI_TV_Play			\Default Work Unit\UI\UI_TV_Play	
 	3543023082	UI_Button_Select_Play			\Default Work Unit\UI\UI_Button_Select_Play	
 	3716974573	UI_Button_Fwd_Play			\Default Work Unit\UI\UI_Button_Fwd_Play	
+	3864794543	UI_TV_Glitch_01_Play			\Default Work Unit\UI\UI_TV_Glitch_01_Play	
+	4263096094	UI_TV_Glitch_02_Play			\Default Work Unit\UI\UI_TV_Glitch_02_Play	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	133896403	Glitch_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Glitch_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Glitch_01		1015872
+	76135366	Glitch_Loop_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Glitch_Loop_02_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Glitch_Loop_02		512064
 	267839946	Kick_5	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_5_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_5		96512
 	346391167	Kick_7	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_7_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_7		42132
 	383823647	Click_Valid_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Click_Valid_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_02		131404
 	432457011	Kick_8	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_8_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_8		31616
 	443602592	Kick_6	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_6_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_6		24544
-	499639942	Pass_Over_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Pass_Over_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Pass_Over_02		97088
 	504099344	Click_Valid_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Click_Valid_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_01		150948
 	507276653	Click_Remote_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Click_Remote_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_TV_ChangeChannel\Click_Remote_01		118080
 	563163464	Click_Valid_03	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Click_Valid_03_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_Select_Play\Click_Valid_03		211784
 	565642281	Kick_9	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_9_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_9		33240
 	644304571	Click_Alt_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Click_Alt_01_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Click_Alt_01		131136
+	697563373	Music_Menu_Loop	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Music_Menu_Loop_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Pause\Music_Menu_Loop\Music_Menu_Loop		398373
 	705967970	Kick_10	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_10_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_10		51152
 	763012072	Click_Remote_02	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Click_Remote_02_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\UI_TV_ChangeChannel\Click_Remote_02		71744
 	845447835	Kick_4	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_4_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_4		165440
+	917583348	Glitch_Loop_01	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Glitch_Loop_01_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Glitch_Loop_01		14352448
 	971373209	Kick_3	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Kick_3_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Kick\Kick_3		165440
-	980800417	Music_Pause_Loop	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\Music_Pause_Loop_4D7BABE6.wem		\Interactive Music Hierarchy\Default Work Unit\Circuit\Pause\Music_Pause_Loop\Music_Pause_Loop		379349
 	1026844953	Zap	C:\Users\GUILLON.victoria\Documents\WwiseProjects\CarsDino_CAR_Motor\.cache\Windows\SFX\UI\Zap_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\Zap		38144
 
