@@ -54,7 +54,7 @@ namespace CND.Car
             {
 				// in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
 				// but only if the object is traveling faster than a given threshold.
-				if (car.IsReversing) targetForward = Vector3.Lerp(targetForward.normalized, -targetForward.normalized, 0.5f);
+				if (car.VelocityForwardness < 0) targetForward = Vector3.Lerp(targetForward.normalized, -targetForward.normalized, 0.5f);
 				if (car.GroundedWheels == 0)
 				{
 			//		targetForward = Vector3.Lerp(targetForward, targetRigidbody.velocity.normalized, (car.rBody.velocity.magnitude+ car.rBody.angularVelocity.sqrMagnitude*50f)*Time.fixedDeltaTime);
