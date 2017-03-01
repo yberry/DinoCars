@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 public class CarDinoHUD : MonoBehaviour {
 
+    public static CarDinoHUD instance { get; private set; }
+
     public CND.Car.ArcadeCarController car;
 
     [Header("Chrono")]
@@ -69,6 +71,15 @@ public class CarDinoHUD : MonoBehaviour {
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         if (!car)
         {
             car = FindObjectOfType<CND.Car.ArcadeCarController>();
@@ -92,8 +103,7 @@ public class CarDinoHUD : MonoBehaviour {
 
         pauseButtons[0].onClick.AddListener(Resume);
         pauseButtons[1].onClick.AddListener(ReStart);
-        pauseButtons[2].onClick.AddListener(Options);
-        pauseButtons[3].onClick.AddListener(Quit);
+        pauseButtons[2].onClick.AddListener(Quit);
 
         endButtons[0].onClick.AddListener(ReStart);
         endButtons[1].onClick.AddListener(SaveGhost);
@@ -258,11 +268,6 @@ public class CarDinoHUD : MonoBehaviour {
     {
         Resume();
         Restart.instance.RestartScene();
-    }
-
-    void Options()
-    {
-        //LOL
     }
 
     void SaveGhost()

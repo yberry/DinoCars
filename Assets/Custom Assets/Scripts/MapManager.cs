@@ -93,7 +93,7 @@ public class MapManager : MonoBehaviour {
         manager.newGhost = newGhost;
 
         float time = manager.hasGhost ? newGhost.totalTime - oldGhost.totalTime : 0f;
-        FindObjectOfType<CarDinoHUD>().End(time);
+        CarDinoHUD.instance.End(time);
     }
 
     public void ReStart()

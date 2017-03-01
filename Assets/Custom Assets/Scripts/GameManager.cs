@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviour {
     [Header("Ghost")]
     public CarGhost ghostPrefab;
 
-    [Header("Destruction")]
-    public GameObject explosionPrefab;
-
     [Header("Penality")]
     public float penality = 5f;
 
@@ -45,8 +42,6 @@ public class GameManager : MonoBehaviour {
     bool backward = false;
     float timeDestruction = 0f;
 
-    float durationDestruction;
-
     void Start()
     {
         if (instance == null)
@@ -61,7 +56,6 @@ public class GameManager : MonoBehaviour {
 
         defile = false;
         isRunning = false;
-        durationDestruction = explosionPrefab.GetComponent<ParticleSystem>().main.duration;
     }
 
     void Update()
@@ -89,12 +83,12 @@ public class GameManager : MonoBehaviour {
 
     public void PassCheckPoint()
     {
-        FindObjectOfType<CarDinoHUD>().showCheck = true;
+        CarDinoHUD.instance.showCheck = true;
     }
 
     public void CheckBack()
     {
-        CarDinoHUD hud = FindObjectOfType<CarDinoHUD>();
+        CarDinoHUD hud = CarDinoHUD.instance;
         hud.showCheck = true;
         hud.hasPenality = true;
         CheckPoint.AddPenality(penality);
@@ -115,12 +109,10 @@ public class GameManager : MonoBehaviour {
     {
         ResetVar(resetTime);
 
-        GameObject explosion = Instantiate(explosionPrefab, car.transform.position, Quaternion.identity);
+        car.Explode();
 
-        car.Kill();
+        yield return new WaitForSeconds(car.fadeDuration * 0.9f);
 
-        yield return new WaitForSeconds(durationDestruction);
-        Destroy(explosion);
         CheckPoint.Data data = CheckPoint.data;
         if (resetTime)
         {
@@ -133,6 +125,8 @@ public class GameManager : MonoBehaviour {
         }
         
         car.Spawn(data.position, data.rotation);
+
+        yield return new WaitForSeconds(car.fadeDuration * 0.1f);
     }
 
     public void ResetVar(bool resetTime)
