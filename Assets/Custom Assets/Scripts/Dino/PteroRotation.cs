@@ -2,20 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Courbe
+{
+    Bernouilli,
+    Hypotrochoide,
+    Epitrochoide
+}
+
 public class PteroRotation : MonoBehaviour {
 
+    public Transform ptero;
     public float distance = 50f;
-
     [Tooltip("Rotation (deg/s)")]
     public float speedPtero = 60f;
-
-    public Transform ptero;
-
     public float penchement = 3f;
+
+    public Courbe courbe;
+
+    public float bigR = 2f;
+    public float littleR = 1f;
 
     float angle = 0f;
 
     void Update()
+    {
+        switch (courbe)
+        {
+            case Courbe.Bernouilli:
+                Bernouilli();
+                break;
+
+            case Courbe.Hypotrochoide:
+                Choide(true);
+                break;
+
+            case Courbe.Epitrochoide:
+                Choide(false);
+                break;
+        }
+    }
+
+    void Bernouilli()
     {
         //Calcul angle
         angle += speedPtero * Time.deltaTime * Mathf.Deg2Rad;
@@ -47,5 +74,10 @@ public class PteroRotation : MonoBehaviour {
         Vector3 upwards = new Vector3(ddx, distance * penchement, ddz);
 
         ptero.localRotation = Quaternion.LookRotation(forward, upwards);
+    }
+
+    void Choide(bool hypo)
+    {
+
     }
 }
