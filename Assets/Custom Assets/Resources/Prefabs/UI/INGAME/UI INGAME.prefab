@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 0}
-  afficheChrono: 0
+  afficheChrono: 1
   chrono: {fileID: 1199409475854040}
   numbers:
   - {fileID: 114810236731403536}

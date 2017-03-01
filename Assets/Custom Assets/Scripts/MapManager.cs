@@ -10,6 +10,7 @@ public class MapManager : MonoBehaviour {
 
     public CarGhost car;
     public Animator animator;
+    public bool practise;
 
     Ghost oldGhost;
     Ghost newGhost;
@@ -36,7 +37,14 @@ public class MapManager : MonoBehaviour {
         oldGhost = null;
         newGhost = null;
 
-        StartCoroutine(StartCountDown());
+        if (GameManager.instance.practise || practise)
+        {
+            AllowMoves();
+        }
+        else
+        {
+            StartCoroutine(StartCountDown());
+        }
     }
 
     void FixedUpdate()
@@ -62,6 +70,11 @@ public class MapManager : MonoBehaviour {
             LoadOldGhost();
         }
         LoadNewGhost();
+        AllowMoves();
+    }
+
+    void AllowMoves()
+    {
         GameManager.instance.defile = true;
         GameManager.instance.isRunning = true;
     }
@@ -98,9 +111,15 @@ public class MapManager : MonoBehaviour {
 
     public void ReStart()
     {
-        ResetVar();
-
-        StartCoroutine(StartCountDown());
+        if (GameManager.instance.practise || practise)
+        {
+            AllowMoves();
+        }
+        else
+        {
+            ResetVar();
+            StartCoroutine(StartCountDown());
+        }
     }
 
     public void ResetVar()

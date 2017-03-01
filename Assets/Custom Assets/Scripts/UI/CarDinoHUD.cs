@@ -56,9 +56,15 @@ public class CarDinoHUD : MonoBehaviour {
     bool pause = false;
     bool Pause
     {
+        get
+        {
+            return pause;
+        }
+
         set
         {
             pause = value;
+            Time.timeScale = value ? 0f : 1f;
             menuPause.SetActive(value);
             Cursor.visible = value;
             if (value)
@@ -95,7 +101,7 @@ public class CarDinoHUD : MonoBehaviour {
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
 
-        chrono.SetActive(true);
+        chrono.SetActive(afficheChrono && !GameManager.instance.practise);
 
         colorBoost = boost[0].color;
 
@@ -196,7 +202,7 @@ public class CarDinoHUD : MonoBehaviour {
     {
         if (GameManager.instance.isRunning && pInput.GetButtonDown(Globals.BtnStart))
         {
-            Pause = !pause;
+            Pause = !Pause;
         }
     }
 
@@ -259,7 +265,6 @@ public class CarDinoHUD : MonoBehaviour {
     {
         if (pause)
         {
-            Time.timeScale = 1f;
             Pause = false;
         }
     }
