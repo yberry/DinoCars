@@ -2297,9 +2297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2881135038cdb43be1202d3f006abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 5
-  titre: La fameuse scene de test
-  available: 1
+  scene: 0
+  titre: 
+  available: 0
 --- !u!1 &578127098
 GameObject:
   m_ObjectHideFlags: 0
@@ -3214,7 +3214,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c17f2f628f17100499054d6cc38e87e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3234489c007e94b4e92deab7b70ac6f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3240,7 +3240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: 2
-  titre: Switch
+  titre: Cars & Dino
   available: 1
 --- !u!1 &1006662285
 GameObject:
@@ -6456,9 +6456,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2881135038cdb43be1202d3f006abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 4
-  titre: Dino qui fonctionne pas
-  available: 1
+  scene: 0
+  titre: 
+  available: 0
 --- !u!1 &1853751071
 GameObject:
   m_ObjectHideFlags: 0
@@ -6598,7 +6598,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Le niveau de l'enfer
+  m_Text: Cars & Dino
 --- !u!222 &1855813492
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7732,9 +7732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2881135038cdb43be1202d3f006abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 3
-  titre: LD test
-  available: 1
+  scene: 0
+  titre: 
+  available: 0
 --- !u!1 &2131277043
 GameObject:
   m_ObjectHideFlags: 0

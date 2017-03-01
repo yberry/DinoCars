@@ -15,7 +15,7 @@ MonoBehaviour:
     targetSpeed: 250
     boostRatio: 1.5
     accelCurve: 0.25
-    downForce: 100
+    downForce: 125
     maxTurnAngle: 35
     turnSpeed: 40
     brakeEffectiveness: 0.75
