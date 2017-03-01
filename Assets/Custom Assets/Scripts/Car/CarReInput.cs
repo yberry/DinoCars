@@ -29,8 +29,9 @@ public class CarReInput : MonoBehaviour {
 
 	private void Update()
 	{
-		if (pInput.GetButtonDown(Globals.BtnStart)) Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
 #if UNITY_EDITOR
+        if (pInput.GetButtonDown(Globals.BtnStart)) Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
+
 
 		if (pInput.GetButtonDown(Globals.BtnBack)) UnityEditor.EditorApplication.isPaused = !UnityEditor.EditorApplication.isPaused;
 		if (pInput.GetButtonDown(Globals.BtnAction4)) car.GetComponentInChildren<CarStateManager>().Explode();
@@ -41,7 +42,10 @@ public class CarReInput : MonoBehaviour {
 	bool stickTestForce;
     private void FixedUpdate()
     {
-
+        if (!GameManager.instance.isRunning)
+        {
+            return;
+        }
         // pass the input to the car!
 
         
