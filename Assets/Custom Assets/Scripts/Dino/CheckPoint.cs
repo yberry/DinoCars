@@ -30,6 +30,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (col is MeshCollider && num > lastCheckPoint.num)
         {
+            AkSoundEngine.PostEvent("Ambiance_Checkpoint_Play", gameObject);
             UpdateCheckPoint();
             GameManager.instance.PassCheckPoint();
         }
@@ -53,6 +54,16 @@ public class CheckPoint : MonoBehaviour {
             position = data.position,
             rotation = data.rotation,
             time = data.time + penality
+        };
+    }
+
+    public static void ReStart()
+    {
+        data = new Data
+        {
+            position = data.position,
+            rotation = data.rotation,
+            time = 0f
         };
     }
 }
