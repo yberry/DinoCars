@@ -37,6 +37,8 @@ public class MapManager : MonoBehaviour {
         oldGhost = null;
         newGhost = null;
 
+        GameManager.instance.ResetVar(true);
+
         if (practise || GameManager.instance.practise)
         {
             AllowMoves();
@@ -111,7 +113,7 @@ public class MapManager : MonoBehaviour {
 
     public void ReStart()
     {
-        if (GameManager.instance.practise || practise)
+        if (practise || GameManager.instance.practise)
         {
             AllowMoves();
         }
@@ -124,9 +126,12 @@ public class MapManager : MonoBehaviour {
 
     public void ResetVar()
     {
-        newGhost.StopRecording();
+        if (!practise && !GameManager.instance.practise)
+        {
+            newGhost.StopRecording();
 
-        oldGhost = null;
-        newGhost = null;
+            oldGhost = null;
+            newGhost = null;
+        }
     }
 }

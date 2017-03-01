@@ -30,7 +30,7 @@ public class CarReInput : MonoBehaviour {
 	private void Update()
 	{
 #if UNITY_EDITOR
-        if (pInput.GetButtonDown(Globals.BtnStart)) Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
+        //if (pInput.GetButtonDown(Globals.BtnStart)) Time.timeScale = Time.timeScale > 0.5 ? 0 : 1;
 
 
 		if (pInput.GetButtonDown(Globals.BtnBack)) UnityEditor.EditorApplication.isPaused = !UnityEditor.EditorApplication.isPaused;

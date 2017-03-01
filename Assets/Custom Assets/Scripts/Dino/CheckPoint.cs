@@ -14,8 +14,9 @@ public class CheckPoint : MonoBehaviour {
 
     public int num;
 
-    static CheckPoint firstCheckPoint;
-    static CheckPoint lastCheckPoint;
+    static int lastNum = 0;
+
+    static Data firstData;
 
     public static Data data { get; private set; }
 
@@ -23,29 +24,34 @@ public class CheckPoint : MonoBehaviour {
     {
         if (num == 0)
         {
-            firstCheckPoint = this;
-            UpdateCheckPoint(this, true);
+            firstData = new Data
+            {
+                position = transform.position,
+                rotation = transform.rotation,
+                time = 0f
+            };
+            UpdateCheckPoint(this);
         }
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (col is MeshCollider && num > lastCheckPoint.num)
+        if (col is MeshCollider && num > lastNum)
         {
+            lastNum = num;
             AkSoundEngine.PostEvent("Ambiance_Checkpoint_Play", gameObject);
-            UpdateCheckPoint(this, false);
+            UpdateCheckPoint(this);
             GameManager.instance.PassCheckPoint();
         }
     }
 
-    static void UpdateCheckPoint(CheckPoint point, bool reset)
+    static void UpdateCheckPoint(CheckPoint point)
     {
-        lastCheckPoint = point;
         data = new Data
         {
             position = point.transform.position,
             rotation = point.transform.rotation,
-            time = reset ? 0f : GameManager.instance.time
+            time = GameManager.instance.time
         };
     }
 
@@ -61,6 +67,7 @@ public class CheckPoint : MonoBehaviour {
 
     public static void ReStart()
     {
-        UpdateCheckPoint(firstCheckPoint, true);
+        lastNum = 0;
+        data = firstData;
     }
 }
