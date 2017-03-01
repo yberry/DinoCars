@@ -39,10 +39,10 @@ public class PteroRotation : MonoBehaviour {
         Vector3 forward = new Vector3(dx, 0f, dz);
 
         //Calcul acceleration
-        float ddcoef = 4f * cos * coef * dcoef - sin * (1 + 2f * coef * coef);
+        float ddcoef = 4f * cos * coef * dcoef - sin * (1f + 2f * coef * coef);
 
         float ddx = distance * ddcoef;
-        float ddz = ddx * cos - 2f * dx * sin - x * cos;
+        float ddz = (ddx - x) * cos - 2f * dx * sin;
 
         Vector3 upwards = new Vector3(ddx, distance * penchement, ddz);
 
