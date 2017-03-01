@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour {
         oldGhost = null;
         newGhost = null;
 
-        if (GameManager.instance.practise || practise)
+        if (practise || GameManager.instance.practise)
         {
             AllowMoves();
         }
