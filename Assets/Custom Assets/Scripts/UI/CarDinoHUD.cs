@@ -95,7 +95,7 @@ public class CarDinoHUD : MonoBehaviour {
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
 
-        chrono.SetActive(!GameManager.instance.practise);
+        chrono.SetActive(true);
 
         colorBoost = boost[0].color;
 
