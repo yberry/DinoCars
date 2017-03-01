@@ -26,6 +26,9 @@ public class PteroRotation : MonoBehaviour {
 
     void Update()
     {
+        //Calcul angle
+        angle += speedPtero * Time.deltaTime * Mathf.Deg2Rad;
+
         switch (courbe)
         {
             case Courbe.Bernouilli:
@@ -44,9 +47,6 @@ public class PteroRotation : MonoBehaviour {
 
     void Bernouilli()
     {
-        //Calcul angle
-        angle += speedPtero * Time.deltaTime * Mathf.Deg2Rad;
-
         //Calcul position
         float cos = Mathf.Cos(angle);
         float sin = Mathf.Sin(angle);
@@ -78,6 +78,33 @@ public class PteroRotation : MonoBehaviour {
 
     void Choide(bool hypo)
     {
+        //Calcul position
+        float cos = Mathf.Cos(angle);
+        float sin = Mathf.Sin(angle);
 
+        float diff = bigR - littleR;
+        float div = diff / littleR;
+
+        float cosR = Mathf.Cos(angle * div);
+        float sinR = Mathf.Sin(angle * div);
+
+        float x = diff * cos + distance * cosR;
+        float z = diff * sin - distance * sinR;
+
+        ptero.localPosition = new Vector3(x, 0f, z);
+
+        //Calcul vitesse
+        float dx = -diff * sin - distance * div * sinR;
+        float dz = diff * cos - distance * div * cosR;
+
+        Vector3 forward = new Vector3(dx, 0f, dz);
+
+        //Calcul acceleration
+        float ddx = -diff * cos - distance * div * div * cosR;
+        float ddz = -diff * sin + distance * div * div * sinR;
+
+        Vector3 upwards = new Vector3(ddx, distance * penchement, ddz);
+
+        ptero.localRotation = Quaternion.LookRotation(forward, upwards);
     }
 }
