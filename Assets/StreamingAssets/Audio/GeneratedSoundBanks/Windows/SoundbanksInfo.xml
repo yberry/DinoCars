@@ -68,10 +68,6 @@
 					<ShortName>Footsteps\Dino_SingleFtsp_06.wav</ShortName>
 					<Path>SFX\Footsteps\Dino_SingleFtsp_06_9E69E797.wem</Path>
 				</File>
-				<File Id="100271176" Language="SFX">
-					<ShortName>Music_Boost_Loop_2.wav</ShortName>
-					<Path>SFX\Music_Boost_Loop_2_3BDAD486.wem</Path>
-				</File>
 				<File Id="102361454" Language="SFX">
 					<ShortName>Impact_Pneumatic_04.wav</ShortName>
 					<Path>SFX\Impact_Pneumatic_04_3AE5877C.wem</Path>
