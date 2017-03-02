@@ -9,7 +9,6 @@ public class MapManager : MonoBehaviour {
     public static MapManager instance { get; private set; }
 
     public CarGhost car;
-    public Animator animator;
     public bool practise;
 
     Ghost oldGhost;
@@ -65,7 +64,7 @@ public class MapManager : MonoBehaviour {
     IEnumerator StartCountDown()
     {
         AkSoundEngine.PostEvent("Ambiance_Start_CountDown_Play", gameObject);
-        //animator.SetTrigger("Start");
+        CarDinoHUD.instance.StartCountDown();
         yield return new WaitForSeconds(3f);
         if (GameManager.instance.hasGhost)
         {

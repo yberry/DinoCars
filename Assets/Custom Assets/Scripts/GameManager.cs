@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
     bool backward = false;
     float timeDestruction = 0f;
 
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
@@ -56,6 +56,10 @@ public class GameManager : MonoBehaviour {
 
         defile = false;
         isRunning = false;
+
+        practise = false;
+        scene = -1;
+        hasGhost = false;
     }
 
     void Update()
