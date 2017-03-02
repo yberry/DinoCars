@@ -65,5 +65,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 0}
-  animator: {fileID: 0}
   practise: 0
