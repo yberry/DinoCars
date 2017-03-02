@@ -80,7 +80,18 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
+#if UNITY_EDITOR
+    void Start()
+    {
+        StartBuild();
+    }
+#else
     void Awake()
+    {
+        StartBuild();
+    }
+#endif
+    void StartBuild()
     {
         if (instance == null)
         {
