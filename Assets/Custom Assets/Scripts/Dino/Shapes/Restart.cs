@@ -7,6 +7,7 @@ public class Restart : MonoBehaviour {
 
     public KeyCode restartKeycode = KeyCode.Backspace;
     public KeyCode menuKeycode = KeyCode.Escape;
+    public bool debug = false;
     public AkBank bank;
 
     public Rewired.Player pInput;
@@ -28,12 +29,12 @@ public class Restart : MonoBehaviour {
 	
 	void Update ()
     {
-        if (!GameManager.instance.isRunning)
+        if (!debug)
         {
             return;
         }
 
-		if (Input.GetKeyDown(restartKeycode) || pInput.GetButtonDown(Globals.BtnBack))
+		if (Input.GetKeyDown(restartKeycode) || pInput.GetButtonDown(Globals.BtnAction4))
         {
             RestartScene();
         }
@@ -46,15 +47,16 @@ public class Restart : MonoBehaviour {
 
     public void RestartScene()
     {
-        GameManager.instance.Restart(FindObjectOfType<CND.Car.CarStateManager>(), true);
+        UnloadBanks();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.instance.Restart();
     }
 
     public void RestartMenu()
     {
         UnloadBanks();
         SceneManager.LoadScene(0);
-        MapManager.instance.ResetVar();
-        GameManager.instance.ResetVar(true);
+        GameManager.instance.Restart();
     }
 
     public void UnloadBanks()

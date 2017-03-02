@@ -6,11 +6,8 @@ using EquilibreGames;
 [RequireComponent(typeof(Collider))]
 public class MapManager : MonoBehaviour {
 
-    public static MapManager instance { get; private set; }
-
     public CarGhost car;
     public Animator animator;
-    public bool practise;
 
     Ghost oldGhost;
     Ghost newGhost;
@@ -20,15 +17,6 @@ public class MapManager : MonoBehaviour {
 
     void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         if (!car)
         {
             car = FindObjectOfType<CND.Car.ArcadeCarController>().GetComponent<CarGhost>();
@@ -37,16 +25,7 @@ public class MapManager : MonoBehaviour {
         oldGhost = null;
         newGhost = null;
 
-        GameManager.instance.ResetVar(true);
-
-        if (practise || GameManager.instance.practise)
-        {
-            AllowMoves();
-        }
-        else
-        {
-            StartCoroutine(StartCountDown());
-        }
+        StartCoroutine(StartCountDown());
     }
 
     void FixedUpdate()
@@ -72,11 +51,6 @@ public class MapManager : MonoBehaviour {
             LoadOldGhost();
         }
         LoadNewGhost();
-        AllowMoves();
-    }
-
-    void AllowMoves()
-    {
         GameManager.instance.defile = true;
         GameManager.instance.isRunning = true;
     }
@@ -108,30 +82,6 @@ public class MapManager : MonoBehaviour {
         manager.newGhost = newGhost;
 
         float time = manager.hasGhost ? newGhost.totalTime - oldGhost.totalTime : 0f;
-        CarDinoHUD.instance.End(time);
-    }
-
-    public void ReStart()
-    {
-        if (practise || GameManager.instance.practise)
-        {
-            AllowMoves();
-        }
-        else
-        {
-            ResetVar();
-            StartCoroutine(StartCountDown());
-        }
-    }
-
-    public void ResetVar()
-    {
-        if (!practise && !GameManager.instance.practise)
-        {
-            newGhost.StopRecording();
-
-            oldGhost = null;
-            newGhost = null;
-        }
+        FindObjectOfType<CarDinoHUD>().End(time);
     }
 }

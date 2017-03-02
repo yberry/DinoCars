@@ -10,4 +10,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Custom Assets/Resources/Scenes/PracticeSkinFinal_Habillage.unity
   - enabled: 1
-    path: Assets/Custom Assets/Resources/Scenes/SceneLD_Integration.unity
+    path: Assets/Custom Assets/Resources/Scenes/SwitchScene.unity
+  - enabled: 1
+    path: Assets/Custom Assets/Resources/Scenes/LD_testYanis.unity
+  - enabled: 1
+    path: Assets/Custom Assets/Resources/Scenes/DinoShapes.unity
+  - enabled: 1
+    path: Assets/Custom Assets/Resources/Scenes/testScene.unity

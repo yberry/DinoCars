@@ -7,10 +7,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance { get; private set; }
 
-    [Header("Ghost")]
     public CarGhost ghostPrefab;
-
-    [Header("Penality")]
     public float penality = 5f;
 
     float m_time = 0f;
@@ -83,12 +80,12 @@ public class GameManager : MonoBehaviour {
 
     public void PassCheckPoint()
     {
-        CarDinoHUD.instance.showCheck = true;
+        FindObjectOfType<CarDinoHUD>().showCheck = true;
     }
 
     public void CheckBack()
     {
-        CarDinoHUD hud = CarDinoHUD.instance;
+        CarDinoHUD hud = FindObjectOfType<CarDinoHUD>();
         hud.showCheck = true;
         hud.hasPenality = true;
         CheckPoint.AddPenality(penality);
@@ -100,43 +97,10 @@ public class GameManager : MonoBehaviour {
         PersistentDataSystem.Instance.SaveData(newGhost);
     }
 
-    public void Restart(CND.Car.CarStateManager car, bool resetTime)
-    {
-        StartCoroutine(ReStart(car, resetTime));
-    }
-
-    IEnumerator ReStart(CND.Car.CarStateManager car, bool resetTime)
-    {
-        ResetVar(resetTime);
-
-        car.Explode();
-
-        yield return new WaitForSeconds(car.fadeDuration * 0.9f);
-
-        CheckPoint.Data data = CheckPoint.data;
-        if (resetTime)
-        {
-            MapManager.instance.ReStart();
-        }
-        else
-        {
-            CheckBack();
-            defile = true;
-        }
-        
-        car.Spawn(data.position, data.rotation);
-
-        yield return new WaitForSeconds(car.fadeDuration * 0.1f);
-    }
-
-    public void ResetVar(bool resetTime)
+    public void Restart()
     {
         defile = false;
-        if (resetTime)
-        {
-            time = 0f;
-            isRunning = false;
-            CheckPoint.ReStart();
-        }
+        time = 0f;
+        CheckPoint.ReStart();
     }
 }
