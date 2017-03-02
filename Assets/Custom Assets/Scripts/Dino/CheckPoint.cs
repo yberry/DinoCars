@@ -16,7 +16,12 @@ public class CheckPoint : MonoBehaviour {
 
     static int lastNum = 0;
 
-    static Data firstData;
+    static Data firstData = new Data
+    {
+        position = Vector3.zero,
+        rotation = Quaternion.identity,
+        time = 0f
+    };
 
     public static Data data { get; private set; }
 

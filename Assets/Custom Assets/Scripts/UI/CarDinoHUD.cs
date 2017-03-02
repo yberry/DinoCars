@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,10 @@ public class CarDinoHUD : MonoBehaviour {
     public static CarDinoHUD instance { get; private set; }
 
     public CND.Car.ArcadeCarController car;
+
+    [Header("CountDown")]
+    public GameObject countDown;
+    public Animator[] animators;
 
     [Header("Chrono")]
     public bool afficheChrono = true;
@@ -75,7 +80,7 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
@@ -118,6 +123,22 @@ public class CarDinoHUD : MonoBehaviour {
         Pause = false;
 
         fin.SetActive(false);
+    }
+
+    public void StartCountDown()
+    {
+        StartCoroutine(CountDown());
+    }
+
+    IEnumerator CountDown()
+    {
+        countDown.SetActive(true);
+        foreach (Animator animator in animators)
+        {
+            animator.SetTrigger("Play");
+            yield return new WaitForSeconds(0.75f);
+        }
+        countDown.SetActive(false);
     }
 
     void Update()
@@ -272,6 +293,7 @@ public class CarDinoHUD : MonoBehaviour {
     void ReStart()
     {
         Resume();
+        fin.SetActive(false);
         Restart.instance.RestartScene();
     }
 
