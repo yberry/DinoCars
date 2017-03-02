@@ -46,7 +46,7 @@ namespace CND.Car
             }
 
             // initialise some vars, we'll be modifying these in a moment
-            var targetForward = Vector3.Slerp(prevForward, m_Target.forward,0.01f);
+            var targetForward = Vector3.Slerp(prevForward, m_Target.forward,0.501f);
 			var targetUp = m_Target.up;
 			targetUp=Vector3.Slerp(this.targetUp, car.GroundedWheels > 0 ? m_Target.up : -car.LocalGravity.normalized , 0.951f );
 		//	Debug.Log("contacts: "+car.GroundedWheels);
