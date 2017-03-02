@@ -151,9 +151,9 @@ public class GhostSystem : MonoBehaviour {
         foreach (Ghost g in ghosts)
         {
             if (g.isPlaying)
-                Handles.Label(g.ownCarGhost.car.position + Vector3.up, "Is Playing");
+                Handles.Label(g.ownCarGhost.transform.position + Vector3.up, "Is Playing");
             else if (g.isRecording)
-                Handles.Label(g.ownCarGhost.car.position + Vector3.up, "Is Recording");
+                Handles.Label(g.ownCarGhost.transform.position + Vector3.up, "Is Recording");
         }
 
     }

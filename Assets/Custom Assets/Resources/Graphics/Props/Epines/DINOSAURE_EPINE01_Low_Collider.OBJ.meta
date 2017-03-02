@@ -7,11 +7,16 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: initialShadingGroup_Group2334
+    100004: initialShadingGroup_Dinosaure_Epine01_Collider
     400000: //RootNode
     400002: initialShadingGroup_Group2334
+    400004: initialShadingGroup_Dinosaure_Epine01_Collider
     2300000: initialShadingGroup_Group2334
+    2300002: initialShadingGroup_Dinosaure_Epine01_Collider
     3300000: initialShadingGroup_Group2334
+    3300002: initialShadingGroup_Dinosaure_Epine01_Collider
     4300000: initialShadingGroup_Group2334
+    4300002: initialShadingGroup_Dinosaure_Epine01_Collider
   materials:
     importMaterials: 1
     materialName: 0

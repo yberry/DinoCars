@@ -7,27 +7,33 @@ public class Restart : MonoBehaviour {
 
     public KeyCode restartKeycode = KeyCode.Backspace;
     public KeyCode menuKeycode = KeyCode.Escape;
-    public bool debug = false;
+    public AkBank bank;
 
     public Rewired.Player pInput;
 
-    AkBank[] banks;
+    public static Restart instance { get; private set; }
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         pInput = Rewired.ReInput.players.GetPlayer(0);
-
-        banks = FindObjectsOfType<AkBank>();
     }
 	
 	void Update ()
     {
-        if (!debug)
+        if (!GameManager.instance.isRunning)
         {
             return;
         }
 
-		if (Input.GetKeyDown(restartKeycode) || pInput.GetButtonDown(Globals.BtnAction4))
+		if (Input.GetKeyDown(restartKeycode) || pInput.GetButtonDown(Globals.BtnBack))
         {
             RestartScene();
         }
@@ -40,22 +46,19 @@ public class Restart : MonoBehaviour {
 
     public void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Res();
+        GameManager.instance.Restart(FindObjectOfType<CND.Car.CarStateManager>(), true);
     }
 
     public void RestartMenu()
     {
+        UnloadBanks();
         SceneManager.LoadScene(0);
-        Res();
+        MapManager.instance.ResetVar();
+        GameManager.instance.ResetVar(true);
     }
 
-    void Res()
+    public void UnloadBanks()
     {
-        foreach (AkBank bank in banks)
-        {
-            bank.UnloadBank(bank.gameObject);
-        }
-        GameManager.instance.Restart();
+        bank.UnloadBank(bank.gameObject);
     }
 }

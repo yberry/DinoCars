@@ -1,0 +1,271 @@
+fileFormatVersion: 2
+guid: eb35e94b925ed4545ac6bed96aac54ce
+timeCreated: 1488389815
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: back1
+    100002: bouche_bas
+    100004: bouche_haut
+    100006: bras_droit
+    100008: bras_gauche
+    100010: centre
+    100012: dino_dents:Mesh
+    100014: dos
+    100016: head
+    100018: jambe_droite
+    100020: jambe_gauche
+    100022: joint10
+    100024: joint11
+    100026: joint12
+    100028: joint16
+    100030: joint16 1
+    100032: joint17
+    100034: joint17 1
+    100036: joint18
+    100038: joint18 1
+    100040: joint20
+    100042: joint20 1
+    100044: joint23
+    100046: joint23 1
+    100048: joint30
+    100050: joint31
+    100052: joint32
+    100054: joint33
+    100056: joint34
+    100058: joint35
+    100060: joint36
+    100062: joint36 1
+    100064: joint37
+    100066: joint37 1
+    100068: queue
+    100070: //RootNode
+    100072: T_Rex_pas_fini_low:Mesh
+    100074: T_Rex_pas_fini_low:Mesh1
+    100076: T_Rex_pas_fini_low:transform1
+    100078: T_Rex_pas_fini_low:transform2
+    100080: ventre
+    400000: back1
+    400002: bouche_bas
+    400004: bouche_haut
+    400006: bras_droit
+    400008: bras_gauche
+    400010: centre
+    400012: dino_dents:Mesh
+    400014: dos
+    400016: head
+    400018: jambe_droite
+    400020: jambe_gauche
+    400022: joint10
+    400024: joint11
+    400026: joint12
+    400028: joint16
+    400030: joint16 1
+    400032: joint17
+    400034: joint17 1
+    400036: joint18
+    400038: joint18 1
+    400040: joint20
+    400042: joint20 1
+    400044: joint23
+    400046: joint23 1
+    400048: joint30
+    400050: joint31
+    400052: joint32
+    400054: joint33
+    400056: joint34
+    400058: joint35
+    400060: joint36
+    400062: joint36 1
+    400064: joint37
+    400066: joint37 1
+    400068: queue
+    400070: //RootNode
+    400072: T_Rex_pas_fini_low:Mesh
+    400074: T_Rex_pas_fini_low:Mesh1
+    400076: T_Rex_pas_fini_low:transform1
+    400078: T_Rex_pas_fini_low:transform2
+    400080: ventre
+    4300000: T_Rex_pas_fini_low:Mesh1
+    7400000: run
+    9500000: //RootNode
+    13700000: T_Rex_pas_fini_low:Mesh1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: run
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: back1
+        weight: 1
+      - path: centre
+        weight: 1
+      - path: centre/dos
+        weight: 1
+      - path: centre/dos/bras_droit
+        weight: 1
+      - path: centre/dos/bras_droit/joint23
+        weight: 1
+      - path: centre/dos/bras_droit/joint23/joint36
+        weight: 1
+      - path: centre/dos/bras_droit/joint23/joint36/joint37
+        weight: 1
+      - path: centre/dos/bras_gauche
+        weight: 1
+      - path: centre/dos/bras_gauche/joint23 1
+        weight: 1
+      - path: centre/dos/bras_gauche/joint23 1/joint36 1
+        weight: 1
+      - path: centre/dos/bras_gauche/joint23 1/joint36 1/joint37 1
+        weight: 1
+      - path: centre/dos/head
+        weight: 1
+      - path: centre/dos/head/bouche_bas
+        weight: 1
+      - path: centre/dos/head/bouche_bas/joint30
+        weight: 1
+      - path: centre/dos/head/bouche_bas/joint30/joint31
+        weight: 1
+      - path: centre/dos/head/bouche_haut
+        weight: 1
+      - path: centre/dos/head/bouche_haut/joint32
+        weight: 1
+      - path: centre/dos/head/bouche_haut/joint32/joint33
+        weight: 1
+      - path: centre/dos/ventre
+        weight: 1
+      - path: centre/jambe_droite
+        weight: 1
+      - path: centre/jambe_droite/joint16
+        weight: 1
+      - path: centre/jambe_droite/joint16/joint17
+        weight: 1
+      - path: centre/jambe_droite/joint16/joint17/joint18
+        weight: 1
+      - path: centre/jambe_droite/joint16/joint17/joint18/joint20
+        weight: 1
+      - path: centre/jambe_gauche
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1/joint17 1
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1/joint17 1/joint18 1
+        weight: 1
+      - path: centre/jambe_gauche/joint16 1/joint17 1/joint18 1/joint20 1
+        weight: 1
+      - path: centre/queue
+        weight: 1
+      - path: centre/queue/joint10
+        weight: 1
+      - path: centre/queue/joint10/joint11
+        weight: 1
+      - path: centre/queue/joint10/joint11/joint12
+        weight: 1
+      - path: centre/queue/joint10/joint11/joint12/joint34
+        weight: 1
+      - path: centre/queue/joint10/joint11/joint12/joint34/joint35
+        weight: 1
+      - path: dino_dents:Mesh
+        weight: 1
+      - path: dino_dents:Mesh/T_Rex_pas_fini_low:transform1
+        weight: 1
+      - path: T_Rex_pas_fini_low:Mesh
+        weight: 1
+      - path: T_Rex_pas_fini_low:Mesh/T_Rex_pas_fini_low:transform2
+        weight: 1
+      - path: T_Rex_pas_fini_low:Mesh1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

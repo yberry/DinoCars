@@ -7,12 +7,30 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: Group2334
+    100004: initialShadingGroup_Group2334
+    100006: Group2334_initialShadingGroup_initialShadingGroup1_polySurface1
+    100008: Group63304
     400000: //RootNode
     400002: Group2334
+    400004: initialShadingGroup_Group2334
+    400006: Group2334_initialShadingGroup_initialShadingGroup1_polySurface1
+    400008: Group63304
     2300000: Group2334
+    2300002: initialShadingGroup_Group2334
+    2300004: Group2334_initialShadingGroup_initialShadingGroup1_polySurface1
+    2300006: Group63304
     3300000: Group2334
+    3300002: initialShadingGroup_Group2334
+    3300004: Group2334_initialShadingGroup_initialShadingGroup1_polySurface1
+    3300006: Group63304
     4300000: Group2334
+    4300002: initialShadingGroup_Group2334
+    4300004: Group2334_initialShadingGroup_initialShadingGroup1_polySurface1
+    4300006: Group63304
     6400000: Group2334
+    6400002: initialShadingGroup_Group2334
+    6400004: Group2334_initialShadingGroup_initialShadingGroup1_polySurface1
+    6400006: Group63304
   materials:
     importMaterials: 1
     materialName: 0

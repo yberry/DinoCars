@@ -36,6 +36,11 @@ public class ManageButtons : MonoBehaviour {
 
     void Update()
     {
+        if (telecommande == null)
+        {
+            return;
+        }
+
         telecommande.position = Vector3.MoveTowards(telecommande.position, targetTel.position, moveSpeed * Time.deltaTime);
         telecommande.rotation = Quaternion.RotateTowards(telecommande.rotation, targetTel.rotation, moveSpeed * Time.deltaTime);
 

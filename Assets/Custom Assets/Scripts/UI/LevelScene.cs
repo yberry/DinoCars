@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class LevelScene : MonoBehaviour {
+public class LevelScene : ChooseScene {
 
-    public int scene;
     public string titre;
     public bool available = true;
 
