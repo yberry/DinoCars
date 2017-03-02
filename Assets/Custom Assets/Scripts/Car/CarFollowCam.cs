@@ -23,7 +23,7 @@ namespace CND.Car
         private float m_TurnSpeedVelocityChange; // The change in the turn speed velocity
         private Vector3 m_RollUp = Vector3.up;// The roll of the camera around the z axis ( generally this will always just be up )
 		Vector3 targetUp;
-
+		Vector3 prevForward;
 		public float baseFOV = 50;
 		public float boostFOV = 100;
 		[Range(0,1f), DisplayModifier("Follow target: Direction <> Velocity",decorations: DM_Decorations.MoveLabel)]
@@ -46,7 +46,7 @@ namespace CND.Car
             }
 
             // initialise some vars, we'll be modifying these in a moment
-            var targetForward =  m_Target.forward;
+            var targetForward = Vector3.Slerp(prevForward, m_Target.forward,0.501f);
 			var targetUp = m_Target.up;
 			targetUp=Vector3.Slerp(this.targetUp, car.GroundedWheels > 0 ? m_Target.up : -car.LocalGravity.normalized , 0.951f );
 		//	Debug.Log("contacts: "+car.GroundedWheels);
@@ -54,7 +54,7 @@ namespace CND.Car
             {
 				// in follow velocity mode, the camera's rotation is aligned towards the object's velocity direction
 				// but only if the object is traveling faster than a given threshold.
-				if (car.IsReversing) targetForward = Vector3.Lerp(targetForward.normalized, -targetForward.normalized, 0.5f);
+				if (car.VelocityForwardness < 0) targetForward = Vector3.Lerp( targetForward.normalized, -targetForward.normalized, 0.5f);
 				if (car.GroundedWheels == 0)
 				{
 			//		targetForward = Vector3.Lerp(targetForward, targetRigidbody.velocity.normalized, (car.rBody.velocity.magnitude+ car.rBody.angularVelocity.sqrMagnitude*50f)*Time.fixedDeltaTime);
@@ -125,7 +125,9 @@ namespace CND.Car
             // and aligning with the target object's up direction (i.e. its 'roll')
             m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : -car.LocalGravity.normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
-        }
+			prevForward = m_Target.forward;
+
+		}
 
 
 	}

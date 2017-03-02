@@ -4,6 +4,7 @@ using UnityEngine;
 using CND.Car;
 public class CarGravityOverride : MonoBehaviour {
 
+	public LayerMask gravityReference;
 	public bool applyOnCenterOfMass;
 	[SerializeField,DisplayModifier(DM_HidingMode.GreyedOut)]
 	protected Vector3 currentGravity = Physics.gravity;
@@ -42,12 +43,12 @@ public class CarGravityOverride : MonoBehaviour {
 	Vector3 GetNextGravity()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(car.transform.position+transform.forward, -car.transform.up, out hit, 100f))
+		if (Physics.Raycast(car.transform.position+transform.forward, -car.transform.up, out hit, 100f,gravityReference.value))
 		{
 			return Vector3.Slerp(currentGravity, -car.transform.up * 
 				Mathf.Max(Physics.gravity.magnitude,Physics.gravity.magnitude*0.5f+ hit.distance*0.25f),0.5f);
 		}
-		return Physics.gravity;
+		return Vector3.Slerp(currentGravity, Physics.gravity,Time.deltaTime);
 	}
 
 	void OnDisable()
