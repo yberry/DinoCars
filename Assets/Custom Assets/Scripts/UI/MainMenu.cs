@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+    public Button pressStart;
+
     [Header("Camera effects")]
     public Texture[] noiseTex;
     public postVHSPro cameraVHS;
@@ -28,8 +30,9 @@ public class MainMenu : MonoBehaviour {
     Animator animator;
     float timeColor = 0f;
     AsyncOperation async;
+    bool startPressed;
 
-    public static MainMenu instance { get; private set; }
+    public Rewired.Player pInput;
 
     void Start()
     {
@@ -37,10 +40,8 @@ public class MainMenu : MonoBehaviour {
         currentMenu = titleScreen;
         SetSelection();
         animator = cameraVHS.GetComponent<Animator>();
-        if (instance == null)
-        {
-            instance = this;
-        }
+
+        pInput = Rewired.ReInput.players.GetPlayer(0);
     }
 
     public void ChangeTo(RectTransform newMenu)
@@ -125,6 +126,12 @@ public class MainMenu : MonoBehaviour {
 
     void Update()
     {
+        if (!startPressed && pInput.GetButtonDown(Globals.BtnStart))
+        {
+            startPressed = true;
+            pressStart.onClick.Invoke();
+        }
+
         timeColor += speedColor * Time.deltaTime;
         timeColor %= 359f;
 

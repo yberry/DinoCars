@@ -80,7 +80,7 @@ public class CarDinoHUD : MonoBehaviour {
         }
     }
 
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
