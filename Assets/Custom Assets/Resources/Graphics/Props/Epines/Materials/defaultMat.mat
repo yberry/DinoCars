@@ -42,7 +42,7 @@ Material:
     - first:
         name: _EmissionMap
       second:
-        m_Texture: {fileID: 2800000, guid: 5549db208e2c60443adaba87e7573b3a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - first:
         name: _BumpScale
-      second: 3.42
+      second: 2.17
     - first:
         name: _Cutoff
       second: 0.5
@@ -84,7 +84,7 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 0.47
+      second: 0.78
     - first:
         name: _Glossiness
       second: 0.5
@@ -99,7 +99,7 @@ Material:
       second: 0
     - first:
         name: _OcclusionStrength
-      second: 1
+      second: 0
     - first:
         name: _Parallax
       second: 0.02
@@ -121,7 +121,7 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.8351927, g: 0.52205884, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.038278557, g: 0.17194553, b: 0.43382353, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}

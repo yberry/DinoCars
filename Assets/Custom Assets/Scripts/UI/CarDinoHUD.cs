@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 public class CarDinoHUD : MonoBehaviour {
 
+    public static CarDinoHUD instance { get; private set; }
+
     public CND.Car.ArcadeCarController car;
 
     [Header("Chrono")]
@@ -54,9 +56,15 @@ public class CarDinoHUD : MonoBehaviour {
     bool pause = false;
     bool Pause
     {
+        get
+        {
+            return pause;
+        }
+
         set
         {
             pause = value;
+            Time.timeScale = value ? 0f : 1f;
             menuPause.SetActive(value);
             Cursor.visible = value;
             if (value)
@@ -69,6 +77,15 @@ public class CarDinoHUD : MonoBehaviour {
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         if (!car)
         {
             car = FindObjectOfType<CND.Car.ArcadeCarController>();
@@ -84,7 +101,7 @@ public class CarDinoHUD : MonoBehaviour {
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;
 
-        chrono.SetActive(afficheChrono);
+        chrono.SetActive(afficheChrono && !GameManager.instance.practise);
 
         colorBoost = boost[0].color;
 
@@ -92,8 +109,7 @@ public class CarDinoHUD : MonoBehaviour {
 
         pauseButtons[0].onClick.AddListener(Resume);
         pauseButtons[1].onClick.AddListener(ReStart);
-        pauseButtons[2].onClick.AddListener(Options);
-        pauseButtons[3].onClick.AddListener(Quit);
+        pauseButtons[2].onClick.AddListener(Quit);
 
         endButtons[0].onClick.AddListener(ReStart);
         endButtons[1].onClick.AddListener(SaveGhost);
@@ -186,7 +202,7 @@ public class CarDinoHUD : MonoBehaviour {
     {
         if (GameManager.instance.isRunning && pInput.GetButtonDown(Globals.BtnStart))
         {
-            Pause = !pause;
+            Pause = !Pause;
         }
     }
 
@@ -209,34 +225,39 @@ public class CarDinoHUD : MonoBehaviour {
         return (t < 10 ? "0" : "") + t.ToString();
     }
 
+    void SetEndFocus()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(endButtons[0].gameObject);
+    }
+
     public void End(float time)
     {
         fin.SetActive(true);
         Cursor.visible = true;
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(endButtons[0].gameObject);
+        SetEndFocus();
 
-        score.text = "Your score : " + GetTimes(GameManager.instance.time);
+        score.text = "Your score\n" + GetTimes(GameManager.instance.time);
 
         if (GameManager.instance.hasGhost)
         {
-            ghost.enabled = true;
+            ghost.transform.parent.gameObject.SetActive(true);
             string ecart = GetTimes(Mathf.Abs(time));
             if (time < 0f)
             {
                 ghost.color = greenColor;
-                ghost.text = "VS Ghost : -" + ecart;
+                ghost.text = "VS Ghost\n-" + ecart;
             }
             else
             {
                 ghost.color = redColor;
-                ghost.text = "VS Ghost : +" + ecart;
+                ghost.text = "VS Ghost\n+" + ecart;
             }
         }
         else
         {
-            ghost.enabled = false;
+            ghost.transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -244,7 +265,6 @@ public class CarDinoHUD : MonoBehaviour {
     {
         if (pause)
         {
-            Time.timeScale = 1f;
             Pause = false;
         }
     }
@@ -255,14 +275,12 @@ public class CarDinoHUD : MonoBehaviour {
         Restart.instance.RestartScene();
     }
 
-    void Options()
-    {
-        //LOL
-    }
-
     void SaveGhost()
     {
         GameManager.instance.SaveGhost();
+
+        endButtons[1].interactable = false;
+        SetEndFocus();
     }
 
     void Quit()
